@@ -10,7 +10,6 @@ import History from "./history";
 import Rewards from "./rewards";
 
 export default function Main() {
-
   const [activePage, setActivePage] = useState("/home");
 
   const handleNavClick = (page: string) => {
@@ -36,82 +35,58 @@ export default function Main() {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.activePage}>
-        {
-          renderActivePage()
-        }
-      </div>
-        <Navbar className={styles.navbar}>
-          <Container className={styles.navContainer}>
-            <Nav className={styles.nav}>
-              <Nav.Link
-                className={
-                  `${styles.navLink}`
-                }
-                style={
-                  {
-                    color: activePage === "/home" ? `red` : ``
-                  }
-                }
-                onClick={() => handleNavClick("/home")}
-              >
-                Home
-              </Nav.Link>
-              <Nav.Link
-                className={
-                  `${styles.navLink}`
-                }
-                style={
-                  {
-                    color: activePage === "/apps" ? `red` : ``
-                  }
-                }
-                onClick={() => handleNavClick("/apps")}
-              >
-                Apps
-              </Nav.Link>
-              <Nav.Link
-                className={
-                  `${styles.navLink}`
-                }
-                style={
-                  {
-                    color: activePage === "/swap" ? `red` : ``
-                  }
-                }
-                onClick={() => handleNavClick("/swap")}
-              >
-                Swap
-              </Nav.Link>
-              <Nav.Link
-                className={
-                  `${styles.navLink}`
-                }
-                style={
-                  {
-                    color: activePage === "/history" ? `red` : ``
-                  }
-                }
-                onClick={() => handleNavClick("/history")}
-              >
-                History
-              </Nav.Link>
-              <Nav.Link
-                className={
-                  `${styles.navLink}`
-                }
-                style={
-                  {
-                    color: activePage === "/rewards" ? `red` : ``
-                  }
-                }
-                onClick={() => handleNavClick("/rewards")}
-              >
-                Rewards
-              </Nav.Link>
-            </Nav>
-          </Container>
-        </Navbar>
+      <div className={styles.activePage}>{renderActivePage()}</div>
+      <Navbar className={styles.navbar}>
+        <Container className={styles.navContainer}>
+          <Nav className={styles.nav}>
+            <Nav.Link
+              className={`${styles.navLink}`}
+              style={{
+                color: activePage === "/home" ? `red` : `black`,
+              }}
+              onClick={() => handleNavClick("/home")}
+            >
+              Home
+            </Nav.Link>
+            <Nav.Link
+              className={`${styles.navLink}`}
+              style={{
+                color: activePage === "/apps" ? `red` : `black`,
+              }}
+              onClick={() => handleNavClick("/apps")}
+            >
+              Apps
+            </Nav.Link>
+            <Nav.Link
+              className={`${styles.navLink}`}
+              style={{
+                color: activePage === "/swap" ? `red` : `black`,
+              }}
+              onClick={() => handleNavClick("/swap")}
+            >
+              Swap
+            </Nav.Link>
+            <Nav.Link
+              className={`${styles.navLink}`}
+              style={{
+                color: activePage === "/history" ? `red` : `black`,
+              }}
+              onClick={() => handleNavClick("/history")}
+            >
+              History
+            </Nav.Link>
+            <Nav.Link
+              className={`${styles.navLink}`}
+              style={{
+                color: activePage === "/rewards" ? `red` : `black`,
+              }}
+              onClick={() => handleNavClick("/rewards")}
+            >
+              Rewards
+            </Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
     </div>
   );
 }

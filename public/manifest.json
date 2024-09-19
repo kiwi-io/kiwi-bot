@@ -1,9 +1,9 @@
 {
-    "short_name": "HelloTelegram",
-    "name": "Hello World Telegram Mini App",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#0088cc",
-    "description": "A simple hello world Telegram Mini App built using Next.js"
-  }
+  "short_name": "HelloTelegram",
+  "name": "Hello World Telegram Mini App",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0088cc",
+  "description": "A simple hello world Telegram Mini App built using Next.js"
+}
