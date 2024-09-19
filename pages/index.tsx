@@ -83,7 +83,7 @@ export default function Main() {
     <div className={styles.mainContainer}>
       {
         ready && authenticated ?
-          <div>
+          <div className={styles.mainAuthenticatedContainer}>
             <div className={styles.activePage}>
               {renderActivePage()}
             </div>

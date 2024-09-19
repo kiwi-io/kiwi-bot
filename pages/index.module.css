@@ -7,6 +7,15 @@
   background-color: #000;
 }
 
+.mainAuthenticatedContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #000;
+  }
+
 .activePage {
   text-align: center;
   margin: 20px 0;
