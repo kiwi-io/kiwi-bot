@@ -3,6 +3,10 @@
     flex-direction: column;
 }
 
+.navIcon {
+    font-size: 1.25rem;
+}
+
 .navTitle {
-    margin-top: 1rem;
+    font-size: 0.75rem
 }
