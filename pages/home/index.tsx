@@ -1,8 +1,33 @@
 import React from "react";
 import styles from "./home.module.css";
+import { usePrivy } from "@privy-io/react-auth";
 
 const Home = () => {
-  return <div className={styles.container}>Home</div>;
+
+  const {
+    user,
+    ready,
+    authenticated
+  } = usePrivy();
+
+  
+  return(
+    <div className={styles.container}>
+      Home
+      <div>
+        {
+          ready && authenticated && user ?
+            <div>
+              <p>User not logged in</p>
+            </div>
+          :
+            <div>
+              <p>Welcome to Kiwi, {`${user?.telegram?.firstName}`}</p>
+            </div>
+        }
+      </div>
+    </div>
+  );
 };
 
 export default Home;

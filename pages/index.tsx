@@ -37,7 +37,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 export default function Main() {
   const [activePage, setActivePage] = useState("/home");
-  const [privyUser, setPrivyUser] = useState<User | undefined>(undefined);
 
   const {createWallet} = useSolanaWallets();
 
@@ -46,14 +45,12 @@ export default function Main() {
     authenticated,
   } = usePrivy();
 
-  useLogin({
+  const { login } = useLogin({
     onComplete(user, _isNewUser, _wasAlreadyAuthenticated, _loginMethod, _loginAccount) {
       if(user) {
         if(!hasExistingSolanaWallet(user)) {
           createWallet();
         }
-
-        setPrivyUser(() => user);
       }
     },
     onError: (error) => {
@@ -89,9 +86,6 @@ export default function Main() {
           <div>
             <div className={styles.activePage}>
               {renderActivePage()}
-            </div>
-            <div className={styles.welcomeUserMessage}>
-              {`Welcome ${privyUser?.telegram?.firstName}`}
             </div>
             <Navbar className={styles.navbar}>
               <Container className={styles.navContainer}>
@@ -147,7 +141,14 @@ export default function Main() {
           </div>
         :
           <div className={styles.failedAuthenticationTextContainer}>
-            <h1 className={styles.failedAuthenticationText}>Failed to log in via Telegram</h1>
+            <h1 className={styles.failedAuthenticationText}>Log in via Telegram</h1>
+            <button
+              onClick = {
+                login
+              }
+            >
+              Log in via Telegram
+            </button>
           </div>
       }
     </div>
