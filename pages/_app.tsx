@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { PrivyProvider } from "@privy-io/react-auth";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,7 +13,17 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="Kiwi - Solana wallet inside Telegram"
         />
       </Head>
-      <Component {...pageProps} />
+      <PrivyProvider
+        appId={process.env.NEXT_PRIVY_APP_ID || ""}
+        config={{
+          embeddedWallets: {
+            createOnLogin: "all-users",
+          },
+          loginMethods: ["telegram"],
+        }}
+      >
+        <Component {...pageProps} />
+      </PrivyProvider>
     </>
   );
 }

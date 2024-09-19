@@ -65,3 +65,19 @@
     margin-right: 2.5px;
   }
 }
+
+.failedAuthenticationTextContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.welcomeUserMessage {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+  }
