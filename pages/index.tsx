@@ -102,6 +102,7 @@ export default function Main() {
                     <NavButton
                       name={"Home"}
                       iconClass={"fa-solid fa-house"}
+                      isActive={activePage === "/home"}
                     />
                   </Nav.Link>
                   <Nav.Link
@@ -114,6 +115,7 @@ export default function Main() {
                     <NavButton
                       name={"Apps"}
                       iconClass={"fa-solid fa-rocket"}
+                      isActive={activePage === "/apps"}
                     />
                   </Nav.Link>
                   <Nav.Link
@@ -126,6 +128,7 @@ export default function Main() {
                     <NavButton
                       name={"Swap"}
                       iconClass={"fa-solid fa-shuffle"}
+                      isActive={activePage === "/swap"}
                     />
                   </Nav.Link>
                   <Nav.Link
@@ -138,6 +141,7 @@ export default function Main() {
                     <NavButton
                       name={"History"}
                       iconClass={"fa-solid fa-clock-rotate-left"}
+                      isActive={activePage === "/history"}
                     />
                   </Nav.Link>
                   <Nav.Link
@@ -150,6 +154,7 @@ export default function Main() {
                     <NavButton
                       name={"Rewards"}
                       iconClass={"fa-solid fa-parachute-box"}
+                      isActive={activePage === "/rewards"}
                     />
                   </Nav.Link>
                 </Nav>

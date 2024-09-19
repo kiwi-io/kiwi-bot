@@ -4,14 +4,20 @@ import styles from "./NavButton.module.css";
 export interface NavButtonProps {
     name: string;
     iconClass: string;
+    isActive: boolean;
 }
 const NavButton = ({
-    name,
-    iconClass
+    iconClass,
+    isActive
 }: NavButtonProps) => {
     return(
         <div className={styles.navButtonContainer}>
-            <div className={styles.navIcon}>
+            <div
+                className={styles.navIcon}
+                style = {{
+                    color: isActive ? `#000` : `#888`
+                }}
+            >
                 <i className={iconClass}></i>
             </div>
         </div>
