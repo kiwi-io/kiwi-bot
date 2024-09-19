@@ -1,0 +1,53 @@
+.mainContainer {
+    width: 100vw;
+    height: 100vh; /* Ensure the container takes the full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes the navbar to the bottom */
+    background-color: #000;
+}
+
+.activePage {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.navContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.navLink {
+    flex: 1;
+    text-align: center;
+    padding: 10px; /* Add padding around each nav button */
+    margin: 5px; /* Add margin around each nav button */
+    color: black; /* Default color for nav links */
+    text-decoration: none; /* Remove underline */
+}
+
+.navLink:hover {
+    color: black; /* Keep color black on hover */
+}
+
+.activeNavLink {
+    color: red; /* Color for active nav link */
+}

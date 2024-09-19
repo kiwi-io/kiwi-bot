@@ -1,42 +1,117 @@
 import React from "react";
-import { useEffect, useState } from "react";
-  
-export default function Home() {  
+import { Nav, Navbar, Container } from "react-bootstrap";
+import { useState } from "react";
+import styles from "./index.module.css";
 
-  const [telegramUser, setTelegramUser] = useState(null);
+import Home from "./home";
+import Apps from "./apps";
+import Swap from "./swap";
+import History from "./history";
+import Rewards from "./rewards";
 
-  useEffect(() => {
-    //@ts-ignore
-    if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-      //@ts-ignore
-      const webApp = window.Telegram.WebApp;
+export default function Main() {
 
-      // Initialize the Telegram Web App when the component loads
-      webApp.ready();
+  const [activePage, setActivePage] = useState("/home");
 
-      // Get and set user information
-      setTelegramUser(webApp.initDataUnsafe.user);
+  const handleNavClick = (page: string) => {
+    setActivePage(page);
+  };
 
-      // Customize Web App appearance
-      webApp.MainButton.setText('Start');
-      webApp.MainButton.show();
+  const renderActivePage = () => {
+    switch (activePage) {
+      case "/home":
+        return <Home />;
+      case "/apps":
+        return <Apps />;
+      case "/swap":
+        return <Swap />;
+      case "/history":
+        return <History />;
+      case "/rewards":
+        return <Rewards />;
+      default:
+        return <Home />;
     }
-  }, []);
-
+  };
 
   return (
-    <div>
-        <h1>Hello world</h1>
+    <div className={styles.mainContainer}>
+      <div className={styles.activePage}>
         {
-          telegramUser ? (
-            <p>Welcome, {
-              //@ts-ignore
-              telegramUser.first_nam
-            }!</p>
-          ) : (
-            <p>Loading Telegram User...</p>
-          )
+          renderActivePage()
         }
+      </div>
+        <Navbar className={styles.navbar}>
+          <Container className={styles.navContainer}>
+            <Nav className={styles.nav}>
+              <Nav.Link
+                className={
+                  `${styles.navLink}`
+                }
+                style={
+                  {
+                    color: activePage === "/home" ? `red` : ``
+                  }
+                }
+                onClick={() => handleNavClick("/home")}
+              >
+                Home
+              </Nav.Link>
+              <Nav.Link
+                className={
+                  `${styles.navLink}`
+                }
+                style={
+                  {
+                    color: activePage === "/apps" ? `red` : ``
+                  }
+                }
+                onClick={() => handleNavClick("/apps")}
+              >
+                Apps
+              </Nav.Link>
+              <Nav.Link
+                className={
+                  `${styles.navLink}`
+                }
+                style={
+                  {
+                    color: activePage === "/swap" ? `red` : ``
+                  }
+                }
+                onClick={() => handleNavClick("/swap")}
+              >
+                Swap
+              </Nav.Link>
+              <Nav.Link
+                className={
+                  `${styles.navLink}`
+                }
+                style={
+                  {
+                    color: activePage === "/history" ? `red` : ``
+                  }
+                }
+                onClick={() => handleNavClick("/history")}
+              >
+                History
+              </Nav.Link>
+              <Nav.Link
+                className={
+                  `${styles.navLink}`
+                }
+                style={
+                  {
+                    color: activePage === "/rewards" ? `red` : ``
+                  }
+                }
+                onClick={() => handleNavClick("/rewards")}
+              >
+                Rewards
+              </Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
     </div>
   );
 }
