@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         appId={process.env.NEXT_PRIVY_APP_ID || ""}
         config={{
           embeddedWallets: {
-            createOnLogin: "all-users",
+            createOnLogin: "off",
           },
           loginMethods: ["telegram"],
         }}
