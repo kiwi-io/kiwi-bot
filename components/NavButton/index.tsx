@@ -14,9 +14,6 @@ const NavButton = ({
             <div className={styles.navIcon}>
                 <i className={iconClass}></i>
             </div>
-            <div className={styles.navTitle}>
-                {name}
-            </div>
         </div>
     )
 }
