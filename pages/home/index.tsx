@@ -17,7 +17,12 @@ const Home = () => {
         {
           ready && authenticated && user ?
             <div>
-              <p>Welcome to Kiwi, {`${user?.telegram?.firstName}`}</p>
+              <div>
+                <p>Welcome to Kiwi, {`${user?.telegram?.firstName}`}</p>
+              </div>
+              <div>
+                <p>Your wallet address: {`${user.wallet?.address}`}</p>
+              </div>
             </div>
           :
             <div>
