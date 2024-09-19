@@ -14,6 +14,8 @@ const Swap = dynamic(() => import("./swap"));
 const History = dynamic(() => import("./history"));
 const Rewards = dynamic(() => import("./rewards"));
 
+import NavButton from "../components/NavButton";
+
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const cookieAuthToken = req.cookies["privy-token"];
   if (!cookieAuthToken) return { props: {} };
@@ -97,7 +99,10 @@ export default function Main() {
                     }}
                     onClick={() => handleNavClick("/home")}
                   >
-                    Home
+                    <NavButton
+                      name={"Home"}
+                      iconClass={"fa-solid fa-house"}
+                    />
                   </Nav.Link>
                   <Nav.Link
                     className={`${styles.navLink}`}
@@ -106,7 +111,10 @@ export default function Main() {
                     }}
                     onClick={() => handleNavClick("/apps")}
                   >
-                    Apps
+                    <NavButton
+                      name={"Apps"}
+                      iconClass={"fa-solid fa-rocket"}
+                    />
                   </Nav.Link>
                   <Nav.Link
                     className={`${styles.navLink}`}
@@ -115,7 +123,10 @@ export default function Main() {
                     }}
                     onClick={() => handleNavClick("/swap")}
                   >
-                    Swap
+                    <NavButton
+                      name={"Swap"}
+                      iconClass={"fa-solid fa-shuffle"}
+                    />
                   </Nav.Link>
                   <Nav.Link
                     className={`${styles.navLink}`}
@@ -124,7 +135,10 @@ export default function Main() {
                     }}
                     onClick={() => handleNavClick("/history")}
                   >
-                    History
+                    <NavButton
+                      name={"History"}
+                      iconClass={"fa-solid fa-clock-rotate-left"}
+                    />
                   </Nav.Link>
                   <Nav.Link
                     className={`${styles.navLink}`}
@@ -133,7 +147,10 @@ export default function Main() {
                     }}
                     onClick={() => handleNavClick("/rewards")}
                   >
-                    Rewards
+                    <NavButton
+                      name={"Rewards"}
+                      iconClass={"fa-solid fa-parachute-box"}
+                    />
                   </Nav.Link>
                 </Nav>
               </Container>

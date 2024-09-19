@@ -1,0 +1,9 @@
+.navButtonContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+.navTitle {
+    margin-top: 1rem;
+}
