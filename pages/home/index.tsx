@@ -10,7 +10,6 @@ const Home = () => {
     authenticated
   } = usePrivy();
 
-  
   return(
     <div className={styles.container}>
       Home
@@ -18,11 +17,11 @@ const Home = () => {
         {
           ready && authenticated && user ?
             <div>
-              <p>User not logged in</p>
+              <p>Welcome to Kiwi, {`${user?.telegram?.firstName}`}</p>
             </div>
           :
             <div>
-              <p>Welcome to Kiwi, {`${user?.telegram?.firstName}`}</p>
+              <p>User not logged in</p>
             </div>
         }
       </div>

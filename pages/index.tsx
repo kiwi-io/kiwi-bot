@@ -5,7 +5,7 @@ import styles from "./index.module.css";
 import dynamic from "next/dynamic";
 import { PrivyClient } from "@privy-io/server-auth";
 import { GetServerSideProps } from "next";
-import { usePrivy, useLogin, useSolanaWallets, User } from "@privy-io/react-auth";
+import { usePrivy, useLogin, useSolanaWallets } from "@privy-io/react-auth";
 import { hasExistingSolanaWallet } from "../utils";
 
 const Home = dynamic(() => import("./home"));
