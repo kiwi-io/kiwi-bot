@@ -2,7 +2,6 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { PrivyProvider } from "@privy-io/react-auth";
-import { UserContextProvider } from "../components/contexts/UserContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -23,9 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           loginMethods: ["telegram"],
         }}
       >
-        <UserContextProvider>
-          <Component {...pageProps} />
-        </UserContextProvider>
+        <Component {...pageProps} />
       </PrivyProvider>
     </>
   );
