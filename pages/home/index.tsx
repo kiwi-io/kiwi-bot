@@ -1,14 +1,21 @@
 import React from "react";
 import styles from "./home.module.css";
 import { usePrivy } from "@privy-io/react-auth";
+import { useRouter } from "next/router";
 
 const Home = () => {
+
+  const router = useRouter();
 
   const {
     user,
     ready,
     authenticated
   } = usePrivy();
+
+  const navigateToSettings = () => {
+    router.push('/settings');
+  }
 
   return(
     <div className={styles.container}>
@@ -20,8 +27,17 @@ const Home = () => {
                 <div className={styles.usernameContainer}>
                     <div>{`${user.telegram?.username}`}</div>
                 </div>
-                <div className={styles.settingsContainer}>
-                    <div>{`S`}</div>
+                <div
+                  className={styles.settingsContainer}
+                  onClick={
+                    () => {
+                      navigateToSettings()
+                    }
+                  }
+                >
+                  <div>
+                    <i className="fa-solid fa-gear"></i>
+                  </div>
                 </div>
               </div>
               <div className={styles.overviewContainer}>
