@@ -3,8 +3,6 @@ import { Nav, Navbar, Container } from "react-bootstrap";
 import { useState } from "react";
 import styles from "./index.module.css";
 import dynamic from "next/dynamic";
-import { PrivyClient } from "@privy-io/server-auth";
-import { GetServerSideProps } from "next";
 import { usePrivy, useLogin, useSolanaWallets } from "@privy-io/react-auth";
 import { hasExistingSolanaWallet } from "../utils";
 
@@ -15,27 +13,6 @@ const History = dynamic(() => import("./history"));
 const Rewards = dynamic(() => import("./rewards"));
 
 import NavButton from "../components/NavButton";
-
-// export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-//   const cookieAuthToken = req.cookies["privy-token"];
-//   if (!cookieAuthToken) return { props: {} };
-
-//   const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
-//   const PRIVY_APP_SECRET = process.env.PRIVY_APP_SECRET;
-//   const client = new PrivyClient(PRIVY_APP_ID!, PRIVY_APP_SECRET!);
-
-//   try {
-//     const claims = await client.verifyAuthToken(cookieAuthToken);
-//     console.log({ claims });
-
-//     return {
-//       props: {},
-//       redirect: { destination: "/home", permanent: false },
-//     };
-//   } catch (error) {
-//     return { props: {} };
-//   }
-// };
 
 export default function Main() {
   const [activePage, setActivePage] = useState("/home");
