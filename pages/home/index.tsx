@@ -17,7 +17,7 @@ const Home = () => {
           <div className={styles.mainContainer}>
             <div className={styles.headerAndOverviewContainer}>
               <div className={styles.headerContainer}>
-                <p>Your wallet address: {`${user.telegram?.username}`}</p>
+                <p>{`${user.telegram?.username}`}</p>
               </div>
               <div className={styles.overviewContainer}>
                 <p>Welcome to Kiwi, {`${user?.telegram?.firstName}`}</p>
