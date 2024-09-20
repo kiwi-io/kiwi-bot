@@ -17,7 +17,17 @@ const Home = () => {
           <div className={styles.mainContainer}>
             <div className={styles.headerAndOverviewContainer}>
               <div className={styles.headerContainer}>
-                <p>{`${user.telegram?.username}`}</p>
+                <div className={styles.usernameAndAddressContainer}>
+                  <div className={styles.usernameContainer}>
+                    <p>{`${user.telegram?.username}`}</p>
+                  </div>
+                  <div className={styles.addressClipboardContainer}>
+                    <p>{`0`}</p>
+                  </div>
+                </div>
+                <div className={styles.settingsContainer}>
+                    <div>{`S`}</div>
+                </div>
               </div>
               <div className={styles.overviewContainer}>
                 <p>Welcome to Kiwi, {`${user?.telegram?.firstName}`}</p>
