@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
-import { useState } from "react";
 import styles from "./index.module.css";
 import dynamic from "next/dynamic";
 import { usePrivy, useLogin, useSolanaWallets } from "@privy-io/react-auth";
@@ -16,6 +15,7 @@ import NavButton from "../components/NavButton";
 
 export default function Main() {
   const [activePage, setActivePage] = useState("/home");
+  const [loginTimeout, setLoginTimeout] = useState(false);
 
   const {createWallet} = useSolanaWallets();
 
@@ -24,7 +24,7 @@ export default function Main() {
     authenticated,
   } = usePrivy();
 
-  const { login } = useLogin({
+  useLogin({
     onComplete(user, _isNewUser, _wasAlreadyAuthenticated, _loginMethod, _loginAccount) {
       if(user) {
         if(!hasExistingSolanaWallet(user)) {
@@ -35,7 +35,17 @@ export default function Main() {
     onError: (error) => {
       console.log("Error logging in: ", error);
     }
-  })
+  });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!ready || !authenticated) {
+        setLoginTimeout(true);
+      }
+    }, 60000); // 1 minute timeout
+
+    return () => clearTimeout(timer);
+  }, [ready, authenticated]);
 
   const handleNavClick = (page: string) => {
     setActivePage(page);
@@ -139,16 +149,15 @@ export default function Main() {
             </Navbar>
           </div>
         :
-          <div className={styles.failedAuthenticationTextContainer}>
-            <h1 className={styles.failedAuthenticationText}>Log in via Telegram</h1>
-            <button
-              onClick = {
-                login
-              }
-            >
-              Log in via Telegram
-            </button>
-          </div>
+          loginTimeout ?
+            <div className={styles.failedAuthenticationTextContainer}>
+              <h1 className={styles.failedAuthenticationText}>Failed to log in</h1>
+            </div>
+          :
+            <div className={styles.loadingContainer}>
+              <h1 className={styles.loadingText}>Logging in...</h1>
+              <div className={styles.loader}></div>
+            </div>
       }
     </div>
   );
