@@ -17,13 +17,8 @@ const Home = () => {
           <div className={styles.mainContainer}>
             <div className={styles.headerAndOverviewContainer}>
               <div className={styles.headerContainer}>
-                <div className={styles.usernameAndAddressContainer}>
-                  <div className={styles.usernameContainer}>
-                    <p>{`${user.telegram?.username}`}</p>
-                  </div>
-                  <div className={styles.addressClipboardContainer}>
-                    <p>{`0`}</p>
-                  </div>
+                <div className={styles.usernameContainer}>
+                    <div>{`${user.telegram?.username}`}</div>
                 </div>
                 <div className={styles.settingsContainer}>
                     <div>{`S`}</div>
