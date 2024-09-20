@@ -18,10 +18,12 @@
 
 .activePage {
   text-align: center;
-  margin: 20px 0;
   font-size: 1.2em;
   font-weight: bold;
   color: #fff;
+  width: 100%;
+  height: 100%;
+  background-color: blue;
 }
 
 .navbar {
