@@ -155,7 +155,7 @@ export default function Main() {
             </div>
           :
             <div className={styles.loadingContainer}>
-              <h1 className={styles.loadingText}>Logging in...</h1>
+              <h1 className={styles.loadingText}>Authenticating via Telegram...</h1>
               <div className={styles.loader}></div>
             </div>
       }
