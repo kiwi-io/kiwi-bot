@@ -12,24 +12,21 @@ const Home = () => {
 
   return(
     <div className={styles.container}>
-      Home
-      <div>
-        {
-          ready && authenticated && user ?
-            <div>
-              <div>
-                <p>Welcome to Kiwi, {`${user?.telegram?.firstName}`}</p>
-              </div>
-              <div>
-                <p>Your wallet address: {`${user.wallet?.address}`}</p>
-              </div>
+      {
+        ready && authenticated && user ?
+          <div className={styles.mainContainer}>
+            <div className={styles.userOverviewContainer}>
+              <p>Welcome to Kiwi, {`${user?.telegram?.firstName}`}</p>
             </div>
-          :
-            <div>
-              <p>User not logged in</p>
+            <div className={styles.userTokensContainer}>
+              <p>Your wallet address: {`${user.telegram?.username}`}</p>
             </div>
-        }
-      </div>
+          </div>
+        :
+          <div>
+            <p>User not logged in</p>
+          </div>
+      }
     </div>
   );
 };
