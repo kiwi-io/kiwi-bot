@@ -8,23 +8,30 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
+}
+
+.headerContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 10%;
     background-color: yellow;
 }
 
-.userOverviewContainer {
+.overviewContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 50%;
+    height: 30%;
     background-color: green;
 }
 
-.userTokensContainer {
+.tokensContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 50%;
+    height: 60%;
     background-color: red;
 }

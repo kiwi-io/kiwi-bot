@@ -15,10 +15,12 @@ const Home = () => {
       {
         ready && authenticated && user ?
           <div className={styles.mainContainer}>
-            <div className={styles.userOverviewContainer}>
+            <div className={styles.headerContainer}>
+            </div>
+            <div className={styles.overviewContainer}>
               <p>Welcome to Kiwi, {`${user?.telegram?.firstName}`}</p>
             </div>
-            <div className={styles.userTokensContainer}>
+            <div className={styles.tokensContainer}>
               <p>Your wallet address: {`${user.telegram?.username}`}</p>
             </div>
           </div>
