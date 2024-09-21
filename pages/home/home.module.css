@@ -80,13 +80,13 @@
 }
 
 .actionButtonIcon {
-    margin: 0.25rem;
     font-size: 0.8rem;
 }
 
 .actionButton {
     display: flex;
-    margin: 0.25rem;
+    flex-direction: row;
+    justify-content: space-between;
     background-color: transparent;
     color: #ccc;
     padding-left: 1rem;
