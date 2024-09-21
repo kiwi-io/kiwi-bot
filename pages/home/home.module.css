@@ -124,8 +124,5 @@
 }
 
 .tokenDisplayContainer {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 0.25rem;
+    margin: 1rem;
 }
