@@ -54,6 +54,9 @@
 
 .balanceContainer {
     margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 100%;
 }
 
@@ -62,7 +65,7 @@
 }
 
 .balanceValue {
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: bold;
 }
 
