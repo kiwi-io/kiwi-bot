@@ -17,8 +17,8 @@ const TokenDisplay = ({
                     {
                         <Image
                             src={tokenMetadata.icon}
-                            width={35}
-                            height={35}
+                            width={38}
+                            height={38}
                             alt={`${tokenMetadata.ticker} img`}
                             className={styles.tokenImage}
                         />

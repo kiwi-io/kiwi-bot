@@ -6,7 +6,7 @@ export const allTokens = [
         decimals: 6,
         icon: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
         ticker: "USDC",
-        name: "USD Coin"
+        name: "USDC"
     } as TokenMetadata,
 
     {
@@ -14,7 +14,7 @@ export const allTokens = [
         decimals: 6,
         icon: "https://raw.githubusercontent.com/Smaler1/coin/main/logo.png",
         ticker: "USDT",
-        name: "USDT (Tether)"
+        name: "USDT"
     } as TokenMetadata,
     {
         address: "So11111111111111111111111111111111111111112",

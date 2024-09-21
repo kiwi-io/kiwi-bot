@@ -9,6 +9,10 @@
     flex-direction: row;
 }
 
+.tokenLogoContainer {
+    background-color: blue;
+}
+
 .tokenImage {
     border-radius: 100%;
 }
@@ -17,25 +21,28 @@
     margin-left: 1rem;
     display: flex;
     flex-direction: column;
+    justify-content: left;
+    background-color: red;
 }
 
 .tokenNameContainer {
-    color: #ccc;
-    font-size: 1.5rem;
+    color: #000;
+    font-size: 1.25rem;
     font-weight: 700;
+    background-color: yellow;
 }
 
 .tokenHoldingContainer {
     font-size: 0.85rem;
-    color: rgba(87, 87, 87, 1);
+    color: #000;
     font-weight: 400;
+    background-color: green;
 }
 
 .tokenValueContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    color: #ccc;
+    font-size: 1.25rem;
+    color: #000;
 }
 
