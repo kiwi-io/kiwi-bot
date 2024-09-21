@@ -12,3 +12,39 @@ body {
   background-color: #000;
   width: 100%;
 }
+
+/* globals.css */
+
+@font-face {
+  font-family: 'NTSomic';
+  src: url('/fonts/NTSomic-Regular.ttf') format('truetype');
+  font-weight: 400; /* Regular weight */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NTSomic';
+  src: url('/fonts/NTSomic-Medium.ttf') format('truetype');
+  font-weight: 500; /* Medium weight */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NTSomic';
+  src: url('/fonts/NTSomic-SemiBold.ttf') format('truetype');
+  font-weight: 600; /* SemiBold weight */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NTSomic';
+  src: url('/fonts/NTSomic-Bold.ttf') format('truetype');
+  font-weight: 700; /* Bold weight */
+  font-style: normal;
+}
+
+/* Optional: Set a default font for the entire body */
+body {
+  font-family: 'NTSomic', sans-serif;
+  font-weight: 700;
+}

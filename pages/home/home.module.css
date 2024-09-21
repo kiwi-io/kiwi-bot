@@ -65,8 +65,13 @@
 }
 
 .balanceValue {
+    display: flex;
     font-size: 4rem;
     font-weight: bold;
+}
+
+.dollarSign {
+    color: rgba(87, 87, 87, 1.0);
 }
 
 .actionButtonsContainer {
@@ -80,9 +85,12 @@
 .actionButton {
     background-color: transparent;
     color: #fff;
-    padding: 0.75rem;
-    font-size: 0.85rem;
-    border: 1px solid rgba(216, 216, 216, 0.75);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-size: 0.75rem;
+    border: 1px solid rgba(87, 87, 87, 0.5);
     border-radius: 0.25rem;
     cursor: pointer;
 }
