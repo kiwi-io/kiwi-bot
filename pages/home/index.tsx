@@ -72,8 +72,10 @@ const Home = () => {
                 </div>
               </div>
             </div> 
-            <div className={styles.tokensContainer}>
-              <p>Your tokens come here</p>
+            <div className={styles.tokensOuterContainer}>
+              <div className={styles.tokensContainer}>
+                <p>Your tokens come here.</p>
+              </div>
             </div>
           </div>
         :
