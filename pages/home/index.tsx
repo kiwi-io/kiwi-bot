@@ -46,8 +46,8 @@ const Home = () => {
                     Balance
                   </div>
                   <div className={styles.balanceValue}>
-                    <p className={styles.dollarSign}>{`$ `}</p>
-                    <p className={styles.balance}>50.00</p>
+                    <span className={styles.dollarSign}>{`$ `}</span>
+                    <span className={styles.balance}>50.00</span>
                   </div>
                 </div>
                 <div className={styles.actionButtonsContainer}>
