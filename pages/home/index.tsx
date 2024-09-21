@@ -41,7 +41,26 @@ const Home = () => {
                 </div>
               </div>
               <div className={styles.overviewContainer}>
-                <p>Welcome to Kiwi, {`${user?.telegram?.firstName}`}</p>
+                <div className={styles.balanceContainer}>
+                  <div className={styles.balanceTitle}>
+                    Balance
+                  </div>
+                  <div className={styles.balanceValue}>
+                    {`$${50}`}
+                  </div>
+                </div>
+                <div className={styles.actionButtonsContainer}>
+                  <div className={styles.depositButtonContainer}>
+                    <button className={styles.actionButton}>
+                      Deposit
+                    </button>
+                  </div>
+                  <div className={styles.withdrawButtonContainer}>
+                    <button className={styles.actionButton}>
+                      Withdraw
+                    </button>
+                  </div>
+                </div>
               </div>
             </div> 
             <div className={styles.tokensContainer}>
