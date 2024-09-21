@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0.5rem;
 }
 
 .tokenInfoContainer {
@@ -30,12 +29,12 @@
 
 .tokenNameContainer {
     color: #000;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
 }
 
 .tokenHoldingContainer {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: #000;
     font-weight: 400;
 }
@@ -43,7 +42,7 @@
 .tokenValueContainer {
     display: flex;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #000;
 }
 
