@@ -1,0 +1,36 @@
+.mainContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tokenInfoContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.tokenImage {
+    border-radius: 100%;
+}
+
+.tokenDataContainer {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.tokenNameContainer {
+    color: #ccc;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.tokenHoldingContainer {
+    color: rgba(87, 87, 87, 1);
+    font-weight: 400;
+}
+
+.tokenValueContainer {
+    color: #ccc;
+}
+
