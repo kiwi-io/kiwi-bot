@@ -65,8 +65,7 @@
 }
 
 .balanceValue {
-    display: flex;
-    font-size: 4rem;
+    font-weight: bold;
 }
 
 .dollarSign {
