@@ -53,35 +53,34 @@
 }
 
 .balanceContainer {
-    background-color: yellow;
     margin: 1rem;
     width: 100%;
 }
 
 .balanceTitle {
-    font-size: 0.5rem;
+    font-size: 0.75rem;
 }
 
 .balanceValue {
-    font-size: 2rem;
+    font-size: 3rem;
+    font-weight: bold;
 }
 
 .actionButtonsContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: red;
     margin: 1rem;
     width: 100%;
 }
 
 .actionButton {
-    background-color: #fff;
-    color: #000;
+    color: #fff;
     padding: 0.75rem;
     font-size: 0.85rem;
-    border: 1px solid rgba(87, 87, 87, 0.75);
+    border: 1px solid rgba(216, 216, 216, 0.75);
     border-radius: 0.25rem;
+    cursor: pointer;
 }
 
 
