@@ -11,6 +11,9 @@
 
 .tokenLogoContainer {
     background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .tokenImage {
@@ -18,10 +21,11 @@
 }
 
 .tokenDataContainer {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: left;
+    text-align: left;
     background-color: red;
 }
 
@@ -35,7 +39,7 @@
 .tokenHoldingContainer {
     font-size: 0.85rem;
     color: #000;
-    font-weight: 400;
+    font-weight: regular;
     background-color: green;
 }
 
