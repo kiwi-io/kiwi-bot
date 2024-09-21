@@ -60,6 +60,11 @@ const Home = () => {
                       Withdraw
                     </button>
                   </div>
+                  <div className={styles.refreshButtonContainer}>
+                    <button className={styles.actionButton}>
+                      Refresh
+                    </button>
+                  </div>
                 </div>
               </div>
             </div> 
