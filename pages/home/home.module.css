@@ -31,14 +31,14 @@
     border: 1px solid rgba(87, 87, 87, 0.5);
     border-radius: 0.25rem;
     padding: 0.5rem;
-    color: #fff;
+    color: #ccc;
 }
 
 .settingsContainer {
     border: 1px solid rgba(87, 87, 87, 0.5);
     border-radius: 0.25rem;
     padding: 0.5rem;
-    color: #fff;
+    color: #ccc;
     cursor: pointer;
 }
 
@@ -82,8 +82,11 @@
 
 .actionButton {
     background-color: transparent;
-    color: #fff;
-    padding: 1rem;
+    color: #ccc;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
     font-size: 1rem;
     border: 1px solid rgba(87, 87, 87, 0.5);
     border-radius: 0.25rem;

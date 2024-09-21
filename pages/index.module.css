@@ -19,7 +19,7 @@
 .activePage {
   text-align: center;
   font-size: 1.2em;
-  color: #fff;
+  color: #ccc;
   width: 100%;
   height: 100%;
 }
@@ -28,7 +28,7 @@
   position: sticky;
   bottom: 0;
   width: 100%;
-  background-color: #fff;
+  background-color: #ccc;
   z-index: 1000;
 }
 
@@ -80,14 +80,14 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    color: #ccc;
 }
 
 .welcomeUserMessage {
     text-align: center;
     margin: 20px 0;
     font-size: 1.2em;
-    color: #fff;
+    color: #ccc;
   }
 
   .loadingContainer {
@@ -101,7 +101,7 @@
   .loadingText {
     font-size: 1.25rem;
     margin-bottom: 1rem;
-    color: #fff;
+    color: #ccc;
   }
   
   .loader {
