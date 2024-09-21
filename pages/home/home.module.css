@@ -75,6 +75,7 @@
 }
 
 .actionButton {
+    background-color: transparent;
     color: #fff;
     padding: 0.75rem;
     font-size: 0.85rem;
