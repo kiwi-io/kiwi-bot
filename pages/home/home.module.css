@@ -111,8 +111,6 @@
 .tokensOuterContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 1rem;
     height: 70%;
     box-sizing: border-box;
     background-color: #fff;
@@ -122,4 +120,13 @@
 .tokensContainer {
     width: 100%;
     background-color: yellow;
+}
+
+.tokenDisplayContainer {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(87, 87, 87, 0.25);
+    border-radius: 0.25rem;
+    
 }

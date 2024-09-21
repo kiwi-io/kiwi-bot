@@ -21,16 +21,18 @@
 
 .tokenNameContainer {
     color: #ccc;
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: 700;
 }
 
 .tokenHoldingContainer {
+    font-size: 0.85rem;
     color: rgba(87, 87, 87, 1);
     font-weight: 400;
 }
 
 .tokenValueContainer {
+    font-size: 2rem;
     color: #ccc;
 }
 

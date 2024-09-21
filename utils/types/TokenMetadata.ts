@@ -1,6 +1,8 @@
 export interface TokenMetadata {
-    icon: string;
+    address: string;
     name: string;
     ticker: string;
-    address: string;
-}
+    decimals: number;
+    icon: string;
+  }
+  
