@@ -119,8 +119,6 @@
 
 .tokensContainer {
     width: 100%;
-    margin-top: 1rem;
-    overflow-y: scroll;
 }
 
 .tokenDisplayContainer {
