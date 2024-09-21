@@ -112,6 +112,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1rem;
     height: 70%;
     box-sizing: border-box;
     background-color: #fff;
