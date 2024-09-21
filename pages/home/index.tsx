@@ -52,17 +52,17 @@ const Home = () => {
                 </div>
                 <div className={styles.actionButtonsContainer}>
                   <div className={styles.depositButtonContainer}>
-                    <button className={styles.actionButton}>
+                    <button className={`${styles.actionButton} ${styles.depositButton}`}>
                       Deposit
                     </button>
                   </div>
                   <div className={styles.withdrawButtonContainer}>
-                    <button className={styles.actionButton}>
+                    <button className={`${styles.actionButton}`}>
                       Withdraw
                     </button>
                   </div>
                   <div className={styles.refreshButtonContainer}>
-                    <button className={styles.actionButton}>
+                    <button className={`${styles.actionButton}`}>
                       Refresh
                     </button>
                   </div>
