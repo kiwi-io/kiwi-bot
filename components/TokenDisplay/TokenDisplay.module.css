@@ -30,12 +30,12 @@
 
 .tokenNameContainer {
     color: #000;
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 700;
 }
 
 .tokenHoldingContainer {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: #000;
     font-weight: 400;
 }
@@ -43,7 +43,7 @@
 .tokenValueContainer {
     display: flex;
     justify-content: center;
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: #000;
 }
 
