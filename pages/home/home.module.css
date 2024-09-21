@@ -111,7 +111,6 @@
 .tokensOuterContainer {
     display: flex;
     justify-content: center;
-    height: 70%;
     box-sizing: border-box;
     background-color: #fff;
     color: #000;
