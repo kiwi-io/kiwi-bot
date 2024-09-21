@@ -50,6 +50,7 @@
     width: 100%;
     height: 85%;
     font-size: 1rem;
+    background-color: blue;
 }
 
 .balanceContainer {
@@ -58,6 +59,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
+    background-color: orange;
 }
 
 .balanceTitle {
@@ -66,6 +68,7 @@
 }
 
 .balanceValue {
+    display: flex;
     font-size: 4rem;
 }
 
@@ -79,6 +82,7 @@
     justify-content: space-between;
     margin: 1rem;
     width: 100%;
+    background-color: red;
 }
 
 .actionButton {
