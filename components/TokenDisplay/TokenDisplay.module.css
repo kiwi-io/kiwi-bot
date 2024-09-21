@@ -21,7 +21,7 @@
 
 .tokenNameContainer {
     color: #ccc;
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 700;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .tokenValueContainer {
-    font-size: 2rem;
+    font-size: 1rem;
     color: #ccc;
 }
 
