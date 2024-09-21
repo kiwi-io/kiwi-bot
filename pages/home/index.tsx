@@ -53,20 +53,20 @@ const Home = () => {
                 <div className={styles.actionButtonsContainer}>
                   <div className={styles.depositButtonContainer}>
                     <button className={`${styles.actionButton} ${styles.depositButton}`}>
-                      <i className="fa-solid fa-download"></i>
+                      <i className={`${styles.actionButtonIcon} fa-solid fa-download`}></i>
                       Deposit
                     </button>
                   </div>
                   <div className={styles.withdrawButtonContainer}>
                     <button className={`${styles.actionButton}`}>
-                      <i className="fa-solid fa-upload"></i>
+                      <i className={`${styles.actionButtonIcon} fa-solid fa-upload`}></i>
                       Withdraw
                     </button>
                   </div>
                   <div className={styles.refreshButtonContainer}>
                     <button className={`${styles.actionButton}`}>
-                      <i className="fa-solid fa-rotate"></i>
-                      <>Refresh</>
+                      <i className={`${styles.actionButtonIcon} fa-solid fa-rotate`}></i>
+                      Refresh
                     </button>
                   </div>
                 </div>
