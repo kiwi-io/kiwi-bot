@@ -15,7 +15,7 @@
     flex-direction: column;
     height: 33%;
     background-image: -webkit-linear-gradient(top, #222 0%, #111 50%, #000 100%);
-    padding: 0.75rem;
+    padding: 1rem;
 }
 
 .headerContainer {
@@ -24,7 +24,7 @@
     justify-content: space-between;
     align-items: center;
     height: 15%;
-    font-size: 0.85rem;
+    font-size: 1rem;
 }
 
 .usernameContainer {
@@ -58,7 +58,7 @@
 }
 
 .balanceTitle {
-    font-size: 0.85rem;
+    font-size: 1rem;
     color: rgba(87, 87, 87, 1.0);
 }
 
@@ -86,7 +86,7 @@
     padding-right: 1rem;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: bold;
     border: 1px solid rgba(87, 87, 87, 0.5);
     border-radius: 0.25rem;
