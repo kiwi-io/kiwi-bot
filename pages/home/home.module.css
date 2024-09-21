@@ -95,6 +95,8 @@
 
 .depositButton {
     background-color: #FF9D00;
+    color: #000;
+    border: none;
 }
 
 .tokensContainer {
