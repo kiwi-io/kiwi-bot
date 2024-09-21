@@ -46,7 +46,7 @@ const Home = () => {
                     Balance
                   </div>
                   <div className={styles.balanceValue}>
-                    <span className={styles.dollarSign}>{`$ `}</span>
+                    <span className={styles.dollarSign}>{`$`}</span>
                     <span className={styles.balance}>69,420.00</span>
                   </div>
                 </div>
