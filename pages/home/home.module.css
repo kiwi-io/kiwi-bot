@@ -81,6 +81,8 @@
 
 .actionButtonIcon {
     font-size: 0.8rem;
+    background-color: red;
+    color: blue;
 }
 
 .actionButton {
