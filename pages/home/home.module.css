@@ -80,6 +80,7 @@
 }
 
 .actionButton {
+    display: flex;
     background-color: transparent;
     color: #ccc;
     padding-left: 1rem;
