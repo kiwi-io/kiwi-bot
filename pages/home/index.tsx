@@ -67,7 +67,7 @@ const Home = () => {
                   </div>
                   <div className={styles.copyButtonContainer}>
                     <button className={`${styles.actionButton}`}>
-                      <span className={`${styles.actionButtonIcon} fa-solid fa-copy`}></span>
+                      {/* <span className={`${styles.actionButtonIcon} fa-solid fa-copy`}></span> */}
                       <span>Copy</span>
                     </button>
                   </div>
