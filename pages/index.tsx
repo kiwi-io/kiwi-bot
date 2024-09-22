@@ -3,7 +3,7 @@ import { Nav, Navbar, Container } from "react-bootstrap";
 import styles from "./index.module.css";
 import dynamic from "next/dynamic";
 import { usePrivy, useLogin, useSolanaWallets } from "@privy-io/react-auth";
-import { hasExistingSolanaWallet } from "../utils";
+import { getTokenList, hasExistingSolanaWallet } from "../utils";
 
 const Home = dynamic(() => import("./home"));
 const Apps = dynamic(() => import("./apps"));
@@ -46,6 +46,15 @@ export default function Main() {
 
     return () => clearTimeout(timer);
   }, [ready, authenticated]);
+
+  useEffect(() => {
+    const doStuff = async() => {
+      console.log("Doing stuff");
+      await getTokenList();
+    }
+
+    doStuff();
+  }, []);
 
   const handleNavClick = (page: string) => {
     setActivePage(page);

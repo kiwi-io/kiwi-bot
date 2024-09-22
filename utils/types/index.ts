@@ -1,1 +1,1 @@
-export * from "./TokenMetadata";
+export * from "./Token";
