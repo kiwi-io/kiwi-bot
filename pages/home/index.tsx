@@ -3,7 +3,7 @@ import styles from "./home.module.css";
 import { usePrivy } from "@privy-io/react-auth";
 import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
-import { allTokens } from "../../constants";
+import { defaultTokens } from "../../constants";
 
 const Home = () => {
 
@@ -77,7 +77,7 @@ const Home = () => {
             <div className={styles.tokensOuterContainer}>
               <div className={styles.tokensContainer}>
                 {
-                  allTokens.map((token, _) => {
+                  defaultTokens.map((token, _) => {
                     return (
                       <div className={styles.tokenDisplayContainer} key={token.address}>
                         <TokenDisplay tokenMetadata={token} />
