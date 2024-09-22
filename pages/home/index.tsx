@@ -65,6 +65,12 @@ const Home = () => {
                       <span>Withdraw</span>
                     </button>
                   </div>
+                  <div className={styles.copyButtonContainer}>
+                    <button className={`${styles.actionButton}`}>
+                      <span className={`${styles.actionButtonIcon} fa-solid fa-copy`}></span>
+                      <span>Copy</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div> 

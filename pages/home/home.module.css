@@ -35,7 +35,7 @@
 }
 
 .settingsContainer {
-    border: 1px solid rgba(87, 87, 87, 0.5);
+    /* border: 1px solid rgba(87, 87, 87, 0.5); */
     border-radius: 0.25rem;
     padding: 0.5rem;
     color: #ccc;
@@ -113,6 +113,7 @@
     justify-content: center;
     box-sizing: border-box;
     background-color: #fff;
+    min-height: 100%;
     color: #000;
 }
 
