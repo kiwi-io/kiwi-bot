@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BIRDEYE_GET_TOKEN_LIST } from "../../constants/urls";
+import { BIRDEYE_GET_PRICE, BIRDEYE_GET_TOKEN_LIST } from "../../constants/urls";
 
 export interface TokenListItem {
     address: string;
@@ -14,6 +14,13 @@ export interface TokenListItem {
     v24hUSD: number;
 }
 
+export interface TokenPriceItem {
+    value: number;
+    updateUnixTime: number;
+    updateHumanTime: string;
+
+}
+
 export const getTokenList = async() => {
     try {
         const response = await axios.get(`${BIRDEYE_GET_TOKEN_LIST}`, {
@@ -23,10 +30,23 @@ export const getTokenList = async() => {
               },        
         });
 
-        console.log("Response,data: ", response.data);
-
         return response.data.tokens as TokenListItem[];
     } catch (error) {
         console.error('Error fetching token list:', error);
-    }    
+    }
+}
+
+export const getTokenPrice = async(address: string) => {
+    try {
+        const response = await axios.get(`${BIRDEYE_GET_PRICE}${address}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': `${process.env.NEXT_BIRDEYE_API_KEY}`,
+              },        
+        });
+
+        return response.data as TokenPriceItem;
+    } catch (error) {
+        console.error('Error fetching token list:', error);
+    }
 }
