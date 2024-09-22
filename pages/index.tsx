@@ -52,7 +52,7 @@ export default function Main() {
       const [tokensList, tokenPrice] = await Promise.all(
         [
           getTokenList(),
-          getTokenPrice("")
+          getTokenPrice("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v")
         ]
       );
 
