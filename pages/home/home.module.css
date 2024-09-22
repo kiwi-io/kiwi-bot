@@ -123,4 +123,9 @@
 
 .tokenDisplayContainer {
     margin: 1rem;
+    cursor: pointer;
+}
+
+.tokenDisplayContainer:hover {
+    opacity: 90%;
 }
