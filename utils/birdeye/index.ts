@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BIRDEYE_GET_TOKEN_LIST } from "../../constants/urls";
 
 export interface TokenListItem {
     address: string;
@@ -15,9 +16,7 @@ export interface TokenListItem {
 
 export const getTokenList = async() => {
     try {
-        console.log("BIRDEYE_GET_TOKEN_LIST: ", process.env.NEXT_BIRDEYE_GET_TOKEN_LIST);
-        console.log("API key: ", process.env.NEXT_BIRDEYE_API_KEY);
-        const response = await axios.get(`${process.env.NEXT_BIRDEYE_GET_TOKEN_LIST}`, {
+        const response = await axios.get(`${BIRDEYE_GET_TOKEN_LIST}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${process.env.NEXT_BIRDEYE_API_KEY}`,
