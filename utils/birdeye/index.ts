@@ -19,7 +19,7 @@ export const getTokenList = async() => {
         const response = await axios.get(`${BIRDEYE_GET_TOKEN_LIST}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.NEXT_BIRDEYE_API_KEY}`,
+                'X-API-KEY': `${process.env.NEXT_BIRDEYE_API_KEY}`,
               },        
         });
 
