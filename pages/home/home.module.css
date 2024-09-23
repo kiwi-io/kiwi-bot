@@ -14,8 +14,8 @@
     display: flex;
     flex-direction: column;
     height: 30%;
-    background-image: -webkit-linear-gradient(top, #222 0%, #111 50%, #000 100%);
-    padding: 1rem;
+    background-image: -webkit-linear-gradient(top, #FF9D00 0%, #111 50%, #000 100%);
+    padding: 1.5rem;
 }
 
 .headerContainer {
@@ -28,7 +28,10 @@
 }
 
 .usernameContainer {
-    border: 1px solid rgba(87, 87, 87, 0.5);
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    transition: background-color 0.3s ease;
     border-radius: 0.25rem;
     padding: 0.5rem;
     color: #ccc;
@@ -113,7 +116,7 @@
     justify-content: center;
     box-sizing: border-box;
     background-color: #fff;
-    /* min-height: 70%; */
+    padding: 1.5rem;
     color: #000;
 }
 
@@ -122,7 +125,8 @@
 }
 
 .tokenDisplayContainer {
-    margin: 1rem;
+    margin-top: 1rem;
+    margin-right: 1rem;
     cursor: pointer;
 }
 
