@@ -31,9 +31,13 @@ export default function Main() {
     onComplete(user, _isNewUser, _wasAlreadyAuthenticated, _loginMethod, _loginAccount) {
       if(user) {
         if(!hasExistingSolanaWallet(user)) {
+          console.log("calling update methods from if");
           createWallet();
+          updateTokenBalances();
+          updateTokenInfos();
         }
         else {
+          console.log("calling update methods from else");
           updateTokenBalances();
           updateTokenInfos();
         }
