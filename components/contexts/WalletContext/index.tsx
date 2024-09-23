@@ -28,22 +28,23 @@ export const WalletContextProvider = ({ children }) => {
     const [tokenInfos, setTokenInfos] = useState<Map<Token, TokenInfo>>(new Map<Token, TokenInfo>);
 
     const updateTokenBalances = async() => {
-        let latestHoldings = new Map<Token, TokenWithBalance>();
+        // let latestHoldings = new Map<Token, TokenWithBalance>();
 
-        const {user} = usePrivy();
-        console.log("In updateTokenBalances, user: ", user);
+        // const {user} = usePrivy();
+        // console.log("In updateTokenBalances, user: ", user);
 
-        if(user && user.wallet) {
-            console.log("User: ", user);
-            console.log("User wallet address: ", user.wallet.address);
-            // latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));
-            console.log("Latest holdings: ", latestHoldings);
-        }
-        else {
-            console.log("No user found in WalletContext while updating token balance");
-        }
+        // if(user && user.wallet) {
+        //     console.log("User: ", user);
+        //     console.log("User wallet address: ", user.wallet.address);
+        //     // latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));
+        //     console.log("Latest holdings: ", latestHoldings);
+        // }
+        // else {
+        //     console.log("No user found in WalletContext while updating token balance");
+        // }
 
-        setTokenWithBalances(_ => latestHoldings);
+        // setTokenWithBalances(_ => latestHoldings);
+        console.log("Latest updateTokenBalances: ");
     }
 
     const updateTokenInfos = async() => {
@@ -66,7 +67,7 @@ export const WalletContextProvider = ({ children }) => {
         // });
 
         // console.log("Latest tokenInfosArray: ", tokenInfosArray);
-        console.log("Latest tokenInfosArray: ");
+        console.log("Latest updateTokenInfos: ");
     }
 
     const value = {
