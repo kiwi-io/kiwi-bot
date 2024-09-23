@@ -139,6 +139,7 @@
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-top: 0.5rem;
+    margin-bottom: 2rem;
     color: #000;
     border-radius: 1rem 1rem 1rem 1rem;
 }
@@ -153,6 +154,6 @@
 
 .tokenDisplayContainer {
     margin-top: 0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     cursor: pointer;
 }
