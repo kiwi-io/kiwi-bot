@@ -34,9 +34,10 @@ export const WalletContextProvider = ({ children }) => {
         console.log("In updateTokenBalances, user: ", user);
 
         if(user && user.wallet) {
+            console.log("User: ", user);
+            console.log("User wallet address: ", user.wallet.address);
             // latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));
-            // console.log("Latest holdings: ", latestHoldings);
-            console.log("Latest holdings: ");
+            console.log("Latest holdings: ", latestHoldings);
         }
         else {
             console.log("No user found in WalletContext while updating token balance");
