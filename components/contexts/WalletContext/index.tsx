@@ -34,23 +34,25 @@ export const WalletContextProvider = ({ children }) => {
         }
 
         let tokenInfosMap = new Map<Token, TokenInfo>();
-        const tokenList = await getTokenList();
-        tokenList.forEach(async (token) => {
-            if(latestHoldings.get((token.address))) {
-                const tokenPrice = await getTokenPrice(token.address);
-                tokenInfosMap.set(
-                    token.address,
-                    {
-                        address: token.address,
-                        decimals: token.decimals,
-                        symbol: token.symbol,
-                        name: token.name,
-                        logo: token.logoURI,
-                        price: tokenPrice.value,
-                    } as TokenInfo
-                );
-            }
-        });
+        let tokenList = await getTokenList();
+        tokenList = tokenList.filter((token) => latestHoldings.get(token.address));
+
+        const tokenPricePromises = tokenList.map((token) => getTokenPrice(token.address));
+        const tokenPrices = await Promise.all(tokenPricePromises);
+
+        for(let index = 0; index < tokenList.length; index++) {
+            tokenInfosMap.set(
+                tokenList[index].address,
+                {
+                    address: tokenList[index].address,
+                    decimals: tokenList[index].decimals,
+                    symbol: tokenList[index].symbol,
+                    name: tokenList[index].name,
+                    logo: tokenList[index].logoURI,
+                    price: tokenPrices[index].value,
+                } as TokenInfo
+            )
+        }
 
         setTokenWithBalances((_) => latestHoldings);
         setTokenInfos((_) => tokenInfosMap);

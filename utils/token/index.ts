@@ -30,7 +30,7 @@ export const getHoldings = async (address: PublicKey): Promise<Map<Token, TokenW
 
             const mintPubkey = new PublicKey(parsedData.mint).toBase58();
       
-            if(balance.gt(new BN(0))) {
+            if(balance.gt(new BN(1))) {
 
                 resultMap.set(mintPubkey.toString(), {
                     tokenAccount: accountInfo.pubkey.toString(),

@@ -38,15 +38,12 @@ export const getTokenList = async() => {
 
 export const getTokenPrice = async(address: string) => {
     try {
-        console.log("URL: ", BIRDEYE_GET_PRICE + address);
         const response = await axios.get(`${BIRDEYE_GET_PRICE}${address}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'X-API-KEY': `${process.env.NEXT_BIRDEYE_API_KEY}`,
               },        
         });
-
-        console.log("Get token price response: ", response);
 
         return response.data as TokenPriceItem;
     } catch (error) {
