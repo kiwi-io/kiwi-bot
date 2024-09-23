@@ -52,7 +52,7 @@ const Home = () => {
                   }
                 >
                   <div>
-                    <i className="fa-solid fa-gear"></i>
+                    {/* <i className="fa-solid fa-gear"></i> */}
                   </div>
                 </div>
               </div>
@@ -62,27 +62,24 @@ const Home = () => {
                     {/* Balance */}
                   </div>
                   <div className={styles.balanceValue}>
-                    <span className={styles.dollarSign}>{`$`}</span>
+                    <span className={styles.dollarSign}>{`$ `}</span>
                     <span className={styles.balance}>{portfolio.totalUsd.toFixed(2)}</span>
                   </div>
                 </div>
                 <div className={styles.actionButtonsContainer}>
                   <div className={styles.depositButtonContainer}>
                     <button className={`${styles.actionButton} ${styles.depositButton}`}>
-                      <span className={`${styles.actionButtonIcon} fa-solid fa-download`}></span>
-                      <span>Receive</span>
+                      <span>{`${<span className={`${styles.actionButtonIcon} fa-solid fa-download`}></span>} Receive`}</span>
                     </button>
                   </div>
                   <div className={styles.withdrawButtonContainer}>
                     <button className={`${styles.actionButton}`}>
-                      <span className={`${styles.actionButtonIcon} fa-solid fa-upload`}></span>
-                      <span>Send</span>
+                      <span>{`${<span className={`${styles.actionButtonIcon} fa-solid fa-upload`}></span>} Send`}</span>
                     </button>
                   </div>
                   <div className={styles.copyButtonContainer}>
                     <button className={`${styles.actionButton}`}>
-                      <span className={`${styles.actionButtonIcon} fa-solid fa-copy`}></span>
-                      <span>Copy</span>
+                      <span>{`${<span className={`${styles.actionButtonIcon} fa-solid fa-copy`}></span>} Copy`}</span>
                     </button>
                   </div>
                 </div>
