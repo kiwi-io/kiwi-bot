@@ -30,16 +30,10 @@ export const WalletContextProvider = ({ children }) => {
     const updateTokenBalances = async(user: User) => {
         let latestHoldings = new Map<Token, TokenWithBalance>();
 
-        console.log("In updateTokenBalances, user: ", user);
-
         if(user && user.wallet) {
-            console.log("User: ", user);
-            console.log("User wallet address: ", user.wallet.address);
-            latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));
+            // latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));
+            latestHoldings = await getHoldings(new PublicKey("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P"));
             console.log("Latest holdings before update: ", latestHoldings);
-        }
-        else {
-            console.log("No user found in WalletContext while updating token balance");
         }
 
         setTokenWithBalances(_ => latestHoldings);
@@ -52,17 +46,21 @@ export const WalletContextProvider = ({ children }) => {
         console.log("Token List: ", tokenList);
         console.log("latest holdings in updateTokenInfos: ", tokenWithBalances);
         
-        let tokenInfosArray = tokenList.map(async (token) => {
+        let tokenInfosArray: TokenInfo[] = [];
+
+        tokenList.forEach(async (token) => {
             if(tokenWithBalances.get((token.address))) {
                 const tokenPrice = await getTokenPrice(token.address);
-                return {
-                    address: token.address,
-                    decimals: token.decimals,
-                    symbol: token.symbol,
-                    name: token.name,
-                    logo: token.logoURI,
-                    price: tokenPrice.value,
-                } as TokenInfo;
+                tokenInfosArray.push(
+                    {
+                        address: token.address,
+                        decimals: token.decimals,
+                        symbol: token.symbol,
+                        name: token.name,
+                        logo: token.logoURI,
+                        price: tokenPrice.value,
+                    } as TokenInfo
+                );
             }
         });
 
