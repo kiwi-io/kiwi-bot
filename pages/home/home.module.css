@@ -83,14 +83,14 @@
     width: 100%;
 }
 
-.depositButtonContainer {
+.receiveButtonContainer {
     width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.withdrawButtonContainer {
+.sendButtonContainer {
     width: 30%;
     display: flex;
     justify-content: center;
@@ -128,15 +128,18 @@
     width: 100%;
 }
 
-.depositButton {
+.receiveButton {
     background-color: #FF9D00;
     color: #000;
     border: none;
 }
 
+.receiveButtonIcon {
+    color: #000;
+}
+
 .tokensOuterContainer {
     display: flex;
-    /* justify-content: center; */
     box-sizing: border-box;
     background-color: #fff;
     padding-left: 1.5rem;
