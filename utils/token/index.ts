@@ -7,28 +7,24 @@ export const getHoldings = async (address: PublicKey) => {
     const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
 
     try {
-        const splAccounts = (await connection.getTokenAccountsByOwner(
-            address,
-          { programId: SPL_TOKEN_PROGRAM }
-        )).value.map((accountInfo) => {
+        const [splTokenAccounts, token2022Accounts] = await Promise.all([
+            connection.getTokenAccountsByOwner(address, { programId: SPL_TOKEN_PROGRAM }),
+            connection.getTokenAccountsByOwner(address, { programId: TOKEN_EXTENSIONS_PROGRAM }),
+        ]);
+        
+        const allTokenAccounts = [...splTokenAccounts.value, ...token2022Accounts.value];
+
+        const tokenAccountBalances = await Promise.all(
+            allTokenAccounts.map(async (accountInfo) => {
+            const balance = await connection.getTokenAccountBalance(accountInfo.pubkey);
             return {
                 pubkey: accountInfo.pubkey.toBase58(),
-                data: accountInfo.account.data
-            }
-        });
-        
-        const tokenExtensionAccounts = (await connection.getTokenAccountsByOwner(
-            address,
-          { programId: TOKEN_EXTENSIONS_PROGRAM }
-        )).value.map((accountInfo) => {
-            return {
-                pubkey: accountInfo.pubkey.toBase58(),
-                data: accountInfo.account.data
-            }
-        });
-        
-        console.log("SPL token accounts: ", splAccounts);
-        console.log("Token extensions accounts: ", tokenExtensionAccounts);
+                balance: balance.value.uiAmountString,
+            };
+            })
+      );
+  
+      console.log("tokenAccountBalances: ", tokenAccountBalances);
         
     } catch (error) {
         console.error("Error fetching token accounts:", error);
