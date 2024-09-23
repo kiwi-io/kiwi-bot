@@ -3,7 +3,7 @@ import styles from "./home.module.css";
 import { usePrivy } from "@privy-io/react-auth";
 import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
-import { defaultTokens } from "../../constants";
+import { useWalletContext } from "../../components/contexts";
 
 const Home = () => {
 
@@ -14,6 +14,10 @@ const Home = () => {
     ready,
     authenticated
   } = usePrivy();
+
+  const {
+    portfolio
+  } = useWalletContext();
 
   const navigateToSettings = () => {
     router.push('/settings');
@@ -49,7 +53,7 @@ const Home = () => {
                   </div>
                   <div className={styles.balanceValue}>
                     <span className={styles.dollarSign}>{`$`}</span>
-                    <span className={styles.balance}>69,420.00</span>
+                    <span className={styles.balance}>{portfolio.totalUsd}</span>
                   </div>
                 </div>
                 <div className={styles.actionButtonsContainer}>
@@ -77,10 +81,10 @@ const Home = () => {
             <div className={styles.tokensOuterContainer}>
               <div className={styles.tokensContainer}>
                 {
-                  defaultTokens.map((token, _) => {
+                  portfolio.items.map((token, _) => {
                     return (
                       <div className={styles.tokenDisplayContainer} key={token.address}>
-                        <TokenDisplay tokenMetadata={token} />
+                        <TokenDisplay tokenItem={token} />
                       </div>
                     )
                   })

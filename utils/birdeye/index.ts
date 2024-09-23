@@ -15,7 +15,13 @@ export interface TokenItem {
     valueUsd: number;
 }
 
-export const getWalletPortfolio = async(address: string): Promise<TokenItem[]> => {
+export interface WalletPortfolio {
+    wallet: string;
+    totalUsd: number;
+    items: TokenItem[]
+};
+
+export const getWalletPortfolio = async(address: string): Promise<WalletPortfolio> => {
     try {
         const response = await axios.get(`${BIRDEYE_GET_WALLET_PORTFOLIO}${address}`, {
             headers: {
@@ -24,9 +30,13 @@ export const getWalletPortfolio = async(address: string): Promise<TokenItem[]> =
               },        
         });
 
-        return response.data.data.items as TokenItem[];
+        return response.data as WalletPortfolio;
     } catch (error) {
         console.error('Error fetching wallet portfolio:', error);
-        return [];
+        return {
+            wallet: "",
+            totalUsd: 0,
+            items: []
+        };
     }
 }

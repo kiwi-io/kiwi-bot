@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./TokenDisplay.module.css";
-import { TokenMetadata } from "../../utils/types";
 import Image from "next/image";
+import { TokenItem } from "../../utils";
 
 export interface TokenDisplayProps {
-    tokenMetadata: TokenMetadata
+    tokenItem: TokenItem
 }
 
 const TokenDisplay = ({
-    tokenMetadata
+    tokenItem
 }: TokenDisplayProps) => {
     return (
         <div className={styles.mainContainer}>
@@ -16,20 +16,20 @@ const TokenDisplay = ({
                 <div className={styles.tokenLogoContainer}>
                     {
                         <Image
-                            src={tokenMetadata.icon}
+                            src={tokenItem.logoURI}
                             width={40}
                             height={40}
-                            alt={`${tokenMetadata.ticker} img`}
+                            alt={`${tokenItem.symbol} img`}
                             className={styles.tokenImage}
                         />
                     }
                 </div>
                 <div className={styles.tokenDataContainer}>
                     <div className={styles.tokenNameContainer}>
-                        {tokenMetadata.name}
+                        {tokenItem.name}
                     </div>
                     <div className={styles.tokenHoldingContainer}>
-                        {`420 ${tokenMetadata.ticker}`}
+                        {`420 ${tokenItem.symbol}`}
                     </div>
                 </div>
             </div>
