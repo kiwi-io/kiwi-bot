@@ -10,6 +10,9 @@ export interface TokenDisplayProps {
 const TokenDisplay = ({
     tokenItem
 }: TokenDisplayProps) => {
+
+    console.log("Token Item: ", tokenItem);
+    
     return (
         <div className={styles.mainContainer}>
             <div className={styles.tokenInfoContainer}>
