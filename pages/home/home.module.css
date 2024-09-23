@@ -14,9 +14,8 @@
     display: flex;
     flex-direction: column;
     height: 30%;
-    /* background-image: -webkit-linear-gradient(top, #FF9D00 0%, #111 50%, #000 100%); */
-    background-color: -webkit-linear-gradient(180deg, #8C4722 0%, #2C1403 100%);
-    padding: 1.5rem;
+    background-image: -webkit-linear-gradient(top, #222 0%, #111 50%, #000 100%);
+    padding: 2rem;
 }
 
 .headerContainer {
@@ -26,7 +25,6 @@
     align-items: center;
     height: 15%;
     font-size: 1rem;
-    background-color: green;
 }
 
 .usernameContainer {
@@ -55,7 +53,6 @@
     width: 100%;
     height: 85%;
     font-size: 1rem;
-    background-color: green;
 }
 
 .balanceContainer {
@@ -119,9 +116,13 @@
     justify-content: center;
     box-sizing: border-box;
     background-color: #fff;
-    padding: 1.5rem;
+    padding: 2rem;
     color: #000;
-    background-color: blue;
+}
+
+.tokenTitleContainer {
+    color: #000;
+    font-size: 2rem;
 }
 
 .tokensContainer {
@@ -130,9 +131,8 @@
 
 .tokenDisplayContainer {
     margin-top: 1rem;
-    margin-right: 1rem;
+    margin-bottom: 1rem;
     cursor: pointer;
-    background-color: yellow;
 }
 
 .tokenDisplayContainer:hover {

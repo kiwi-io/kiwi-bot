@@ -90,6 +90,7 @@ const Home = () => {
             </div> 
             <div className={styles.tokensOuterContainer}>
               <div className={styles.tokensContainer}>
+                <div className={styles.tokenTitleContainer}>Assets</div>
                 {
                   portfolio && portfolio.items ?
                     <>
