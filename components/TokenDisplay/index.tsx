@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./TokenDisplay.module.css";
 import Image from "next/image";
-import { TokenItem } from "../../utils";
+import { increaseDimensionsInUrl, TokenItem } from "../../utils";
 
 export interface TokenDisplayProps {
     tokenItem: TokenItem
@@ -19,7 +19,7 @@ const TokenDisplay = ({
                             <div className={styles.tokenLogoContainer}>
                                 {
                                     <Image
-                                        src={tokenItem.logoURI}
+                                        src={increaseDimensionsInUrl(tokenItem.logoURI, 40, 40)}
                                         width={40}
                                         height={40}
                                         alt={`${tokenItem.symbol} img`}
