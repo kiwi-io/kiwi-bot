@@ -80,7 +80,7 @@ export default function Main() {
             <div className={styles.activePage}>
               {renderActivePage()}
             </div>
-            <Navbar className={styles.navbar}>
+            {/* <Navbar className={styles.navbar}>
               <Container className={styles.navContainer}>
                 <Nav className={styles.nav}>
                   <Nav.Link
@@ -150,7 +150,7 @@ export default function Main() {
                   </Nav.Link>
                 </Nav>
               </Container>
-            </Navbar>
+            </Navbar> */}
           </div>
         :
           loginTimeout ?

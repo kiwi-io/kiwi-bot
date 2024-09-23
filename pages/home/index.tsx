@@ -63,7 +63,7 @@ const Home = () => {
                   </div>
                   <div className={styles.balanceValue}>
                     <span className={styles.dollarSign}>{`$`}</span>
-                    <span className={styles.balance}>{portfolio.totalUsd}</span>
+                    <span className={styles.balance}>{portfolio.totalUsd.toFixed(2)}</span>
                   </div>
                 </div>
                 <div className={styles.actionButtonsContainer}>
