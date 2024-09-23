@@ -62,11 +62,12 @@
 
 .balanceValue {
     font-weight: bold;
+    color: #FFFEFA;
     font-size: 3rem;
 }
 
 .dollarSign {
-    color: rgba(87, 87, 87, 1.0);
+    color: #FFFEFA;
 }
 
 .actionButtonsContainer {
