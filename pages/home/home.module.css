@@ -15,7 +15,7 @@
     flex-direction: column;
     height: 28%;
     background-image: -webkit-linear-gradient(top, #222 0%, #111 50%, #000 100%);
-    padding: 1.75rem;
+    padding: 1.5rem;
 }
 
 .headerContainer {
@@ -85,14 +85,23 @@
 
 .depositButtonContainer {
     width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .withdrawButtonContainer {
     width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .copyButtonContainer {
     width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .actionButtonIcon {
@@ -130,7 +139,7 @@
     /* justify-content: center; */
     box-sizing: border-box;
     background-color: #fff;
-    padding: 1.75rem;
+    padding: 1.5rem;
     color: #000;
 }
 
@@ -138,7 +147,7 @@
     display: flex;
     justify-content: left;
     color: #000;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
 }
 
 .tokensContainer {
@@ -152,8 +161,4 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
     cursor: pointer;
-}
-
-.tokenDisplayContainer:hover {
-    margin: 1.5rem;
 }

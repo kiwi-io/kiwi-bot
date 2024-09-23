@@ -19,9 +19,9 @@ const TokenDisplay = ({
                             <div className={styles.tokenLogoContainer}>
                                 {
                                     <Image
-                                        src={increaseDimensionsInUrl(tokenItem.logoURI, 50, 50)}
-                                        width={40}
-                                        height={40}
+                                        src={increaseDimensionsInUrl(tokenItem.logoURI, 60, 60)}
+                                        width={45}
+                                        height={45}
                                         alt={`${tokenItem.symbol} img`}
                                         className={styles.tokenImage}
                                     />
