@@ -69,17 +69,20 @@ const Home = () => {
                 <div className={styles.actionButtonsContainer}>
                   <div className={styles.depositButtonContainer}>
                     <button className={`${styles.actionButton} ${styles.depositButton}`}>
-                      <span>{`${<span className={`${styles.actionButtonIcon} fa-solid fa-download`}></span>} Receive`}</span>
+                      <span className={`${styles.actionButtonIcon} fa-solid fa-download`}></span>
+                      <span>Receive</span>
                     </button>
                   </div>
                   <div className={styles.withdrawButtonContainer}>
                     <button className={`${styles.actionButton}`}>
-                      <span>{`${<span className={`${styles.actionButtonIcon} fa-solid fa-upload`}></span>} Send`}</span>
+                      <span className={`${styles.actionButtonIcon} fa-solid fa-upload`}></span>
+                      <span>Send</span>
                     </button>
                   </div>
                   <div className={styles.copyButtonContainer}>
                     <button className={`${styles.actionButton}`}>
-                      <span>{`${<span className={`${styles.actionButtonIcon} fa-solid fa-copy`}></span>} Copy`}</span>
+                      <span className={`${styles.actionButtonIcon} fa-solid fa-copy`}></span>
+                      <span>Copy</span>
                     </button>
                   </div>
                 </div>
