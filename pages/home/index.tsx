@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./home.module.css";
 import { usePrivy } from "@privy-io/react-auth";
 import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
+import { WalletPortfolio } from "../../utils";
 
 const Home = () => {
 
@@ -15,12 +16,22 @@ const Home = () => {
     authenticated
   } = usePrivy();
 
+  const [localPortfolio, setLocalPortfolio] = useState<WalletPortfolio>({
+    wallet: "",
+    totalUsd: 0,
+    items: []
+  });
+
   const {
     portfolio
   } = useWalletContext();
 
   useEffect(() => {
-    console.log("Re render state");
+    const doStuff = () => {
+      setLocalPortfolio((_) => portfolio);
+    }
+
+    doStuff();
   }, [portfolio]);
 
   const navigateToSettings = () => {
@@ -57,7 +68,7 @@ const Home = () => {
                   </div>
                   <div className={styles.balanceValue}>
                     <span className={styles.dollarSign}>{`$`}</span>
-                    <span className={styles.balance}>{portfolio.totalUsd}</span>
+                    <span className={styles.balance}>{localPortfolio.totalUsd}</span>
                   </div>
                 </div>
                 <div className={styles.actionButtonsContainer}>
@@ -85,10 +96,10 @@ const Home = () => {
             <div className={styles.tokensOuterContainer}>
               <div className={styles.tokensContainer}>
                 {
-                  portfolio && portfolio.items ?
+                  localPortfolio && localPortfolio.items ?
                     <>
                       {
-                        portfolio.items.map((token, _) => {
+                        localPortfolio.items.map((token, _) => {
                           return (
                             <div className={styles.tokenDisplayContainer} key={token.address}>
                               <TokenDisplay tokenItem={token} />
