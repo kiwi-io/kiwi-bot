@@ -88,29 +88,34 @@ const Home = () => {
                 </div>
               </div>
             </div> 
-            <div className={styles.tokensOuterContainer}>
-              <div className={styles.tokensContainer}>
-                {
-                  portfolio && portfolio.items ?
-                    <>
-                      {
-                        portfolio.items.map((token, _) => {
-                          return (
-                            token.valueUsd > 1 ?
-                              <div className={styles.tokenDisplayContainer} key={token.address}>
-                                <TokenDisplay tokenItem={token} />
-                              </div>
-                            :
-                              <></>
-                          )
-                        })
-                      }
-                    </>
-                  :
-                    <></>
-                }
-              </div>
-            </div>
+            {
+              portfolio ?
+                <div className={styles.tokensOuterContainer}>
+                  <div className={styles.tokensContainer}>
+                    {
+                      portfolio.items ?
+                        <>
+                          {
+                            portfolio.items.map((token, _) => {
+                              return (
+                                token.valueUsd > 1 ?
+                                  <div className={styles.tokenDisplayContainer} key={token.address}>
+                                    <TokenDisplay tokenItem={token} />
+                                  </div>
+                                :
+                                  <></>
+                              )
+                            })
+                          }
+                        </>
+                      :
+                        <></>
+                    }
+                  </div>
+                </div>
+              :
+                <></>
+            }
           </div>
         :
           <div>
