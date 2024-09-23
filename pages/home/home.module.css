@@ -14,7 +14,8 @@
     display: flex;
     flex-direction: column;
     height: 30%;
-    background-image: -webkit-linear-gradient(top, #FF9D00 0%, #111 50%, #000 100%);
+    /* background-image: -webkit-linear-gradient(top, #FF9D00 0%, #111 50%, #000 100%); */
+    background-color: -webkit-linear-gradient(180deg, #8C4722 0%, #2C1403 100%);
     padding: 1.5rem;
 }
 
@@ -25,6 +26,7 @@
     align-items: center;
     height: 15%;
     font-size: 1rem;
+    background-color: green;
 }
 
 .usernameContainer {
@@ -53,6 +55,7 @@
     width: 100%;
     height: 85%;
     font-size: 1rem;
+    background-color: green;
 }
 
 .balanceContainer {
@@ -118,6 +121,7 @@
     background-color: #fff;
     padding: 1.5rem;
     color: #000;
+    background-color: blue;
 }
 
 .tokensContainer {
@@ -128,6 +132,7 @@
     margin-top: 1rem;
     margin-right: 1rem;
     cursor: pointer;
+    background-color: yellow;
 }
 
 .tokenDisplayContainer:hover {
