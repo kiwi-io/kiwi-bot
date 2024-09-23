@@ -20,7 +20,7 @@ export default function Main() {
 
   const {createWallet} = useSolanaWallets();
 
-  const {portfolio, updatePortfolio} = useWalletContext();
+  const {updatePortfolio} = useWalletContext();
 
   const {
     ready,
@@ -50,14 +50,6 @@ export default function Main() {
 
     return () => clearTimeout(timer);
   }, [ready, authenticated]);
-
-  useEffect(() => {
-    const doStuff = () => {
-      console.log("index useEffect listener: portfolio updated: ", portfolio);
-    }
-
-    doStuff();
-  }, [portfolio]);
 
   const handleNavClick = (page: string) => {
     setActivePage(page);

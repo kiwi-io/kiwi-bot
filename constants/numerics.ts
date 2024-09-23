@@ -1,0 +1,1 @@
+export const WALLET_UPDATE_FREQUENCY_IN_MS = 300_000;

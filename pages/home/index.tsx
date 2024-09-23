@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./home.module.css";
 import { usePrivy } from "@privy-io/react-auth";
 import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
-import { WalletPortfolio } from "../../utils";
+import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
 
 const Home = () => {
 
@@ -16,22 +16,17 @@ const Home = () => {
     authenticated
   } = usePrivy();
 
-  const [localPortfolio, setLocalPortfolio] = useState<WalletPortfolio>({
-    wallet: "",
-    totalUsd: 0,
-    items: []
-  });
-
   const {
-    portfolio
+    portfolio,
+    updatePortfolio
   } = useWalletContext();
 
   useEffect(() => {
-    const doStuff = () => {
-      setLocalPortfolio((_) => portfolio);
-    }
+    const intervalId = setInterval(() => {
+      updatePortfolio(user);
+    }, WALLET_UPDATE_FREQUENCY_IN_MS);
 
-    doStuff();
+    return () => clearInterval(intervalId);
   }, [portfolio]);
 
   const navigateToSettings = () => {
@@ -68,7 +63,7 @@ const Home = () => {
                   </div>
                   <div className={styles.balanceValue}>
                     <span className={styles.dollarSign}>{`$`}</span>
-                    <span className={styles.balance}>{localPortfolio.totalUsd}</span>
+                    <span className={styles.balance}>{portfolio.totalUsd}</span>
                   </div>
                 </div>
                 <div className={styles.actionButtonsContainer}>
@@ -96,10 +91,10 @@ const Home = () => {
             <div className={styles.tokensOuterContainer}>
               <div className={styles.tokensContainer}>
                 {
-                  localPortfolio && localPortfolio.items ?
+                  portfolio && portfolio.items ?
                     <>
                       {
-                        localPortfolio.items.map((token, _) => {
+                        portfolio.items.map((token, _) => {
                           return (
                             <div className={styles.tokenDisplayContainer} key={token.address}>
                               <TokenDisplay tokenItem={token} />
