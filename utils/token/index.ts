@@ -23,12 +23,14 @@ export const getHoldings = async (address: PublicKey) => {
       
             // The balance is stored as a u64 in the data
             //@ts-ignore
-            const balance = new BN(parsedData.amount, 10, 'le').toString(); 
+            const balance = new BN(parsedData.amount, 10, 'le'); 
       
-            return {
-              pubkey: accountInfo.pubkey.toBase58(),
-              balance: balance,
-            };
+            if(balance.gt(new BN(0))) {
+                return {
+                    pubkey: accountInfo.pubkey.toBase58(),
+                    balance: balance.toString(),
+                  };
+            }
         });
   
       console.log("tokenAccountBalances: ", tokenAccountBalances);
