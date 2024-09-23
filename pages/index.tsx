@@ -20,7 +20,7 @@ export default function Main() {
 
   const {createWallet} = useSolanaWallets();
 
-  const {tokenWithBalances, tokenInfos, updateTokenBalancesAndInfos} = useWalletContext();
+  const {portfolio, updatePortfolio} = useWalletContext();
 
   const {
     ready,
@@ -32,11 +32,8 @@ export default function Main() {
       if(user) {
         if(!hasExistingSolanaWallet(user)) {
           createWallet();
-          updateTokenBalancesAndInfos(user);
         }
-        else {
-          updateTokenBalancesAndInfos(user);
-        }
+        updatePortfolio(user);
       }
     },
     onError: (error) => {
@@ -56,19 +53,11 @@ export default function Main() {
 
   useEffect(() => {
     const doStuff = () => {
-      console.log("tokenWithBalances updated: ", tokenWithBalances);
+      console.log("portfolio updated: ", portfolio);
     }
 
     doStuff();
-  }, [tokenWithBalances]);
-
-  useEffect(() => {
-    const doStuff = () => {
-      console.log("tokenInfos updated: ", tokenInfos);
-    }
-
-    doStuff();
-  }, [tokenInfos]);
+  }, [portfolio]);
 
   const handleNavClick = (page: string) => {
     setActivePage(page);
