@@ -33,12 +33,12 @@ export default function Main() {
         if(!hasExistingSolanaWallet(user)) {
           console.log("calling update methods from if");
           createWallet();
-          updateTokenBalances();
+          updateTokenBalances(user);
           updateTokenInfos();
         }
         else {
           console.log("calling update methods from else");
-          updateTokenBalances();
+          updateTokenBalances(user);
           updateTokenInfos();
         }
       }

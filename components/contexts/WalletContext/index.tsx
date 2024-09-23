@@ -8,7 +8,7 @@ import { PublicKey } from "@solana/web3.js";
 interface WalletContextType {
     tokenWithBalances: Map<Token, TokenWithBalance>;
     tokenInfos: Map<Token, TokenInfo>;
-    updateTokenBalances: () => void;
+    updateTokenBalances: (user: User) => void;
     updateTokenInfos: () => void;
 }
 
@@ -27,12 +27,9 @@ export const WalletContextProvider = ({ children }) => {
     const [tokenWithBalances, setTokenWithBalances] = useState<Map<Token, TokenWithBalance>>(new Map<Token, TokenWithBalance>);
     const [tokenInfos, setTokenInfos] = useState<Map<Token, TokenInfo>>(new Map<Token, TokenInfo>);
 
-    const updateTokenBalances = async() => {
+    const updateTokenBalances = async(user: User) => {
         let latestHoldings = new Map<Token, TokenWithBalance>();
 
-        console.log("Before usePrivy");
-        const {user} = usePrivy();
-        console.log("After usePrivy");
         console.log("In updateTokenBalances, user: ", user);
 
         // if(user && user.wallet) {
