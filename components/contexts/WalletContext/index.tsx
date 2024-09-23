@@ -30,15 +30,22 @@ export const WalletContextProvider = ({ children }) => {
         let latestHoldings = new Map<Token, TokenWithBalance>();
         if(user && user.wallet) {
             // latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));
+            const before = Date.now();
             latestHoldings = await getHoldings(new PublicKey("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P"));
+            const after = Date.now();
+            console.log("getHoldings take: ", (after - before), "ms");
         }
 
         let tokenInfosMap = new Map<Token, TokenInfo>();
         let tokenList = await getTokenList();
         tokenList = tokenList.filter((token) => latestHoldings.get(token.address));
+        console.log("Token list size after filter: ", tokenList);
 
+        const before = Date.now();
         const tokenPricePromises = tokenList.map((token) => getTokenPrice(token.address));
         const tokenPrices = await Promise.all(tokenPricePromises);
+        const after = Date.now();
+        console.log("tokenPrices take: ", (after - before), "ms");
 
         for(let index = 0; index < tokenList.length; index++) {
             tokenInfosMap.set(
