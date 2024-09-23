@@ -28,7 +28,7 @@
 }
 
 .tokenNameContainer {
-    color: rgba(72, 24, 0, 0.85);
+    color: rgba(72, 24, 0, 0.95);
     font-size: 1.25rem;
     font-weight: 600;
 }
@@ -43,7 +43,7 @@
     display: flex;
     justify-content: center;
     font-size: 1.25rem;
-    color: rgba(72, 24, 0, 0.85);
+    color: rgba(72, 24, 0, 0.95);
     font-weight: 600;
 }
 
