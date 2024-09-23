@@ -24,12 +24,14 @@ export const useWalletContext = () => {
 
 //@ts-ignore
 export const WalletContextProvider = ({ children }) => {
-    const {user} = usePrivy();
     const [tokenWithBalances, setTokenWithBalances] = useState<Map<Token, TokenWithBalance>>(new Map<Token, TokenWithBalance>);
     const [tokenInfos, setTokenInfos] = useState<Map<Token, TokenInfo>>(new Map<Token, TokenInfo>);
 
     const updateTokenBalances = async() => {
         let latestHoldings = new Map<Token, TokenWithBalance>();
+
+        const {user} = usePrivy();
+        console.log("In updateTokenBalances, user: ", user);
 
         if(user && user.wallet) {
             latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));

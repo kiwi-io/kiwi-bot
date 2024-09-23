@@ -32,6 +32,8 @@ export default function Main() {
       if(user) {
         if(!hasExistingSolanaWallet(user)) {
           createWallet();
+        }
+        else {
           updateTokenBalances();
           updateTokenInfos();
         }
@@ -51,15 +53,6 @@ export default function Main() {
 
     return () => clearTimeout(timer);
   }, [ready, authenticated]);
-
-  useEffect(() => {
-    const doStuff = async() => {
-      updateTokenBalances();
-      updateTokenInfos();
-    }
-
-    doStuff();
-  }, []);
 
   const handleNavClick = (page: string) => {
     setActivePage(page);
