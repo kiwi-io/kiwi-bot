@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     height: 25%;
-    background-image: -webkit-linear-gradient(top, #222 0%, #111 50%, #000 100%);
+    background-image: -webkit-linear-gradient(top, #2C1002 0%, #1F0B01 24%);
     padding: 1.5rem;
 }
 
