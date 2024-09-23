@@ -9,7 +9,7 @@ interface WalletContextType {
     user: User;
     tokenWithBalances: Map<Token, TokenWithBalance>;
     tokenInfos: Map<Token, TokenInfo>;
-    setUser: (user: User) => void;
+    updateUser: (user: User) => void;
     updateTokenBalances: () => void;
     updateTokenInfos: () => void;
 }
@@ -29,6 +29,10 @@ export const WalletContextProvider = ({ children }) => {
     const [user, setUser] = useState<User | undefined>(undefined);
     const [tokenWithBalances, setTokenWithBalances] = useState<Map<Token, TokenWithBalance>>(new Map<Token, TokenWithBalance>);
     const [tokenInfos, setTokenInfos] = useState<Map<Token, TokenInfo>>(new Map<Token, TokenInfo>);
+
+    const updateUser = (user: User) => {
+        setUser(_ => user);
+    }
 
     const updateTokenBalances = async() => {
         let latestHoldings = new Map<Token, TokenWithBalance>();
@@ -70,7 +74,7 @@ export const WalletContextProvider = ({ children }) => {
         user,
         tokenWithBalances,
         tokenInfos,
-        setUser,
+        updateUser,
         updateTokenBalances,
         updateTokenInfos
     } as WalletContextType;
