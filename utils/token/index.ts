@@ -1,5 +1,7 @@
 import { Connection, PublicKey } from "@solana/web3.js"
 import { SPL_TOKEN_PROGRAM, TOKEN_EXTENSIONS_PROGRAM } from "../../constants";
+import { AccountLayout } from '@solana/spl-token';
+import BN from 'bn.js';
 
 export const getHoldings = async (address: PublicKey) => {
     console.log("process.env.rpc_mainnet: ", process.env.NEXT_RPC_MAINNET_URL);
@@ -14,15 +16,20 @@ export const getHoldings = async (address: PublicKey) => {
         
         const allTokenAccounts = [...splTokenAccounts.value, ...token2022Accounts.value];
 
-        const tokenAccountBalances = await Promise.all(
-            allTokenAccounts.map(async (accountInfo) => {
-            const balance = await connection.getTokenAccountBalance(accountInfo.pubkey);
+        const tokenAccountBalances = allTokenAccounts.map((accountInfo) => {
+            // Account data is in a Buffer format, we need to parse it
+            const accountData = accountInfo.account.data;
+            const parsedData = AccountLayout.decode(accountData);
+      
+            // The balance is stored as a u64 in the data
+            //@ts-ignore
+            const balance = new BN(parsedData.amount, 10, 'le').toString(); 
+      
             return {
-                pubkey: accountInfo.pubkey.toBase58(),
-                balance: balance.value.uiAmountString,
+              pubkey: accountInfo.pubkey.toBase58(),
+              balance: balance,
             };
-            })
-      );
+        });
   
       console.log("tokenAccountBalances: ", tokenAccountBalances);
         
