@@ -8,8 +8,7 @@ import { PublicKey } from "@solana/web3.js";
 interface WalletContextType {
     tokenWithBalances: Map<Token, TokenWithBalance>;
     tokenInfos: Map<Token, TokenInfo>;
-    updateTokenBalances: (user: User) => void;
-    updateTokenInfos: () => void;
+    updateTokenBalancesAndInfos: (user: User) => void;
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
@@ -27,7 +26,7 @@ export const WalletContextProvider = ({ children }) => {
     const [tokenWithBalances, setTokenWithBalances] = useState<Map<Token, TokenWithBalance>>(new Map<Token, TokenWithBalance>);
     const [tokenInfos, setTokenInfos] = useState<Map<Token, TokenInfo>>(new Map<Token, TokenInfo>);
 
-    const updateTokenBalances = async(user: User) => {
+    const updateTokenBalancesAndInfos = async(user: User) => {
         let latestHoldings = new Map<Token, TokenWithBalance>();
 
         if(user && user.wallet) {
@@ -36,16 +35,14 @@ export const WalletContextProvider = ({ children }) => {
             console.log("Latest holdings before update: ", latestHoldings);
         }
 
-        setTokenWithBalances(_ => latestHoldings);
-    }
+        setTokenWithBalances((_) => latestHoldings);
 
-    const updateTokenInfos = async() => {
         let tokenInfos = new Map<Token, TokenInfo>();
 
         const tokenList = await getTokenList();
         console.log("Token List: ", tokenList);
         console.log("latest holdings in updateTokenInfos: ", tokenWithBalances);
-        
+
         let tokenInfosArray: TokenInfo[] = [];
 
         tokenList.forEach(async (token) => {
@@ -65,13 +62,13 @@ export const WalletContextProvider = ({ children }) => {
         });
 
         console.log("Latest tokenInfosArray: ", tokenInfosArray);
+
     }
 
     const value = {
         tokenWithBalances,
         tokenInfos,
-        updateTokenBalances,
-        updateTokenInfos
+        updateTokenBalancesAndInfos
     } as WalletContextType;
 
     return (

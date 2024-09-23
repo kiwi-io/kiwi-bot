@@ -20,7 +20,7 @@ export default function Main() {
 
   const {createWallet} = useSolanaWallets();
 
-  const {updateTokenBalances, updateTokenInfos} = useWalletContext();
+  const {updateTokenBalancesAndInfos} = useWalletContext();
 
   const {
     ready,
@@ -31,15 +31,11 @@ export default function Main() {
     onComplete(user, _isNewUser, _wasAlreadyAuthenticated, _loginMethod, _loginAccount) {
       if(user) {
         if(!hasExistingSolanaWallet(user)) {
-          console.log("calling update methods from if");
           createWallet();
-          updateTokenBalances(user);
-          updateTokenInfos();
+          updateTokenBalancesAndInfos(user);
         }
         else {
-          console.log("calling update methods from else");
-          updateTokenBalances(user);
-          updateTokenInfos();
+          updateTokenBalancesAndInfos(user);
         }
       }
     },
