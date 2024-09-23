@@ -13,7 +13,7 @@
 .headerAndOverviewContainer {
     display: flex;
     flex-direction: column;
-    height: 30%;
+    height: 28%;
     background-image: -webkit-linear-gradient(top, #222 0%, #111 50%, #000 100%);
     padding: 1.75rem;
 }
@@ -66,8 +66,9 @@
 }
 
 .balanceValue {
+    margin-top: 1rem;
     font-weight: bold;
-    font-size: 3.5rem;
+    font-size: 3rem;
 }
 
 .dollarSign {
@@ -78,7 +79,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 1rem;
+    /* margin: 1rem; */
     width: 100%;
 }
 
@@ -103,6 +104,8 @@
     border: 1px solid rgba(87, 87, 87, 0.5);
     border-radius: 0.25rem;
     cursor: pointer;
+    width: 25%;
+    max-width: 25%;
 }
 
 .depositButton {
@@ -113,6 +116,7 @@
 
 .tokensOuterContainer {
     display: flex;
+    justify-content: center;
     box-sizing: border-box;
     background-color: #fff;
     padding: 1.75rem;
