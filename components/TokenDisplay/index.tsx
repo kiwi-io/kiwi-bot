@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./TokenDisplay.module.css";
 import Image from "next/image";
-import { increaseDimensionsInUrl, TokenItem } from "../../utils";
+import { formatWithCommas, increaseDimensionsInUrl, TokenItem } from "../../utils";
 
 export interface TokenDisplayProps {
     tokenItem: TokenItem
@@ -29,7 +29,7 @@ const TokenDisplay = ({
                         {tokenItem.name}
                     </div>
                     <div className={styles.tokenHoldingContainer}>
-                        {`${tokenItem.uiAmount.toFixed(2)} ${tokenItem.symbol}`}
+                        {`${formatWithCommas(tokenItem.uiAmount.toFixed(2))} ${tokenItem.symbol}`}
                     </div>
                 </div>
             </div>

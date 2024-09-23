@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
 import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
+import { formatWithCommas } from "../../utils";
 
 const Home = () => {
 
@@ -60,7 +61,7 @@ const Home = () => {
                 <div className={styles.balanceContainer}>
                   <div className={styles.balanceValue}>
                     <span className={styles.dollarSign}>{`$ `}</span>
-                    <span className={styles.balance}>{portfolio.totalUsd.toFixed(2)}</span>
+                    <span className={styles.balance}>{formatWithCommas(portfolio.totalUsd.toFixed(2))}</span>
                   </div>
                 </div>
                 <div className={styles.actionButtonsContainer}>
