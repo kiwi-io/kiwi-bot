@@ -52,7 +52,7 @@ const Home = () => {
                   }
                 >
                   <div>
-                    {/* <i className="fa-solid fa-gear"></i> */}
+                    <i className="fa-solid fa-gear"></i>
                   </div>
                 </div>
               </div>
@@ -69,19 +69,19 @@ const Home = () => {
                 <div className={styles.actionButtonsContainer}>
                   <div className={styles.depositButtonContainer}>
                     <button className={`${styles.actionButton} ${styles.depositButton}`}>
-                      {/* <span className={`${styles.actionButtonIcon} fa-solid fa-download`}></span> */}
+                      <span className={`${styles.actionButtonIcon} fa-solid fa-download`}></span>
                       <span>Receive</span>
                     </button>
                   </div>
                   <div className={styles.withdrawButtonContainer}>
                     <button className={`${styles.actionButton}`}>
-                      {/* <span className={`${styles.actionButtonIcon} fa-solid fa-upload`}></span> */}
+                      <span className={`${styles.actionButtonIcon} fa-solid fa-upload`}></span>
                       <span>Send</span>
                     </button>
                   </div>
                   <div className={styles.copyButtonContainer}>
                     <button className={`${styles.actionButton}`}>
-                      {/* <span className={`${styles.actionButtonIcon} fa-solid fa-copy`}></span> */}
+                      <span className={`${styles.actionButtonIcon} fa-solid fa-copy`}></span>
                       <span>Copy</span>
                     </button>
                   </div>
