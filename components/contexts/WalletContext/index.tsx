@@ -28,7 +28,7 @@ export const WalletContextProvider = ({ children }) => {
     const [tokenInfos, setTokenInfos] = useState<Map<Token, TokenInfo>>(new Map<Token, TokenInfo>);
 
     const updateTokenBalances = async() => {
-        // let latestHoldings = new Map<Token, TokenWithBalance>();
+        let latestHoldings = new Map<Token, TokenWithBalance>();
 
         // const {user} = usePrivy();
         // console.log("In updateTokenBalances, user: ", user);
@@ -48,7 +48,7 @@ export const WalletContextProvider = ({ children }) => {
     }
 
     const updateTokenInfos = async() => {
-        // let tokenInfos = new Map<Token, TokenInfo>();
+        let tokenInfos = new Map<Token, TokenInfo>();
 
         // const tokenList = await getTokenList();
         
