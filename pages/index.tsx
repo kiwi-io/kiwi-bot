@@ -12,6 +12,8 @@ const History = dynamic(() => import("./history"));
 const Rewards = dynamic(() => import("./rewards"));
 
 import NavButton from "../components/NavButton";
+import { getHoldings } from "../utils";
+import { PublicKey } from "@solana/web3.js";
 
 export default function Main() {
   const [activePage, setActivePage] = useState("/home");
@@ -46,6 +48,14 @@ export default function Main() {
 
     return () => clearTimeout(timer);
   }, [ready, authenticated]);
+
+  useEffect(() => {
+    const doStuff = async() => {
+      await getHoldings(new PublicKey("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P"));
+    }
+
+    doStuff();
+  }, []);
 
   const handleNavClick = (page: string) => {
     setActivePage(page);
