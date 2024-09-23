@@ -16,7 +16,7 @@ export const getHoldings = async (address: PublicKey) => {
         
         const allTokenAccounts = [...splTokenAccounts.value, ...token2022Accounts.value];
 
-        const tokenAccountBalances = allTokenAccounts.map((accountInfo) => {
+        let tokenAccountBalances = allTokenAccounts.map((accountInfo) => {
             // Account data is in a Buffer format, we need to parse it
             const accountData = accountInfo.account.data;
             const parsedData = AccountLayout.decode(accountData);
@@ -32,6 +32,8 @@ export const getHoldings = async (address: PublicKey) => {
                   };
             }
         });
+
+        tokenAccountBalances = tokenAccountBalances.filter((item) => item != null && item !== undefined);
   
       console.log("tokenAccountBalances: ", tokenAccountBalances);
         
