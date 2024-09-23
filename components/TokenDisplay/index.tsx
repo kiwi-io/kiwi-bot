@@ -12,37 +12,30 @@ const TokenDisplay = ({
 }: TokenDisplayProps) => {    
     return (
         <div className={styles.mainContainer}>
-            {
-                tokenItem && tokenItem.valueUsd > 1 ?
-                    <>
-                        <div className={styles.tokenInfoContainer}>
-                            <div className={styles.tokenLogoContainer}>
-                                {
-                                    <Image
-                                        src={increaseDimensionsInUrl(tokenItem.logoURI, 60, 60)}
-                                        width={45}
-                                        height={45}
-                                        alt={`${tokenItem.symbol} img`}
-                                        className={styles.tokenImage}
-                                    />
-                                }
-                            </div>
-                            <div className={styles.tokenDataContainer}>
-                                <div className={styles.tokenNameContainer}>
-                                    {tokenItem.name}
-                                </div>
-                                <div className={styles.tokenHoldingContainer}>
-                                    {`${tokenItem.uiAmount.toFixed(2)} ${tokenItem.symbol}`}
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.tokenValueContainer}>
-                            {`$${tokenItem.valueUsd.toFixed(2)}`}
-                        </div>
-                    </>
-                :
-                    <></>
-            }
+            <div className={styles.tokenInfoContainer}>
+                <div className={styles.tokenLogoContainer}>
+                    {
+                        <Image
+                            src={increaseDimensionsInUrl(tokenItem.logoURI, 60, 60)}
+                            width={45}
+                            height={45}
+                            alt={`${tokenItem.symbol} img`}
+                            className={styles.tokenImage}
+                        />
+                    }
+                </div>
+                <div className={styles.tokenDataContainer}>
+                    <div className={styles.tokenNameContainer}>
+                        {tokenItem.name}
+                    </div>
+                    <div className={styles.tokenHoldingContainer}>
+                        {`${tokenItem.uiAmount.toFixed(2)} ${tokenItem.symbol}`}
+                    </div>
+                </div>
+            </div>
+            <div className={styles.tokenValueContainer}>
+                {`$${tokenItem.valueUsd.toFixed(2)}`}
+            </div>
         </div>
     )
 }

@@ -96,9 +96,12 @@ const Home = () => {
                       {
                         portfolio.items.map((token, _) => {
                           return (
-                            <div className={styles.tokenDisplayContainer} key={token.address}>
-                              <TokenDisplay tokenItem={token} />
-                            </div>
+                            token.valueUsd > 1 ?
+                              <div className={styles.tokenDisplayContainer} key={token.address}>
+                                <TokenDisplay tokenItem={token} />
+                              </div>
+                            :
+                              <></>
                           )
                         })
                       }
