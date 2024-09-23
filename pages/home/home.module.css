@@ -13,7 +13,7 @@
 .headerAndOverviewContainer {
     display: flex;
     flex-direction: column;
-    height: 28%;
+    height: 25%;
     background-image: -webkit-linear-gradient(top, #222 0%, #111 50%, #000 100%);
     padding: 1.5rem;
 }
@@ -58,11 +58,6 @@
 .balanceContainer {
     margin: 1rem;
     width: 100%;
-}
-
-.balanceTitle {
-    font-size: 1rem;
-    color: rgba(87, 87, 87, 1.0);
 }
 
 .balanceValue {
@@ -145,6 +140,7 @@
     padding-right: 1.5rem;
     padding-top: 0.5rem;
     color: #000;
+    border-radius: 1rem 0rem 1rem 0rem;
 }
 
 .tokensContainer {

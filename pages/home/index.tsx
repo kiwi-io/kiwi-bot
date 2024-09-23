@@ -58,9 +58,6 @@ const Home = () => {
               </div>
               <div className={styles.overviewContainer}>
                 <div className={styles.balanceContainer}>
-                  <div className={styles.balanceTitle}>
-                    {/* Balance */}
-                  </div>
                   <div className={styles.balanceValue}>
                     <span className={styles.dollarSign}>{`$ `}</span>
                     <span className={styles.balance}>{portfolio.totalUsd.toFixed(2)}</span>
