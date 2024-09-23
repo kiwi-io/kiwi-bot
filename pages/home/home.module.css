@@ -63,7 +63,8 @@
 .balanceValue {
     font-weight: bold;
     color: #FFFEFA;
-    font-size: 3rem;
+    font-size: 3.25rem;
+    margin-bottom: 1rem;
 }
 
 .dollarSign {
