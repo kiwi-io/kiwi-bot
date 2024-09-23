@@ -29,9 +29,7 @@ export const getTokenList = async() => {
               },        
         });
 
-        console.log("Response aya getTokenList: ", response);
-
-        return response.data.tokens as TokenListItem[];
+        return response.data.data.tokens as TokenListItem[];
     } catch (error) {
         console.error('Error fetching token list:', error);
         return [];

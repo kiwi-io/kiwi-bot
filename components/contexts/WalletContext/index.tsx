@@ -32,44 +32,41 @@ export const WalletContextProvider = ({ children }) => {
 
         console.log("In updateTokenBalances, user: ", user);
 
-        // if(user && user.wallet) {
-        //     console.log("User: ", user);
-        //     console.log("User wallet address: ", user.wallet.address);
-        //     // latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));
-        //     console.log("Latest holdings: ", latestHoldings);
-        // }
-        // else {
-        //     console.log("No user found in WalletContext while updating token balance");
-        // }
+        if(user && user.wallet) {
+            console.log("User: ", user);
+            console.log("User wallet address: ", user.wallet.address);
+            latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));
+            console.log("Latest holdings before update: ", latestHoldings);
+        }
+        else {
+            console.log("No user found in WalletContext while updating token balance");
+        }
 
-        // setTokenWithBalances(_ => latestHoldings);
-        console.log("Latest updateTokenBalances: ");
+        setTokenWithBalances(_ => latestHoldings);
     }
 
     const updateTokenInfos = async() => {
         let tokenInfos = new Map<Token, TokenInfo>();
 
-        console.log("Before getTokenList");
         const tokenList = await getTokenList();
-        console.log("After getTokenList");
         console.log("Token List: ", tokenList);
+        console.log("latest holdings in updateTokenInfos: ", tokenWithBalances);
         
-        // let tokenInfosArray = tokenList.map(async (token) => {
-        //     if(tokenWithBalances.get((token.address))) {
-        //         const tokenPrice = await getTokenPrice(token.address);
-        //         return {
-        //             address: token.address,
-        //             decimals: token.decimals,
-        //             symbol: token.symbol,
-        //             name: token.name,
-        //             logo: token.logoURI,
-        //             price: tokenPrice.value,
-        //         } as TokenInfo;
-        //     }
-        // });
+        let tokenInfosArray = tokenList.map(async (token) => {
+            if(tokenWithBalances.get((token.address))) {
+                const tokenPrice = await getTokenPrice(token.address);
+                return {
+                    address: token.address,
+                    decimals: token.decimals,
+                    symbol: token.symbol,
+                    name: token.name,
+                    logo: token.logoURI,
+                    price: tokenPrice.value,
+                } as TokenInfo;
+            }
+        });
 
-        // console.log("Latest tokenInfosArray: ", tokenInfosArray);
-        console.log("Latest updateTokenInfos: ");
+        console.log("Latest tokenInfosArray: ", tokenInfosArray);
     }
 
     const value = {
