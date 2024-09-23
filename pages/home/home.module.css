@@ -113,7 +113,7 @@
     justify-content: center;
     box-sizing: border-box;
     background-color: #fff;
-    min-height: 70%;
+    /* min-height: 70%; */
     color: #000;
 }
 
