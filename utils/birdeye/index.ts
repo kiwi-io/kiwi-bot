@@ -30,7 +30,7 @@ export const getWalletPortfolio = async(address: string): Promise<WalletPortfoli
               },        
         });
 
-        return response.data as WalletPortfolio;
+        return response.data.data as WalletPortfolio;
     } catch (error) {
         console.error('Error fetching wallet portfolio:', error);
         return {
