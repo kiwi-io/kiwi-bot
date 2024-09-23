@@ -83,6 +83,18 @@
     width: 100%;
 }
 
+.depositButtonContainer {
+    width: 25%;
+}
+
+.withdrawButtonContainer {
+    width: 25%;
+}
+
+.copyButtonContainer {
+    width: 25%;
+}
+
 .actionButtonIcon {
     font-size: 0.8rem;
     margin-right: 0.25rem;
@@ -104,8 +116,7 @@
     border: 1px solid rgba(87, 87, 87, 0.5);
     border-radius: 0.25rem;
     cursor: pointer;
-    width: 25%;
-    max-width: 25%;
+    width: 100%;
 }
 
 .depositButton {
@@ -116,7 +127,7 @@
 
 .tokensOuterContainer {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     box-sizing: border-box;
     background-color: #fff;
     padding: 1.75rem;
@@ -133,6 +144,7 @@
 .tokensContainer {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
