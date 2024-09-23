@@ -29,12 +29,12 @@ const TokenDisplay = ({
                         {tokenItem.name}
                     </div>
                     <div className={styles.tokenHoldingContainer}>
-                        {`420 ${tokenItem.symbol}`}
+                        {`${tokenItem.uiAmount} ${tokenItem.symbol}`}
                     </div>
                 </div>
             </div>
             <div className={styles.tokenValueContainer}>
-                {`$50,000`}
+                {`$${tokenItem.valueUsd}`}
             </div>
         </div>
     )

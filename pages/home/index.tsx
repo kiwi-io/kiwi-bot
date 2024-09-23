@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./home.module.css";
 import { usePrivy } from "@privy-io/react-auth";
 import { useRouter } from "next/router";
@@ -18,6 +18,10 @@ const Home = () => {
   const {
     portfolio
   } = useWalletContext();
+
+  useEffect(() => {
+    console.log("Re render state");
+  }, [portfolio]);
 
   const navigateToSettings = () => {
     router.push('/settings');
