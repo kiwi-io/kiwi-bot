@@ -148,13 +148,6 @@
     color: #000;
 }
 
-.tokenTitleContainer {
-    display: flex;
-    justify-content: left;
-    color: #000;
-    font-size: 1.25rem;
-}
-
 .tokensContainer {
     width: 100%;
     display: flex;
