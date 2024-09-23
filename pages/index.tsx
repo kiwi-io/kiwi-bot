@@ -53,7 +53,7 @@ export default function Main() {
 
   useEffect(() => {
     const doStuff = () => {
-      console.log("portfolio updated: ", portfolio);
+      console.log("index useEffect listener: portfolio updated: ", portfolio);
     }
 
     doStuff();

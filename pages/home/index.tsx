@@ -81,13 +81,20 @@ const Home = () => {
             <div className={styles.tokensOuterContainer}>
               <div className={styles.tokensContainer}>
                 {
-                  portfolio.items.map((token, _) => {
-                    return (
-                      <div className={styles.tokenDisplayContainer} key={token.address}>
-                        <TokenDisplay tokenItem={token} />
-                      </div>
-                    )
-                  })
+                  portfolio && portfolio.items ?
+                    <>
+                      {
+                        portfolio.items.map((token, _) => {
+                          return (
+                            <div className={styles.tokenDisplayContainer} key={token.address}>
+                              <TokenDisplay tokenItem={token} />
+                            </div>
+                          )
+                        })
+                      }
+                    </>
+                  :
+                    <></>
                 }
               </div>
             </div>
