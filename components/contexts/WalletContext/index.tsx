@@ -30,8 +30,10 @@ export const WalletContextProvider = ({ children }) => {
     const updateTokenBalances = async() => {
         let latestHoldings = new Map<Token, TokenWithBalance>();
 
-        // const {user} = usePrivy();
-        // console.log("In updateTokenBalances, user: ", user);
+        console.log("Before usePrivy");
+        const {user} = usePrivy();
+        console.log("After usePrivy");
+        console.log("In updateTokenBalances, user: ", user);
 
         // if(user && user.wallet) {
         //     console.log("User: ", user);
@@ -50,7 +52,10 @@ export const WalletContextProvider = ({ children }) => {
     const updateTokenInfos = async() => {
         let tokenInfos = new Map<Token, TokenInfo>();
 
-        // const tokenList = await getTokenList();
+        console.log("Before getTokenList");
+        const tokenList = await getTokenList();
+        console.log("After getTokenList");
+        console.log("Token List: ", tokenList);
         
         // let tokenInfosArray = tokenList.map(async (token) => {
         //     if(tokenWithBalances.get((token.address))) {
