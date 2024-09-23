@@ -36,6 +36,7 @@ export const getTokenList = async() => {
         return response.data.tokens as TokenListItem[];
     } catch (error) {
         console.error('Error fetching token list:', error);
+        return [];
     }
 }
 
