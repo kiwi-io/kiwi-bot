@@ -18,20 +18,16 @@ export interface TokenPriceItem {
     value: number;
     updateUnixTime: number;
     updateHumanTime: string;
-
 }
 
 export const getTokenList = async() => {
     try {
-        console.log("URL: ", BIRDEYE_GET_TOKEN_LIST);
         const response = await axios.get(`${BIRDEYE_GET_TOKEN_LIST}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'X-API-KEY': `${process.env.NEXT_BIRDEYE_API_KEY}`,
               },        
         });
-
-        console.log("Get token price response: ", response);
 
         return response.data.tokens as TokenListItem[];
     } catch (error) {

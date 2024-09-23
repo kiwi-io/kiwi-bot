@@ -7,11 +7,9 @@ export interface TokenInfo {
   name: string;
   logo: string;
   price: number;
-  history30minPrice: number;
-  priceChange30mPercent: number;
 }
 
 export interface TokenWithBalance {
-  address: string;
-  balance: number;
+  tokenAccount: string;
+  balance: string;
 }

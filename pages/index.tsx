@@ -12,14 +12,15 @@ const History = dynamic(() => import("./history"));
 const Rewards = dynamic(() => import("./rewards"));
 
 import NavButton from "../components/NavButton";
-import { getHoldings } from "../utils";
-import { PublicKey } from "@solana/web3.js";
+import { useWalletContext } from "../components/contexts";
 
 export default function Main() {
   const [activePage, setActivePage] = useState("/home");
   const [loginTimeout, setLoginTimeout] = useState(false);
 
   const {createWallet} = useSolanaWallets();
+
+  const {setUser, updateTokenBalances, updateTokenInfos} = useWalletContext();
 
   const {
     ready,
@@ -31,6 +32,9 @@ export default function Main() {
       if(user) {
         if(!hasExistingSolanaWallet(user)) {
           createWallet();
+          setUser(user);
+          updateTokenBalances();
+          updateTokenInfos();
         }
       }
     },
@@ -51,7 +55,8 @@ export default function Main() {
 
   useEffect(() => {
     const doStuff = async() => {
-      await getHoldings(new PublicKey("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P"));
+      updateTokenBalances();
+      updateTokenInfos();
     }
 
     doStuff();

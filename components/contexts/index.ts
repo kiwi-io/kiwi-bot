@@ -1,2 +1,1 @@
-export * from "./UserContext";
-export * from "./TokenContext";
+export * from "./WalletContext";

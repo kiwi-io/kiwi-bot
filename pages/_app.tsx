@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { PrivyProvider } from "@privy-io/react-auth";
-import { UserContextProvider } from "../components/contexts";
+import { WalletContextProvider } from "../components/contexts";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         crossOrigin="anonymous"
         referrerPolicy="no-referrer"
       />
-      <UserContextProvider>
+      <WalletContextProvider>
         <PrivyProvider
           appId={process.env.NEXT_PRIVY_APP_ID || ""}
           config={{
@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         >
           <Component {...pageProps} />
         </PrivyProvider>
-      </UserContextProvider>
+      </WalletContextProvider>
     </>
   );
 }
