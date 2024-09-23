@@ -13,6 +13,7 @@ const nextConfig = {
     NEXT_PRIVY_APP_ID: process.env.NEXT_PRIVY_APP_ID || "",
     NEXT_PRIVY_SECRET: process.env.NEXT_PRIVY_SECRET || "",
     NEXT_BIRDEYE_API_KEY: process.env.NEXT_BIRDEYE_API_KEY || "",
+    NEXT_RPC_MAINNET_URL: process.env.NEXT_RPC_MAINNET_URL || "",
   },
   eslint: {
     ignoreDuringBuilds: true,

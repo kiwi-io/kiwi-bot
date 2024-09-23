@@ -2,9 +2,9 @@ import { Connection, PublicKey } from "@solana/web3.js"
 import { SPL_TOKEN_PROGRAM, TOKEN_EXTENSIONS_PROGRAM } from "../../constants";
 
 export const getHoldings = async (address: PublicKey) => {
-    console.log("process.env.rpc_mainnet: ", process.env.RPC_MAINNET);
+    console.log("process.env.rpc_mainnet: ", process.env.NEXT_RPC_MAINNET_URL);
     //@ts-ignore
-    const connection = new Connection(process.env.RPC_MAINNET);
+    const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
 
     try {
         const splAccounts = (await connection.getTokenAccountsByOwner(
