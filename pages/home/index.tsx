@@ -59,7 +59,7 @@ const Home = () => {
               <div className={styles.overviewContainer}>
                 <div className={styles.balanceContainer}>
                   <div className={styles.balanceTitle}>
-                    Balance
+                    {/* Balance */}
                   </div>
                   <div className={styles.balanceValue}>
                     <span className={styles.dollarSign}>{`$`}</span>

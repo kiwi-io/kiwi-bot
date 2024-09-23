@@ -15,7 +15,7 @@
     flex-direction: column;
     height: 30%;
     background-image: -webkit-linear-gradient(top, #222 0%, #111 50%, #000 100%);
-    padding: 2rem;
+    padding: 1.75rem;
 }
 
 .headerContainer {
@@ -67,7 +67,7 @@
 
 .balanceValue {
     font-weight: bold;
-    font-size: 3rem;
+    font-size: 3.5rem;
 }
 
 .dollarSign {
@@ -113,20 +113,23 @@
 
 .tokensOuterContainer {
     display: flex;
-    justify-content: center;
     box-sizing: border-box;
     background-color: #fff;
-    padding: 2rem;
+    padding: 1.75rem;
     color: #000;
 }
 
 .tokenTitleContainer {
+    display: flex;
+    justify-content: left;
     color: #000;
-    font-size: 2rem;
+    font-size: 1.75rem;
 }
 
 .tokensContainer {
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .tokenDisplayContainer {
