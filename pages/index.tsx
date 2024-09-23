@@ -20,7 +20,7 @@ export default function Main() {
 
   const {createWallet} = useSolanaWallets();
 
-  const {updateTokenBalancesAndInfos} = useWalletContext();
+  const {tokenWithBalances, tokenInfos, updateTokenBalancesAndInfos} = useWalletContext();
 
   const {
     ready,
@@ -54,6 +54,22 @@ export default function Main() {
     return () => clearTimeout(timer);
   }, [ready, authenticated]);
 
+  useEffect(() => {
+    const doStuff = () => {
+      console.log("tokenWithBalances updated: ", tokenWithBalances);
+    }
+
+    doStuff();
+  }, [tokenWithBalances]);
+
+  useEffect(() => {
+    const doStuff = () => {
+      console.log("tokenInfos updated: ", tokenInfos);
+    }
+
+    doStuff();
+  }, [tokenInfos]);
+
   const handleNavClick = (page: string) => {
     setActivePage(page);
   };
@@ -83,7 +99,7 @@ export default function Main() {
             <div className={styles.activePage}>
               {renderActivePage()}
             </div>
-            {/* <Navbar className={styles.navbar}>
+            <Navbar className={styles.navbar}>
               <Container className={styles.navContainer}>
                 <Nav className={styles.nav}>
                   <Nav.Link
@@ -153,7 +169,7 @@ export default function Main() {
                   </Nav.Link>
                 </Nav>
               </Container>
-            </Navbar> */}
+            </Navbar>
           </div>
         :
           loginTimeout ?

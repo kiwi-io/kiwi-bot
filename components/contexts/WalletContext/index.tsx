@@ -1,4 +1,4 @@
-import { usePrivy, User } from "@privy-io/react-auth";
+import { User } from "@privy-io/react-auth";
 import React from "react";
 import { useState, createContext, useContext } from "react";
 import { Token, TokenInfo, TokenWithBalance } from "../../../utils/types/Token";
@@ -28,27 +28,18 @@ export const WalletContextProvider = ({ children }) => {
 
     const updateTokenBalancesAndInfos = async(user: User) => {
         let latestHoldings = new Map<Token, TokenWithBalance>();
-
         if(user && user.wallet) {
             // latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));
             latestHoldings = await getHoldings(new PublicKey("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P"));
-            console.log("Latest holdings before update: ", latestHoldings);
         }
 
-        setTokenWithBalances((_) => latestHoldings);
-
-        let tokenInfos = new Map<Token, TokenInfo>();
-
+        let tokenInfosMap = new Map<Token, TokenInfo>();
         const tokenList = await getTokenList();
-        console.log("Token List: ", tokenList);
-        console.log("latest holdings in updateTokenInfos: ", tokenWithBalances);
-
-        let tokenInfosArray: TokenInfo[] = [];
-
         tokenList.forEach(async (token) => {
-            if(tokenWithBalances.get((token.address))) {
+            if(latestHoldings.get((token.address))) {
                 const tokenPrice = await getTokenPrice(token.address);
-                tokenInfosArray.push(
+                tokenInfosMap.set(
+                    token.address,
                     {
                         address: token.address,
                         decimals: token.decimals,
@@ -61,8 +52,8 @@ export const WalletContextProvider = ({ children }) => {
             }
         });
 
-        console.log("Latest tokenInfosArray: ", tokenInfosArray);
-
+        setTokenWithBalances((_) => latestHoldings);
+        setTokenInfos((_) => tokenInfosMap);
     }
 
     const value = {
