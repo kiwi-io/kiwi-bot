@@ -161,7 +161,26 @@ const Home = () => {
                   </div>
                 </div>
               :
-                <></>
+              <div className={styles.tokensOuterContainer}>
+                <div className={styles.tokensContainer}>
+                  {
+                    <>
+                      {
+                        DEFAULT_TOKENS_LIST.map((token, _) => {
+                          return (
+                            token.valueUsd > 1 ?
+                              <div className={styles.tokenDisplayContainer} key={token.address}>
+                                <TokenDisplay tokenItem={token} />
+                              </div>
+                            :
+                              <></>
+                          )
+                        })
+                      }
+                    </>
+                  }
+                </div>
+              </div>
             }
           </div>
         :
