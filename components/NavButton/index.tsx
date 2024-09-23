@@ -15,7 +15,7 @@ const NavButton = ({
             <div
                 className={styles.navIcon}
                 style = {{
-                    color: isActive ? `#000` : `#aaaaaa`
+                    color: isActive ? `#481801` : `#aaaaaa`
                 }}
             >
                 <i className={iconClass}></i>

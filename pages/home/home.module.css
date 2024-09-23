@@ -124,23 +124,23 @@
 
 .receiveButton {
     background-color: #FF9D00;
-    color: #000;
+    color: #481801;
     border: none;
 }
 
 .receiveButtonIcon {
-    color: #000;
+    color: #481801;
 }
 
 .tokensOuterContainer {
     display: flex;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: #FFFEFA;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-top: 0.5rem;
     padding-bottom: 2rem;
-    color: #000;
+    color: #481801;
     border-radius: 1rem 1rem 1rem 1rem;
 }
 
