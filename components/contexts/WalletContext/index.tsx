@@ -34,7 +34,7 @@ export const WalletContextProvider = ({ children }) => {
         console.log("In updateTokenBalances, user: ", user);
 
         if(user && user.wallet) {
-            latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));
+            // latestHoldings = await getHoldings(new PublicKey(user?.wallet?.address));
             console.log("Latest holdings: ", latestHoldings);
         }
         else {
@@ -45,25 +45,26 @@ export const WalletContextProvider = ({ children }) => {
     }
 
     const updateTokenInfos = async() => {
-        let tokenInfos = new Map<Token, TokenInfo>();
+        // let tokenInfos = new Map<Token, TokenInfo>();
 
-        const tokenList = await getTokenList();
+        // const tokenList = await getTokenList();
         
-        let tokenInfosArray = tokenList.map(async (token) => {
-            if(tokenWithBalances.get((token.address))) {
-                const tokenPrice = await getTokenPrice(token.address);
-                return {
-                    address: token.address,
-                    decimals: token.decimals,
-                    symbol: token.symbol,
-                    name: token.name,
-                    logo: token.logoURI,
-                    price: tokenPrice.value,
-                } as TokenInfo;
-            }
-        });
+        // let tokenInfosArray = tokenList.map(async (token) => {
+        //     if(tokenWithBalances.get((token.address))) {
+        //         const tokenPrice = await getTokenPrice(token.address);
+        //         return {
+        //             address: token.address,
+        //             decimals: token.decimals,
+        //             symbol: token.symbol,
+        //             name: token.name,
+        //             logo: token.logoURI,
+        //             price: tokenPrice.value,
+        //         } as TokenInfo;
+        //     }
+        // });
 
-        console.log("Latest tokenInfosArray: ", tokenInfosArray);
+        // console.log("Latest tokenInfosArray: ", tokenInfosArray);
+        console.log("Latest tokenInfosArray: ");
     }
 
     const value = {
