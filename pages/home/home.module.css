@@ -144,8 +144,8 @@
     display: flex;
     box-sizing: border-box;
     background-color: #FFFEFA;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
     padding-top: 0.5rem;
     padding-bottom: 2rem;
     min-height: 75%;
@@ -161,11 +161,10 @@
 }
 
 .tokenDisplayContainer {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding: 0.75rem;
     cursor: pointer;
 }
 
 .tokenDisplayContainer:active {
-    background-color: #eae9d7;
+    background-color: #f2f1e5;
 }
