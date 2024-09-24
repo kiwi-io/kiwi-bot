@@ -6,7 +6,7 @@ import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
 import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
 import { formatWithCommas, TokenItem } from "../../utils";
-import useTelegram from "../../utils/twa";
+import { useTelegram } from "../../utils/twa";
 
 const Home = () => {
 
