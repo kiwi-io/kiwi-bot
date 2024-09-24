@@ -142,6 +142,7 @@
     padding-right: 1.5rem;
     padding-top: 0.5rem;
     padding-bottom: 2rem;
+    min-height: 75%;
     color: #481801;
     border-radius: 1rem 1rem 1rem 1rem;
 }
