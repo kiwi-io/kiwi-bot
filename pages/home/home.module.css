@@ -32,14 +32,14 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     transition: background-color 0.3s ease;
-    border-radius: 0.25rem;
+    border-radius: 1rem;
     padding: 0.5rem;
     color: #FFFEFA;
 }
 
 .settingsContainer {
     /* border: 1px solid rgba(87, 87, 87, 0.5); */
-    border-radius: 0.25rem;
+    border-radius: 1rem;
     padding: 0.5rem;
     color: #FFFEFA;
     cursor: pointer;
@@ -123,7 +123,7 @@
     font-weight: 600;
     /* border: 3px solid rgba(51, 17, 0, 1.0); */
     border: none;
-    border-radius: 0.25rem;
+    border-radius: 1rem;
     cursor: pointer;
     width: 100%;
 
@@ -154,7 +154,7 @@
     padding-bottom: 2rem;
     min-height: 75%;
     color: #481801;
-    border-radius: 0.25rem;
+    border-radius: 1rem;
 }
 
 .tokensContainer {
