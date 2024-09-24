@@ -135,7 +135,7 @@ const Home = () => {
                           {
                             portfolio.items.map((token, _) => {
                               return (
-                                token.valueUsd >= 1 ?
+                                token.valueUsd >= 0 ?
                                   <div className={styles.tokenDisplayContainer} key={token.address}>
                                     <TokenDisplay tokenItem={token} />
                                   </div>
