@@ -6,6 +6,7 @@ import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
 import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
 import { formatWithCommas, TokenItem } from "../../utils";
+import useTelegram from "../../utils/twa";
 
 const Home = () => {
 
@@ -73,6 +74,8 @@ const Home = () => {
     router.push('/settings');
   }
 
+  const { vibrate } = useTelegram();
+
   return(
     <div className={styles.container}>
       {
@@ -105,19 +108,34 @@ const Home = () => {
                 </div>
                 <div className={styles.actionButtonsContainer}>
                   <div className={styles.receiveButtonContainer}>
-                    <button className={`${styles.actionButton} ${styles.receiveButton}`}>
+                    <button
+                      className={`${styles.actionButton} ${styles.receiveButton}`}
+                      onClick={() => {
+                        vibrate("light");
+                      }}
+                    >
                       <span className={`${styles.actionButtonIcon } ${styles.receiveButtonIcon} fa-solid fa-download`}></span>
                       <span>Receive</span>
                     </button>
                   </div>
                   <div className={styles.sendButtonContainer}>
-                    <button className={`${styles.actionButton} ${styles.sendButton}`}>
+                    <button
+                      className={`${styles.actionButton} ${styles.sendButton}`}
+                      onClick={() => {
+                        vibrate("medium");
+                      }}
+                    >
                       <span className={`${styles.actionButtonIcon} ${styles.sendButtonIcon} fa-solid fa-upload`}></span>
                       <span>Send</span>
                     </button>
                   </div>
                   <div className={styles.copyButtonContainer}>
-                    <button className={`${styles.actionButton} ${styles.copyButton}`}>
+                    <button
+                      className={`${styles.actionButton} ${styles.copyButton}`}
+                      onClick={() => {
+                        vibrate("heavy");
+                      }}
+                    >
                       <span className={`${styles.actionButtonIcon} ${styles.copyButtonIcon} fa-solid fa-copy`}></span>
                       <span>Copy</span>
                     </button>
