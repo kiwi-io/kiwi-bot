@@ -111,7 +111,7 @@ const Home = () => {
                     <button
                       className={`${styles.actionButton} ${styles.receiveButton}`}
                       onClick={() => {
-                        vibrate("light");
+                        vibrate("medium");
                       }}
                     >
                       <span className={`${styles.actionButtonIcon } ${styles.receiveButtonIcon} fa-solid fa-download`}></span>
@@ -122,7 +122,7 @@ const Home = () => {
                     <button
                       className={`${styles.actionButton} ${styles.sendButton}`}
                       onClick={() => {
-                        vibrate("medium");
+                        vibrate("heavy");
                       }}
                     >
                       <span className={`${styles.actionButtonIcon} ${styles.sendButtonIcon} fa-solid fa-upload`}></span>
@@ -133,7 +133,7 @@ const Home = () => {
                     <button
                       className={`${styles.actionButton} ${styles.copyButton}`}
                       onClick={() => {
-                        vibrate("heavy");
+                        vibrate("soft");
                       }}
                     >
                       <span className={`${styles.actionButtonIcon} ${styles.copyButtonIcon} fa-solid fa-copy`}></span>

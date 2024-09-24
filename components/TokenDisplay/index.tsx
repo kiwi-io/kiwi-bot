@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./TokenDisplay.module.css";
 import Image from "next/image";
 import { formatWithCommas, increaseDimensionsInUrl, TokenItem } from "../../utils";
+import { useTelegram } from "../../utils/twa";
 
 export interface TokenDisplayProps {
     tokenItem: TokenItem
@@ -10,8 +11,16 @@ export interface TokenDisplayProps {
 const TokenDisplay = ({
     tokenItem
 }: TokenDisplayProps) => {    
+
+    const { vibrate } = useTelegram(); 
+
     return (
-        <div className={styles.mainContainer}>
+        <div
+            className={styles.mainContainer}
+            onClick={() => {
+                vibrate("light");
+              }}
+        >
             <div className={styles.tokenInfoContainer}>
                 <div className={styles.tokenLogoContainer}>
                     {
