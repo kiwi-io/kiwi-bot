@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useTelegram } from "../../utils/twa";
 import QRCode from "../../components/QRCode";
 import { usePrivy } from "@privy-io/react-auth";
+import { trimAddress } from "../../utils";
 
 const Receive = () => {
 
@@ -43,15 +44,15 @@ const Receive = () => {
             </div>
             {
                 user && ready && authenticated ?
-                    <>
+                    <div className={styles.walletInfoContainer}>
                         <div className={styles.qrCodeContainer}>
                             <QRCode data={user.wallet.address}/>
                         </div>
                         <div className={styles.addressCopyContainer}>
-                            <span>{user.wallet.address}</span>
+                            <span>{trimAddress(user.wallet.address)}</span>
                             <span>Copy</span>
                         </div>
-                    </>
+                    </div>
                 :
                     <></>
             }

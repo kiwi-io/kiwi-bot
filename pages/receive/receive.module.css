@@ -31,9 +31,17 @@
     font-size: 1.5rem;
 }
 
+.walletInfoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #481801;
+}
+
 .addressCopyContainer {
     background-color: yellow;
     width: 256px;
+    margin-top: 2rem;
     display: flex;
     justify-content: space-between;
 }

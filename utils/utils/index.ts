@@ -25,3 +25,14 @@ export const  increaseDimensionsInUrl = (url: string, newWidth: number, newHeigh
     return new Promise((resolve) => setTimeout(resolve, time));
   };
   
+
+  export const trimAddress = (address: string) => {
+    if (address.length <= 8) {
+      return address;
+    }
+    
+    const firstPart = address.slice(0, 4);
+    const lastPart = address.slice(-4);
+    
+    return `${firstPart}.....${lastPart}`;
+  }
