@@ -165,3 +165,7 @@
     margin-bottom: 0.75rem;
     cursor: pointer;
 }
+
+.tokenDisplayContainer:active {
+    background-color: #e0dfcc;
+}
