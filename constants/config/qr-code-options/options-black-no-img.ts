@@ -17,7 +17,7 @@ export const OPTIONS_BLACK_NO_IMG: any = {
     },
     "dotsOptions": {
       "type": "rounded",
-      "color": "#0d0d0c",
+      "color": "#481801",
       "gradient": null
     },
     "backgroundOptions": {
@@ -32,14 +32,14 @@ export const OPTIONS_BLACK_NO_IMG: any = {
       "gradient": {
         "linear": true,
         "radial": false,
-        "color1": "#6a1a4c",
-        "color2": "#6a1a4c",
+        "color1": "#481801",
+        "color2": "#481801",
         "rotation": "0"
       }
     },
     "cornersSquareOptions": {
       "type": "extra-rounded",
-      "color": "#0d0d0c"
+      "color": "#481801"
     },
     "cornersSquareOptionsHelper": {
       "colorType": {
@@ -49,14 +49,14 @@ export const OPTIONS_BLACK_NO_IMG: any = {
       "gradient": {
         "linear": true,
         "radial": false,
-        "color1": "#000000",
-        "color2": "#000000",
+        "color1": "#481801",
+        "color2": "#481801",
         "rotation": "0"
       }
     },
     "cornersDotOptions": {
       "type": "",
-      "color": "#0d0d0c"
+      "color": "#481801"
     },
     "cornersDotOptionsHelper": {
       "colorType": {
@@ -66,8 +66,8 @@ export const OPTIONS_BLACK_NO_IMG: any = {
       "gradient": {
         "linear": true,
         "radial": false,
-        "color1": "#000000",
-        "color2": "#000000",
+        "color1": "#481801",
+        "color2": "#481801",
         "rotation": "0"
       }
     },
@@ -79,8 +79,8 @@ export const OPTIONS_BLACK_NO_IMG: any = {
       "gradient": {
         "linear": true,
         "radial": false,
-        "color1": "#ffffff",
-        "color2": "#ffffff",
+        "color1": "#481801",
+        "color2": "#481801",
         "rotation": "0"
       }
     }
