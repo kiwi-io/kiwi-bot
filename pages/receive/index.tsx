@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "./receive.module.css";
 import { useRouter } from "next/router";
+import { useTelegram } from "../../utils/twa";
 
 
 const Receive = () => {
 
     const router = useRouter();
+    const { vibrate } = useTelegram();
 
     const backButtonHandler = () => {
         router.push("/home");
@@ -17,6 +19,7 @@ const Receive = () => {
                 <div 
                     className={styles.backButtonContainer}
                     onClick={() => {
+                        vibrate("soft");
                         backButtonHandler();
                     }}
                 >
