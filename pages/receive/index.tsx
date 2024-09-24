@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./receive.module.css";
 import { useRouter } from "next/router";
 import { useTelegram } from "../../utils/twa";
-
+import QRCode from "../../components/QRCode";
 
 const Receive = () => {
 
@@ -33,6 +33,9 @@ const Receive = () => {
                         <i className={`fa-solid fa-arrow-right`}></i>
                     </span>
                 </div>
+            </div>
+            <div className={styles.qrCodeContainer}>
+                    <QRCode data={"4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P"}/>
             </div>
         </div>
     )
