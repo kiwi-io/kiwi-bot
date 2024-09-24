@@ -161,11 +161,11 @@
 }
 
 .tokenDisplayContainer {
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
     cursor: pointer;
 }
 
 .tokenDisplayContainer:active {
-    background-color: #e0dfcc;
+    background-color: #eae9d7;
 }
