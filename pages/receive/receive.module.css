@@ -5,6 +5,7 @@
     height: 100%;
     padding: 1.5rem;
     background-color: yellow;
+    box-sizing: border-box;
 }
 
 .receiveHeaderContainer {
