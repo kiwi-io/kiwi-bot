@@ -31,8 +31,8 @@ export const  increaseDimensionsInUrl = (url: string, newWidth: number, newHeigh
       return address;
     }
     
-    const firstPart = address.slice(0, 4);
-    const lastPart = address.slice(-4);
+    const firstPart = address.slice(0, 6);
+    const lastPart = address.slice(-6);
     
-    return `${firstPart}.....${lastPart}`;
+    return `${firstPart}......${lastPart}`;
   }
