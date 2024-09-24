@@ -58,6 +58,8 @@
 .balanceContainer {
     margin: 1rem;
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .balanceValue {
