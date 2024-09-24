@@ -1,0 +1,28 @@
+.receivePageContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 1.5rem;
+    background-color: yellow;
+}
+
+.receiveHeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    background-color: green;
+}
+
+.backButtonContainer {
+    background-color: red;
+    cursor: pointer;
+    color: #FFFEFA;
+}
+
+.receiveTitleContainer {
+    background-color: red;
+}
+
+.receiveTitle {
+    color: #FFFEFA;
+}

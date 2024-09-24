@@ -74,6 +74,10 @@ const Home = () => {
     router.push('/settings');
   }
 
+  const navigateToReceive = () => {
+    router.push('/receive');
+  }
+
   const { vibrate } = useTelegram();
 
   return(
@@ -112,6 +116,7 @@ const Home = () => {
                       className={`${styles.actionButton} ${styles.receiveButton}`}
                       onClick={() => {
                         vibrate("medium");
+                        navigateToReceive();
                       }}
                     >
                       <span className={`${styles.actionButtonIcon } ${styles.receiveButtonIcon} fa-solid fa-download`}></span>
