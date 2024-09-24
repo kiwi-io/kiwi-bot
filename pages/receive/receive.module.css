@@ -11,13 +11,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .backButtonContainer {
     cursor: pointer;
     color: #481801;
     font-size: 1.25rem;
+    margin: 0.25rem;
 }
 
 .receiveTitleContainer {
