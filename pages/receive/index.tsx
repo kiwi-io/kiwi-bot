@@ -49,8 +49,8 @@ const Receive = () => {
                             <QRCode data={user.wallet.address}/>
                         </div>
                         <div className={styles.addressCopyContainer}>
-                            <span>{trimAddress(user.wallet.address)}</span>
-                            <span>Copy</span>
+                            <span className={styles.addressContainer}>{trimAddress(user.wallet.address)}</span>
+                            <span className={styles.copyAddressContainer}>Copy</span>
                         </div>
                     </div>
                 :
