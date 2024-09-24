@@ -35,7 +35,18 @@ const TokenDisplay = ({
                 </div>
                 <div className={styles.tokenDataContainer}>
                     <div className={styles.tokenNameContainer}>
-                        {tokenItem.name}
+                        {
+                            tokenItem.symbol === "SOL" ?
+                                "Solana"
+                            :
+                                tokenItem.symbol === "USDC" ?
+                                    "USDC"
+                                :
+                                    tokenItem.symbol === "USDT" ?
+                                        "USDT"
+                                    :
+                                        tokenItem.name
+                        }
                     </div>
                     <div className={styles.tokenHoldingContainer}>
                         {`${formatWithCommas(tokenItem.uiAmount.toFixed(2))} ${tokenItem.symbol}`}
