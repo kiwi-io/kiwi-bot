@@ -28,9 +28,9 @@
 }
 
 .usernameContainer {
-    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-    backdrop-filter: blur(10px); /* Blur effect */
-    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     transition: background-color 0.3s ease;
     border-radius: 0.25rem;
     padding: 0.5rem;
@@ -110,7 +110,10 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background-color 0.3s ease;
     color: #FFFEFA;
     padding-left: 1rem;
     padding-right: 1rem;
