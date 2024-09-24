@@ -17,8 +17,13 @@
 .backButtonContainer {
     cursor: pointer;
     color: #481801;
-    font-size: 1.25rem;
-    margin: 0.25rem;
+    font-size: 1.5rem;
+    transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.backButtonContainer:active {
+    background-color: transparent;
+    transform: scale(0.95); /* Slight scale down to indicate press */
 }
 
 .receiveTitleContainer {
