@@ -10,16 +10,18 @@
 .receiveHeaderContainer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .backButtonContainer {
     cursor: pointer;
     color: #481801;
+    font-size: 1rem;
 }
 
 .receiveTitleContainer {
     color: #481801;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .dummyContainer {
