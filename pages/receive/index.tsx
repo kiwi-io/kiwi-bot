@@ -3,6 +3,7 @@ import styles from "./receive.module.css";
 import { useRouter } from "next/router";
 import { useTelegram } from "../../utils/twa";
 import QRCode from "../../components/QRCode";
+import { usePrivy } from "@privy-io/react-auth";
 
 const Receive = () => {
 
@@ -12,6 +13,12 @@ const Receive = () => {
     const backButtonHandler = () => {
         router.push("/home");
     }
+
+    const {
+        user,
+        ready,
+        authenticated
+    } = usePrivy();
 
     return (
         <div className={styles.receivePageContainer}>
@@ -34,9 +41,19 @@ const Receive = () => {
                     </span>
                 </div>
             </div>
-            <div className={styles.qrCodeContainer}>
-                    <QRCode data={"4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P"}/>
-            </div>
+            {
+                user && ready && authenticated ?
+                    <>
+                        <div className={styles.qrCodeContainer}>
+                            <QRCode data={user.wallet.address}/>
+                        </div>
+                        <div className={styles.addressCopyContainer}>
+                            <p>Address: {user.wallet.address}</p>
+                        </div>
+                    </>
+                :
+                    <></>
+            }
         </div>
     )
 }

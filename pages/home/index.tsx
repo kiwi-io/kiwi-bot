@@ -75,7 +75,9 @@ const Home = () => {
   }
 
   const navigateToReceive = () => {
-    router.push('/receive');
+    if(user && ready && authenticated) {
+      router.push('/receive');
+    }
   }
 
   const { vibrate } = useTelegram();
