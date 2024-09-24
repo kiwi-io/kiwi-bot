@@ -130,7 +130,7 @@ const Home = () => {
                 <div className={styles.tokensOuterContainer}>
                   <div className={styles.tokensContainer}>
                     {
-                      portfolio.items ?
+                      portfolio.items.length > 0 ?
                         <>
                           {
                             portfolio.items.map((token, _) => {
