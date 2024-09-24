@@ -163,6 +163,8 @@
 .tokenDisplayContainer {
     padding: 0.75rem;
     cursor: pointer;
+    border: none;
+    border-radius: 0.25rem;
 }
 
 .tokenDisplayContainer:active {
