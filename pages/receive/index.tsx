@@ -20,12 +20,14 @@ const Receive = () => {
                         backButtonHandler();
                     }}
                 >
-                    Back
+                    <i className={`${styles.backButton} fa-solid fa-arrow-left`}></i>
                 </div>
                 <div className={styles.receiveTitleContainer}>
                     <span className={styles.receiveTitle}>Receive</span>
                 </div>
-
+                <div>
+                    <span className={styles.dummyContainer}></span>
+                </div>
             </div>
         </div>
     )
