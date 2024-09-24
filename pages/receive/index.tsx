@@ -26,7 +26,9 @@ const Receive = () => {
                     <span className={styles.receiveTitle}>Receive</span>
                 </div>
                 <div>
-                    <span className={styles.dummyContainer}></span>
+                    <span className={styles.dummyContainer}>
+                        <i className={`fa-solid fa-arrow-right`}></i>
+                    </span>
                 </div>
             </div>
         </div>
