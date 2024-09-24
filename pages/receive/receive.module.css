@@ -5,6 +5,7 @@
     height: 100%;
     padding: 1.5rem;
     box-sizing: border-box;
+    background-color: yellow;
 }
 
 .receiveHeaderContainer {
@@ -12,6 +13,7 @@
     justify-content: space-between;
     align-items: center;
     font-weight: 600;
+    background-color: green;
 }
 
 .backButtonContainer {
@@ -19,6 +21,7 @@
     color: #481801;
     font-size: 1.5rem;
     transition: transform 0.1s ease, background-color 0.2s ease;
+    background-color: red;
 }
 
 .backButtonContainer:active {
@@ -29,6 +32,7 @@
 .receiveTitleContainer {
     color: #481801;
     font-size: 1.5rem;
+    background-color: red;
 }
 
 .dummyContainer {
