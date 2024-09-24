@@ -27,7 +27,7 @@ const Receive = () => {
                 <div 
                     className={styles.backButtonContainer}
                     onClick={() => {
-                        vibrate("soft");
+                        vibrate("light");
                         backButtonHandler();
                     }}
                 >
@@ -50,7 +50,12 @@ const Receive = () => {
                         </div>
                         <div className={styles.addressCopyContainer}>
                             <span className={styles.addressContainer}>{trimAddress(user.wallet.address)}</span>
-                            <span className={styles.copyAddressContainer}>Copy</span>
+                            <span
+                                className={styles.copyAddressContainer}
+                                onClick={() => {
+                                    vibrate("soft");
+                                }}
+                            >Copy</span>
                         </div>
                     </div>
                 :
