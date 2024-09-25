@@ -22,6 +22,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    serverComponentsExternalPackages: ['grammy']
+  }
 };
 
 module.exports = nextConfig;

@@ -1,6 +1,6 @@
 const setTelegramWebhook = async () => {
     const response = await fetch(
-      `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/setWebhook`,
+      `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/setWebhook?url=https://kiwi-bot.vercel.app/api/telegram-bot`,
       {
         method: 'POST',
         headers: {
