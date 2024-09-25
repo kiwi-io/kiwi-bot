@@ -84,10 +84,18 @@
     transition: transform 0.1s ease, background-color 0.2s ease;
     padding: 1rem;
     color: #481801;
-    font-weight: 600;
     width: 256px;
     border: none;
     border-radius: 0.25rem;
+}
+
+.shareOnTelegramButton {
+    background-color: transparent;
+    border: none;
+    font-weight: 600;
+    font-size: 1.25rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .shareOnTelegramButtonContainer:active {
