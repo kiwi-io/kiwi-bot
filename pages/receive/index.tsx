@@ -57,14 +57,14 @@ const Receive = () => {
                                 }}
                             >Copy</span>
                         </div>
-                        <div className={styles.shareOnTelegramButtonContainer}>
-                                <button
-                                    className={styles.shareOnTelegram}
-                                    onClick={() => {
-                                        vibrate("light");
-                                        router.push("/home");
-                                    }}
-                                >Share on Telegram</button>
+                        <div
+                            className={styles.shareOnTelegramButtonContainer}
+                            onClick={() => {
+                                vibrate("light");
+                                router.push("/home");
+                            }}
+                        >
+                            Share on Telegram
                         </div>
                     </div>
                 :
