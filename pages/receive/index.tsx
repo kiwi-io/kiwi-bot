@@ -61,7 +61,7 @@ const Receive = () => {
                             className={styles.shareOnTelegramButtonContainer}
                             onClick={() => {
                                 vibrate("light");
-                                window.open(`https://t.me/share/url?url=https://t.me/samplekiwibot/${user.telegram.telegramUserId}`, '_blank');
+                                window.open(`https://t.me/share/url?text="@samplekiwibot https://t.me/samplekiwibot/${user.telegram.username}"`, '_blank');
                             }}
                         >
                             Share on Telegram
