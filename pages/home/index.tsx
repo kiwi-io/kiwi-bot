@@ -80,6 +80,10 @@ const Home = () => {
     }
   }
 
+  const copyToClipboard = async(text: string) => {
+    await navigator.clipboard.writeText(text);
+}
+
   const { vibrate } = useTelegram();
 
   return(
@@ -141,6 +145,7 @@ const Home = () => {
                       className={`${styles.actionButton} ${styles.copyButton}`}
                       onClick={() => {
                         vibrate("soft");
+                        copyToClipboard(user.wallet.address);
                       }}
                     >
                       <span className={`${styles.actionButtonIcon} ${styles.copyButtonIcon} fa-solid fa-copy`}></span>

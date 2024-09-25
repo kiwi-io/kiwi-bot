@@ -15,6 +15,9 @@ const Receive = () => {
         router.push("/home");
     }
     
+    const copyToClipboard = async(text: string) => {
+        await navigator.clipboard.writeText(text);
+    }
 
     const shareOnTelegramHandler = (username: string) => {
         const botName = '@samplekiwibot';
@@ -65,6 +68,7 @@ const Receive = () => {
                                 className={styles.copyAddressContainer}
                                 onClick={() => {
                                     vibrate("soft");
+                                    copyToClipboard(user.wallet.address);
                                 }}
                             >Copy</span>
                         </div>
