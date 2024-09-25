@@ -89,13 +89,7 @@
     border-radius: 0.25rem;
     font-weight: 600;
     font-size: 1.25rem;
-    width: 100%;
     box-sizing: border-box;
-}
-
-.shareOnTelegramButton {
-    background-color: transparent;
-    border: none;
 }
 
 .shareOnTelegramButtonContainer:active {
