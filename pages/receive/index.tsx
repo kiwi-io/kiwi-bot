@@ -20,7 +20,7 @@ const Receive = () => {
         const botName = '@samplekiwibot';
         const url = `https://t.me/samplekiwibot/${username}`;
         const shareText = encodeURIComponent(`${botName} ${url}`);
-        const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${shareText}`;
+        const telegramUrl = `https://t.me/share/url?text=${shareText}`;
     
         // Redirect user to the Telegram share URL
         window.open(telegramUrl, '_blank');
