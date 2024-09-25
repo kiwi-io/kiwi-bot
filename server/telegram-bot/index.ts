@@ -2,9 +2,12 @@ import { Bot, InlineKeyboard } from 'grammy';
 
 // Initialize the bot
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
-console.log("Bot token: ", process.env.TELEGRAM_BOT_TOKEN);
 
-bot.on("message", (ctx) => ctx.reply("Got another message!"));
+bot.on("message", (ctx) => {
+    const message = ctx.message;
+    console.log("Message: ", message);
+    ctx.reply(message.text);
+});
 
 
 // // Inline query handler for URLs
