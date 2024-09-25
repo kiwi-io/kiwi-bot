@@ -90,6 +90,7 @@
     font-weight: 600;
     font-size: 1.25rem;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .shareOnTelegramButtonContainer:active {
