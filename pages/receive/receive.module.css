@@ -82,6 +82,12 @@
     background-color: #FF9D00;
     margin-top: 3rem;
     transition: transform 0.1s ease, background-color 0.2s ease;
+    padding: 1rem;
+    color: #481801;
+    font-weight: 600;
+    width: 256px;
+    border: none;
+    border-radius: 0.25rem;
 }
 
 .shareOnTelegramButtonContainer:active {
