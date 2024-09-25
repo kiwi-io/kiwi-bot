@@ -21,8 +21,13 @@
     transition: transform 0.1s ease, background-color 0.2s ease;
 }
 
+.dummyContainer {
+    color: #FFFEFA;
+    font-size: 1.5rem;
+    cursor: default;
+}
+
 .backButtonContainer:active {
-    background-color: transparent;
     transform: scale(0.95); /* Slight scale down to indicate press */
 }
 
@@ -70,8 +75,15 @@
     cursor: pointer;
 }
 
-.dummyContainer {
-    color: #FFFEFA;
-    font-size: 1.25rem;
-    cursor: default;
+.shareOnTelegramButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF9D00;
+    margin-top: 3rem;
+    transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.shareOnTelegramButtonContainer:active {
+    transform: scale(0.95);
 }
