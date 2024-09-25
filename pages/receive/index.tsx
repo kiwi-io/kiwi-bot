@@ -14,6 +14,17 @@ const Receive = () => {
     const backButtonHandler = () => {
         router.push("/home");
     }
+    
+
+    const shareOnTelegramHandler = (username: string) => {
+        const botName = '@samplekiwibot';
+        const url = `https://t.me/samplekiwibot/${username}`;
+        const shareText = encodeURIComponent(`${botName} ${url}`);
+        const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${shareText}`;
+    
+        // Redirect user to the Telegram share URL
+        window.open(telegramUrl, '_blank');
+    };
 
     const {
         user,
@@ -61,7 +72,7 @@ const Receive = () => {
                             className={styles.shareOnTelegramButtonContainer}
                             onClick={() => {
                                 vibrate("light");
-                                window.open(`https://t.me/share/url?text="@samplekiwibot https://t.me/samplekiwibot/${user.telegram.username}"`, '_blank');
+                                shareOnTelegramHandler(user.telegram.username);
                             }}
                         >
                             Share on Telegram
