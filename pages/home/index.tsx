@@ -8,9 +8,11 @@ import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
 import { formatWithCommas, TokenItem } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 
-const Home = ({props}: any) => {
+const Home = () => {
 
-  console.log("Received props: ", props);
+  //@ts-ignore
+  const startParam = window.Telegram.WebApp.initDataUnsafe.start_param
+  console.log("startParam: ", startParam);
 
   const router = useRouter();
 
@@ -96,7 +98,7 @@ const Home = ({props}: any) => {
             <div className={styles.headerAndOverviewContainer}>
               <div className={styles.headerContainer}>
                 <div className={styles.usernameContainer}>
-                    <div>{`${user.telegram?.username}`}</div>
+                    <div>{`${startParam} ${user.telegram?.username}`}</div>
                 </div>
                 <div
                   className={styles.settingsContainer}
