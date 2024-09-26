@@ -10,10 +10,6 @@ import { useTelegram } from "../../utils/twa";
 
 const Home = () => {
 
-  //@ts-ignore
-  const startParam = window.Telegram.WebApp.initDataUnsafe.start_param
-  console.log("startParam: ", startParam);
-
   const router = useRouter();
 
   const {
@@ -98,7 +94,10 @@ const Home = () => {
             <div className={styles.headerAndOverviewContainer}>
               <div className={styles.headerContainer}>
                 <div className={styles.usernameContainer}>
-                    <div>{`${startParam} ${user.telegram?.username}`}</div>
+                    <div>{`${
+                      //@ts-ignore
+                      window.Telegram.WebApp.initDataUnsafe.start_param
+                    } ${user.telegram?.username}`}</div>
                 </div>
                 <div
                   className={styles.settingsContainer}
