@@ -1,4 +1,5 @@
 import { Bot, InlineKeyboard } from 'grammy';
+import { webhookCallback } from "grammy";
 
 // Initialize the bot
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
@@ -91,6 +92,4 @@ bot.on("message", (ctx) => {
   
 
 // Launch the bot
-bot.start();
-
-export default bot;
+export const botWebhook = webhookCallback(bot, "next-js");

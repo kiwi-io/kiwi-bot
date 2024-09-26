@@ -1,4 +1,6 @@
-import bot from "../../server/telegram-bot";
+// import bot from "../../server/telegram-bot";
+import { botWebhook } from "../../server/telegram-bot";
+
 
 // export default async function handler(req: any, res: any) {
 //   if (req.method === 'POST') {
@@ -12,13 +14,14 @@ import bot from "../../server/telegram-bot";
 export default async function handler(req: any, res: any) {
   if (req.method === 'POST') {
     try {
-      // Initialize the bot
-      if (!bot.isInited()) {
-        await bot.init(); // Fetch bot info from Telegram API
-      }
+      // // Initialize the bot
+      // if (!bot.isInited()) {
+      //   await bot.init(); // Fetch bot info from Telegram API
+      // }
 
       // Handle incoming Telegram updates
-      await bot.handleUpdate(req.body); 
+      // await bot.handleUpdate(req.body); 
+      await botWebhook(req, res); // Handle the webhook with the bot
 
       res.status(200).send('OK');
     } catch (err) {
