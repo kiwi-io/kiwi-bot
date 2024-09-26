@@ -33,9 +33,9 @@ bot.on('inline_query', async (ctx) => {
           message_text: `Check out this Kiwi link: ${url}`,
         },
         reply_markup: new InlineKeyboard()
-          .url('Open Kiwi Mini App', `https://t.me/samplekiwibot/bot/rewards?startapp=hello&mode=compact`)
+          .url('Open Kiwi Mini App', `https://t.me/samplekiwibot/bot?startapp=hello&mode=compact`)
           .row()
-          .url('Another Button', `https://t.me/samplekiwibot/bot/rewards?startapp=hello&mode=compact`),
+          .url('Another Button', `https://t.me/samplekiwibot/bot?startapp=hello&mode=compact`),
       },
     ]);
   } else {
