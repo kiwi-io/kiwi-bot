@@ -8,7 +8,9 @@ import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
 import { formatWithCommas, TokenItem } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 
-const Home = () => {
+const Home = ({props}: any) => {
+
+  console.log("Received props: ", props);
 
   const router = useRouter();
 
