@@ -170,6 +170,8 @@
     cursor: pointer;
     border: none;
     border-radius: 0.25rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 
 .tokenDisplayContainer:active {
