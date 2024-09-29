@@ -21,7 +21,7 @@ const Tokens = () => {
     return (
         portfolio && portfolio.items.length > 0 ?
             <div className={styles.tokensMainContainer}>
-                <div className={styles.sendTokensHeaderContainer}>
+                <div className={styles.sendHeaderContainer}>
                     <div 
                         className={styles.backButtonContainer}
                         onClick={() => {
@@ -40,10 +40,7 @@ const Tokens = () => {
                         </span>
                     </div>
                 </div>
-                <div className={styles.searchBarContainer}>
-                    Search bar comes here
-                </div>
-                <div className={styles.allTokensContainer}>
+                <div className={styles.allTokensOuterContainer}>
                     {
                         portfolio.items.map((token, _) => {
                             return (

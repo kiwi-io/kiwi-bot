@@ -36,14 +36,29 @@
     font-size: 1.5rem;
 }
 
-.searchBarContainer {
+.allTokensOuterContainer {
     display: flex;
-    padding: 1rem;
-    background-color: #888;
-    color: #000;
-    font-size: 1rem;
+    box-sizing: border-box;
+    background-color: #FFFEFA;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 2rem;
+    min-height: 75%;
+    color: #481801;
+    border-radius: 1.25rem;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 0.5rem;
 }
 
-.allTokensContainer {
-    padding: 1rem;
+.tokenDisplayContainer {
+    padding: 0.75rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.25rem;
+}
+
+.tokenDisplayContainer:active {
+    background-color: #f2f1e5;
 }
