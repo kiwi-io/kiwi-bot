@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
 import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
-import { formatWithCommas, TokenItem } from "../../utils";
+import { formatWithCommas } from "../../utils";
 import { useTelegram } from "../../utils/twa";
+import { DEFAULT_TOKENS_LIST } from "../../constants";
 
 const Home = () => {
 
@@ -30,45 +31,6 @@ const Home = () => {
 
     return () => clearInterval(intervalId);
   }, [portfolio]);
-
-  const DEFAULT_TOKENS_LIST: TokenItem[] = [
-    {
-      address: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-      decimals: 6,
-      balance: 0.0,
-      uiAmount: 0.0,
-      chainId: "solana",
-      name: "USDC",
-      symbol: "USDC",
-      logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
-      priceUsd: 0.0,
-      valueUsd: 0.0,
-  } as TokenItem,
-  {
-      address: "",
-      decimals: 9,
-      balance: 0.0,
-      uiAmount: 0.0,
-      chainId: "solana",
-      name: "Solana",
-      symbol: "SOL",
-      logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
-      priceUsd: 0.0,
-      valueUsd: 0.0,
-  } as TokenItem,
-  {
-      address: "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
-      decimals: 6,
-      balance: 0.0,
-      uiAmount: 0.0,
-      chainId: "solana",
-      name: "USDT",
-      symbol: "USDT",
-      logoURI: "https://raw.githubusercontent.com/Smaler1/coin/main/logo.png",
-      priceUsd: 0.0,
-      valueUsd: 0.0,
-  } as TokenItem
-  ];
 
   const navigateToSettings = () => {
     router.push('/settings');
@@ -94,10 +56,7 @@ const Home = () => {
             <div className={styles.headerAndOverviewContainer}>
               <div className={styles.headerContainer}>
                 <div className={styles.usernameContainer}>
-                    <div>{`${
-                      //@ts-ignore
-                      window.Telegram.WebApp.initDataUnsafe.start_param
-                    } ${user.telegram?.username}`}</div>
+                    <div>{`${user.telegram?.username}`}</div>
                 </div>
                 <div
                   className={styles.settingsContainer}
