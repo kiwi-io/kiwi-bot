@@ -136,7 +136,7 @@ const Home = () => {
                               return (
                                 token.valueUsd >= 0 ?
                                   <div className={styles.tokenDisplayContainer} key={token.address}>
-                                    <TokenDisplay tokenItem={token} showUsdValue={false} />
+                                    <TokenDisplay tokenItem={token} showUsdValue={true} />
                                   </div>
                                 :
                                   <></>
@@ -150,7 +150,7 @@ const Home = () => {
                             DEFAULT_TOKENS_LIST.map((token, _) => {
                               return (
                                 <div className={styles.tokenDisplayContainer} key={token.address}>
-                                  <TokenDisplay tokenItem={token} showUsdValue={false}/>
+                                  <TokenDisplay tokenItem={token} showUsdValue={true}/>
                                 </div>
                               )
                             })
@@ -168,7 +168,7 @@ const Home = () => {
                         DEFAULT_TOKENS_LIST.map((token, _) => {
                           return (
                             <div className={styles.tokenDisplayContainer} key={token.address}>
-                              <TokenDisplay tokenItem={token} showUsdValue={false} />
+                              <TokenDisplay tokenItem={token} showUsdValue={true} />
                             </div>
                           )
                         })
