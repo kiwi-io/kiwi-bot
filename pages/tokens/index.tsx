@@ -19,46 +19,48 @@ const Tokens = () => {
     }
     
     return (
-        portfolio && portfolio.items.length > 0 ?
-            <div className={styles.tokensMainContainer}>
-                <div className={styles.sendHeaderContainer}>
-                    <div 
-                        className={styles.backButtonContainer}
-                        onClick={() => {
-                            vibrate("light");
-                            backButtonHandler();
-                        }}
-                    >
-                        <i className={`${styles.backButton} fa-solid fa-arrow-left`}></i>
-                    </div>
-                    <div className={styles.sendTitleContainer}>
-                        <span className={styles.sendTitle}>Select Token</span>
-                    </div>
-                    <div>
-                        <span className={styles.dummyContainer}>
-                            <i className={`fa-solid fa-arrow-right`}></i>
-                        </span>
-                    </div>
+        <div className={styles.tokensMainContainer}>
+            <div className={styles.sendHeaderContainer}>
+                <div 
+                    className={styles.backButtonContainer}
+                    onClick={() => {
+                        vibrate("light");
+                        backButtonHandler();
+                    }}
+                >
+                    <i className={`${styles.backButton} fa-solid fa-arrow-left`}></i>
                 </div>
-                <div className={styles.allTokensOuterContainer}>
-                    {
-                        portfolio.items.map((token, _) => {
-                            return (
-                            token.valueUsd >= 0 ?
-                                <div className={styles.tokenDisplayContainer} key={token.address}>
-                                <TokenDisplay tokenItem={token} showUsdValue={false} />
-                                </div>
-                            :
-                                <></>
-                            )
-                        })
-                    }
+                <div className={styles.sendTitleContainer}>
+                    <span className={styles.sendTitle}>Select Token</span>
+                </div>
+                <div>
+                    <span className={styles.dummyContainer}>
+                        <i className={`fa-solid fa-arrow-right`}></i>
+                    </span>
                 </div>
             </div>
-        :
-            <div className={styles.tokensMainContainer}>
-                No token balances found
-            </div>
+            {
+                portfolio && portfolio.items.length > 0 ?
+                    <div className={styles.allTokensOuterContainer}>
+                        {
+                            portfolio.items.map((token, _) => {
+                                return (
+                                token.valueUsd >= 0 ?
+                                    <div className={styles.tokenDisplayContainer} key={token.address}>
+                                    <TokenDisplay tokenItem={token} showUsdValue={false} />
+                                    </div>
+                                :
+                                    <></>
+                                )
+                            })
+                        }
+                    </div>
+                :
+                    <div className={styles.tokensMainContainer}>
+                        No token balances found
+                    </div>
+            }
+        </div>
     )
 }
 
