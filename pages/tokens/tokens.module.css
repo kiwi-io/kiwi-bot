@@ -1,0 +1,49 @@
+.tokensMainContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.sendHeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.backButtonContainer {
+    cursor: pointer;
+    color: #481801;
+    font-size: 1.5rem;
+    transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.dummyContainer {
+    color: #FFFEFA;
+    font-size: 1.5rem;
+    cursor: default;
+}
+
+.backButtonContainer:active {
+    transform: scale(0.95); /* Slight scale down to indicate press */
+}
+
+.sendTitleContainer {
+    color: #481801;
+    font-size: 1.5rem;
+}
+
+.searchBarContainer {
+    display: flex;
+    padding: 1rem;
+    background-color: #888;
+    color: #000;
+    font-size: 1rem;
+}
+
+.allTokensContainer {
+    padding: 1rem;
+}

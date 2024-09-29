@@ -42,6 +42,12 @@ const Home = () => {
     }
   }
 
+  const navigateToAllTokens = () => {
+    if(user && ready && authenticated) {
+      router.push('/tokens');
+    }
+  }
+
   const copyToClipboard = async(text: string) => {
     await navigator.clipboard.writeText(text);
 }
@@ -96,6 +102,7 @@ const Home = () => {
                       className={`${styles.actionButton} ${styles.sendButton}`}
                       onClick={() => {
                         vibrate("heavy");
+                        navigateToAllTokens();
                       }}
                     >
                       <span className={`${styles.actionButtonIcon} ${styles.sendButtonIcon} fa-solid fa-upload`}></span>
@@ -129,7 +136,7 @@ const Home = () => {
                               return (
                                 token.valueUsd >= 0 ?
                                   <div className={styles.tokenDisplayContainer} key={token.address}>
-                                    <TokenDisplay tokenItem={token} />
+                                    <TokenDisplay tokenItem={token} showUsdValue={false} />
                                   </div>
                                 :
                                   <></>
@@ -143,7 +150,7 @@ const Home = () => {
                             DEFAULT_TOKENS_LIST.map((token, _) => {
                               return (
                                 <div className={styles.tokenDisplayContainer} key={token.address}>
-                                  <TokenDisplay tokenItem={token} />
+                                  <TokenDisplay tokenItem={token} showUsdValue={false}/>
                                 </div>
                               )
                             })
@@ -161,7 +168,7 @@ const Home = () => {
                         DEFAULT_TOKENS_LIST.map((token, _) => {
                           return (
                             <div className={styles.tokenDisplayContainer} key={token.address}>
-                              <TokenDisplay tokenItem={token} />
+                              <TokenDisplay tokenItem={token} showUsdValue={false} />
                             </div>
                           )
                         })

@@ -5,11 +5,13 @@ import { formatWithCommas, increaseDimensionsInUrl, TokenItem } from "../../util
 import { useTelegram } from "../../utils/twa";
 
 export interface TokenDisplayProps {
-    tokenItem: TokenItem
+    tokenItem: TokenItem,
+    showUsdValue: boolean;
 }
 
 const TokenDisplay = ({
-    tokenItem
+    tokenItem,
+    showUsdValue
 }: TokenDisplayProps) => {    
 
     const { vibrate } = useTelegram(); 
@@ -54,7 +56,12 @@ const TokenDisplay = ({
                 </div>
             </div>
             <div className={styles.tokenValueContainer}>
-                {`$${tokenItem.valueUsd.toFixed(2)}`}
+                {
+                    showUsdValue ?
+                        <>{`$${tokenItem.valueUsd.toFixed(2)}`}</>
+                    :
+                        <></>
+                }
             </div>
         </div>
     )
