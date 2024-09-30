@@ -15,7 +15,6 @@ const Home = () => {
 
   const { user, ready, authenticated } = usePrivy();
   const { showMfaEnrollmentModal } = useMfaEnrollment();
-  const [biometryManager] = initBiometryManager();
 
   const { portfolio, updatePortfolio } = useWalletContext();
 
@@ -30,12 +29,16 @@ const Home = () => {
   useEffect(() => {
     const doStuff = async () => {
       if(user.mfaMethods.filter((mfaMethod) => mfaMethod === "passkey").length === 0) {
-        (await biometryManager).requestAccess({
-          reason: "Passkey verification"
-        }).then((response) => {
-          console.log("Access granted: ", response);
-          showMfaEnrollmentModal();
-        })
+        if(window) {
+          const [biometryManager] = initBiometryManager();
+          
+          (await biometryManager).requestAccess({
+            reason: "Passkey verification"
+          }).then((response) => {
+            console.log("Access granted: ", response);
+            showMfaEnrollmentModal();
+          })
+        }
       }
     }
 
