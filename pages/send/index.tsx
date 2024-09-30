@@ -62,19 +62,22 @@ const Send = () => {
       </div>
       <div className={styles.sendBodyContainer}>
         <div className={styles.tokenImageContainer}>
-          <Image
-            src={increaseDimensionsInUrl(
-              selectedTokenItem
-                ? selectedTokenItem.logoURI
-                : "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
-              60,
-              60,
-            )}
-            width={75}
-            height={75}
-            alt={`${selectedTokenItem ? selectedTokenItem.symbol : "Token"} img`}
-            className={styles.tokenImage}
-          />
+          {
+            selectedTokenItem ?
+                <Image
+                    src={increaseDimensionsInUrl(
+                    selectedTokenItem.logoURI,
+                    60,
+                    60,
+                    )}
+                    width={75}
+                    height={75}
+                    alt={`${selectedTokenItem ? selectedTokenItem.symbol : "Token"} img`}
+                    className={styles.tokenImage}
+                />
+            :
+                <></>
+          }
         </div>
         <div className={styles.sendFormContainer}>
           <Form>
