@@ -106,14 +106,26 @@ const Send = () => {
                   onChange={(e) => handleRecipientChange(e)}
                   value={selectedRecipient}
                 />
-                <i className={`${styles.pasteAddressButton} fa-regular fa-paste`}
-                  onClick={
-                    () => {
-                      vibrate("soft");
-                      handlePaste();
+                <div className={styles.pasteAddressButton}>
+                  <i className={`fa-regular fa-paste`}
+                    onClick={
+                      () => {
+                        vibrate("soft");
+                        handlePaste();
+                      }
                     }
-                  }
-                ></i>
+                  ></i>
+                </div>
+                <div className={styles.pasteAddressButton}>
+                  <i className={`fa-regular fa-paste`}
+                    onClick={
+                      () => {
+                        vibrate("soft");
+                        handlePaste();
+                      }
+                    }
+                  ></i>
+                </div>
                 </div>
               </div>
             </Form.Group>
