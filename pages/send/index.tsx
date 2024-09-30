@@ -75,6 +75,11 @@ const Send = () => {
     })
   }
 
+  const handleMaxAmount = async () => {
+    const maxAmount = selectedTokenItem.balance;
+    setSelectedAmount((_) => maxAmount.toString());
+  }
+
   const confirmSendHandler = async () => {
     router.push(`/send-transaction-confirmation?from=${user.wallet.address}&to=${selectedRecipient}&token=${selectedTokenItem.address}&amount=${selectedAmount}`)
   }
@@ -156,17 +161,32 @@ const Send = () => {
               controlId="formInput"
               className={styles.formGroupContainer}
             >
-              <div className={styles.formLabelAndFieldContainer}>
-                {/* <Form.Label className={styles.formLabelContainer}>
-                  <span>Amount</span>
-                </Form.Label> */}
+              <div className={styles.formLabelAndFieldContainer}
+                style = {{
+                  border: 'none',
+                  borderRadius: '0rem',
+                  borderBottom: `2px solid #481801`,
+                }}
+              >
+                <div className={styles.recipientFieldContainer}>
                 <Form.Control
                   placeholder={"Amount"}
                   // disabled={!wallet.connected}
-                  className={styles.formField}
+                  className={styles.recipientFormField}
                   onChange={(e) => handleAmountChange(e)}
                   value={selectedAmount}
                 />
+                <div className={styles.pasteAddressButton}>
+                  <i className={`fa-regular fa-paste`}
+                    onClick={
+                      () => {
+                        vibrate("soft");
+                        handleMaxAmount();
+                      }
+                    }
+                  ></i>
+                </div>
+                </div>
               </div>
             </Form.Group>
           </Form>
