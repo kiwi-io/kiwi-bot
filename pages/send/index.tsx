@@ -37,7 +37,7 @@ const Send = () => {
     }, [token]);
 
     return (
-        <div className={styles.receivePageContainer}>
+        <div className={styles.sendPageContainer}>
             <div>
                 <StandardHeader title={"Send"} backButtonNavigateTo={"tokens"}/>
             </div>
