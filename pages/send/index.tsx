@@ -95,9 +95,9 @@ const Send = () => {
               className={styles.formGroupContainer}
             >
               <div className={styles.formLabelAndFieldContainer}>
-                <Form.Label className={styles.formLabelContainer}>
+                {/* <Form.Label className={styles.formLabelContainer}>
                   <span>Recipient</span>
-                </Form.Label>
+                </Form.Label> */}
                 <div className={styles.recipientFieldContainer}>
                 <Form.Control
                   placeholder={"Recipient address"}
@@ -124,9 +124,9 @@ const Send = () => {
               className={styles.formGroupContainer}
             >
               <div className={styles.formLabelAndFieldContainer}>
-                <Form.Label className={styles.formLabelContainer}>
+                {/* <Form.Label className={styles.formLabelContainer}>
                   <span>Amount</span>
-                </Form.Label>
+                </Form.Label> */}
                 <Form.Control
                   placeholder={"Amount"}
                   // disabled={!wallet.connected}
