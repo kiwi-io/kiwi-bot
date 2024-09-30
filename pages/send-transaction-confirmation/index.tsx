@@ -40,7 +40,7 @@ const SendTransactionConfirmation = () => {
   }, [token]);
 
   const confirmSendHandler = async () => {
-    console.log(`Sending ${amount} ${selectedTokenItem.symbol} from ${from} to ${to}`)
+    console.log(`Sending ${amount} ${selectedTokenItem ? selectedTokenItem.symbol : ``} from ${from} to ${to}`)
   }
 
   return (
@@ -92,7 +92,7 @@ const SendTransactionConfirmation = () => {
                 Token
             </div>
             <div className={styles.valueContainer}>
-                {selectedTokenItem.symbol}
+                {selectedTokenItem ? selectedTokenItem.symbol : ``}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
