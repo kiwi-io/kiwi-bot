@@ -7,6 +7,7 @@ import { useWalletContext } from "../../components/contexts";
 import { useTelegram } from "../../utils/twa";
 import { Form } from "react-bootstrap";
 import Image from "next/image";
+import { initQRScanner } from "@telegram-apps/sdk";
 
 export interface SendQueryParams {
   recipient?: string;
@@ -61,6 +62,16 @@ const Send = () => {
     setSelectedRecipient((_) => val);
   }
 
+  const handleScanQr = async () => {
+    const qrScanner = initQRScanner();
+    qrScanner.open("Scan a Solana address").then((content) => {
+      setSelectedRecipient((_) => content);
+    })
+    .catch((err) => {
+      console.log("QR Scan error: ", err);
+    })
+  }
+
   return (
     <div className={styles.sendPageContainer}>
       <div className={styles.sendHeaderContainer}>
@@ -106,12 +117,12 @@ const Send = () => {
                   onChange={(e) => handleRecipientChange(e)}
                   value={selectedRecipient}
                 />
-                <div className={styles.pasteAddressButton}>
-                  <i className={`fa-regular fa-paste`}
+                <div className={styles.scanQrButton}>
+                  <i className={`fa-solid fa-qrcode`}
                     onClick={
                       () => {
                         vibrate("soft");
-                        handlePaste();
+                        handleScanQr();
                       }
                     }
                   ></i>
