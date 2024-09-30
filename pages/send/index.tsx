@@ -68,11 +68,11 @@ const Send = () => {
                 <Image
                     src={increaseDimensionsInUrl(
                         selectedTokenItem.logoURI,
-                        75,
-                        75,
+                        60,
+                        60,
                     )}
-                    width={75}
-                    height={75}
+                    width={50}
+                    height={50}
                     alt={`${selectedTokenItem ? selectedTokenItem.symbol : "Token"} img`}
                     className={styles.tokenImage}
                 />
