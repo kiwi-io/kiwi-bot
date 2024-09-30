@@ -43,9 +43,12 @@ const Send = () => {
             </div>
             <div>
                 <span>{`Recipient: ${recipient}`}</span>
-                <span>{`Token: ${selectedTokenItem.name}`}</span>
+                <span>{`Token: ${
+                    selectedTokenItem ? selectedTokenItem.name : ``
+                }`}</span>
                 <span>{`Amount: ${amount}`}</span>
             </div>
+
         </div>
     )
 }
