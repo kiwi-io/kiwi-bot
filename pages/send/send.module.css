@@ -53,8 +53,7 @@
 .formLabelContainer {
   background-color: yellowgreen;
   font-size: 0.85rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .formFieldContaienr {
@@ -62,4 +61,6 @@
   border: none;
   width: 100%;
   font-size: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
