@@ -17,6 +17,10 @@ const Tokens = () => {
     const backButtonHandler = () => {
         router.push("/home");
     }
+
+    const navigateToSend = () => {
+        router.push("/send");
+    }
     
     return (
         <div className={styles.tokensMainContainer}>
@@ -46,7 +50,13 @@ const Tokens = () => {
                             portfolio.items.map((token, _) => {
                                 return (
                                 token.valueUsd >= 0 ?
-                                    <div className={styles.tokenDisplayContainer} key={token.address}>
+                                    <div
+                                        className={styles.tokenDisplayContainer}
+                                        key={token.address}
+                                        onClick={() => {
+                                            navigateToSend();
+                                        }}
+                                    >
                                     <TokenDisplay tokenItem={token} showUsdValue={false} />
                                     </div>
                                 :
