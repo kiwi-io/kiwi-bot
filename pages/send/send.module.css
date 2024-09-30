@@ -53,6 +53,7 @@
 
 .formLabelContainer {
   /* background-color: yellowgreen; */
+  color: #481801;
   font-size: 0.85rem;
   margin-bottom: 0.25rem;
 }
@@ -69,4 +70,16 @@
   font-size: 1.5rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.recipientFieldContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.pasteAddressButton {
+  margin-left: 0.5rem;
+  color: #481801;
+  font-size: 1.5rem;
 }

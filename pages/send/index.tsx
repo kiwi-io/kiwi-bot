@@ -90,6 +90,7 @@ const Send = () => {
                 <Form.Label className={styles.formLabelContainer}>
                   <span>Recipient</span>
                 </Form.Label>
+                <div className={styles.recipientFieldContainer}>
                 <Form.Control
                   placeholder={"Recipient address"}
                   // disabled={!wallet.connected}
@@ -97,6 +98,8 @@ const Send = () => {
                   onChange={(e) => handleRecipientChange(e)}
                   value={selectedRecipient}
                 />
+                <i className={`${styles.pasteAddressButton} fa-regular fa-paste`}></i>
+                </div>
               </div>
             </Form.Group>
           </Form>
