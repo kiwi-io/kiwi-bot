@@ -8,6 +8,7 @@ import { useTelegram } from "../../utils/twa";
 import { Form } from "react-bootstrap";
 import Image from "next/image";
 import { initQRScanner } from "@telegram-apps/sdk";
+import { usePrivy } from "@privy-io/react-auth";
 
 export interface SendQueryParams {
   recipient?: string;
@@ -26,6 +27,8 @@ const Send = () => {
   const [selectedAmount, setSelectedAmount] = useState<string>(amount);
 
   const { portfolio } = useWalletContext();
+
+  const {user} = usePrivy();
 
   const { vibrate } = useTelegram();
 
@@ -70,6 +73,10 @@ const Send = () => {
     .catch((err) => {
       console.log("QR Scan error: ", err);
     })
+  }
+
+  const confirmSendHandler = async () => {
+    console.log(`Sending ${selectedAmount} ${selectedTokenItem.symbol} from ${user.telegram.username} to ${selectedRecipient}`)
   }
 
   return (
@@ -161,7 +168,15 @@ const Send = () => {
             </Form.Group>
           </Form>
         </div>
-        <div className={styles.sendExecuteContainer}></div>
+        <div
+          className={styles.sendExecuteContainer}
+          onClick={() => {
+            vibrate("light");
+            confirmSendHandler();
+          }}
+        >
+          Confirm send
+        </div>
       </div>
     </div>
   );

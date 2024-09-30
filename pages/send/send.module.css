@@ -98,3 +98,27 @@
   font-size: 1.25rem;
   cursor: pointer;
 }
+
+.sendExecuteContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff9d00;
+  margin-top: 3rem;
+  transition:
+    transform 0.1s ease,
+    background-color 0.2s ease;
+  padding: 1rem;
+  color: #481801;
+  width: 256px;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.sendExecuteContainer:active {
+  transform: scale(0.95);
+}
