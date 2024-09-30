@@ -8,12 +8,14 @@ import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
 import { formatWithCommas } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
+import { initBiometryManager } from "@telegram-apps/sdk";
 
 const Home = () => {
   const router = useRouter();
 
   const { user, ready, authenticated } = usePrivy();
   const { showMfaEnrollmentModal } = useMfaEnrollment();
+  const [biometryManager] = initBiometryManager();
 
   const { portfolio, updatePortfolio } = useWalletContext();
 
@@ -26,9 +28,14 @@ const Home = () => {
   }, [portfolio]);
 
   useEffect(() => {
-    const doStuff = () => {
+    const doStuff = async () => {
       if(user.mfaMethods.filter((mfaMethod) => mfaMethod === "passkey").length === 0) {
-        showMfaEnrollmentModal();
+        (await biometryManager).requestAccess({
+          reason: "Passkey verification"
+        }).then((response) => {
+          console.log("Access granted: ", response);
+          showMfaEnrollmentModal();
+        })
       }
     }
 
