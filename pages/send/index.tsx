@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import StandardHeader from "../../components/StandardHeader";
 import { increaseDimensionsInUrl, TokenItem } from "../../utils";
 import { useWalletContext } from "../../components/contexts";
+import { useTelegram } from "../../utils/twa";
 import { Form } from "react-bootstrap";
 import Image from "next/image";
 
@@ -24,6 +25,8 @@ const Send = () => {
   const [selectedAmount, setSelectedAmount] = useState<string>(amount);
 
   const { portfolio } = useWalletContext();
+
+  const { vibrate } = useTelegram();
 
   useEffect(() => {
     const doStuff = () => {
@@ -52,6 +55,11 @@ const Send = () => {
       setSelectedAmount((_) => "");
     }
   };
+
+  const handlePaste = async () => {
+    const val = await navigator.clipboard.readText();
+    setSelectedRecipient((_) => val);
+  }
 
   return (
     <div className={styles.sendPageContainer}>
@@ -98,7 +106,14 @@ const Send = () => {
                   onChange={(e) => handleRecipientChange(e)}
                   value={selectedRecipient}
                 />
-                <i className={`${styles.pasteAddressButton} fa-regular fa-paste`}></i>
+                <i className={`${styles.pasteAddressButton} fa-regular fa-paste`}
+                  onClick={
+                    () => {
+                      vibrate("soft");
+                      handlePaste();
+                    }
+                  }
+                ></i>
                 </div>
               </div>
             </Form.Group>
