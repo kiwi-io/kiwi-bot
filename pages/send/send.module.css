@@ -79,6 +79,16 @@
   width: 100%;
 }
 
+.scanQrButton {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-left: 0.75rem;
+  color: #481801;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
 .pasteAddressButton {
   display: flex;
   justify-content: flex-end;
