@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./transaction-confirmation.module.css";
+import styles from "./send-transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useRouter } from "next/router";
 import { increaseDimensionsInUrl, TokenItem } from "../../utils";
