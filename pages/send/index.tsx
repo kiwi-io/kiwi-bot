@@ -112,10 +112,13 @@ const Send = () => {
               controlId="formInput"
               className={styles.formGroupContainer}
             >
-              <div className={styles.formLabelAndFieldContainer}>
-                {/* <Form.Label className={styles.formLabelContainer}>
-                  <span>Recipient</span>
-                </Form.Label> */}
+              <div className={styles.formLabelAndFieldContainer}
+                style = {{
+                  border: 'none',
+                  borderRadius: '0rem',
+                  borderBottom: `2px solid #481801`,
+                }}
+              >
                 <div className={styles.recipientFieldContainer}>
                 <Form.Control
                   placeholder={"Recipient address"}
