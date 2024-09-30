@@ -37,6 +37,7 @@ const Send = () => {
     };
 
     doStuff();
+    console.log("selectedTokenItem: ", selectedTokenItem);
   }, [token]);
 
   const handleRecipientChange = (e: any) => {
@@ -66,12 +67,12 @@ const Send = () => {
             selectedTokenItem ?
                 <Image
                     src={increaseDimensionsInUrl(
-                    selectedTokenItem.logoURI,
-                    60,
-                    60,
+                        selectedTokenItem.logoURI,
+                        60,
+                        60,
                     )}
-                    width={75}
-                    height={75}
+                    width={50}
+                    height={50}
                     alt={`${selectedTokenItem ? selectedTokenItem.symbol : "Token"} img`}
                     className={styles.tokenImage}
                 />
