@@ -76,7 +76,7 @@ const SendTransactionConfirmation = () => {
                 From
             </div>
             <div className={styles.valueContainer}>
-                {trimAddress(from)}
+                {from ? trimAddress(from): ''}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
@@ -84,7 +84,7 @@ const SendTransactionConfirmation = () => {
                 To
             </div>
             <div className={styles.valueContainer}>
-                {trimAddress(to)}
+                {to ? trimAddress(to) : ''}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
