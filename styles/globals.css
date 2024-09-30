@@ -1,44 +1,44 @@
 @font-face {
-  font-family: 'NTSomic';
-  src: url('/fonts/NTSomic-Regular.ttf') format('truetype');
+  font-family: "NTSomic";
+  src: url("/fonts/NTSomic-Regular.ttf") format("truetype");
   font-weight: 400; /* Regular weight */
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'NTSomic';
-  src: url('/fonts/NTSomic-Medium.ttf') format('truetype');
+  font-family: "NTSomic";
+  src: url("/fonts/NTSomic-Medium.ttf") format("truetype");
   font-weight: 500; /* Medium weight */
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'NTSomic';
-  src: url('/fonts/NTSomic-SemiBold.ttf') format('truetype');
+  font-family: "NTSomic";
+  src: url("/fonts/NTSomic-SemiBold.ttf") format("truetype");
   font-weight: 600; /* SemiBold weight */
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'NTSomic';
-  src: url('/fonts/NTSomic-Bold.ttf') format('truetype');
+  font-family: "NTSomic";
+  src: url("/fonts/NTSomic-Bold.ttf") format("truetype");
   font-weight: 700; /* Bold weight */
   font-style: normal;
 }
 
 /* Optional: Set a default font for the entire body */
 body {
-  font-family: 'NTSomic', sans-serif;
+  font-family: "NTSomic", sans-serif;
   font-weight: 400;
   margin: 0;
   min-height: 100vh;
-  background-color: #FFFEFA;
+  background-color: #fffefa;
   width: 100%;
 }
 
 * {
   user-select: none;
   -webkit-user-select: none; /* Safari */
-  -moz-user-select: none;    /* Firefox */
-  -ms-user-select: none;     /* Internet Explorer/Edge */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
 }

@@ -1,8 +1,8 @@
 .navButtonContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .navIcon {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }

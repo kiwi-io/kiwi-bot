@@ -1,179 +1,181 @@
 .container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .mainContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 .headerAndOverviewContainer {
-    display: flex;
-    flex-direction: column;
-    height: 25%;
-    background-image: -webkit-linear-gradient(top, #2C1002 0%, #1F0B01 24%);
-    padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 25%;
+  background-image: -webkit-linear-gradient(top, #2c1002 0%, #1f0b01 24%);
+  padding: 1.5rem;
 }
 
 .headerContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 15%;
-    font-size: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 15%;
+  font-size: 1rem;
 }
 
 .usernameContainer {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: background-color 0.3s ease;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    color: #FFFEFA;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background-color 0.3s ease;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  color: #fffefa;
 }
 
 .settingsContainer {
-    /* border: 1px solid rgba(87, 87, 87, 0.5); */
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    color: #FFFEFA;
-    cursor: pointer;
+  /* border: 1px solid rgba(87, 87, 87, 0.5); */
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  color: #fffefa;
+  cursor: pointer;
 }
 
 .overviewContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    height: 85%;
-    font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 85%;
+  font-size: 1rem;
 }
 
 .balanceContainer {
-    margin: 1rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  margin: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .balanceValue {
-    font-weight: bold;
-    color: #FFFEFA;
-    font-size: 3.25rem;
-    margin-bottom: 1rem;
+  font-weight: bold;
+  color: #fffefa;
+  font-size: 3.25rem;
+  margin-bottom: 1rem;
 }
 
 .dollarSign {
-    color: #FFFEFA;
+  color: #fffefa;
 }
 
 .actionButtonsContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    /* margin: 1rem; */
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* margin: 1rem; */
+  width: 100%;
 }
 
 .receiveButtonContainer {
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sendButtonContainer {
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .copyButtonContainer {
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .actionButtonIcon {
-    font-size: 1.0rem;
-    margin-right: 0.25rem;
-    color: #FFFEFA;
+  font-size: 1rem;
+  margin-right: 0.25rem;
+  color: #fffefa;
 }
 
 .actionButton {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: background-color 0.3s ease;
-    color: #FFFEFA;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    font-size: 1rem;
-    font-weight: 600;
-    /* border: 3px solid rgba(51, 17, 0, 1.0); */
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background-color 0.3s ease;
+  color: #fffefa;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  /* border: 3px solid rgba(51, 17, 0, 1.0); */
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  width: 100%;
 
-    transition: transform 0.1s ease, background-color 0.2s ease;
+  transition:
+    transform 0.1s ease,
+    background-color 0.2s ease;
 }
 
 .actionButton:active {
-    transform: scale(0.95); /* Slight scale down to indicate press */
+  transform: scale(0.95); /* Slight scale down to indicate press */
 }
 
 .receiveButton {
-    background-color: #FF9D00;
-    color: #481801;
-    border: none;
+  background-color: #ff9d00;
+  color: #481801;
+  border: none;
 }
 
 .receiveButtonIcon {
-    color: #481801;
+  color: #481801;
 }
 
 .tokensOuterContainer {
-    display: flex;
-    box-sizing: border-box;
-    background-color: #FFFEFA;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 2rem;
-    min-height: 75%;
-    color: #481801;
-    border-radius: 1.25rem;
+  display: flex;
+  box-sizing: border-box;
+  background-color: #fffefa;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 2rem;
+  min-height: 75%;
+  color: #481801;
+  border-radius: 1.25rem;
 }
 
 .tokensContainer {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-top: 0.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
 }
 
 .tokenDisplayContainer {
-    cursor: pointer;
-    border: none;
-    border-radius: 0.25rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.25rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 
 .tokenDisplayContainer:active {
-    background-color: #f2f1e5;
+  background-color: #f2f1e5;
 }

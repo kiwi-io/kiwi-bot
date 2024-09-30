@@ -1,7 +1,6 @@
 // import bot from "../../server/telegram-bot";
 import { botWebhook } from "../../server/telegram-bot";
 
-
 // export default async function handler(req: any, res: any) {
 //   if (req.method === 'POST') {
 //     await bot.handleUpdate(req.body); // Handle incoming Telegram updates
@@ -12,7 +11,7 @@ import { botWebhook } from "../../server/telegram-bot";
 // }
 
 export default async function handler(req: any, res: any) {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     try {
       // // Initialize the bot
       // if (!bot.isInited()) {
@@ -20,13 +19,13 @@ export default async function handler(req: any, res: any) {
       // }
 
       // Handle incoming Telegram updates
-      // await bot.handleUpdate(req.body); 
+      // await bot.handleUpdate(req.body);
       await botWebhook(req, res); // Handle the webhook with the bot
 
-      res.status(200).send('OK');
+      res.status(200).send("OK");
     } catch (err) {
-      console.error('Error handling update:', err);
-      res.status(500).send('Internal Server Error');
+      console.error("Error handling update:", err);
+      res.status(500).send("Internal Server Error");
     }
   } else {
     res.status(405).end(); // Method Not Allowed

@@ -1,51 +1,51 @@
 .sendPageContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    padding: 1.5rem;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
 }
 
 .sendBodyContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    background-color: yellow;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: yellow;
 }
 
 .tokenImageContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    background-color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: green;
 }
 
 .tokenImage {
-    border: none;
-    border-radius: 100%;
+  border: none;
+  border-radius: 100%;
 }
 
 .sendFormContainer {
-    margin-top: 1rem;
-    background-color: aqua;
+  margin-top: 1rem;
+  background-color: aqua;
 }
 
 .formGroupContainer {
-    background-color: blueviolet;
+  background-color: blueviolet;
 }
 
 .formLabelAndFieldContainer {
-    background-color: tomato;
+  background-color: tomato;
 }
 
 .formLabelContainer {
-    background-color: yellowgreen;
+  background-color: yellowgreen;
 }
 
 .formFieldContaienr {
-    background-color: springgreen;
+  background-color: springgreen;
 }

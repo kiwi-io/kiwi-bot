@@ -4,21 +4,21 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: -webkit-linear-gradient(top, #2C1002 0%, #1F0B01 24%);
+  background-image: -webkit-linear-gradient(top, #2c1002 0%, #1f0b01 24%);
 }
 
 .mainAuthenticatedContainer {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 .activePage {
   text-align: center;
   font-size: 1.2em;
-  color: #FFFEFA;
+  color: #fffefa;
   width: 100%;
   height: 100%;
 }
@@ -27,7 +27,7 @@
   position: sticky;
   bottom: 0;
   width: 100%;
-  background-color: #FFFEFA;
+  background-color: #fffefa;
   z-index: 1000;
 }
 
@@ -75,45 +75,49 @@
 }
 
 .failedAuthenticationTextContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    color: #FFFEFA;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: #fffefa;
 }
 
 .welcomeUserMessage {
-    text-align: center;
-    margin: 20px 0;
-    font-size: 1.2em;
-    color: #FFFEFA;
-  }
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.2em;
+  color: #fffefa;
+}
 
-  .loadingContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loadingText {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #fffefa;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: 1rem;
+  animation: spin 1.25s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  .loadingText {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    color: #FFFEFA;
+  100% {
+    transform: rotate(360deg);
   }
-  
-  .loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid transparent;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-top: 1rem;
-    animation: spin 1.25s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+}

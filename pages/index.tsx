@@ -14,19 +14,22 @@ export default function Main() {
   const [activePage, _setActivePage] = useState("/home");
   const [loginTimeout, setLoginTimeout] = useState(false);
 
-  const {createWallet} = useSolanaWallets();
+  const { createWallet } = useSolanaWallets();
 
-  const {updatePortfolio} = useWalletContext();
+  const { updatePortfolio } = useWalletContext();
 
-  const {
-    ready,
-    authenticated,
-  } = usePrivy();
+  const { ready, authenticated } = usePrivy();
 
   useLogin({
-    onComplete(user, _isNewUser, _wasAlreadyAuthenticated, _loginMethod, _loginAccount) {
-      if(user) {
-        if(!hasExistingSolanaWallet(user)) {
+    onComplete(
+      user,
+      _isNewUser,
+      _wasAlreadyAuthenticated,
+      _loginMethod,
+      _loginAccount,
+    ) {
+      if (user) {
+        if (!hasExistingSolanaWallet(user)) {
           createWallet();
         }
         updatePortfolio(user);
@@ -34,7 +37,7 @@ export default function Main() {
     },
     onError: (error) => {
       console.log("Error logging in: ", error);
-    }
+    },
   });
 
   useEffect(() => {
@@ -70,13 +73,10 @@ export default function Main() {
 
   return (
     <div className={styles.mainContainer}>
-      {
-        ready && authenticated ?
-          <div className={styles.mainAuthenticatedContainer}>
-            <div className={styles.activePage}>
-              {renderActivePage()}
-            </div>
-            {/* <Navbar className={styles.navbar}>
+      {ready && authenticated ? (
+        <div className={styles.mainAuthenticatedContainer}>
+          <div className={styles.activePage}>{renderActivePage()}</div>
+          {/* <Navbar className={styles.navbar}>
               <Container className={styles.navContainer}>
                 <Nav className={styles.nav}>
                   <Nav.Link
@@ -147,18 +147,17 @@ export default function Main() {
                 </Nav>
               </Container>
             </Navbar> */}
-          </div>
-        :
-          loginTimeout ?
-            <div className={styles.failedAuthenticationTextContainer}>
-              <h1 className={styles.failedAuthenticationText}>Failed to log in</h1>
-            </div>
-          :
-            <div className={styles.loadingContainer}>
-              <h1 className={styles.loadingText}>Authenticating via Telegram...</h1>
-              <div className={styles.loader}></div>
-            </div>
-      }
+        </div>
+      ) : loginTimeout ? (
+        <div className={styles.failedAuthenticationTextContainer}>
+          <h1 className={styles.failedAuthenticationText}>Failed to log in</h1>
+        </div>
+      ) : (
+        <div className={styles.loadingContainer}>
+          <h1 className={styles.loadingText}>Authenticating via Telegram...</h1>
+          <div className={styles.loader}></div>
+        </div>
+      )}
     </div>
   );
 }

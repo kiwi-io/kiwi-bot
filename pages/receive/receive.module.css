@@ -1,69 +1,71 @@
 .receivePageContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    padding: 1.5rem;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
 }
 
 .walletInfoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: #481801;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #481801;
 }
 
 .addressCopyContainer {
-    width: 256px;
-    margin-top: 3rem;
-    font-size: 1.25rem;
-    display: flex;
-    justify-content: space-between;
-    box-sizing: border-box;
-    border: none;
+  width: 256px;
+  margin-top: 3rem;
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border: none;
 }
 
 .addressContainer {
-    width: 75%;
-    font-weight: 500;
-    background-color: #f2f1e5;
-    border-radius: 0.25rem 0rem 0rem 0.25rem;
-    padding: 0.5rem;
+  width: 75%;
+  font-weight: 500;
+  background-color: #f2f1e5;
+  border-radius: 0.25rem 0rem 0rem 0.25rem;
+  padding: 0.5rem;
 }
 
 .copyAddressContainer {
-    width: 25%;
-    font-weight: 600;
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    border: none;
-    border-radius: 0rem 0.25rem 0.25rem 0rem;
-    background-color: #FF9D00;
-    cursor: pointer;
+  width: 25%;
+  font-weight: 600;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: none;
+  border-radius: 0rem 0.25rem 0.25rem 0rem;
+  background-color: #ff9d00;
+  cursor: pointer;
 }
 
 .shareOnTelegramButtonContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #FF9D00;
-    margin-top: 3rem;
-    transition: transform 0.1s ease, background-color 0.2s ease;
-    padding: 1rem;
-    color: #481801;
-    width: 256px;
-    border: none;
-    border-radius: 0.25rem;
-    font-weight: 600;
-    font-size: 1.25rem;
-    box-sizing: border-box;
-    cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff9d00;
+  margin-top: 3rem;
+  transition:
+    transform 0.1s ease,
+    background-color 0.2s ease;
+  padding: 1rem;
+  color: #481801;
+  width: 256px;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 .shareOnTelegramButtonContainer:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }

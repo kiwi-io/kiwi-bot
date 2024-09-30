@@ -23,8 +23,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
-    serverComponentsExternalPackages: ['grammy']
-  }
+    serverComponentsExternalPackages: ["grammy"],
+  },
 };
 
 module.exports = nextConfig;

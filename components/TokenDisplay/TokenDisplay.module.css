@@ -1,49 +1,48 @@
 .mainContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .tokenInfoContainer {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .tokenLogoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tokenImage {
-    border-radius: 100%;
+  border-radius: 100%;
 }
 
 .tokenDataContainer {
-    margin-left: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    text-align: left;
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  text-align: left;
 }
 
 .tokenNameContainer {
-    color: rgba(72, 24, 0, 0.95);
-    font-size: 1.2rem;
-    font-weight: 500;
+  color: rgba(72, 24, 0, 0.95);
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .tokenHoldingContainer {
-    font-size: 0.9rem;
-    color: rgba(72, 24, 0, 0.65);
-    font-weight: 400;
+  font-size: 0.9rem;
+  color: rgba(72, 24, 0, 0.65);
+  font-weight: 400;
 }
 
 .tokenValueContainer {
-    display: flex;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: rgba(72, 24, 0, 0.95);
-    font-weight: 500;
+  display: flex;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: rgba(72, 24, 0, 0.95);
+  font-weight: 500;
 }
-
