@@ -123,7 +123,7 @@ const Send = () => {
                 <Form.Control
                   placeholder={"Recipient address"}
                   // disabled={!wallet.connected}
-                  className={styles.formFieldContainer}
+                  className={styles.recipientFormField}
                   onChange={(e) => handleRecipientChange(e)}
                   value={selectedRecipient}
                 />
@@ -163,7 +163,7 @@ const Send = () => {
                 <Form.Control
                   placeholder={"Amount"}
                   // disabled={!wallet.connected}
-                  className={styles.formFieldContainer}
+                  className={styles.formField}
                   onChange={(e) => handleAmountChange(e)}
                   value={selectedAmount}
                 />

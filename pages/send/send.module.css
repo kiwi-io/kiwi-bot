@@ -52,7 +52,7 @@
   margin-bottom: 0.25rem;
 }
 
-.formFieldContainer {
+.formField {
   border: none;
   border-radius: 0rem;
   border-bottom: 2px solid #481801;
@@ -70,6 +70,17 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.recipientFormField {
+  font-family: "NTSomic";
+  color: #481801;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.25rem;
+  padding: 0;
+  margin-top: 1rem;
+  text-align: left;
 }
 
 .scanQrButton {
