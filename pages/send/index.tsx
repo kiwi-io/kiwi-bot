@@ -57,7 +57,7 @@ const Send = () => {
     return (
         <div className={styles.sendPageContainer}>
             <div className={styles.sendHeaderContainer}>
-                <StandardHeader title={`Send ${selectedTokenItem.symbol ? selectedTokenItem.symbol : ""}`} backButtonNavigateTo={"tokens"}/>
+                <StandardHeader title={`Send ${selectedTokenItem ? selectedTokenItem.symbol : ""}`} backButtonNavigateTo={"tokens"}/>
             </div>
             <div className={styles.sendBodyContainer}>
                 <div className={styles.tokenImageContainer}>
@@ -65,7 +65,7 @@ const Send = () => {
                         src={increaseDimensionsInUrl(selectedTokenItem.logoURI, 60, 60)}
                         width={50}
                         height={50}
-                        alt={`${selectedTokenItem.symbol ? selectedTokenItem.symbol : "Token"} img`}
+                        alt={`${selectedTokenItem ? selectedTokenItem.symbol : "Token"} img`}
                         className={styles.tokenImage}
                     />
                 </div>
