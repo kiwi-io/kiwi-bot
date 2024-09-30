@@ -15,10 +15,6 @@ const Tokens = () => {
     const router = useRouter();
     const { vibrate } = useTelegram();
 
-    const backButtonHandler = () => {
-        router.push("/home");
-    }
-
     const navigateToSend = () => {
         router.push("/send");
     }
