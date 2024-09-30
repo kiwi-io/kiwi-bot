@@ -73,26 +73,34 @@ const SendTransactionConfirmation = () => {
         <div className={styles.sendDetailsContainer}>
           <div className={styles.keyValueContainer}>
             <div className={styles.keyContainer}>
-                Key
+                From
             </div>
             <div className={styles.valueContainer}>
-                Value
+                {from}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
             <div className={styles.keyContainer}>
-                Key
+                To
             </div>
             <div className={styles.valueContainer}>
-                Value
+                {to}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
             <div className={styles.keyContainer}>
-                Key
+                Token
             </div>
             <div className={styles.valueContainer}>
-                Value
+                {selectedTokenItem.symbol}
+            </div>
+          </div>
+          <div className={styles.keyValueContainer}>
+            <div className={styles.keyContainer}>
+                Amount
+            </div>
+            <div className={styles.valueContainer}>
+                {amount}
             </div>
           </div>
         </div>

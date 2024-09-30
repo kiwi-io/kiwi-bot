@@ -33,10 +33,11 @@
   .sendDetailsContainer {
     display: flex;
     flex-direction: column;
+    width: 100%;
     background-color: #f2f1e5;
     border: none;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .keyValueContainer {
@@ -47,3 +48,31 @@
     color: #481801;
   }
 
+  .valueContainer {
+    font-weight: 600;
+  }
+
+  .sendExecuteContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ff9d00;
+    margin-top: 3rem;
+    transition:
+      transform 0.1s ease,
+      background-color 0.2s ease;
+    padding: 1rem;
+    color: #481801;
+    width: 100%;
+    border: none;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-size: 1.25rem;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  
+  .sendExecuteContainer:active {
+    transform: scale(0.95);
+  }
+  
