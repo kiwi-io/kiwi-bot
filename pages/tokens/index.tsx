@@ -5,6 +5,7 @@ import TokenDisplay from "../../components/TokenDisplay";
 import { useRouter } from "next/router";
 import { useTelegram } from "../../utils/twa";
 import StandardHeader from "../../components/StandardHeader";
+import { TokenItem } from "../../utils";
 
 const Tokens = () => {
 
@@ -15,8 +16,9 @@ const Tokens = () => {
     const router = useRouter();
     const { vibrate } = useTelegram();
 
-    const navigateToSend = () => {
-        router.push("/send");
+    const navigateToSend = (selectedTokenItem: TokenItem) => {
+        vibrate("light");
+        router.push(`/send?token=${selectedTokenItem.address}`);
     }
     
     return (
@@ -33,7 +35,7 @@ const Tokens = () => {
                                         className={styles.tokenDisplayContainer}
                                         key={token.address}
                                         onClick={() => {
-                                            navigateToSend();
+                                            navigateToSend(token);
                                         }}
                                     >
                                     <TokenDisplay tokenItem={token} showUsdValue={false} />
