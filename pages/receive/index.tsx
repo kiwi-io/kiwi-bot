@@ -5,6 +5,7 @@ import { useTelegram } from "../../utils/twa";
 import QRCode from "../../components/QRCode";
 import { usePrivy } from "@privy-io/react-auth";
 import { trimAddress } from "../../utils";
+import StandardHeader from "../../components/StandardHeader";
 
 const Receive = () => {
 
@@ -37,25 +38,7 @@ const Receive = () => {
 
     return (
         <div className={styles.receivePageContainer}>
-            <div className={styles.receiveHeaderContainer}>
-                <div 
-                    className={styles.backButtonContainer}
-                    onClick={() => {
-                        vibrate("light");
-                        backButtonHandler();
-                    }}
-                >
-                    <i className={`${styles.backButton} fa-solid fa-arrow-left`}></i>
-                </div>
-                <div className={styles.receiveTitleContainer}>
-                    <span className={styles.receiveTitle}>Receive</span>
-                </div>
-                <div>
-                    <span className={styles.dummyContainer}>
-                        <i className={`fa-solid fa-arrow-right`}></i>
-                    </span>
-                </div>
-            </div>
+            <StandardHeader title={"Receive"} backButtonNavigateTo={"home"}/>
             {
                 user && ready && authenticated ?
                     <div className={styles.walletInfoContainer}>

@@ -4,6 +4,7 @@ import { useWalletContext } from "../../components/contexts";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useRouter } from "next/router";
 import { useTelegram } from "../../utils/twa";
+import StandardHeader from "../../components/StandardHeader";
 
 const Tokens = () => {
 
@@ -24,25 +25,7 @@ const Tokens = () => {
     
     return (
         <div className={styles.tokensMainContainer}>
-            <div className={styles.sendHeaderContainer}>
-                <div 
-                    className={styles.backButtonContainer}
-                    onClick={() => {
-                        vibrate("light");
-                        backButtonHandler();
-                    }}
-                >
-                    <i className={`${styles.backButton} fa-solid fa-arrow-left`}></i>
-                </div>
-                <div className={styles.sendTitleContainer}>
-                    <span className={styles.sendTitle}>Select Token</span>
-                </div>
-                <div>
-                    <span className={styles.dummyContainer}>
-                        <i className={`fa-solid fa-arrow-right`}></i>
-                    </span>
-                </div>
-            </div>
+            <StandardHeader title={"Select Token"} backButtonNavigateTo={"home"}/>
             {
                 portfolio && portfolio.items.length > 0 ?
                     <div className={styles.allTokensOuterContainer}>
