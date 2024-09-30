@@ -22,6 +22,8 @@
   align-items: center;
   width: 100%;
   background-color: green;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .tokenImage {
@@ -30,22 +32,31 @@
 }
 
 .sendFormContainer {
-  margin-top: 1rem;
   background-color: aqua;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
 }
 
 .formGroupContainer {
   background-color: blueviolet;
+  width: 100%;
 }
 
 .formLabelAndFieldContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   background-color: tomato;
 }
 
 .formLabelContainer {
   background-color: yellowgreen;
+  font-size: 0.85rem;
 }
 
 .formFieldContaienr {
   background-color: springgreen;
+  border: none;
+  width: 100%;
 }
