@@ -76,7 +76,7 @@ const Send = () => {
   }
 
   const confirmSendHandler = async () => {
-    router.push(`/send-transaction-confirmation?from=${user.telegram.username}&to=${selectedRecipient}&token=${selectedTokenItem.address}&amount=${selectedAmount}`)
+    router.push(`/send-transaction-confirmation?from=${user.wallet.address}&to=${selectedRecipient}&token=${selectedTokenItem.address}&amount=${selectedAmount}`)
   }
 
   return (

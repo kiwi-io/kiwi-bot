@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./send-transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useRouter } from "next/router";
-import { increaseDimensionsInUrl, TokenItem } from "../../utils";
+import { increaseDimensionsInUrl, TokenItem, trimAddress } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import Image from "next/image";
 import { useWalletContext } from "../../components/contexts";
@@ -76,7 +76,7 @@ const SendTransactionConfirmation = () => {
                 From
             </div>
             <div className={styles.valueContainer}>
-                {from}
+                {trimAddress(from)}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
@@ -84,7 +84,7 @@ const SendTransactionConfirmation = () => {
                 To
             </div>
             <div className={styles.valueContainer}>
-                {to}
+                {trimAddress(to)}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
