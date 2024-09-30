@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Nav, Navbar, Container } from "react-bootstrap";
+// import { Nav, Navbar, Container } from "react-bootstrap";
 import styles from "./index.module.css";
 import dynamic from "next/dynamic";
 import { usePrivy, useLogin, useSolanaWallets } from "@privy-io/react-auth";
 import { hasExistingSolanaWallet } from "../utils";
 
 const Home = dynamic(() => import("./home"));
-const Apps = dynamic(() => import("./apps"));
-const Swap = dynamic(() => import("./swap"));
-const History = dynamic(() => import("./history"));
-const Rewards = dynamic(() => import("./rewards"));
 
-import NavButton from "../components/NavButton";
+// import NavButton from "../components/NavButton";
 import { useWalletContext } from "../components/contexts";
 
 export default function Main() {
-  const [activePage, setActivePage] = useState("/home");
+  const [activePage, _setActivePage] = useState("/home");
   const [loginTimeout, setLoginTimeout] = useState(false);
 
   const {createWallet} = useSolanaWallets();
@@ -51,22 +47,22 @@ export default function Main() {
     return () => clearTimeout(timer);
   }, [ready, authenticated]);
 
-  const handleNavClick = (page: string) => {
-    setActivePage(page);
-  };
+  // const handleNavClick = (page: string) => {
+  //   setActivePage(page);
+  // };
 
   const renderActivePage = () => {
     switch (activePage) {
       case "/home":
         return <Home />;
       case "/apps":
-        return <Apps />;
+        return <Home />;
       case "/swap":
-        return <Swap />;
+        return <Home />;
       case "/history":
-        return <History />;
+        return <Home />;
       case "/rewards":
-        return <Rewards />;
+        return <Home />;
       default:
         return <Home />;
     }
