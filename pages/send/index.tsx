@@ -67,11 +67,11 @@ const Send = () => {
               selectedTokenItem
                 ? selectedTokenItem.logoURI
                 : "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
-              240,
-              240,
+              100,
+              100,
             )}
-            width={240}
-            height={240}
+            width={120}
+            height={120}
             alt={`${selectedTokenItem ? selectedTokenItem.symbol : "Token"} img`}
             className={styles.tokenImage}
           />
