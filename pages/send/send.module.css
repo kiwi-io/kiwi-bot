@@ -13,7 +13,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* background-color: yellow; */
 }
 
 .tokenImageContainer {
@@ -21,7 +20,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* background-color: green; */
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
@@ -32,12 +30,10 @@
 }
 
 .sendFormContainer {
-  /* background-color: aqua; */
   width: 100%;
 }
 
 .formGroupContainer {
-  /* background-color: blueviolet; */
   width: 100%;
 }
 
@@ -46,20 +42,17 @@
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
-  /* background-color: tomato; */
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
 .formLabelContainer {
-  /* background-color: yellowgreen; */
   color: #481801;
   font-size: 0.85rem;
   margin-bottom: 0.25rem;
 }
 
 .formFieldContainer {
-  /* background-color: springgreen; */
   border: none;
   border-radius: 0rem;
   border-bottom: 2px solid #481801;
