@@ -1,0 +1,49 @@
+.sendPageContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 1.5rem;
+    box-sizing: border-box;
+  }
+  
+.sendBodyContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .tokenImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .tokenImage {
+    border: none;
+    border-radius: 100%;
+  }
+
+  
+  .sendDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f1e5;
+    border: none;
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+
+  .keyValueContainer {
+    margin: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: #481801;
+  }
+
