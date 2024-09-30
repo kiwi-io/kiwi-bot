@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./home.module.css";
-import { usePrivy } from "@privy-io/react-auth";
+import { usePrivy, useMfaEnrollment } from "@privy-io/react-auth";
 import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
@@ -13,6 +13,7 @@ const Home = () => {
   const router = useRouter();
 
   const { user, ready, authenticated } = usePrivy();
+  const { showMfaEnrollmentModal } = useMfaEnrollment();
 
   const { portfolio, updatePortfolio } = useWalletContext();
 
@@ -23,6 +24,16 @@ const Home = () => {
 
     return () => clearInterval(intervalId);
   }, [portfolio]);
+
+  useEffect(() => {
+    const doStuff = () => {
+      if(user.mfaMethods.filter((mfaMethod) => mfaMethod === "passkey").length === 0) {
+        showMfaEnrollmentModal();
+      }
+    }
+
+    doStuff();
+  }, [user, authenticated]);
 
   const navigateToSettings = () => {
     router.push("/settings");
