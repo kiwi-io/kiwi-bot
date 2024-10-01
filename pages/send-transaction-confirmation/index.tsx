@@ -6,6 +6,8 @@ import { delay, increaseDimensionsInUrl, TokenItem, trimAddress } from "../../ut
 import { useTelegram } from "../../utils/twa";
 import Image from "next/image";
 import { useWalletContext } from "../../components/contexts";
+import { getTransferTransaction, TransferParams } from "../../utils/token/instructions";
+import { Connection, PublicKey } from "@solana/web3.js";
 
 export interface SendTransactionConfirmationQueryParams {
     from?: string;
@@ -43,6 +45,17 @@ const SendTransactionConfirmation = () => {
 
   const handleConfirmSend = async () => {
     setIsSending((_) => true);
+    const transferParams = {
+      connection: new Connection(process.env.NEXT_RPC_MAINNET_URL),
+      fromPubkey: new PublicKey(from),
+      toPubkey: new PublicKey(to),
+      token: new PublicKey(token),
+      tokenDecimals: selectedTokenItem.decimals,
+      amount: parseFloat(amount)
+    } as TransferParams;
+
+    const transferTransaction = await getTransferTransaction(transferParams);
+    console.log("transfer transaction: ", transferTransaction);
     await delay(3_000);
     setIsSending((_) => false);
   }

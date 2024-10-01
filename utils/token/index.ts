@@ -4,6 +4,8 @@ import { AccountLayout } from "@solana/spl-token";
 import BN from "bn.js";
 import { TokenWithBalance, Token } from "../types";
 
+export * from "./instructions";
+
 export const getHoldings = async (
   address: PublicKey,
 ): Promise<Map<Token, TokenWithBalance> | undefined> => {
