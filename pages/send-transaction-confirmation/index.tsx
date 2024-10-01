@@ -56,7 +56,7 @@ const SendTransactionConfirmation = () => {
       toPubkey: new PublicKey(to),
       token: new PublicKey(token),
       tokenDecimals: selectedTokenItem.decimals,
-      amount: parseFloat(amount)
+      amount: parseInt(amount)
     } as TransferParams;
 
     const transferTransaction = await getTransferTransaction(transferParams);
