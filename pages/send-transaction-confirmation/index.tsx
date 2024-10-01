@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./send-transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useRouter } from "next/router";
-import { increaseDimensionsInUrl, TokenItem, trimAddress } from "../../utils";
+import { delay, increaseDimensionsInUrl, TokenItem, trimAddress } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import Image from "next/image";
 import { useWalletContext } from "../../components/contexts";
@@ -20,6 +20,8 @@ const SendTransactionConfirmation = () => {
 
   const [selectedTokenItem, setSelectedTokenItem] =
     useState<TokenItem>(undefined);
+
+  const [isSending, setIsSending] = useState<boolean>(false);
 
   const { vibrate } = useTelegram();
   const { portfolio } = useWalletContext();
@@ -39,8 +41,10 @@ const SendTransactionConfirmation = () => {
     console.log("selectedTokenItem: ", selectedTokenItem);
   }, [token]);
 
-  const confirmSendHandler = async () => {
-    console.log(`Sending ${amount} ${selectedTokenItem ? selectedTokenItem.symbol : ``} from ${from} to ${to}`)
+  const handleConfirmSend = async () => {
+    setIsSending((_) => true);
+    await delay(3_000);
+    setIsSending((_) => false);
   }
 
   return (
@@ -108,10 +112,18 @@ const SendTransactionConfirmation = () => {
           className={styles.sendExecuteContainer}
           onClick={() => {
             vibrate("light");
-            confirmSendHandler();
+            handleConfirmSend();
           }}
         >
-          Confirm
+          {
+            isSending
+            ?
+              <div className={styles.loadingContainer}>
+                <div className={styles.loader}></div>
+              </div>
+            :
+              <div>Confirm</div>
+          }
         </div>
       </div>
     </div>
