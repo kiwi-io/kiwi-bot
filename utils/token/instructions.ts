@@ -49,32 +49,31 @@ export const getTransferTransaction = async ({
         const fromTokenAccount = await getAssociatedTokenAddress(token, fromPubkey, false);
         const toTokenAccount = await getAssociatedTokenAddress(token, toPubkey, false);
 
+        console.log("fromTokenAccount: ", fromTokenAccount.toString());
+        console.log("toTokenAccount: ", toTokenAccount.toString());
+
         const transaction = new Transaction();
 
         transaction.feePayer = fromPubkey;
         transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
-        transaction.add(
-            createAssociatedTokenAccountIdempotentInstruction(
-                fromPubkey,
-                fromTokenAccount,
-                fromPubkey,
-                token,
-            )
-        );
+        // transaction.add(
+        //     createAssociatedTokenAccountIdempotentInstruction(
+        //         fromPubkey,
+        //         fromTokenAccount,
+        //         fromPubkey,
+        //         token,
+        //     )
+        // );
 
-        transaction.add(
-            createAssociatedTokenAccountIdempotentInstruction(
-                toPubkey,
-                toTokenAccount,
-                toPubkey,
-                token,
-            )
-        );
-
-        transaction.instructions.forEach((i, k) => {
-            console.log("ix: ", k, " program id: ", i.programId.toString());
-        })
+        // transaction.add(
+        //     createAssociatedTokenAccountIdempotentInstruction(
+        //         toPubkey,
+        //         toTokenAccount,
+        //         toPubkey,
+        //         token,
+        //     )
+        // );
 
         // transaction.add(
         //     createTransferInstruction(
