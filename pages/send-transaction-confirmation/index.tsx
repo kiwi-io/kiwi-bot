@@ -62,7 +62,6 @@ const SendTransactionConfirmation = () => {
     const transferTransaction = await getTransferTransaction(transferParams);
     console.log("transfer transaction: ", transferTransaction);
 
-    //@ts-ignore
     console.log(await wallets[0].sendTransaction!(transferTransaction, connection));
 
     await delay(3_000);
