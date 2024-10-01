@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./send-transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useRouter } from "next/router";
-import { delay, increaseDimensionsInUrl, TokenItem, trimAddress } from "../../utils";
+import { increaseDimensionsInUrl, TokenItem, trimAddress } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import Image from "next/image";
 import { useWalletContext } from "../../components/contexts";
@@ -59,13 +59,17 @@ const SendTransactionConfirmation = () => {
       amount: parseInt(amount)
     } as TransferParams;
 
-    const transferTransaction = await getTransferTransaction(transferParams);
-    console.log("transfer transaction: ", transferTransaction);
+    try {
+      const transferTransaction = await getTransferTransaction(transferParams);
+      const sig = await wallets[0].sendTransaction!(transferTransaction, connection);
 
-    console.log(await wallets[0].sendTransaction!(transferTransaction, connection));
-
-    await delay(3_000);
-    setIsSending((_) => false);
+      setIsSending((_) => false);
+      router.push(`/transaction-status?type=success&signature=${sig}`);
+    }
+    catch(err) {
+      setIsSending((_) => false);
+      router.push(`/transaction-status?type=error`);
+    }
   }
 
   return (
