@@ -1,5 +1,5 @@
 import { Connection, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
-import { getAssociatedTokenAddress, createAssociatedTokenAccountIdempotentInstruction, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, createTransferCheckedInstruction } from '@solana/spl-token';
+import { getAssociatedTokenAddress, createAssociatedTokenAccountIdempotentInstruction, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, createTransferCheckedInstruction, createTransferInstruction } from '@solana/spl-token';
 import { NATIVE_SOL_PUBKEY } from '../../constants';
 
 export interface TransferParams {
@@ -67,18 +67,15 @@ export const getTransferTransaction = async ({
             )
         );
 
-        transaction.add(
-            createTransferCheckedInstruction(
-              fromTokenAccount,
-              token,
-              toTokenAccount,
-              fromPubkey,
-              amount,
-              tokenDecimals,
-              [],
-              tokenOwnerProgram
-            )
-        );
+        // transaction.add(
+        //     createTransferInstruction(
+        //         fromTokenAccount,
+        //         toTokenAccount,
+        //         fromPubkey,
+        //         amount,
+        //         [],
+        //     )
+        // );
         
         return transaction;
     }
