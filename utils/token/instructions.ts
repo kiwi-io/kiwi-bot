@@ -44,6 +44,9 @@ export const getTransferTransaction = async ({
 
         const transaction = new Transaction();
 
+        transaction.feePayer = fromPubkey;
+        transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
+
         transaction.add(
             createAssociatedTokenAccountIdempotentInstruction(
                 fromPubkey,
