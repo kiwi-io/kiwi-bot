@@ -66,6 +66,9 @@ export const getTransferTransaction = async ({
         transaction.feePayer = fromPubkey;
         transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
+        console.log("User balance: ", (await connection.getTokenAccountBalance(fromTokenAccount)).value.uiAmount);
+        console.log("amount transfer: ", amount);
+
         transaction.add(
             createTransferCheckedInstruction(
                 fromTokenAccount,
