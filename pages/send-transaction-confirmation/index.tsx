@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useWalletContext } from "../../components/contexts";
 import { getTransferTransaction, TransferParams } from "../../utils/token/instructions";
 import { Connection, PublicKey } from "@solana/web3.js";
+import { useSolanaWallets } from "@privy-io/react-auth";
 
 export interface SendTransactionConfirmationQueryParams {
     from?: string;
@@ -28,6 +29,8 @@ const SendTransactionConfirmation = () => {
   const { vibrate } = useTelegram();
   const { portfolio } = useWalletContext();
 
+  const { wallets } = useSolanaWallets();
+
   useEffect(() => {
     const doStuff = () => {
       if (portfolio && portfolio.items.length > 0) {
@@ -45,8 +48,10 @@ const SendTransactionConfirmation = () => {
 
   const handleConfirmSend = async () => {
     setIsSending((_) => true);
+    const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
+
     const transferParams = {
-      connection: new Connection(process.env.NEXT_RPC_MAINNET_URL),
+      connection,
       fromPubkey: new PublicKey(from),
       toPubkey: new PublicKey(to),
       token: new PublicKey(token),
@@ -56,6 +61,10 @@ const SendTransactionConfirmation = () => {
 
     const transferTransaction = await getTransferTransaction(transferParams);
     console.log("transfer transaction: ", transferTransaction);
+
+    //@ts-ignore
+    console.log(await wallets[0].sendTransaction!(transferTransaction, connection));
+
     await delay(3_000);
     setIsSending((_) => false);
   }
