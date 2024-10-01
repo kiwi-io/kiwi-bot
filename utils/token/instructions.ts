@@ -26,7 +26,10 @@ export const getTransferTransaction = async ({
               toPubkey,
               lamports: amount, // amount in lamports
             })
-          );
+        );
+
+        transaction.feePayer = fromPubkey;
+        transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
           return transaction;
     }
@@ -40,6 +43,8 @@ export const getTransferTransaction = async ({
         if(tokenInfo.owner === TOKEN_2022_PROGRAM_ID) {
             tokenOwnerProgram = TOKEN_2022_PROGRAM_ID;
         }
+
+        console.log("tokenOwnerProgram after: ", tokenOwnerProgram);
 
         const fromTokenAccount = await getAssociatedTokenAddress(token, fromPubkey, false);
         const toTokenAccount = await getAssociatedTokenAddress(token, toPubkey, false);
@@ -66,6 +71,10 @@ export const getTransferTransaction = async ({
                 token,
             )
         );
+
+        transaction.instructions.forEach((i, k) => {
+            console.log("ix: ", k, " program id: ", i.programId.toString());
+        })
 
         // transaction.add(
         //     createTransferInstruction(
