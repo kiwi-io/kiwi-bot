@@ -36,7 +36,7 @@
     width: 100%;
     background-color: #f2f1e5;
     border: none;
-    border-radius: 1rem;
+    border-radius: 0.25rem;
     padding: 0.5rem;
   }
 
@@ -61,8 +61,8 @@
     transition:
       transform 0.1s ease,
       background-color 0.2s ease;
-    padding: 1rem;
-    color: #481801;
+      padding: 0.5rem;
+      color: #481801;
     width: 100%;
     border: none;
     border-radius: 0.25rem;
