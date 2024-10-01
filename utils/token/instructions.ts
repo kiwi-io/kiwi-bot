@@ -1,5 +1,5 @@
 import { Connection, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
-import { getAssociatedTokenAddress, createAssociatedTokenAccountIdempotentInstruction, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, createTransferCheckedInstruction, createTransferInstruction } from '@solana/spl-token';
+import { getAssociatedTokenAddress, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, createTransferCheckedInstruction, createAssociatedTokenAccountInstruction } from '@solana/spl-token';
 import { NATIVE_SOL_PUBKEY } from '../../constants';
 
 export interface TransferParams {
@@ -24,7 +24,7 @@ export const getTransferTransaction = async ({
             SystemProgram.transfer({
               fromPubkey,
               toPubkey,
-              lamports: amount, // amount in lamports
+              lamports: amount,
             })
         );
 
@@ -34,9 +34,14 @@ export const getTransferTransaction = async ({
           return transaction;
     }
     else {
-        const tokenInfo = await connection.getAccountInfo(token);
-        console.log("tokenInfo: ", tokenInfo);
-        console.log("tokenOwnerProgram: ", tokenInfo.owner.toString());
+        
+        const fromTokenAccount = await getAssociatedTokenAddress(token, fromPubkey, false);
+        const toTokenAccount = await getAssociatedTokenAddress(token, toPubkey, false);
+
+        const [tokenInfo, toTokenAccountInfo] = await connection.getMultipleAccountsInfo([
+            token,
+            toTokenAccount
+        ]);
 
         let tokenOwnerProgram = TOKEN_PROGRAM_ID;
 
@@ -44,46 +49,35 @@ export const getTransferTransaction = async ({
             tokenOwnerProgram = TOKEN_2022_PROGRAM_ID;
         }
 
-        console.log("tokenOwnerProgram after: ", tokenOwnerProgram);
-
-        const fromTokenAccount = await getAssociatedTokenAddress(token, fromPubkey, false);
-        const toTokenAccount = await getAssociatedTokenAddress(token, toPubkey, false);
-
-        console.log("fromTokenAccount: ", fromTokenAccount.toString());
-        console.log("toTokenAccount: ", toTokenAccount.toString());
-
         const transaction = new Transaction();
+
+        if(!toTokenAccountInfo) {
+            transaction.add(
+                createAssociatedTokenAccountInstruction(
+                    fromPubkey,
+                    toTokenAccount,
+                    toPubkey,
+                    token,
+                    tokenOwnerProgram
+                )
+            )
+        }
 
         transaction.feePayer = fromPubkey;
         transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
-        // transaction.add(
-        //     createAssociatedTokenAccountIdempotentInstruction(
-        //         fromPubkey,
-        //         fromTokenAccount,
-        //         fromPubkey,
-        //         token,
-        //     )
-        // );
-
-        // transaction.add(
-        //     createAssociatedTokenAccountIdempotentInstruction(
-        //         toPubkey,
-        //         toTokenAccount,
-        //         toPubkey,
-        //         token,
-        //     )
-        // );
-
-        // transaction.add(
-        //     createTransferInstruction(
-        //         fromTokenAccount,
-        //         toTokenAccount,
-        //         fromPubkey,
-        //         amount,
-        //         [],
-        //     )
-        // );
+        transaction.add(
+            createTransferCheckedInstruction(
+                fromTokenAccount,
+                token,
+                toTokenAccount,
+                fromPubkey,
+                amount,
+                tokenDecimals,
+                [],
+                tokenOwnerProgram
+            )
+        );
         
         return transaction;
     }
