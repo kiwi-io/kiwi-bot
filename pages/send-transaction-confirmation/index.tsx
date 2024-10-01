@@ -105,7 +105,7 @@ const SendTransactionConfirmation = () => {
                 Amount
             </div>
             <div className={styles.valueContainer}>
-                {new BN(amount).div(new BN(10 ** selectedTokenItem.decimals)).toString()}
+                {new BN(amount).div(new BN(10 ** (selectedTokenItem ? selectedTokenItem.decimals : 1))).toString()}
             </div>
           </div>
         </div>
