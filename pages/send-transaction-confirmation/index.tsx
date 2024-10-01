@@ -6,7 +6,6 @@ import { delay, increaseDimensionsInUrl, TokenItem, trimAddress } from "../../ut
 import { useTelegram } from "../../utils/twa";
 import Image from "next/image";
 import { useWalletContext } from "../../components/contexts";
-import { BN } from "bn.js";
 
 export interface SendTransactionConfirmationQueryParams {
     from?: string;
@@ -105,7 +104,7 @@ const SendTransactionConfirmation = () => {
                 Amount
             </div>
             <div className={styles.valueContainer}>
-                {new BN(amount).div(new BN(10 ** (selectedTokenItem ? selectedTokenItem.decimals : 1))).toString()}
+                {(parseFloat(amount) / (selectedTokenItem ? 10**selectedTokenItem.decimals : 1)).toString()}
             </div>
           </div>
         </div>
