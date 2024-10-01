@@ -68,7 +68,7 @@ const SendTransactionConfirmation = () => {
     }
     catch(err) {
       setIsSending((_) => false);
-      router.push(`/transaction-status?type=error`);
+      router.push(`/transaction-status?type=error&error=${err}`);
     }
   }
 

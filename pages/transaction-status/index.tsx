@@ -7,11 +7,12 @@ export type TransactionStatusType = "success" | "error";
 export interface TransactionStatusQueryParams {
     type?: TransactionStatusType;
     signature?: string;
+    error?: string;
 }
 
 const TransactionStatus = () => {
     const router = useRouter();
-    const { type, signature }: TransactionStatusQueryParams = router.query;
+    const { type, signature, error }: TransactionStatusQueryParams = router.query;
 
     return (
         <div className={styles.transactionStatusMainContainer}>
@@ -22,6 +23,14 @@ const TransactionStatus = () => {
                 {
                     signature ?
                         <span>{signature}</span>
+                    :
+                        <span></span>
+                }
+            </div>
+            <div className={styles.transactionErrorContainer}>
+                {
+                    error ?
+                        <span>{error}</span>
                     :
                         <span></span>
                 }
