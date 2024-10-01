@@ -177,14 +177,16 @@ const Send = () => {
                   value={selectedAmount}
                 />
                 <div className={styles.pasteAddressButton}>
-                  <i className={`fa-regular fa-paste`}
+                  <span className={`fa-regular fa-paste`}
                     onClick={
                       () => {
                         vibrate("soft");
                         handleMaxAmount();
                       }
                     }
-                  ></i>
+                  >
+                    MAX
+                  </span>
                 </div>
                 </div>
               </div>
