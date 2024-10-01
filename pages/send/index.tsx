@@ -53,8 +53,11 @@ const Send = () => {
 
   const handleAmountChange = (e: any) => {
     try {
+      console.log("new string amount: ", e.target.value);
       const parsedAmount = parseFloat(e.target.value);
+      console.log("new parsed amount: ", parsedAmount);
       setSelectedAmount((_) => parsedAmount.toString());
+      console.log("selected amount display: ", selectedAmount);
     } catch (e) {
       setSelectedAmount((_) => "");
     }
