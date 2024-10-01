@@ -32,6 +32,8 @@ export const getTransferTransaction = async ({
     }
     else {
         const tokenInfo = await connection.getAccountInfo(token);
+        console.log("tokenInfo: ", tokenInfo);
+        console.log("tokenOwnerProgram: ", tokenInfo.owner.toString());
 
         let tokenOwnerProgram = TOKEN_PROGRAM_ID;
 
