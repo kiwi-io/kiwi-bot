@@ -176,8 +176,8 @@ const Send = () => {
                   onChange={(e) => handleAmountChange(e)}
                   value={selectedAmount}
                 />
-                <div className={styles.pasteAddressButton}>
-                  <span className={`fa-regular fa-paste`}
+                <div className={styles.maxAmountButton}>
+                  <span
                     onClick={
                       () => {
                         vibrate("soft");
