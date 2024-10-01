@@ -118,9 +118,7 @@ const SendTransactionConfirmation = () => {
           {
             isSending
             ?
-              <div className={styles.loadingContainer}>
-                <div className={styles.loader}></div>
-              </div>
+              <div className={styles.loader}></div>
             :
               <div>Confirm</div>
           }
