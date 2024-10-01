@@ -53,7 +53,6 @@ export const getTransferTransaction = async ({
                 fromTokenAccount,
                 fromPubkey,
                 token,
-                tokenOwnerProgram
             )
         );
 
@@ -63,7 +62,6 @@ export const getTransferTransaction = async ({
                 toTokenAccount,
                 toPubkey,
                 token,
-                tokenOwnerProgram
             )
         );
 
