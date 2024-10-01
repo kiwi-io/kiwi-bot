@@ -60,8 +60,20 @@ const Send = () => {
   };
 
   const handlePaste = async () => {
-    const val = await navigator.clipboard.readText();
-    setSelectedRecipient((_) => val);
+    try {
+      // Check if the browser supports clipboard API
+      if (navigator.clipboard) {
+        // Read the clipboard text
+        const text = await navigator.clipboard.readText();
+        setSelectedRecipient((_) => text);
+      } else {
+        console.error("Clipboard API is not supported in this browser.");
+        setSelectedRecipient((_) => "");
+      }
+    } catch (error) {
+      console.error("Failed to read clipboard contents: ", error);
+      setSelectedRecipient((_) => "");
+    }
   }
 
   const handleScanQr = async () => {
