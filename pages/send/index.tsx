@@ -77,7 +77,7 @@ const Send = () => {
 
   const handleMaxAmount = async () => {
     const maxAmount = selectedTokenItem.balance;
-    setSelectedAmount((_) => maxAmount.toString());
+    setSelectedAmount((_) => (maxAmount / (selectedTokenItem ? 10 ** selectedTokenItem.decimals : 1)).toString());
   }
 
   const confirmSendHandler = async () => {
