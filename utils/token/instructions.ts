@@ -20,6 +20,7 @@ export const getTransferTransaction = async ({
     amount
 }: TransferParams): Promise<Transaction> => {
     if(token.equals(NATIVE_SOL_PUBKEY)) {
+        console.log("Start preping tx: ", Date.now());
         const transaction = new Transaction().add(
             SystemProgram.transfer({
               fromPubkey,
@@ -30,7 +31,7 @@ export const getTransferTransaction = async ({
 
         transaction.feePayer = fromPubkey;
         transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
-
+        console.log("ENd preping tx: ", Date.now());
           return transaction;
     }
     else {

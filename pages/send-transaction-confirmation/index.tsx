@@ -48,7 +48,7 @@ const SendTransactionConfirmation = () => {
 
   const handleConfirmSend = async () => {
     setIsSending((_) => true);
-    const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
+    const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL, "processed");
 
     const transferParams = {
       connection,
