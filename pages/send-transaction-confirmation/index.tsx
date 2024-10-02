@@ -65,7 +65,7 @@ const SendTransactionConfirmation = () => {
       const transferTransaction = await getTransferTransaction(transferParams);
       console.log("Simulation results: ", (await connection.simulateTransaction(transferTransaction)));
 
-      await wallets[0].signTransaction(transferTransaction);
+      // await wallets[0].signTransaction(transferTransaction);
       const sig = await connection.sendTransaction(transferTransaction, []);
 
       console.log("Ending the transfer flow: ", Date.now());
