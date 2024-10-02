@@ -63,8 +63,14 @@ const SendTransactionConfirmation = () => {
 
     try {
       const transferTransaction = await getTransferTransaction(transferParams);
-      await wallets[0].signTransaction(transferTransaction);
+      let t = transferTransaction.message.getAccountKeys();
+      console.log("Account keys: ", t);
+      let x = transferTransaction.message.compiledInstructions;
+      console.log("Message compiled ixs: ", x);
 
+      console.log("Before signing");
+      await wallets[0].signTransaction(transferTransaction);
+      console.log("Tx signed");
       const sig = connection.sendTransaction(transferTransaction)
       // const sig = await wallets[0].sendTransaction!(transferTransaction, connection);
 
