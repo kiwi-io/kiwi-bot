@@ -15,7 +15,7 @@ const Receive = () => {
 
   const shareOnTelegramHandler = (username: string) => {
     const botName = "@samplekiwibot";
-    const url = `https://t.me/samplekiwibot/pay/${username}`;
+    const url = `https://kiwi-bot.vercel.app/pay/${username}`;
     const shareText = encodeURIComponent(`${botName} ${url}`);
     const telegramUrl = `https://t.me/share/url?url=&text=${shareText}`;
 
