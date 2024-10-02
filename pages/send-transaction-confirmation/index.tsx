@@ -65,7 +65,12 @@ const SendTransactionConfirmation = () => {
       const transferTransaction = await getTransferTransaction(transferParams);
       console.log("Simulation results: ", (await connection.simulateTransaction(transferTransaction)));
 
-      transferTransaction.instructions.forEach((i) => i.keys.forEach((k) => console.log(k.pubkey.toString())));
+      for(let instruction of transferTransaction.instructions) {
+        console.log("Program id: ", instruction.programId.toString());
+        for(let acc of instruction.keys) {
+          console.log("Account: ", acc.pubkey.toString());
+        }
+      }
       const signedTx = await wallets[0].signTransaction(transferTransaction);
       const sig = await connection.sendTransaction(signedTx, []);
 
