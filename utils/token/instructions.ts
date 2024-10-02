@@ -1,4 +1,4 @@
-import { Connection, PublicKey, SystemProgram, Transaction, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
+import { Connection, PublicKey, SystemProgram, Transaction, TransactionInstruction } from '@solana/web3.js';
 import { getAssociatedTokenAddress, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, createTransferCheckedInstruction, createAssociatedTokenAccountInstruction } from '@solana/spl-token';
 import { NATIVE_SOL_PUBKEY } from '../../constants';
 import { requestComputeUnitsInstructions } from '../solana';
@@ -19,13 +19,13 @@ export const getTransferTransaction = async ({
     token,
     tokenDecimals,
     amount
-}: TransferParams): Promise<VersionedTransaction> => {
+}: TransferParams): Promise<Transaction> => {
      
     const instructions: TransactionInstruction[] = [];
 
-    // instructions.push(
-    //     ...requestComputeUnitsInstructions(100, 200_000)
-    // );
+    instructions.push(
+        ...requestComputeUnitsInstructions(100, 200_000)
+    );
 
     if(token.equals(NATIVE_SOL_PUBKEY)) {
         console.log("Start preping tx: ", Date.now());
@@ -37,16 +37,17 @@ export const getTransferTransaction = async ({
             })
         );
 
-        const messageV0 = new TransactionMessage({
-            payerKey: fromPubkey,
-            recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
-            instructions,
-        }).compileToV0Message();
+        const transaction = new Transaction();
+        
+        for(let ix of instructions) {
+            transaction.add(ix);
+        }
 
-        const versionedTransaction = new VersionedTransaction(messageV0);
+        transaction.feePayer = fromPubkey;
+        transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
         console.log("ENd preping tx: ", Date.now());
-          return versionedTransaction;
+          return transaction;
     }
     else {
         
@@ -94,16 +95,17 @@ export const getTransferTransaction = async ({
             )
         );
 
-        const messageV0 = new TransactionMessage({
-            payerKey: fromPubkey,
-            recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
-            instructions,
-        }).compileToV0Message();
+        const transaction = new Transaction();
 
-        const versionedTransaction = new VersionedTransaction(messageV0);
+        for(let ix of instructions) {
+            transaction.add(ix);
+        }
+
+        transaction.feePayer = fromPubkey;
+        transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
         console.log("Transaction prepared: ", Date.now());
         
-        return versionedTransaction;
+        return transaction;
     }
 }
