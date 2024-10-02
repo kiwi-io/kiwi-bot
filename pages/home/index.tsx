@@ -24,6 +24,24 @@ const Home = () => {
     return () => clearInterval(intervalId);
   }, [portfolio]);
 
+  useEffect(() => {
+    //@ts-ignore
+    const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
+    const components = startParam.split("-");
+
+    console.log("startParam: ", startParam);
+    console.log("components: ", components);
+    
+    const action = components[0]; // 4
+    const address = components[1]; // 44
+    const token = components[2]; // 8
+    const amount = components[3]; // 8
+
+    if(action === "send") {
+      router.push(`/send?recipient=${address}&token=${token}&amount=${amount}`);
+    }
+  }, []);
+
   const navigateToSettings = () => {
     router.push("/settings");
   };

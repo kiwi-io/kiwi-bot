@@ -1,6 +1,6 @@
 import { Bot, InlineKeyboard } from "grammy";
 import { webhookCallback } from "grammy";
-import { extractPaymentBeneficiaryFromUrl } from "./utils";
+import { BeneficiaryParams, extractPaymentBeneficiaryFromUrl } from "./utils";
 
 // Initialize the bot
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
@@ -22,23 +22,23 @@ bot.on("inline_query", async (ctx) => {
   if (urlMatch) {
     const url = urlMatch[0];
 
-    const beneficiaryUsername = extractPaymentBeneficiaryFromUrl(url);
+    const response: BeneficiaryParams = extractPaymentBeneficiaryFromUrl(url);
     
-    if(beneficiaryUsername) {
+    if(response.username && response.address) {
       // Respond with a message that contains an image and buttons
       await ctx.answerInlineQuery([
         {
           type: "article",
           id: "1",
           title: `Request a payment on Kiwi`,
-          description: `The received payment will be deposited on ${beneficiaryUsername}'s Kiwi wallet`,
+          description: `The received payment will be deposited on ${response.username}'s Kiwi wallet`,
           input_message_content: {
-            message_text: `🧾 ${beneficiaryUsername} is requesting a payment of 69 USD`,
+            message_text: `🧾 ${response.username} is requesting a payment of 69 USD`,
           },
           reply_markup: new InlineKeyboard()
             .url(
               "Pay using Kiwi",
-              `https://t.me/samplekiwibot/bot?startapp=hello&mode=compact`,
+              `https://t.me/samplekiwibot/bot?startapp=send-${response.address}-USDC-69`,
             )
             .row()
         },
