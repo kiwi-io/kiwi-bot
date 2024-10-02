@@ -23,12 +23,11 @@ export const getTransferTransaction = async ({
      
     const instructions: TransactionInstruction[] = [];
 
-    instructions.push(
-        ...requestComputeUnitsInstructions(100, 200_000)
-    );
+    // instructions.push(
+    //     ...requestComputeUnitsInstructions(100, 200_000)
+    // );
 
     if(token.equals(NATIVE_SOL_PUBKEY)) {
-        console.log("Start preping tx: ", Date.now());
         instructions.push(
             SystemProgram.transfer({
               fromPubkey,
@@ -46,16 +45,13 @@ export const getTransferTransaction = async ({
         transaction.feePayer = fromPubkey;
         transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
-        console.log("ENd preping tx: ", Date.now());
           return transaction;
     }
     else {
         
-        console.log("Fetching gATA: ", Date.now());
         const fromTokenAccount = await getAssociatedTokenAddress(token, fromPubkey, false);
         const toTokenAccount = await getAssociatedTokenAddress(token, toPubkey, false);
 
-        console.log("fetching account infos: ", Date.now());
         const [tokenInfo, toTokenAccountInfo] = await connection.getMultipleAccountsInfo([
             token,
             toTokenAccount
@@ -79,8 +75,6 @@ export const getTransferTransaction = async ({
             )
         }
 
-        console.log("User balance: ", (await connection.getTokenAccountBalance(fromTokenAccount)).value.uiAmount);
-        console.log("amount transfer: ", amount);
 
         instructions.push(
             createTransferCheckedInstruction(
@@ -103,8 +97,6 @@ export const getTransferTransaction = async ({
 
         transaction.feePayer = fromPubkey;
         transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
-
-        console.log("Transaction prepared: ", Date.now());
         
         return transaction;
     }

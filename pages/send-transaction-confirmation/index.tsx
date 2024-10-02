@@ -63,18 +63,11 @@ const SendTransactionConfirmation = () => {
 
     try {
       const transferTransaction = await getTransferTransaction(transferParams);
-      console.log("Simulation results: ", (await connection.simulateTransaction(transferTransaction)));
 
-      for(let instruction of transferTransaction.instructions) {
-        console.log("Program id: ", instruction.programId.toString());
-        for(let acc of instruction.keys) {
-          console.log("Account: ", acc.pubkey.toString());
-        }
-      }
-      const signedTx = await wallets[0].signTransaction(transferTransaction);
-      const sig = await connection.sendTransaction(signedTx, []);
+      // const signedTx = await wallets[0].signTransaction(transferTransaction);
+      // const sig = await connection.sendTransaction(signedTx, []);
+      const sig = await wallets[0].sendTransaction(transferTransaction, connection);
 
-      console.log("Ending the transfer flow: ", Date.now());
       console.log("sig: ", sig);
 
       setIsSending((_) => false);
