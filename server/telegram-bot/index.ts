@@ -1,5 +1,6 @@
 import { Bot, InlineKeyboard } from "grammy";
 import { webhookCallback } from "grammy";
+import { extractPaymentBeneficiaryFromUrl } from "./utils";
 
 // Initialize the bot
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
@@ -21,28 +22,28 @@ bot.on("inline_query", async (ctx) => {
   if (urlMatch) {
     const url = urlMatch[0];
 
-    // Respond with a message that contains an image and buttons
-    await ctx.answerInlineQuery([
-      {
-        type: "article",
-        id: "1",
-        title: "Share Kiwi App Link",
-        description: "Click to post a custom message with buttons",
-        input_message_content: {
-          message_text: `Check out this Kiwi link: ${url}`,
+    const beneficiaryUsername = extractPaymentBeneficiaryFromUrl(url);
+    
+    if(beneficiaryUsername) {
+      // Respond with a message that contains an image and buttons
+      await ctx.answerInlineQuery([
+        {
+          type: "article",
+          id: "1",
+          title: `Request a payment on Kiwi`,
+          description: `${beneficiaryUsername} is requesting a payment`,
+          input_message_content: {
+            message_text: `${beneficiaryUsername} is requesting a payment`,
+          },
+          reply_markup: new InlineKeyboard()
+            .url(
+              "Pay using Kiwi",
+              `https://t.me/samplekiwibot/bot?startapp=hello&mode=compact`,
+            )
+            .row()
         },
-        reply_markup: new InlineKeyboard()
-          .url(
-            "Open Kiwi Mini App",
-            `https://t.me/samplekiwibot/bot?startapp=hello&mode=compact`,
-          )
-          .row()
-          .url(
-            "Another Button",
-            `https://t.me/samplekiwibot/bot?startapp=hello&mode=compact`,
-          ),
-      },
-    ]);
+      ]);
+    }
   } else {
     // If no URL is found, return a default message
     await ctx.answerInlineQuery([
