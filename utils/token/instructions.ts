@@ -27,13 +27,13 @@ export const getTransferTransaction = async ({
 
     if(token.equals(NATIVE_SOL_PUBKEY)) {
         console.log("Start preping tx: ", Date.now());
-        transaction.add(
-            SystemProgram.transfer({
-              fromPubkey,
-              toPubkey,
-              lamports: amount,
-            })
-        );
+        // transaction.add(
+        //     SystemProgram.transfer({
+        //       fromPubkey,
+        //       toPubkey,
+        //       lamports: amount,
+        //     })
+        // );
 
         transaction.feePayer = fromPubkey;
         transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
