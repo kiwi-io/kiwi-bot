@@ -23,9 +23,9 @@ export const getTransferTransaction = async ({
      
     const instructions: TransactionInstruction[] = [];
 
-    instructions.push(
-        ...requestComputeUnitsInstructions(100, 200_000)
-    );
+    // instructions.push(
+    //     ...requestComputeUnitsInstructions(100, 200_000)
+    // );
 
     if(token.equals(NATIVE_SOL_PUBKEY)) {
         console.log("Start preping tx: ", Date.now());
