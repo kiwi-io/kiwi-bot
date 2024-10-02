@@ -1,6 +1,7 @@
 import { Connection, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
 import { getAssociatedTokenAddress, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, createTransferCheckedInstruction, createAssociatedTokenAccountInstruction } from '@solana/spl-token';
 import { NATIVE_SOL_PUBKEY } from '../../constants';
+import { requestComputeUnitsInstructions } from '../solana';
 
 export interface TransferParams {
   connection: Connection;
@@ -19,9 +20,14 @@ export const getTransferTransaction = async ({
     tokenDecimals,
     amount
 }: TransferParams): Promise<Transaction> => {
+    const transaction = new Transaction();
+    transaction.add(
+        ...requestComputeUnitsInstructions(100, 200_000)
+    );
+
     if(token.equals(NATIVE_SOL_PUBKEY)) {
         console.log("Start preping tx: ", Date.now());
-        const transaction = new Transaction().add(
+        transaction.add(
             SystemProgram.transfer({
               fromPubkey,
               toPubkey,
@@ -51,9 +57,7 @@ export const getTransferTransaction = async ({
         if(tokenInfo.owner === TOKEN_2022_PROGRAM_ID) {
             tokenOwnerProgram = TOKEN_2022_PROGRAM_ID;
         }
-
-        const transaction = new Transaction();
-
+        
         if(!toTokenAccountInfo) {
             transaction.add(
                 createAssociatedTokenAccountInstruction(
