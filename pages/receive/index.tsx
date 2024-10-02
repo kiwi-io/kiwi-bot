@@ -13,9 +13,9 @@ const Receive = () => {
     await navigator.clipboard.writeText(text);
   };
 
-  const shareOnTelegramHandler = (username: string) => {
+  const shareOnTelegramHandler = (username: string, address: string) => {
     const botName = "@samplekiwibot";
-    const url = `https://kiwi-bot.vercel.app/pay/${username}`;
+    const url = `https://kiwi-bot.vercel.app/pay/${username}-${address}`;
     const shareText = encodeURIComponent(`${botName} ${url}`);
     const telegramUrl = `https://t.me/share/url?url=&text=${shareText}`;
 
@@ -51,7 +51,7 @@ const Receive = () => {
             className={styles.shareOnTelegramButtonContainer}
             onClick={() => {
               vibrate("light");
-              shareOnTelegramHandler(user.telegram.username);
+              shareOnTelegramHandler(user.telegram.username, user.wallet.address);
             }}
           >
             Share on Telegram
