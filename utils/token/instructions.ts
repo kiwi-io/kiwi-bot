@@ -35,9 +35,11 @@ export const getTransferTransaction = async ({
     }
     else {
         
+        console.log("Fetching gATA: ", Date.now());
         const fromTokenAccount = await getAssociatedTokenAddress(token, fromPubkey, false);
         const toTokenAccount = await getAssociatedTokenAddress(token, toPubkey, false);
 
+        console.log("fetching account infos: ", Date.now());
         const [tokenInfo, toTokenAccountInfo] = await connection.getMultipleAccountsInfo([
             token,
             toTokenAccount
@@ -81,6 +83,8 @@ export const getTransferTransaction = async ({
                 tokenOwnerProgram
             )
         );
+
+        console.log("Transaction prepared: ", Date.now());
         
         return transaction;
     }

@@ -88,7 +88,8 @@ const Send = () => {
 
   const handleMaxAmount = async () => {
     const maxAmount = selectedTokenItem.balance;
-    setSelectedAmount((_) => (maxAmount / (selectedTokenItem ? 10 ** selectedTokenItem.decimals : 1)).toString());
+    // setSelectedAmount((_) => maxAmount.toString());
+    setSelectedAmount((_) => "100"); // 100 lamports temporarily
   }
 
   const confirmSendHandler = async () => {
@@ -185,7 +186,9 @@ const Send = () => {
                   // disabled={!wallet.connected}
                   className={styles.recipientFormField}
                   onChange={(e) => handleAmountChange(e)}
-                  value={selectedAmount}
+                  value={
+                    (parseFloat(selectedAmount) / (selectedTokenItem ? 10 ** selectedTokenItem.decimals : 1)).toString()
+                  }
                 />
                 <div className={styles.maxAmountButton}>
                   <span

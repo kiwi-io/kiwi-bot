@@ -59,9 +59,13 @@ const SendTransactionConfirmation = () => {
       amount: parseInt(amount)
     } as TransferParams;
 
+    console.log("Starting the transfer flow: ", Date.now());
+
     try {
       const transferTransaction = await getTransferTransaction(transferParams);
       const sig = await wallets[0].sendTransaction!(transferTransaction, connection);
+
+      console.log("Ending the transfer flow: ", Date.now());
 
       setIsSending((_) => false);
       router.push(`/transaction-status?type=success&signature=${sig}`);
