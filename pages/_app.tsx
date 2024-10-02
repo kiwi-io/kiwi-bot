@@ -2,9 +2,14 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { PrivyProvider } from "@privy-io/react-auth";
+import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";
+import { SolanaWalletConnectors } from "@dynamic-labs/solana";
+import { GlobalWalletExtension } from "@dynamic-labs/global-wallet";
+
 import { WalletContextProvider } from "../components/contexts";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  
   return (
     <>
       <Head>
@@ -23,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         referrerPolicy="no-referrer"
       />
       <WalletContextProvider>
-        <PrivyProvider
+        {/* <PrivyProvider
           appId={process.env.NEXT_PRIVY_APP_ID || ""}
           config={{
             embeddedWallets: {
@@ -31,9 +36,17 @@ function MyApp({ Component, pageProps }: AppProps) {
             },
             loginMethods: ["telegram"],
           }}
-        >
-          <Component {...pageProps} />
-        </PrivyProvider>
+        > */}
+        <DynamicContextProvider
+        settings={{
+          environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ENV_ID,
+          walletConnectors: [SolanaWalletConnectors],
+          walletConnectorExtensions: [GlobalWalletExtension]
+        }}
+      >
+                  <Component {...pageProps} />
+      </DynamicContextProvider>
+        {/* </PrivyProvider> */}
       </WalletContextProvider>
     </>
   );

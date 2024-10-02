@@ -14,6 +14,10 @@
     "format": "prettier '.' --write"
   },
   "dependencies": {
+    "@dynamic-labs/ethereum": "^3.1.4",
+    "@dynamic-labs/global-wallet": "^3.1.4",
+    "@dynamic-labs/sdk-react-core": "^3.1.4",
+    "@dynamic-labs/solana": "^3.1.4",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@privy-io/react-auth": "1.88.1",

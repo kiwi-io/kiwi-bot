@@ -1,11 +1,11 @@
-import { User } from "@privy-io/react-auth";
+import { Wallet } from "@dynamic-labs/sdk-react-core";
 import React from "react";
 import { useState, createContext, useContext } from "react";
 import { getWalletPortfolio, TokenItem, WalletPortfolio } from "../../../utils";
 
 interface WalletContextType {
   portfolio: WalletPortfolio;
-  updatePortfolio: (user: User) => void;
+  updatePortfolio: (userWallet: Wallet) => void;
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
@@ -67,9 +67,9 @@ export const WalletContextProvider = ({ children }) => {
     ],
   });
 
-  const updatePortfolio = async (user: User) => {
-    if (user && user.wallet) {
-      const latestPortfolio = await getWalletPortfolio(user.wallet.address);
+  const updatePortfolio = async (userWallet: Wallet) => {
+    if (userWallet) {
+      const latestPortfolio = await getWalletPortfolio(userWallet.address);
       // let latestPortfolio = await getWalletPortfolio("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P");
       console.log("Latest portfolio: ", latestPortfolio, " on: ", Date.now());
       setPortfolio((_) => latestPortfolio);

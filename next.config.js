@@ -15,6 +15,7 @@ const nextConfig = {
     NEXT_BIRDEYE_API_KEY: process.env.NEXT_BIRDEYE_API_KEY || "",
     NEXT_RPC_MAINNET_URL: process.env.NEXT_RPC_MAINNET_URL || "",
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || "",
+    NEXT_PUBLIC_DYNAMIC_ENV_ID: process.env.NEXT_PUBLIC_DYNAMIC_ENV_ID || ""
   },
   eslint: {
     ignoreDuringBuilds: true,

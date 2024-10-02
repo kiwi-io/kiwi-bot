@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { Nav, Navbar, Container } from "react-bootstrap";
 import styles from "./index.module.css";
 import dynamic from "next/dynamic";
-import { usePrivy, useLogin, useSolanaWallets } from "@privy-io/react-auth";
-import { hasExistingSolanaWallet } from "../utils";
+import { useTelegramLogin, useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
 const Home = dynamic(() => import("./home"));
 
@@ -14,41 +13,40 @@ export default function Main() {
   const [activePage, _setActivePage] = useState("/home");
   const [loginTimeout, setLoginTimeout] = useState(false);
 
-  const { createWallet } = useSolanaWallets();
-
+  const { sdkHasLoaded, user, primaryWallet } = useDynamicContext();
+  const { telegramSignIn } = useTelegramLogin();
+  
   const { updatePortfolio } = useWalletContext();
-
-  const { ready, authenticated } = usePrivy();
-
-  useLogin({
-    onComplete(
-      user,
-      _isNewUser,
-      _wasAlreadyAuthenticated,
-      _loginMethod,
-      _loginAccount,
-    ) {
-      if (user) {
-        if (!hasExistingSolanaWallet(user)) {
-          createWallet();
-        }
-        updatePortfolio(user);
-      }
-    },
-    onError: (error) => {
-      console.log("Error logging in: ", error);
-    },
-  });
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!ready || !authenticated) {
+      if(sdkHasLoaded) {
         setLoginTimeout(true);
       }
-    }, 60000); // 1 minute timeout
+    }, 60000);
 
     return () => clearTimeout(timer);
-  }, [ready, authenticated]);
+  }, [sdkHasLoaded]);
+
+  useEffect(() => {
+    if (!sdkHasLoaded) return;
+
+    const signIn = async () => {
+      if (!user) {
+        await telegramSignIn({ forceCreateUser: true });
+      }
+    };
+
+    const loadPortfolio = async() => {
+      if(user) {
+        updatePortfolio(primaryWallet);
+      }
+    }
+
+    signIn();
+    loadPortfolio();
+  }, [sdkHasLoaded]);
+
 
   // const handleNavClick = (page: string) => {
   //   setActivePage(page);
@@ -73,7 +71,7 @@ export default function Main() {
 
   return (
     <div className={styles.mainContainer}>
-      {ready && authenticated ? (
+      {sdkHasLoaded && user ? (
         <div className={styles.mainAuthenticatedContainer}>
           <div className={styles.activePage}>{renderActivePage()}</div>
           {/* <Navbar className={styles.navbar}>
