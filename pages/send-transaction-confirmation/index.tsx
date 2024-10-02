@@ -63,10 +63,9 @@ const SendTransactionConfirmation = () => {
 
     try {
       const transferTransaction = await getTransferTransaction(transferParams);
-      let t = transferTransaction.message.getAccountKeys();
-      console.log("Account keys: ", t);
-      let x = transferTransaction.message.compiledInstructions;
-      console.log("Message compiled ixs: ", x);
+      let t = transferTransaction.message.getAccountKeys().staticAccountKeys.forEach((i) => console.log("Static account key: ", i.toString()));
+      
+      let x = transferTransaction.message.compiledInstructions.forEach((i) => console.log(`Index: ${i.accountKeyIndexes}, programID: ${i.programIdIndex}`));
 
       console.log("Before signing");
       await wallets[0].signTransaction(transferTransaction);
