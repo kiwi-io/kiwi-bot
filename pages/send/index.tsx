@@ -24,7 +24,7 @@ const Send = () => {
   const [selectedTokenItem, setSelectedTokenItem] =
     useState<TokenItem>(undefined);
   const [selectedRecipient, setSelectedRecipient] = useState<string>(recipient);
-  const [selectedAmount, setSelectedAmount] = useState<string>(amount);
+  const [selectedAmount, setSelectedAmount] = useState<string>("0");
 
   const { portfolio } = useWalletContext();
 
@@ -59,22 +59,22 @@ const Send = () => {
     }
   };
 
-  // const handlePaste = async () => {
-  //   try {
-  //     // Check if the browser supports clipboard API
-  //     if (navigator.clipboard) {
-  //       // Read the clipboard text
-  //       const text = await navigator.clipboard.readText();
-  //       setSelectedRecipient((_) => text);
-  //     } else {
-  //       console.error("Clipboard API is not supported in this browser.");
-  //       setSelectedRecipient((_) => "");
-  //     }
-  //   } catch (error) {
-  //     console.error("Failed to read clipboard contents: ", error);
-  //     setSelectedRecipient((_) => "");
-  //   }
-  // }
+  const handlePaste = async () => {
+    try {
+      // Check if the browser supports clipboard API
+      if (navigator.clipboard) {
+        // Read the clipboard text
+        const text = await navigator.clipboard.readText();
+        setSelectedRecipient((_) => text);
+      } else {
+        console.error("Clipboard API is not supported in this browser.");
+        setSelectedRecipient((_) => "");
+      }
+    } catch (error) {
+      console.error("Failed to read clipboard contents: ", error);
+      setSelectedRecipient((_) => "");
+    }
+  }
 
   const handleScanQr = async () => {
     const qrScanner = initQRScanner();
@@ -149,7 +149,8 @@ const Send = () => {
                     onClick={
                       () => {
                         vibrate("soft");
-                        handleScanQr();
+                        // handleScanQr();
+                        handlePaste();
                       }
                     }
                   ></i>
