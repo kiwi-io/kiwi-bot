@@ -27,19 +27,21 @@ const Home = () => {
   useEffect(() => {
     //@ts-ignore
     const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
-    console.log("startParam: ", startParam);
+    if(startParam) {
+      console.log("startParam: ", startParam);
 
-    const components = startParam.split("-");
+      const components = startParam.split("-");
 
-    console.log("components: ", components);
+      console.log("components: ", components);
 
-    const action = components[0]; // 4
-    const address = components[1]; // 44
-    const token = components[2]; // 8
-    const amount = components[3]; // 8
+      const action = components[0]; // 4
+      const address = components[1]; // 44
+      const token = components[2]; // 8
+      const amount = components[3]; // 8
 
-    if(action === "send") {
-      router.push(`/send?recipient=${address}&token=${token}&amount=${amount}`);
+      if(action === "send") {
+        router.push(`/send?recipient=${address}&token=${token}&amount=${amount}`);
+      }
     }
   }, []);
 
@@ -72,10 +74,7 @@ const Home = () => {
           <div className={styles.headerAndOverviewContainer}>
             <div className={styles.headerContainer}>
               <div className={styles.usernameContainer}>
-                <div>{`${
-                        //@ts-ignore
-                        window.Telegram.WebApp.initDataUnsafe.start_param
-                      } ${user.telegram?.username}`}</div>
+                <div>{`${user.telegram?.username}`}</div>
                 </div>
               <div
                 className={styles.settingsContainer}
