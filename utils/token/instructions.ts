@@ -1,4 +1,4 @@
-import { Connection, PublicKey, SystemProgram, Transaction, TransactionInstruction } from '@solana/web3.js';
+import { Connection, PublicKey, SystemProgram, Transaction, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
 import { getAssociatedTokenAddress, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, createTransferCheckedInstruction, createAssociatedTokenAccountInstruction } from '@solana/spl-token';
 import { NATIVE_SOL_PUBKEY } from '../../constants';
 import { requestComputeUnitsInstructions } from '../solana';
@@ -19,15 +19,16 @@ export const getTransferTransaction = async ({
     token,
     tokenDecimals,
     amount
-}: TransferParams): Promise<Transaction> => {
+}: TransferParams): Promise<VersionedTransaction> => {
      
     const instructions: TransactionInstruction[] = [];
 
-    // instructions.push(
-    //     ...requestComputeUnitsInstructions(100, 200_000)
-    // );
+    instructions.push(
+        ...requestComputeUnitsInstructions(100, 200_000)
+    );
 
     if(token.equals(NATIVE_SOL_PUBKEY)) {
+        console.log("Start preping tx: ", Date.now());
         instructions.push(
             SystemProgram.transfer({
               fromPubkey,
@@ -36,22 +37,24 @@ export const getTransferTransaction = async ({
             })
         );
 
-        const transaction = new Transaction();
-        
-        for(let ix of instructions) {
-            transaction.add(ix);
-        }
+        const messageV0 = new TransactionMessage({
+            payerKey: fromPubkey,
+            recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
+            instructions,
+        }).compileToV0Message();
 
-        transaction.feePayer = fromPubkey;
-        transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
+        const versionedTransaction = new VersionedTransaction(messageV0);
 
-          return transaction;
+        console.log("ENd preping tx: ", Date.now());
+          return versionedTransaction;
     }
     else {
         
+        console.log("Fetching gATA: ", Date.now());
         const fromTokenAccount = await getAssociatedTokenAddress(token, fromPubkey, false);
         const toTokenAccount = await getAssociatedTokenAddress(token, toPubkey, false);
 
+        console.log("fetching account infos: ", Date.now());
         const [tokenInfo, toTokenAccountInfo] = await connection.getMultipleAccountsInfo([
             token,
             toTokenAccount
@@ -75,6 +78,8 @@ export const getTransferTransaction = async ({
             )
         }
 
+        console.log("User balance: ", (await connection.getTokenAccountBalance(fromTokenAccount)).value.uiAmount);
+        console.log("amount transfer: ", amount);
 
         instructions.push(
             createTransferCheckedInstruction(
@@ -89,15 +94,16 @@ export const getTransferTransaction = async ({
             )
         );
 
-        const transaction = new Transaction();
+        const messageV0 = new TransactionMessage({
+            payerKey: fromPubkey,
+            recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
+            instructions,
+        }).compileToV0Message();
 
-        for(let ix of instructions) {
-            transaction.add(ix);
-        }
+        const versionedTransaction = new VersionedTransaction(messageV0);
 
-        transaction.feePayer = fromPubkey;
-        transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
+        console.log("Transaction prepared: ", Date.now());
         
-        return transaction;
+        return versionedTransaction;
     }
 }
