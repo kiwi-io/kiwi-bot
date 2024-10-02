@@ -27,11 +27,12 @@ const Home = () => {
   useEffect(() => {
     //@ts-ignore
     const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
+    console.log("startParam: ", startParam);
+
     const components = startParam.split("-");
 
-    console.log("startParam: ", startParam);
     console.log("components: ", components);
-    
+
     const action = components[0]; // 4
     const address = components[1]; // 44
     const token = components[2]; // 8
@@ -71,8 +72,11 @@ const Home = () => {
           <div className={styles.headerAndOverviewContainer}>
             <div className={styles.headerContainer}>
               <div className={styles.usernameContainer}>
-                <div>{`${user.telegram?.username}`}</div>
-              </div>
+                <div>{`${
+                        //@ts-ignore
+                        window.Telegram.WebApp.initDataUnsafe.start_param
+                      } ${user.telegram?.username}`}</div>
+                </div>
               <div
                 className={styles.settingsContainer}
                 onClick={() => {
