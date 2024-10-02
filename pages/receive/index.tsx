@@ -17,9 +17,10 @@ const Receive = () => {
     const botName = "@samplekiwibot";
     const url = `https://kiwi-bot.vercel.app/pay/${username}-${address}`;
     const shareText = encodeURIComponent(`${botName} ${url}`);
-    const telegramUrl = `https://t.me/share/url?url=&text=${shareText}`;
+    // const telegramUrl = `https://t.me/share/url?url=&text=${shareText}`;
 
-    // Redirect user to the Telegram share URL
+    const telegramUrl = "https://t.me/genopets_pixelton_bot/arena?startapp=referrer_9Li5wdf5_battle_aQuPaf6sOxj23lu8vqGg";
+    
     window.open(telegramUrl, "_blank");
   };
 
