@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./send.module.css";
 import { useRouter } from "next/router";
 import StandardHeader from "../../components/StandardHeader";
-import { increaseDimensionsInUrl, TokenItem } from "../../utils";
+import { getAmountInLamports, increaseDimensionsInUrl, TokenItem } from "../../utils";
 import { useWalletContext } from "../../components/contexts";
 import { useTelegram } from "../../utils/twa";
 import { Form } from "react-bootstrap";
@@ -24,7 +24,7 @@ const Send = () => {
   const [selectedTokenItem, setSelectedTokenItem] =
     useState<TokenItem>(undefined);
   const [selectedRecipient, setSelectedRecipient] = useState<string>(recipient);
-  const [selectedAmount, setSelectedAmount] = useState<string>("0");
+  const [selectedAmount, setSelectedAmount] = useState<string>(amount);
 
   const { portfolio } = useWalletContext();
 
@@ -87,9 +87,8 @@ const Send = () => {
   }
 
   const handleMaxAmount = async () => {
-    const maxAmount = selectedTokenItem.balance;
-    // setSelectedAmount((_) => maxAmount.toString());
-    setSelectedAmount((_) => "100"); // 100 lamports temporarily
+    let maxAmount = getAmountInLamports(selectedTokenItem.balance.toString(), selectedTokenItem ? selectedTokenItem.decimals : 1);
+    setSelectedAmount((_) => maxAmount.toString());
   }
 
   const confirmSendHandler = async () => {
@@ -149,8 +148,7 @@ const Send = () => {
                     onClick={
                       () => {
                         vibrate("soft");
-                        // handleScanQr();
-                        handlePaste();
+                        handleScanQr();
                       }
                     }
                   ></i>
@@ -184,11 +182,10 @@ const Send = () => {
                 <div className={styles.recipientFieldContainer}>
                 <Form.Control
                   placeholder={"Amount"}
-                  // disabled={!wallet.connected}
                   className={styles.recipientFormField}
                   onChange={(e) => handleAmountChange(e)}
                   value={
-                    (parseFloat(selectedAmount) / (selectedTokenItem ? 10 ** selectedTokenItem.decimals : 1)).toString()
+                    selectedAmount
                   }
                 />
                 <div className={styles.maxAmountButton}>

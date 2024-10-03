@@ -54,3 +54,10 @@ export const getHoldings = async (
     console.error("Error fetching token accounts:", error);
   }
 };
+
+export const getAmountInLamports = (
+  amountInUnits: string,
+  decimals: number
+): number => {
+  return (parseFloat(amountInUnits) / 10 ** decimals);
+}
