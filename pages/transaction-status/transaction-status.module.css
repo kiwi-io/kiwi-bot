@@ -10,37 +10,41 @@
     box-sizing: border-box;
   }
 
-.transactionStatusMainContainer {
-  margin: 1rem;
+.transactionStatusTypeImageContainer {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
 }
 
 .successImageContainer {
-  background-color: rgb(61, 227, 131, 0.5);
+  background-color: rgba(61, 227, 131, 0.5);
   border: none;
   border-radius: 100%;
   width: 100px;
   height: 100px;
-  color: white;
+  color: rgba(26, 128, 68);
   padding: 1rem;
-  font-size: 1.25rem;
 }
 
 .failureImageContainer {
-  background-color: rgb(227, 61, 61, 0.5);
+  background-color: rgba(227, 61, 61, 0.5);
   border: none;
   border-radius: 100%;
   width: 100px;
   height: 100px;
-  color: white;
+  color: rgb(141, 14, 14);
   padding: 1rem;
-  font-size: 1.25rem;
 }
 
 .transactionStatusLabelContainer {
   font-size: 1.25rem;
   color: #481801;
   font-weight: 600;
-  margin: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .transactionSignatureViewContainer {
@@ -63,8 +67,8 @@
   background-color: #ff9d00;
   margin-top: 3rem;
   transition:
-    transform 0.1s ease,
-    background-color 0.2s ease;
+  transform 0.1s ease,
+  background-color 0.2s ease;
   padding: 1rem;
   color: #481801;
   width: 100%;
