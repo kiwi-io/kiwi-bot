@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./transaction-status.module.css";
 import { useRouter } from "next/router";
+import { useTelegram } from "../../utils/twa";
 
 export type TransactionStatusType = "success" | "error";
 
@@ -14,6 +15,13 @@ const TransactionStatus = () => {
     const router = useRouter();
     const { type, signature, error }: TransactionStatusQueryParams = router.query;
 
+    const {vibrate} = useTelegram();
+
+    const handleCloseButton = () => {
+        vibrate("light");
+        router.push("/home");
+    }
+    
     return (
         <div className={styles.transactionStatusMainContainer}>
             <div className={styles.transactionStatusTypeImageContainer}>
@@ -36,7 +44,7 @@ const TransactionStatus = () => {
                 {
                     type === "success" ?
                         signature ?
-                            <a href={`https://solscan.io/tx/${signature}`}>View on Explorer <i className="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            <a className={styles.explorerLink} href={`https://solscan.io/tx/${signature}`}>View on Explorer <i className="fa-solid fa-arrow-up-right-from-square"></i></a>
                         :
                             <></>
                     :
@@ -46,7 +54,14 @@ const TransactionStatus = () => {
                             <></>
                 }
             </div>
-            <div className={styles.closeButtonContainer}>
+            <div
+                className={styles.closeButtonContainer}
+                onClick={
+                    () => {
+                        handleCloseButton();
+                    }
+                }
+            >
                 Close
             </div>
         </div>
