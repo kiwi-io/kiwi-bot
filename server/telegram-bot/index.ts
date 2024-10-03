@@ -30,14 +30,14 @@ bot.on("inline_query", async (ctx) => {
         type: "article",
         id: "1",
         title: `Request a payment on Kiwi`,
-        description: `The received payment will be deposited on` + (response ? `${response.username}'s Kiwi wallet` : ``),
+        description: `The received payment will be deposited on ` + (response ? `${response.username}'s Kiwi wallet` : ``),
         input_message_content: {
           message_text: response ? `🧾 ${response.username} is requesting a payment of ${response.amount} ${response.token}` : `You are requested to make a payment using Kiwi`,
         },
         reply_markup: new InlineKeyboard()
           .url(
             "Pay using Kiwi",
-            response ? `https://t.me/samplekiwibot/bot?startapp=send-${response.address}-${response.token}-${response.amount}` : `https://t.me/samplekiwibot/bot?startapp=send`,
+            `https://t.me/samplekiwibot/bot?startapp=send-${response.address}-${response.token}-${response.amount}`,
           )
           .row()
       },
