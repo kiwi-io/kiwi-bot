@@ -35,12 +35,38 @@ const Home = () => {
       console.log("components: ", components);
 
       const action = components[0]; // 4
-      const address = components[1]; // 44
-      const token = components[2]; // 8
-      const amount = components[3]; // 8
 
+      let address = undefined;
+      if(components.length == 2) {
+        address = components[1]; // 44
+      }
+
+      let tokenSymbol = undefined;
+      if(components.length == 3) {
+        tokenSymbol = components[2]; 
+      }
+
+      let amount = undefined;
+      if(components.length == 4) {
+        amount = components[3]; 
+      }
+      
       if(action === "send") {
-        router.push(`/send?recipient=${address}&token=${token}&amount=${amount}`);
+        let targetUrl = `/send?`;
+
+        if(address) {
+          targetUrl += `recipient=${address}`;
+        }
+
+        if(tokenSymbol) {
+          targetUrl += `&token=${tokenSymbol}`;
+        }
+
+        if(amount) {
+          targetUrl += `&amount=${amount}`;
+        }
+        
+        router.push(targetUrl);
       }
     }
   }, []);

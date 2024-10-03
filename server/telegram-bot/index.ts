@@ -24,36 +24,22 @@ bot.on("inline_query", async (ctx) => {
 
     const response: BeneficiaryParams = extractPaymentBeneficiaryFromUrl(url);
     
-    if(response.username && response.address) {
-      // Respond with a message that contains an image and buttons
-      await ctx.answerInlineQuery([
-        {
-          type: "article",
-          id: "1",
-          title: `Request a payment on Kiwi`,
-          description: `The received payment will be deposited on ${response.username}'s Kiwi wallet`,
-          input_message_content: {
-            message_text: `🧾 ${response.username} is requesting a payment of ${response.amount} ${response.token}`,
-          },
-          reply_markup: new InlineKeyboard()
-            .url(
-              "Pay using Kiwi",
-              `https://t.me/samplekiwibot/bot?startapp=send-${response.address}-${response.token}-${response.amount}`,
-            )
-            .row()
-        },
-      ]);
-    }
-  } else {
-    // If no URL is found, return a default message
+    // Respond with a message that contains an image and buttons
     await ctx.answerInlineQuery([
       {
         type: "article",
-        id: "2",
-        title: "No URL found",
+        id: "1",
+        title: `Request a payment on Kiwi`,
+        description: `The received payment will be deposited on` + (response ? `${response.username}'s Kiwi wallet` : ``),
         input_message_content: {
-          message_text: "Please tag a valid URL!",
+          message_text: response ? `🧾 ${response.username} is requesting a payment of ${response.amount} ${response.token}` : `You are requested to make a payment using Kiwi`,
         },
+        reply_markup: new InlineKeyboard()
+          .url(
+            "Pay using Kiwi",
+            response ? `https://t.me/samplekiwibot/bot?startapp=send-${response.address}-${response.token}-${response.amount}` : `https://t.me/samplekiwibot/bot?startapp=send`,
+          )
+          .row()
       },
     ]);
   }
