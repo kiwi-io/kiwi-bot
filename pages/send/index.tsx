@@ -24,7 +24,7 @@ const Send = () => {
   const [selectedTokenItem, setSelectedTokenItem] =
     useState<TokenItem>(undefined);
   const [selectedRecipient, setSelectedRecipient] = useState<string>(recipient);
-  const [selectedAmount, setSelectedAmount] = useState<string>(amount);
+  const [selectedAmount, setSelectedAmount] = useState<string>(decodeURIComponent(amount));
 
   const { portfolio } = useWalletContext();
 
@@ -95,7 +95,7 @@ const Send = () => {
   }
 
   const confirmSendHandler = async () => {
-    router.push(`/send-transaction-confirmation?from=${user.wallet.address}&to=${selectedRecipient}&token=${token}&amount=${selectedAmount}`)
+    router.push(`/send-transaction-confirmation?from=${user.wallet.address}&to=${selectedRecipient}&token=${token}&amount=${encodeURIComponent(selectedAmount)}`)
   }
 
   return (

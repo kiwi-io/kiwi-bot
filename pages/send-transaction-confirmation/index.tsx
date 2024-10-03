@@ -50,15 +50,17 @@ const SendTransactionConfirmation = () => {
     setIsSending((_) => true);
     const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL, "confirmed");
 
-    console.log("Amount before: ", amount);
-    console.log("parsed amount: ", parseFloat(amount));
+    const decodedAmount = decodeURIComponent(amount);
+
+    console.log("Amount before: ", decodedAmount);
+    console.log("parsed amount: ", parseFloat(decodedAmount));
     const transferParams = {
       connection,
       fromPubkey: new PublicKey(from),
       toPubkey: new PublicKey(to),
       token: new PublicKey(selectedTokenItem.address),
       tokenDecimals: selectedTokenItem.decimals,
-      amount: parseFloat(amount)
+      amount: parseFloat(decodedAmount)
     } as TransferParams;
 
     if(parseFloat(amount) <= 0) {
@@ -151,7 +153,7 @@ const SendTransactionConfirmation = () => {
                 Amount
             </div>
             <div className={styles.valueContainer}>
-                {amount}
+                {decodeURIComponent(amount)}
             </div>
           </div>
         </div>
