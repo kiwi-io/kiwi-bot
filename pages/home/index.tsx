@@ -37,12 +37,12 @@ const Home = () => {
       const action = components[0]; // 4
 
       let address = undefined;
-      if(components.length == 2) {
+      if(components.length >= 2) {
         address = components[1]; // 44
       }
 
       let tokenSymbol = undefined;
-      if(components.length == 3) {
+      if(components.length >= 3) {
         tokenSymbol = components[2]; 
       }
 
