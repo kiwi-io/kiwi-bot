@@ -37,7 +37,7 @@ bot.on("inline_query", async (ctx) => {
         reply_markup: new InlineKeyboard()
           .url(
             "Pay using Kiwi",
-            `https://t.me/samplekiwibot/bot?startapp=send-${response.address}-${response.token}-${encodeURIComponent(response.amount)}`,
+            `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${response.amount}`)}`,
           )
           .row()
       },
