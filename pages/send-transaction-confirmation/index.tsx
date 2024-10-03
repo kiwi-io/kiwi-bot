@@ -70,15 +70,15 @@ const SendTransactionConfirmation = () => {
       }
 
       // const signedTx = await wallets[0].signTransaction(transferTransaction);
-      console.log("signed tx");
       // const sig = await connection.sendTransaction(signedTx);
-      // const sig = await wallets[0].sendTransaction(transferTransaction, connection);
-      const sig = "yololulu";
+      
+      const sig = await wallets[0].sendTransaction(transferTransaction, connection);
+      // const sig = "yololulu";
 
       console.log("sig: ", sig);
 
       setIsSending((_) => false);
-      router.push(`/transaction-status?type=error&signature=${sig}&error=Insufficient Funds`);
+      router.push(`/transaction-status?type=success&signature=${sig}`);
     }
     catch(err) {
       setIsSending((_) => false);
