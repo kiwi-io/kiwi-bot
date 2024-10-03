@@ -50,3 +50,11 @@ body {
 *:focus {
   outline: none;
 }
+
+a {
+  outline: none;
+}
+
+a:focus {
+  outline: none;
+}
