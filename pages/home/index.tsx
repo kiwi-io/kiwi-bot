@@ -48,7 +48,7 @@ const Home = () => {
 
       let amount = undefined;
       if(components.length == 4) {
-        amount = components[3]; 
+        amount = decodeURIComponent(components[3]); 
       }
       
       if(action === "send") {
