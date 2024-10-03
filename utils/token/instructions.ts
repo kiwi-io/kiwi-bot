@@ -91,7 +91,7 @@ export const getTransferTransaction = async ({
                 token,
                 toTokenAccount,
                 fromPubkey,
-                amount,
+                amount * (10 ** tokenDecimals),
                 tokenDecimals,
                 [],
                 tokenOwnerProgram
