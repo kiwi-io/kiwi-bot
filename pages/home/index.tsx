@@ -65,7 +65,9 @@ const Home = () => {
         if(amount) {
           targetUrl += `&amount=${amount}`;
         }
-        
+
+        console.log("Target URL: ", targetUrl);
+
         router.push(targetUrl);
       }
     }
