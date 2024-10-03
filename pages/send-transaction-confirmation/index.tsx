@@ -11,7 +11,6 @@ import { Connection, PublicKey } from "@solana/web3.js";
 import { useSolanaWallets } from "@privy-io/react-auth";
 
 export interface SendTransactionConfirmationQueryParams {
-    from?: string;
     to?: string;
     token?: string;
     amount?: string;
@@ -19,7 +18,7 @@ export interface SendTransactionConfirmationQueryParams {
 
 const SendTransactionConfirmation = () => {
     const router = useRouter();
-  const { from, to, token, amount }: SendTransactionConfirmationQueryParams = router.query;
+  const { to, token, amount }: SendTransactionConfirmationQueryParams = router.query;
 
   const [selectedTokenItem, setSelectedTokenItem] =
     useState<TokenItem>(undefined);
@@ -54,7 +53,7 @@ const SendTransactionConfirmation = () => {
     console.log("parsed amount: ", parseFloat(amount));
     const transferParams = {
       connection,
-      fromPubkey: new PublicKey(from),
+      fromPubkey: new PublicKey(wallets[0].address),
       toPubkey: new PublicKey(to),
       token: new PublicKey(selectedTokenItem.address),
       tokenDecimals: selectedTokenItem.decimals,
@@ -134,7 +133,7 @@ const SendTransactionConfirmation = () => {
                 From
             </div>
             <div className={styles.valueContainer}>
-                {from ? trimAddress(from): ''}
+                {wallets ? trimAddress(wallets[0].address): ''}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
