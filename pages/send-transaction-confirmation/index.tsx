@@ -92,7 +92,7 @@ const SendTransactionConfirmation = () => {
       <div className={styles.sendHeaderContainer}>
         <StandardHeader
           title={`Send ${selectedTokenItem ? selectedTokenItem.symbol : ""}`}
-          backButtonNavigateTo={"tokens"}
+          backButtonNavigateTo={`/send?recipient=${to}&token=${token}&amount=${amount}`}
         />
       </div>
       <div className={styles.sendBodyContainer}>
@@ -144,7 +144,7 @@ const SendTransactionConfirmation = () => {
                 Amount
             </div>
             <div className={styles.valueContainer}>
-                {(parseFloat(amount) / (selectedTokenItem ? 10**selectedTokenItem.decimals : 1)).toString()}
+                {amount}
             </div>
           </div>
         </div>
