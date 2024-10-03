@@ -28,7 +28,7 @@ export const getTransferTransaction = async ({
     // );
 
     console.log("Amount received in getTransfer: ", amount);
-    const amountInLamports = amount * (10 ** LAMPORTS_PER_SOL);
+    const amountInLamports = amount * LAMPORTS_PER_SOL;
     console.log("Amount in lamports: ", amountInLamports);
 
     if(token.equals(NATIVE_SOL_PUBKEY)) {
