@@ -58,8 +58,13 @@ const SendTransactionConfirmation = () => {
       toPubkey: new PublicKey(to),
       token: new PublicKey(token),
       tokenDecimals: selectedTokenItem.decimals,
-      amount: parseInt(amount)
+      amount: parseFloat(amount)
     } as TransferParams;
+
+    if(parseInt(amount) <= 0) {
+      setIsSending((_) => false);
+      router.push(`/transaction-status?type=error&error=Invalid amount`);
+    }
 
     console.log("Starting the transfer flow: ", Date.now());
 
