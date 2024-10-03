@@ -35,7 +35,7 @@ const SendTransactionConfirmation = () => {
     const doStuff = () => {
       if (portfolio && portfolio.items.length > 0) {
         const tokenItem = portfolio.items.filter(
-          (item) => item.address === token,
+          (item) => item.address === token || item.symbol === token,
         )[0];
 
         setSelectedTokenItem((_) => tokenItem);
