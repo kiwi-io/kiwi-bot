@@ -16,27 +16,38 @@ const TransactionStatus = () => {
 
     return (
         <div className={styles.transactionStatusMainContainer}>
-            <div className={styles.transactionStatusTypeContainer}>
-                {`Transaction status: ${type}`}
-            </div>
-            <div className={styles.transactionSignatureContainer}>
+            <div className={styles.transactionStatusTypeImageContainer}>
                 {
-                    signature ?
-                        <span>{signature}</span>
+                    type === "success" ?
+                        <div className={styles.successImageContainer}><i className="fa-solid fa-check"></i></div>
                     :
-                        <span></span>
+                        <div className={styles.failureImageContainer}><i className="fa-solid fa-x"></i></div>
                 }
             </div>
-            <div className={styles.transactionErrorContainer}>
+            <div className={styles.transactionStatusLabelContainer}>
                 {
-                    error ?
-                        <span>{error}</span>
+                    type === "success" ?
+                        <>Transaction confirmed</>
                     :
-                        <span></span>
+                        <>Transaction failed</>
+                }
+            </div>
+            <div className={styles.transactionSignatureViewContainer}>
+                {
+                    type === "success" ?
+                        signature ?
+                            <a href={`https://solscan.io/tx/${signature}`}>View on Explorer <i className="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        :
+                            <></>
+                    :
+                        type === "error" && error ?
+                            <>Reason: {error}</>
+                        :
+                            <></>
                 }
             </div>
             <div className={styles.closeButtonContainer}>
-
+                Close
             </div>
         </div>
     )

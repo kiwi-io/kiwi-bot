@@ -69,10 +69,11 @@ const SendTransactionConfirmation = () => {
         console.log("Key: ", key);
       }
 
-      const signedTx = await wallets[0].signTransaction(transferTransaction);
+      // const signedTx = await wallets[0].signTransaction(transferTransaction);
       console.log("signed tx");
-      const sig = await connection.sendTransaction(signedTx);
+      // const sig = await connection.sendTransaction(signedTx);
       // const sig = await wallets[0].sendTransaction(transferTransaction, connection);
+      const sig = "yololulu";
 
       console.log("sig: ", sig);
 
