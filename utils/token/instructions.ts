@@ -1,4 +1,4 @@
-import { Connection, PublicKey, SystemProgram, Transaction, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
+import { Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
 import { getAssociatedTokenAddress, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, createTransferCheckedInstruction, createAssociatedTokenAccountInstruction } from '@solana/spl-token';
 import { NATIVE_SOL_PUBKEY } from '../../constants';
 import { requestComputeUnitsInstructions } from '../solana';
@@ -33,7 +33,7 @@ export const getTransferTransaction = async ({
             SystemProgram.transfer({
               fromPubkey,
               toPubkey,
-              lamports: amount,
+              lamports: amount * (10 ** LAMPORTS_PER_SOL),
             })
         );
 

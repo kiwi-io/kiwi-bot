@@ -61,7 +61,7 @@
     transition:
       transform 0.1s ease,
       background-color 0.2s ease;
-      padding: 0.5rem;
+      padding: 1rem;
       color: #481801;
     width: 100%;
     border: none;
