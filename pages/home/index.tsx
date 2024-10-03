@@ -52,19 +52,7 @@ const Home = () => {
       }
       
       if(action === "send") {
-        let targetUrl = `/send?`;
-
-        if(address) {
-          targetUrl += `recipient=${address}`;
-        }
-
-        if(tokenSymbol) {
-          targetUrl += `&token=${tokenSymbol}`;
-        }
-
-        if(amount) {
-          targetUrl += `&amount=${amount}`;
-        }
+        let targetUrl = `/send?recipient=${address}&token=${tokenSymbol}&amount=${amount}`;
 
         console.log("Target URL: ", targetUrl);
 
