@@ -27,13 +27,17 @@ export const getTransferTransaction = async ({
     //     ...requestComputeUnitsInstructions(100, 200_000)
     // );
 
+    console.log("Amount received in getTransfer: ", amount);
+    const amountInLamports = amount * (10 ** LAMPORTS_PER_SOL);
+    console.log("Amount in lamports: ", amountInLamports);
+
     if(token.equals(NATIVE_SOL_PUBKEY)) {
         console.log("Start preping tx: ", Date.now());
         instructions.push(
             SystemProgram.transfer({
               fromPubkey,
               toPubkey,
-              lamports: amount * (10 ** LAMPORTS_PER_SOL),
+              lamports: amountInLamports
             })
         );
 
