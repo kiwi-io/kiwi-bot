@@ -6,8 +6,8 @@ export interface BeneficiaryParams {
 }
 
 export const extractPaymentBeneficiaryFromUrl = (url: string): BeneficiaryParams => {
-  // Define the regex to match the specific URL pattern
-  const urlPattern = /^https:\/\/kiwi-bot\.vercel\.app\/pay\/([a-zA-Z0-9_]+)-([a-zA-Z0-9]+)-([A-Z]+)-(\d+)$/;
+  // Define the regex to match the specific URL pattern, allowing for float values in the amount
+  const urlPattern = /^https:\/\/kiwi-bot\.vercel\.app\/pay\/([a-zA-Z0-9_]+)-([a-zA-Z0-9]+)-([A-Z]+)-(\d+(\.\d+)?)$/;
 
   // Test if the URL matches the pattern
   const match = url.match(urlPattern);
@@ -18,7 +18,7 @@ export const extractPaymentBeneficiaryFromUrl = (url: string): BeneficiaryParams
       username: match[1],
       address: match[2],
       token: match[3],
-      amount: parseInt(match[4], 10)
+      amount: parseFloat(match[4]) // Parse the amount as a float
     };
   }
 
