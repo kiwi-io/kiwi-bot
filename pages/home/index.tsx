@@ -28,11 +28,7 @@ const Home = () => {
     //@ts-ignore
     const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
     if(startParam) {
-      console.log("startParam: ", startParam);
-
       const components = startParam.split("-");
-
-      console.log("components: ", components);
 
       const action = components[0]; // 4
 
@@ -53,8 +49,6 @@ const Home = () => {
       
       if(action === "send") {
         let targetUrl = `/send-transaction-confirmation?${`to=${address}&token=${tokenSymbol}&amount=${amount}`}`;
-
-        console.log("Target URL: ", targetUrl);
 
         router.push(targetUrl);
       }

@@ -9,7 +9,6 @@ export * from "./instructions";
 export const getHoldings = async (
   address: PublicKey,
 ): Promise<Map<Token, TokenWithBalance> | undefined> => {
-  console.log("process.env.rpc_mainnet: ", process.env.NEXT_RPC_MAINNET_URL);
   //@ts-ignore
   const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
 

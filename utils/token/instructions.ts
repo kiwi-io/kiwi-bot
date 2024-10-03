@@ -27,12 +27,9 @@ export const getTransferTransaction = async ({
     //     ...requestComputeUnitsInstructions(100, 200_000)
     // );
 
-    console.log("Amount received in getTransfer: ", amount);
     const amountInLamports = amount * LAMPORTS_PER_SOL;
-    console.log("Amount in lamports: ", amountInLamports);
 
     if(token.equals(NATIVE_SOL_PUBKEY)) {
-        console.log("Start preping tx: ", Date.now());
         instructions.push(
             SystemProgram.transfer({
               fromPubkey,
@@ -49,16 +46,13 @@ export const getTransferTransaction = async ({
 
         const versionedTransaction = new VersionedTransaction(messageV0);
 
-        console.log("ENd preping tx: ", Date.now());
           return versionedTransaction;
     }
     else {
         
-        console.log("Fetching gATA: ", Date.now());
         const fromTokenAccount = await getAssociatedTokenAddress(token, fromPubkey, false);
         const toTokenAccount = await getAssociatedTokenAddress(token, toPubkey, false);
 
-        console.log("fetching account infos: ", Date.now());
         const [tokenInfo, toTokenAccountInfo] = await connection.getMultipleAccountsInfo([
             token,
             toTokenAccount
@@ -82,9 +76,6 @@ export const getTransferTransaction = async ({
             )
         }
 
-        console.log("User balance: ", (await connection.getTokenAccountBalance(fromTokenAccount)).value.uiAmount);
-        console.log("amount transfer: ", amount);
-
         instructions.push(
             createTransferCheckedInstruction(
                 fromTokenAccount,
@@ -105,8 +96,6 @@ export const getTransferTransaction = async ({
         }).compileToV0Message();
 
         const versionedTransaction = new VersionedTransaction(messageV0);
-
-        console.log("Transaction prepared: ", Date.now());
         
         return versionedTransaction;
     }

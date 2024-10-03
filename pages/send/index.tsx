@@ -47,7 +47,6 @@ const Send = () => {
     };
 
     doStuff();
-    console.log("selectedTokenItem: ", selectedTokenItem);
   }, [token]);
 
   const handleRecipientChange = (e: any) => {

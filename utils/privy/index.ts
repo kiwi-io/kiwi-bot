@@ -7,10 +7,5 @@ export const hasExistingSolanaWallet = (user: User) => {
       account.walletClientType === "privy" &&
       account.chainType === "solana",
   );
-  if (solanaWalletStatus) {
-    console.log(`User ${user.id} has a solana wallet`);
-  } else {
-    console.log(`User ${user.id} does not have a solana wallet`);
-  }
   return solanaWalletStatus;
 };

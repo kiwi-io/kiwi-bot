@@ -39,7 +39,6 @@ const Receive = () => {
       };
   
       doStuff();
-      console.log("selectedTokenItem: ", selectedTokenItem);
     }, [token]);
 
     const handleAmountChange = (e: any) => {

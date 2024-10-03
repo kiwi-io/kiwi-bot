@@ -42,7 +42,6 @@ const SendTransactionConfirmation = () => {
     };
 
     doStuff();
-    console.log("selectedTokenItem: ", selectedTokenItem);
   }, [token]);
 
   const handleConfirmSend = async () => {
@@ -50,8 +49,6 @@ const SendTransactionConfirmation = () => {
       setIsSending((_) => true);
       const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL, "confirmed");
 
-      console.log("Amount before: ", amount);
-      console.log("parsed amount: ", parseFloat(amount));
       const transferParams = {
         connection,
         fromPubkey: new PublicKey(wallets[0].address),
@@ -66,23 +63,14 @@ const SendTransactionConfirmation = () => {
         router.push(`/transaction-status?type=error&error=Invalid amount`);
       }
 
-      console.log("Starting the transfer flow: ", Date.now());
-
       try {
         const transferTransaction = await getTransferTransaction(transferParams);
-
-        const keys = transferTransaction.message.staticAccountKeys.map((key) => key.toBase58());
-        for(let key of keys) {
-          console.log("Key: ", key);
-        }
 
         // const signedTx = await wallets[0].signTransaction(transferTransaction);
         // const sig = await connection.sendTransaction(signedTx);
         
         const sig = await wallets[0].sendTransaction(transferTransaction, connection);
         // const sig = "yololulu";
-
-        console.log("sig: ", sig);
 
         setIsSending((_) => false);
         router.push(`/transaction-status?type=success&signature=${sig}`);

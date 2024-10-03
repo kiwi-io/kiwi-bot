@@ -71,7 +71,6 @@ export const WalletContextProvider = ({ children }) => {
     if (user && user.wallet) {
       const latestPortfolio = await getWalletPortfolio(user.wallet.address);
       // let latestPortfolio = await getWalletPortfolio("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P");
-      console.log("Latest portfolio: ", latestPortfolio, " on: ", Date.now());
       setPortfolio((_) => latestPortfolio);
     }
   };

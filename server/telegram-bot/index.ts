@@ -7,7 +7,6 @@ const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 
 bot.on("message", (ctx) => {
   const message = ctx.message;
-  console.log("Message: ", message);
   ctx.reply(message.text);
 });
 
@@ -25,7 +24,6 @@ bot.on("inline_query", async (ctx) => {
     const response: BeneficiaryParams = extractPaymentBeneficiaryFromUrl(url);
     
     if(response && response.address) {
-      console.log("Action url: ", `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${response.amount.toString()}`)}`);
       await ctx.answerInlineQuery([
         {
           type: "article",
