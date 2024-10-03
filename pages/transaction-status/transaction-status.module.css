@@ -32,6 +32,19 @@
   padding: 1rem;
 }
 
+.unconfirmedImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(227, 202, 61, 0.5);
+  border: none;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  color: rgb(128, 103, 26);
+  padding: 1rem;
+}
+
 .failureImageContainer {
   display: flex;
   justify-content: center;
@@ -41,7 +54,7 @@
   border-radius: 100%;
   width: 100px;
   height: 100px;
-  color: rgb(141, 14, 14);
+  color: rgb(128, 26, 26);
   padding: 1rem;
 }
 

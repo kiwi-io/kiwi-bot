@@ -3,7 +3,7 @@ import styles from "./transaction-status.module.css";
 import { useRouter } from "next/router";
 import { useTelegram } from "../../utils/twa";
 
-export type TransactionStatusType = "success" | "error";
+export type TransactionStatusType = "success" | "error" | "unconfirmed";
 
 export interface TransactionStatusQueryParams {
     type?: TransactionStatusType;
@@ -29,7 +29,10 @@ const TransactionStatus = () => {
                     type === "success" ?
                         <div className={styles.successImageContainer}><i className="fa-solid fa-check"></i></div>
                     :
-                        <div className={styles.failureImageContainer}><i className="fa-solid fa-x"></i></div>
+                        type === "unconfirmed" ?
+                            <div className={styles.unconfirmedImageContainer}><i className="fa-solid fa-exclamation"></i></div>
+                        :
+                            <div className={styles.failureImageContainer}><i className="fa-solid fa-x"></i></div>
                 }
             </div>
             <div className={styles.transactionStatusLabelContainer}>
@@ -37,7 +40,10 @@ const TransactionStatus = () => {
                     type === "success" ?
                         <div>Transaction confirmed</div>
                     :
-                        <div>Transaction failed</div>
+                        type === "unconfirmed" ?
+                            <div>Transaction unconfirmed</div>
+                        :
+                            <div>Transaction failed</div>
                 }
             </div>
             <div className={styles.transactionSignatureViewContainer}>
@@ -48,10 +54,13 @@ const TransactionStatus = () => {
                         :
                             <></>
                     :
-                        type === "error" && error ?
-                            <>Reason: {error}</>
+                        type === "unconfirmed" ?
+                            <>Transaction could not be confirmed</>
                         :
-                            <></>
+                            type === "error" && error ?
+                                <>Reason: {error}</>
+                            :
+                                <></>
                 }
             </div>
             <div
