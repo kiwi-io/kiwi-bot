@@ -33,7 +33,7 @@ bot.on("inline_query", async (ctx) => {
           title: `Request a payment on Kiwi`,
           description: `The received payment will be deposited on ${response.username}'s Kiwi wallet`,
           input_message_content: {
-            message_text: `🧾 ${response.username} is requesting a payment of 69 USD`,
+            message_text: `🧾 ${response.username} is requesting a payment of ${response.amount} ${response.token}`,
           },
           reply_markup: new InlineKeyboard()
             .url(
