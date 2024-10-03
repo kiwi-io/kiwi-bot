@@ -61,7 +61,7 @@ const SendTransactionConfirmation = () => {
       amount: parseFloat(amount)
     } as TransferParams;
 
-    if(parseInt(amount) <= 0) {
+    if(parseFloat(amount) <= 0) {
       setIsSending((_) => false);
       router.push(`/transaction-status?type=error&error=Invalid amount`);
     }
