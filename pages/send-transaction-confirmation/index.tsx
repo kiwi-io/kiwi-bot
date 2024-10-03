@@ -78,7 +78,7 @@ const SendTransactionConfirmation = () => {
       console.log("sig: ", sig);
 
       setIsSending((_) => false);
-      router.push(`/transaction-status?type=success&signature=${sig}`);
+      router.push(`/transaction-status?type=error&signature=${sig}&error=Insufficient Funds`);
     }
     catch(err) {
       setIsSending((_) => false);
