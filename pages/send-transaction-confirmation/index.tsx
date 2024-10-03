@@ -34,11 +34,9 @@ const SendTransactionConfirmation = () => {
   useEffect(() => {
     const doStuff = () => {
       if (portfolio && portfolio.items.length > 0) {
-        console.log("query param token: ", token);
         const tokenItem = portfolio.items.filter(
           (item) => item.address === token || item.symbol === token,
         )[0];
-        console.log("Found tokenItem: ", tokenItem);
 
         setSelectedTokenItem((_) => tokenItem);
       }
@@ -58,7 +56,7 @@ const SendTransactionConfirmation = () => {
       connection,
       fromPubkey: new PublicKey(from),
       toPubkey: new PublicKey(to),
-      token: new PublicKey(token),
+      token: new PublicKey(selectedTokenItem.address),
       tokenDecimals: selectedTokenItem.decimals,
       amount: parseFloat(amount)
     } as TransferParams;
