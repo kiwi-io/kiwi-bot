@@ -24,6 +24,7 @@ bot.on("inline_query", async (ctx) => {
 
     const response: BeneficiaryParams = extractPaymentBeneficiaryFromUrl(url);
     
+    console.log("Action url: ", `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${response.amount.toString()}`)}`);
     // Respond with a message that contains an image and buttons
     await ctx.answerInlineQuery([
       {
