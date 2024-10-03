@@ -52,7 +52,7 @@ const Home = () => {
       }
       
       if(action === "send") {
-        let targetUrl = `/send?${encodeURIComponent(`recipient=${address}&token=${tokenSymbol}&amount=${amount}`)}`;
+        let targetUrl = `/send?${`recipient=${address}&token=${tokenSymbol}&amount=${amount}`}`;
 
         console.log("Target URL: ", targetUrl);
 
