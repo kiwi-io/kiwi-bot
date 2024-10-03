@@ -79,14 +79,13 @@ const SendTransactionConfirmation = () => {
       // const signedTx = await wallets[0].signTransaction(transferTransaction);
       // const sig = await connection.sendTransaction(signedTx);
       
-      // const sig = await wallets[0].sendTransaction(transferTransaction, connection);
+      const sig = await wallets[0].sendTransaction(transferTransaction, connection);
       // const sig = "yololulu";
 
-      // console.log("sig: ", sig);
+      console.log("sig: ", sig);
 
       setIsSending((_) => false);
-      // router.push(`/transaction-status?type=success&signature=${sig}`);
-      router.push(`/transaction-status?type=unconfirmed`);
+      router.push(`/transaction-status?type=success&signature=${sig}`);
     }
     catch(err) {
       setIsSending((_) => false);
