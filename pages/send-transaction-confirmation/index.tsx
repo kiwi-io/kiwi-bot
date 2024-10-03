@@ -46,56 +46,58 @@ const SendTransactionConfirmation = () => {
   }, [token]);
 
   const handleConfirmSend = async () => {
-    setIsSending((_) => true);
-    const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL, "confirmed");
+    if(wallets && wallets[0]) {
+      setIsSending((_) => true);
+      const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL, "confirmed");
 
-    console.log("Amount before: ", amount);
-    console.log("parsed amount: ", parseFloat(amount));
-    const transferParams = {
-      connection,
-      fromPubkey: new PublicKey(wallets[0].address),
-      toPubkey: new PublicKey(to),
-      token: new PublicKey(selectedTokenItem.address),
-      tokenDecimals: selectedTokenItem.decimals,
-      amount: parseFloat(amount)
-    } as TransferParams;
+      console.log("Amount before: ", amount);
+      console.log("parsed amount: ", parseFloat(amount));
+      const transferParams = {
+        connection,
+        fromPubkey: new PublicKey(wallets[0].address),
+        toPubkey: new PublicKey(to),
+        token: new PublicKey(selectedTokenItem.address),
+        tokenDecimals: selectedTokenItem.decimals,
+        amount: parseFloat(amount)
+      } as TransferParams;
 
-    if(parseFloat(amount) <= 0) {
-      setIsSending((_) => false);
-      router.push(`/transaction-status?type=error&error=Invalid amount`);
-    }
-
-    console.log("Starting the transfer flow: ", Date.now());
-
-    try {
-      const transferTransaction = await getTransferTransaction(transferParams);
-
-      const keys = transferTransaction.message.staticAccountKeys.map((key) => key.toBase58());
-      for(let key of keys) {
-        console.log("Key: ", key);
+      if(parseFloat(amount) <= 0) {
+        setIsSending((_) => false);
+        router.push(`/transaction-status?type=error&error=Invalid amount`);
       }
 
-      // const signedTx = await wallets[0].signTransaction(transferTransaction);
-      // const sig = await connection.sendTransaction(signedTx);
-      
-      const sig = await wallets[0].sendTransaction(transferTransaction, connection);
-      // const sig = "yololulu";
+      console.log("Starting the transfer flow: ", Date.now());
 
-      console.log("sig: ", sig);
+      try {
+        const transferTransaction = await getTransferTransaction(transferParams);
 
-      setIsSending((_) => false);
-      router.push(`/transaction-status?type=success&signature=${sig}`);
-    }
-    catch(err) {
-      setIsSending((_) => false);
-      console.log("Error: ", err);
+        const keys = transferTransaction.message.staticAccountKeys.map((key) => key.toBase58());
+        for(let key of keys) {
+          console.log("Key: ", key);
+        }
 
-      //@ts-ignore
-      if(err.includes("confirmed")) {
-        router.push(`/transaction-status?type=unconfirmed`);
+        // const signedTx = await wallets[0].signTransaction(transferTransaction);
+        // const sig = await connection.sendTransaction(signedTx);
+        
+        const sig = await wallets[0].sendTransaction(transferTransaction, connection);
+        // const sig = "yololulu";
+
+        console.log("sig: ", sig);
+
+        setIsSending((_) => false);
+        router.push(`/transaction-status?type=success&signature=${sig}`);
       }
-      else {
-        router.push(`/transaction-status?type=error&error=${err}`);
+      catch(err) {
+        setIsSending((_) => false);
+        console.log("Error: ", err);
+
+        //@ts-ignore
+        if(err.includes("confirmed")) {
+          router.push(`/transaction-status?type=unconfirmed`);
+        }
+        else {
+          router.push(`/transaction-status?type=error&error=${err}`);
+        }
       }
     }
   }
@@ -133,7 +135,7 @@ const SendTransactionConfirmation = () => {
                 From
             </div>
             <div className={styles.valueContainer}>
-                {wallets ? trimAddress(wallets[0].address): ''}
+                {wallets && wallets[0] ? trimAddress(wallets[0].address): ''}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
