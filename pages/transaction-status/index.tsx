@@ -21,7 +21,7 @@ const TransactionStatus = () => {
         vibrate("light");
         router.push("/home");
     }
-    
+
     return (
         <div className={styles.transactionStatusMainContainer}>
             <div className={styles.transactionStatusTypeImageContainer}>
@@ -35,9 +35,9 @@ const TransactionStatus = () => {
             <div className={styles.transactionStatusLabelContainer}>
                 {
                     type === "success" ?
-                        <>Transaction confirmed</>
+                        <div>Transaction confirmed</div>
                     :
-                        <>Transaction failed</>
+                        <div>Transaction failed</div>
                 }
             </div>
             <div className={styles.transactionSignatureViewContainer}>
