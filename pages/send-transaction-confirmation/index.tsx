@@ -66,14 +66,22 @@ const SendTransactionConfirmation = () => {
       try {
         const transferTransaction = await getTransferTransaction(transferParams);
 
-        // const signedTx = await wallets[0].signTransaction(transferTransaction);
-        // const sig = await connection.sendTransaction(signedTx);
-        
-        const sig = await wallets[0].sendTransaction(transferTransaction, connection);
-        // const sig = "yololulu";
+        let signature = "";
+
+        // try once
+        try {
+          signature = await wallets[0].sendTransaction(transferTransaction, connection);
+          console.log("unexpectedly didnt fail, sig: ", signature);
+        }
+        catch(err) {
+          console.log("Error as expected: ", err);
+
+          const signedTx = await wallets[0].signTransaction(transferTransaction);
+          signature = await connection.sendTransaction(signedTx);
+        }
 
         setIsSending((_) => false);
-        router.push(`/transaction-status?type=success&signature=${sig}`);
+        router.push(`/transaction-status?type=success&signature=${signature}`);
       }
       catch(err) {
         setIsSending((_) => false);

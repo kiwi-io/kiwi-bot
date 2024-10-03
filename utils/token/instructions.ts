@@ -1,4 +1,4 @@
-import { Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
+import { Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
 import { getAssociatedTokenAddress, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, createTransferCheckedInstruction, createAssociatedTokenAccountInstruction } from '@solana/spl-token';
 import { NATIVE_SOL_PUBKEY } from '../../constants';
 import { requestComputeUnitsInstructions } from '../solana';
@@ -23,9 +23,9 @@ export const getTransferTransaction = async ({
      
     const instructions: TransactionInstruction[] = [];
 
-    // instructions.push(
-    //     ...requestComputeUnitsInstructions(100, 200_000)
-    // );
+    instructions.push(
+        ...requestComputeUnitsInstructions(100, 200_000)
+    );
 
     const amountInLamports = amount * LAMPORTS_PER_SOL;
 
