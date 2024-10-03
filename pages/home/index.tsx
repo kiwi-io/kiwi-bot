@@ -48,16 +48,10 @@ const Home = () => {
   const navigateToSettings = () => {
     router.push("/settings");
   };
-
-  const navigateToReceive = () => {
+  
+  const navigateToAllTokens = (target: string) => {
     if (user && ready && authenticated) {
-      router.push("/receive");
-    }
-  };
-
-  const navigateToAllTokens = () => {
-    if (user && ready && authenticated) {
-      router.push("/tokens");
+      router.push(`/tokens?navigateTo=${target}`);
     }
   };
 
@@ -100,7 +94,7 @@ const Home = () => {
                     className={`${styles.actionButton} ${styles.receiveButton}`}
                     onClick={() => {
                       vibrate("medium");
-                      navigateToReceive();
+                      navigateToAllTokens("receive");
                     }}
                   >
                     <span
@@ -114,7 +108,7 @@ const Home = () => {
                     className={`${styles.actionButton} ${styles.sendButton}`}
                     onClick={() => {
                       vibrate("heavy");
-                      navigateToAllTokens();
+                      navigateToAllTokens("send");
                     }}
                   >
                     <span

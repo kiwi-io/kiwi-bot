@@ -8,14 +8,21 @@ import StandardHeader from "../../components/StandardHeader";
 import { TokenItem } from "../../utils";
 
 const Tokens = () => {
+  const router = useRouter();
+  const { navigateTo } = router.query;
+
   const { portfolio } = useWalletContext();
 
-  const router = useRouter();
   const { vibrate } = useTelegram();
 
   const navigateToSend = (selectedTokenItem: TokenItem) => {
     vibrate("light");
     router.push(`/send?token=${selectedTokenItem.address}`);
+  };
+
+  const navigateToReceive = (selectedTokenItem: TokenItem) => {
+    vibrate("light");
+    router.push(`/receive?token=${selectedTokenItem.address}`);
   };
 
   return (
@@ -29,7 +36,12 @@ const Tokens = () => {
                 className={styles.tokenDisplayContainer}
                 key={token.address}
                 onClick={() => {
-                  navigateToSend(token);
+                  if(navigateTo === "send") {
+                    navigateToSend(token)
+                  }
+                  else if(navigateTo === "receive") {
+                    navigateToReceive(token)
+                  }
                 }}
               >
                 <TokenDisplay tokenItem={token} showUsdValue={false} />

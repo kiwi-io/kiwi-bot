@@ -69,3 +69,39 @@
 .shareOnTelegramButtonContainer:active {
   transform: scale(0.95);
 }
+
+.receiveFormContainer {
+  width: 100%;
+}
+
+.formGroupContainer {
+  width: 100%;
+}
+
+.formLabelAndFieldContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.recipientFieldContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.recipientFormField {
+  border: none;
+  font-family: "NTSomic";
+  color: #481801;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.25rem;
+  padding: 0;
+  margin-top: 1rem;
+  padding-bottom: 0.5rem;
+  text-align: left;
+}
