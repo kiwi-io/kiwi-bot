@@ -148,7 +148,8 @@ const Send = () => {
                     onClick={
                       () => {
                         vibrate("soft");
-                        handleScanQr();
+                        // handleScanQr();
+                        handlePaste();
                       }
                     }
                   ></i>

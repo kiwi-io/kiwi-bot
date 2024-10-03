@@ -50,6 +50,8 @@ const SendTransactionConfirmation = () => {
     setIsSending((_) => true);
     const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL, "confirmed");
 
+    console.log("Amount before: ", amount);
+    console.log("parsed amount: ", parseInt(amount));
     const transferParams = {
       connection,
       fromPubkey: new PublicKey(from),
