@@ -44,7 +44,7 @@ const TransactionStatus = () => {
                 {
                     type === "success" ?
                         signature ?
-                            <a className={styles.explorerLink} href={`https://solscan.io/tx/${signature}`}>View on Explorer <i className="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            <a className={styles.explorerLink} href={`https://solscan.io/tx/${signature}`} target="_blank">View on Explorer <i className="fa-solid fa-arrow-up-right-from-square"></i></a>
                         :
                             <></>
                     :
