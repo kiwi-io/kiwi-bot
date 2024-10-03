@@ -24,25 +24,45 @@ bot.on("inline_query", async (ctx) => {
 
     const response: BeneficiaryParams = extractPaymentBeneficiaryFromUrl(url);
     
-    console.log("Action url: ", `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${response.amount.toString()}`)}`);
-    // Respond with a message that contains an image and buttons
+    if(response && response.address) {
+      console.log("Action url: ", `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${response.amount.toString()}`)}`);
+      await ctx.answerInlineQuery([
+        {
+          type: "article",
+          id: "1",
+          title: `Request a payment on Kiwi`,
+          description: `The received payment will be deposited on ` + (response ? `${response.username}'s Kiwi wallet` : ``),
+          input_message_content: {
+            message_text: response ? `🧾 ${response.username} is requesting a payment of ${response.amount} ${response.token}` : `You are requested to make a payment using Kiwi`,
+          },
+          reply_markup: new InlineKeyboard()
+            .url(
+              "Pay using Kiwi",
+              `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${parseInt(response.amount.toString())}`)}`,
+            )
+            .row()
+        },
+      ]);
+    }
+    else {
     await ctx.answerInlineQuery([
       {
         type: "article",
         id: "1",
         title: `Request a payment on Kiwi`,
-        description: `The received payment will be deposited on ` + (response ? `${response.username}'s Kiwi wallet` : ``),
+        description: `The received payment will be deposited on your Kiwi account`,
         input_message_content: {
-          message_text: response ? `🧾 ${response.username} is requesting a payment of ${response.amount} ${response.token}` : `You are requested to make a payment using Kiwi`,
+          message_text: `Send SOL & memecoins using Kiwi`,
         },
         reply_markup: new InlineKeyboard()
           .url(
             "Pay using Kiwi",
-            `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${parseInt(response.amount.toString())}`)}`,
+            `https://t.me/samplekiwibot/bot?startapp=send`,
           )
           .row()
       },
     ]);
+    }
   }
 });
 
