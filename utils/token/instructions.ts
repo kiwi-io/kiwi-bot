@@ -60,12 +60,15 @@ export const getTransferTransaction = async ({
 
         let tokenOwnerProgram = TOKEN_PROGRAM_ID;
         
-        console.log("tokenInfo: ", tokenInfo.owner.toString());
+        
 
-        if(tokenInfo.owner === TOKEN_2022_PROGRAM_ID) {
+        if(tokenInfo.owner.toString() === TOKEN_2022_PROGRAM_ID.toString()) {
             tokenOwnerProgram = TOKEN_2022_PROGRAM_ID;
         }
-        console.log("TokenOwnerProgram: ", tokenOwnerProgram.toString());
+        console.log("tokenOwnerProgram: ", tokenOwnerProgram.toString());
+        console.log("token22: ", TOKEN_2022_PROGRAM_ID.toString());
+        console.log("equality: ", tokenInfo.owner === TOKEN_2022_PROGRAM_ID);
+        console.log("equality string: ", tokenInfo.owner.toString() === TOKEN_2022_PROGRAM_ID.toString());
 
         if(!toTokenAccountInfo) {
             instructions.push(
