@@ -49,26 +49,17 @@ export const getTransferTransaction = async ({
           return versionedTransaction;
     }
     else {
-        
-        const fromTokenAccount = await getAssociatedTokenAddress(token, fromPubkey, false);
-        const toTokenAccount = await getAssociatedTokenAddress(token, toPubkey, false);
-
-        const [tokenInfo, toTokenAccountInfo] = await connection.getMultipleAccountsInfo([
-            token,
-            toTokenAccount
-        ]);
+        let tokenInfo = await connection.getAccountInfo(token);
 
         let tokenOwnerProgram = TOKEN_PROGRAM_ID;
-        
-        
-
         if(tokenInfo.owner.toString() === TOKEN_2022_PROGRAM_ID.toString()) {
             tokenOwnerProgram = TOKEN_2022_PROGRAM_ID;
         }
-        console.log("tokenOwnerProgram: ", tokenOwnerProgram.toString());
-        console.log("token22: ", TOKEN_2022_PROGRAM_ID.toString());
-        console.log("equality: ", tokenInfo.owner === TOKEN_2022_PROGRAM_ID);
-        console.log("equality string: ", tokenInfo.owner.toString() === TOKEN_2022_PROGRAM_ID.toString());
+
+        const fromTokenAccount = await getAssociatedTokenAddress(token, fromPubkey, false, tokenOwnerProgram);
+        const toTokenAccount = await getAssociatedTokenAddress(token, toPubkey, false, tokenOwnerProgram);
+
+        let toTokenAccountInfo = await connection.getAccountInfo(token);
 
         if(!toTokenAccountInfo) {
             instructions.push(
