@@ -63,6 +63,7 @@ export const getTransferTransaction = async ({
         if(tokenInfo.owner === TOKEN_2022_PROGRAM_ID) {
             tokenOwnerProgram = TOKEN_2022_PROGRAM_ID;
         }
+        console.log("TokenOwnerProgram: ", tokenOwnerProgram.toString());
         
         if(!toTokenAccountInfo) {
             instructions.push(
