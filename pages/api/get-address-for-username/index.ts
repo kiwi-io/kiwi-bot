@@ -1,5 +1,5 @@
 // import bot from "../../server/telegram-bot";
-import { botWebhook } from "../../server/telegram-bot";
+import { botWebhook } from "../../../server/telegram-bot";
 
 // export default async function handler(req: any, res: any) {
 //   if (req.method === 'POST') {
