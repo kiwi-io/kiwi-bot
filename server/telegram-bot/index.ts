@@ -26,6 +26,8 @@ bot.on("message", async (ctx) => {
 
     const getDataResponse = await axios.get(`${actionApiUrl}`);
     const getData = getDataResponse.data;
+    console.log("getData: ", getData);
+    console.log("getData.links.actions: ", getData.links.actions);
 
     const keyboard = new InlineKeyboard();
 
