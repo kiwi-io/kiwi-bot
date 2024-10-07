@@ -93,7 +93,8 @@ const Home = () => {
   
   const navigateToAllTokens = (target: string) => {
     if (user && ready && authenticated) {
-      router.push(`/tokens?navigateTo=${target}`);
+      // router.push(`/tokens?navigateTo=${target}`);
+      router.push("/transaction-confirmation");
     }
   };
 
