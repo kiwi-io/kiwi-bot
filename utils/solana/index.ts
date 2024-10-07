@@ -23,8 +23,8 @@ export const requestComputeUnitsInstructions = (
 export const simulateTransaction = async () => {
   const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
 
-  const sender = new PublicKey("");
-  const recipient = new PublicKey("");
+  const sender = new PublicKey("9Z4F1spoXmrWbWH4RyC33y71nRHz91WWRQBefMvr3t4L");
+  const recipient = new PublicKey("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P");
   
   const transferParams = {
     connection,
