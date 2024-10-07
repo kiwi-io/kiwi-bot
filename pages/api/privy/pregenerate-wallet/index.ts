@@ -1,7 +1,6 @@
 // pages/api/index.ts
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { PrivyClient } from "@privy-io/server-auth";
-import { LinkedAccountWithMetadata } from "@privy-io/server-auth";
 
 const handler = async (
   req: VercelRequest,
@@ -24,18 +23,9 @@ const handler = async (
 
     try {
       console.log("in try");
-        const user = await privy.importUser({
-            linkedAccounts: [
-              {
-                type: 'telegram',
-                username
-              } as LinkedAccountWithMetadata
-            ],
-            createEthereumWallet: false,
-            createSolanaWallet: true,
-          });
+      const users = await privy.getUsers();
     
-        console.log("Result: ", user);
+        console.log("Result: ", users);
     
         return res.status(200);
     }
