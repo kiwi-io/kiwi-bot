@@ -52,6 +52,7 @@ const Home = () => {
     const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
     if(startParam && user) {
       const components = startParam.split("-");
+      console.log("Components: ", components);
 
       const action = components[0]; // 4
 
