@@ -162,7 +162,7 @@ const SendTransactionConfirmation = () => {
                 Token
             </div>
             <div className={styles.valueContainer}>
-                {token ? trimAddress(token.address) : ``}
+                {token ? token.name : ``}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
