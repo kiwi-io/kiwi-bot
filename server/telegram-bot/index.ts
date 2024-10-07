@@ -48,7 +48,7 @@ bot.on("inline_query", async (ctx) => {
             .url(
               "Pay using Kiwi",
               // `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${parseInt(response.amount.toString())}`)}`,
-              `https://t.me/samplekiwibot/bot?startapp=${encodeURI(`https://worker.jup.ag/blinks/swap/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/So11111111111111111111111111111111111111112/0.5`)}`
+              `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`https://worker.jup.ag/blinks/swap/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/So11111111111111111111111111111111111111112/0.5`)}`
             )
             .row()
         },

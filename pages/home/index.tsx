@@ -51,7 +51,7 @@ const Home = () => {
     const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
     if(startParam && user) {
       console.log("Start param: ", startParam);
-      console.log("Decoded url: ", decodeURI(startParam));
+      console.log("Decoded url: ", decodeURIComponent(startParam));
       // const components = startParam.split("-");
       // console.log("Components: ", components);
 
