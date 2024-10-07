@@ -19,7 +19,7 @@ bot.on("message", async (ctx) => {
 
     const actionsJson = await axios.get(`${url}/actions.json`);
 
-    console.log("actions json: ", actionsJson);
+    console.log("actions json: ", actionsJson.data);
   }
   else {
     ctx.reply("Invalid URL");
