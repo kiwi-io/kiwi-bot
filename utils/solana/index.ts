@@ -1,4 +1,4 @@
-import { ComputeBudgetProgram, Connection, PublicKey, TransactionInstruction } from "@solana/web3.js";
+import { ComputeBudgetProgram, Connection, PublicKey, SimulateTransactionConfig, TransactionInstruction } from "@solana/web3.js";
 import { NATIVE_SOL_PUBKEY } from "../../constants";
 import { getTransferTransaction, TransferParams } from "../token";
 
@@ -37,7 +37,12 @@ export const simulateTransaction = async () => {
 
   const transferTransaction = await getTransferTransaction(transferParams);
   
-  const results = await connection.simulateTransaction(transferTransaction);
+  const results = await connection.simulateTransaction(transferTransaction, {
+    accounts: {
+      encoding: "base64",
+      addresses: transferTransaction.message.staticAccountKeys.map((i) => i.toString())
+    }
+  } as SimulateTransactionConfig);
 
   console.log("Results: ", results);
 } 
