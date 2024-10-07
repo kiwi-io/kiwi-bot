@@ -40,6 +40,7 @@ const handler = async (
         return res.status(200);
     }
     catch(err) {
+        console.log("error aaya: ", err);
         return res.status(500).json(err);
     }
 }
