@@ -1,52 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./receive.module.css";
 import { useTelegram } from "../../utils/twa";
 import QRCode from "../../components/QRCode";
 import { usePrivy } from "@privy-io/react-auth";
-import { TokenItem, trimAddress } from "../../utils";
+import { trimAddress } from "../../utils";
 import StandardHeader from "../../components/StandardHeader";
-import { useRouter } from "next/router";
-import { useWalletContext } from "../../components/contexts";
 import { Form } from "react-bootstrap";
+import { useTransferContext } from "../../components/contexts/TransferContext";
 
 export interface ReceiveQueryParams {
   token?: string;
 }
 
 const Receive = () => {
-  const router = useRouter();
-
-  const { token }: ReceiveQueryParams = router.query;
+  const { token, amount, updateAmount } = useTransferContext();
 
   const { vibrate } = useTelegram();
 
-  const { portfolio } = useWalletContext();
-
-  const [selectedTokenItem, setSelectedTokenItem] =
-    useState<TokenItem>(undefined);
-  const [selectedAmount, setSelectedAmount] = useState<string | undefined>();
-
-
-    useEffect(() => {
-      const doStuff = () => {
-        if (token && portfolio && portfolio.items.length > 0) {
-          const tokenItem = portfolio.items.filter(
-            (item) => item.address === token || item.symbol === token,
-          )[0];
-  
-          setSelectedTokenItem((_) => tokenItem);
-        }
-      };
-  
-      doStuff();
-    }, [token]);
-
     const handleAmountChange = (e: any) => {
-      try {
-        setSelectedAmount((_) => e.target.value);
-      } catch (e) {
-        setSelectedAmount((_) => "");
-      }
+      updateAmount(e.target.value);
     };
 
   const copyToClipboard = async (text: string) => {
@@ -56,11 +28,11 @@ const Receive = () => {
   const shareOnTelegramHandler = (username: string, address: string) => {
     const botName = "@samplekiwibot";
     let url = `https://kiwi-bot.vercel.app/pay/${username}-${address}`;
-    if(selectedTokenItem) {
-      url += `-${selectedTokenItem.symbol}`
+    if(token) {
+      url += `-${token.symbol}`
     }
-    if(selectedAmount) {
-      url += `-${selectedAmount}`
+    if(amount) {
+      url += `-${amount}`
     }
     const shareText = encodeURIComponent(`${botName} ${url}`);
     const telegramUrl = `https://t.me/share/url?url=&text=${shareText}`;
@@ -72,7 +44,7 @@ const Receive = () => {
 
   return (
     <div className={styles.receivePageContainer}>
-      <StandardHeader title={`Receive ${selectedTokenItem ? selectedTokenItem.symbol : ``}`} backButtonNavigateTo={"home"} />
+      <StandardHeader title={`Receive ${token ? token.symbol : ``}`} backButtonNavigateTo={"home"} />
       {user && ready && authenticated ? (
         <div className={styles.walletInfoContainer}>
           <div className={styles.qrCodeContainer}>
@@ -111,7 +83,7 @@ const Receive = () => {
                       className={styles.recipientFormField}
                       onChange={(e) => handleAmountChange(e)}
                       value={
-                        selectedAmount
+                        amount
                       }
                     />
                   </div>
