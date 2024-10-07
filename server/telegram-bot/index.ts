@@ -34,6 +34,9 @@ bot.on("inline_query", async (ctx) => {
 
     const response: BeneficiaryParams = extractPaymentBeneficiaryFromUrl(url);
     
+    console.log("URL: ", "https://worker.jup.ag/blinks/swap/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/So11111111111111111111111111111111111111112/0.5");
+    console.log("Encoded url: ", encodeURIComponent("https://worker.jup.ag/blinks/swap/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/So11111111111111111111111111111111111111112/0.5"));
+
     if(response && response.address) {
       await ctx.answerInlineQuery([
         {
@@ -47,7 +50,7 @@ bot.on("inline_query", async (ctx) => {
           reply_markup: new InlineKeyboard()
             .url(
               "Pay using Kiwi",
-              `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${parseInt(response.amount.toString())}`)}`,
+              `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`https://worker.jup.ag/blinks/swap/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/So11111111111111111111111111111111111111112/0.5`)}`,
             )
             .row()
         },
