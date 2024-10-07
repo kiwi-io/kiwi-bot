@@ -10,7 +10,7 @@ export const getHoldings = async (
   address: PublicKey,
 ): Promise<Map<Token, TokenWithBalance> | undefined> => {
   //@ts-ignore
-  const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
+  const connection = new Connection(process.env.NEXT_RPC_DEVNET_URL);
 
   try {
     const [splTokenAccounts, token2022Accounts] = await Promise.all([
