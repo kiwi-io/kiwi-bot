@@ -34,6 +34,10 @@ bot.on("message", async (ctx) => {
       //     keyboard.url(action.label, actionApiUrl.origin + action.href).row();
       //   }
       //  });
+
+      console.log("icon: ", getData.icon);
+      console.log("title: ", getData.title);
+      console.log("description: ", getData.description);
   
       await ctx.answerInlineQuery([
         {
