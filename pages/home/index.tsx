@@ -19,7 +19,7 @@ const Home = () => {
 
   const { createWallet } = useSolanaWallets();
 
-  // const { updateToken, updateRecipient, updateAmount } = useTransferContext();
+  const { updateToken, updateRecipient, updateAmount } = useTransferContext();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -50,52 +50,47 @@ const Home = () => {
     //@ts-ignore
     const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
     if(startParam && user) {
-      let base64String = startParam.replace(/-/g, '+').replace(/_/g, '/');
-      console.log("Received: ", base64String);
-      
-      while (base64String.length % 4) {
-        base64String += '=';
+      // let base64String = startParam.replace(/-/g, '+').replace(/_/g, '/');
+      // while (base64String.length % 4) {
+      //   base64String += '=';
+      // }
+      // let decodedUrl = atob(base64String);
+
+      const components = startParam.split("-");
+      console.log("Components: ", components);
+
+      const action = components[0]; // 4
+
+      let address = undefined;
+      if(components.length >= 2) {
+        address = components[1]; // 44
       }
 
-      let decodedUrl = atob(base64String);
-      console.log("Decoded url: ", decodedUrl);
+      let tokenSymbol = undefined;
+      if(components.length >= 3) {
+        tokenSymbol = components[2]; 
+      }
 
-
-      // const components = startParam.split("-");
-      // console.log("Components: ", components);
-
-      // const action = components[0]; // 4
-
-      // let address = undefined;
-      // if(components.length >= 2) {
-      //   address = components[1]; // 44
-      // }
-
-      // let tokenSymbol = undefined;
-      // if(components.length >= 3) {
-      //   tokenSymbol = components[2]; 
-      // }
-
-      // let amount = undefined;
-      // if(components.length == 4) {
-      //   amount = components[3]; 
-      // }
+      let amount = undefined;
+      if(components.length == 4) {
+        amount = components[3]; 
+      }
       
-      // if(action === "send" && portfolio) {
-      //   if (tokenSymbol && portfolio && portfolio.items.length > 0) {
-      //     const tokenItem = portfolio.items.filter(
-      //       (item) => item.symbol === tokenSymbol,
-      //     )[0];
+      if(action === "send" && portfolio) {
+        if (tokenSymbol && portfolio && portfolio.items.length > 0) {
+          const tokenItem = portfolio.items.filter(
+            (item) => item.symbol === tokenSymbol,
+          )[0];
   
-      //     updateToken(tokenItem);
-      //   }
+          updateToken(tokenItem);
+        }
 
-      //   updateRecipient(address);
-      //   updateAmount(amount);
+        updateRecipient(address);
+        updateAmount(amount);
 
-      //   let targetUrl = `/send-transaction-confirmation`;
-      //   router.push(targetUrl);
-      // }
+        let targetUrl = `/send-transaction-confirmation`;
+        router.push(targetUrl);
+      }
     }
   }, []);
 

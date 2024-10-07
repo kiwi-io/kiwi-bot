@@ -34,13 +34,11 @@ bot.on("inline_query", async (ctx) => {
 
     const response: BeneficiaryParams = extractPaymentBeneficiaryFromUrl(url);
     
-      // Base64 encode the URL
-      let base64Encoded = btoa(`https://worker.jup.ag/blinks/swap/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/So11111111111111111111111111111111111111112/0.5`);
-      
-      // Replace +, /, = with URL safe characters (-, _, no = padding)
-      let urlSafeBase64 = base64Encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-
-      console.log("urlSafeBase64: ", urlSafeBase64);
+    // // Base64 encode the URL
+    // let base64Encoded = btoa(`https://worker.jup.ag/blinks/swap/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/So11111111111111111111111111111111111111112/0.5`);
+    // // Replace +, /, = with URL safe characters (-, _, no = padding)
+    // let urlSafeBase64 = base64Encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    // console.log("urlSafeBase64: ", urlSafeBase64);
 
     if(response && response.address) {
       await ctx.answerInlineQuery([
@@ -55,7 +53,7 @@ bot.on("inline_query", async (ctx) => {
           reply_markup: new InlineKeyboard()
             .url(
               "Pay using Kiwi",
-              `https://t.me/samplekiwibot/bot?startapp=${urlSafeBase64}`,
+              `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${parseInt(response.amount.toString())}`)}`,
             )
             .row()
         },
