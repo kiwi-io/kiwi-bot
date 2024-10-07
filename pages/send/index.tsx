@@ -1,47 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./send.module.css";
 import { useRouter } from "next/router";
 import StandardHeader from "../../components/StandardHeader";
-import { getAmountInLamports, increaseDimensionsInUrl, TokenItem } from "../../utils";
-import { useWalletContext } from "../../components/contexts";
+import { getAmountInLamports, increaseDimensionsInUrl } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import { Form } from "react-bootstrap";
 import Image from "next/image";
-import { initQRScanner } from "@telegram-apps/sdk";
-import { usePrivy } from "@privy-io/react-auth";
-
-export interface SendQueryParams {
-  recipient?: string;
-  token?: string;
-  amount?: string;
-}
+import { useTransferContext } from "../../components/contexts/TransferContext";
 
 const Send = () => {
   const router = useRouter();
 
-  const { recipient, token, amount }: SendQueryParams = router.query;
-
-  const [selectedTokenItem, setSelectedTokenItem] =
-    useState<TokenItem>(undefined);
-  const [selectedRecipient, setSelectedRecipient] = useState<string>(recipient);
-  const [selectedAmount, setSelectedAmount] = useState<string>(amount);
-
-  const { portfolio } = useWalletContext();
-
-  const {user} = usePrivy();
+  const { recipient, token, amount, updateRecipient, updateAmount } = useTransferContext();
 
   const { vibrate } = useTelegram();
 
   useEffect(() => {
     const doStuff = () => {
-      if (token && portfolio && portfolio.items.length > 0) {
-        const tokenItem = portfolio.items.filter(
-          (item) => item.address === token || item.symbol === token,
-        )[0];
-
-        setSelectedTokenItem((_) => tokenItem);
-      }
-      else if(!token) {
+      if(!token) {
         router.push(`/tokens?navigateTo=send`)
       }
     };
@@ -50,15 +26,11 @@ const Send = () => {
   }, [token]);
 
   const handleRecipientChange = (e: any) => {
-    setSelectedRecipient((_) => e.target.value);
+    updateRecipient(e.target.value);
   };
 
   const handleAmountChange = (e: any) => {
-    try {
-      setSelectedAmount((_) => e.target.value);
-    } catch (e) {
-      setSelectedAmount((_) => "");
-    }
+    updateAmount(e.target.value);
   };
 
   const handlePaste = async () => {
@@ -67,57 +39,55 @@ const Send = () => {
       if (navigator.clipboard) {
         // Read the clipboard text
         const text = await navigator.clipboard.readText();
-        setSelectedRecipient((_) => text);
+        updateRecipient(text);
       } else {
         console.error("Clipboard API is not supported in this browser.");
-        setSelectedRecipient((_) => "");
       }
     } catch (error) {
       console.error("Failed to read clipboard contents: ", error);
-      setSelectedRecipient((_) => "");
     }
   }
 
-  const handleScanQr = async () => {
-    const qrScanner = initQRScanner();
-    qrScanner.open("Scan a Solana address").then((content) => {
-      setSelectedRecipient((_) => content);
-    })
-    .catch((err) => {
-      console.log("QR Scan error: ", err);
-    })
-  }
+  // const handleScanQr = async () => {
+  //   const qrScanner = initQRScanner();
+  //   qrScanner.open("Scan a Solana address").then((content) => {
+  //     updateRecipient(content);
+  //   })
+  //   .catch((err) => {
+  //     console.log("QR Scan error: ", err);
+  //   })
+  // }
 
   const handleMaxAmount = async () => {
-    let maxAmount = getAmountInLamports(selectedTokenItem.balance.toString(), selectedTokenItem ? selectedTokenItem.decimals : 1);
-    setSelectedAmount((_) => maxAmount.toString());
+    let maxAmount = getAmountInLamports(token.balance.toString(), token ? token.decimals : 1);
+    updateAmount(maxAmount.toString());
   }
 
   const confirmSendHandler = async () => {
-    router.push(`/send-transaction-confirmation?${`to=${selectedRecipient}&token=${token}&amount=${selectedAmount}`}`)
+    router.push(`/send-transaction-confirmation`)
   }
 
   return (
     <div className={styles.sendPageContainer}>
       <div className={styles.sendHeaderContainer}>
         <StandardHeader
-          title={`Send ${selectedTokenItem ? selectedTokenItem.symbol : ""}`}
+          title={`Send ${token ? token.symbol : ""}`}
           backButtonNavigateTo={"home"}
         />
       </div>
       <div className={styles.sendBodyContainer}>
         <div className={styles.tokenImageContainer}>
           {
-            selectedTokenItem ?
+            token ?
                 <Image
                     src={increaseDimensionsInUrl(
-                        selectedTokenItem.logoURI,
+                        token.logoURI,
                         60,
                         60,
                     )}
                     width={50}
                     height={50}
-                    alt={`${selectedTokenItem ? selectedTokenItem.symbol : "Token"} img`}
+                    alt={`${token ? token.symbol : "Token"} img`}
                     className={styles.tokenImage}
                 />
             :
@@ -143,7 +113,7 @@ const Send = () => {
                   // disabled={!wallet.connected}
                   className={styles.recipientFormField}
                   onChange={(e) => handleRecipientChange(e)}
-                  value={selectedRecipient}
+                  value={recipient}
                 />
                 <div className={styles.scanQrButton}>
                   <i className={`fa-solid fa-qrcode`}
@@ -188,7 +158,7 @@ const Send = () => {
                   className={styles.recipientFormField}
                   onChange={(e) => handleAmountChange(e)}
                   value={
-                    selectedAmount
+                    amount
                   }
                 />
                 <div className={styles.maxAmountButton}>

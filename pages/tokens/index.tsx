@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useTelegram } from "../../utils/twa";
 import StandardHeader from "../../components/StandardHeader";
 import { TokenItem } from "../../utils";
+import { useTransferContext } from "../../components/contexts/TransferContext";
 
 const Tokens = () => {
   const router = useRouter();
@@ -15,14 +16,18 @@ const Tokens = () => {
 
   const { vibrate } = useTelegram();
 
+  const { updateToken } = useTransferContext();
+
   const navigateToSend = (selectedTokenItem: TokenItem) => {
     vibrate("light");
-    router.push(`/send?token=${selectedTokenItem.address}`);
+    updateToken(selectedTokenItem);
+    router.push(`/send`);
   };
 
   const navigateToReceive = (selectedTokenItem: TokenItem) => {
     vibrate("light");
-    router.push(`/receive?token=${selectedTokenItem.address}`);
+    updateToken(selectedTokenItem);
+    router.push(`/receive`);
   };
 
   return (

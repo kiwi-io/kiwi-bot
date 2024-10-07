@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { WalletContextProvider } from "../components/contexts";
+import { TransferContextProvider } from "../components/contexts/TransferContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -23,17 +24,19 @@ function MyApp({ Component, pageProps }: AppProps) {
         referrerPolicy="no-referrer"
       />
       <WalletContextProvider>
-        <PrivyProvider
-          appId={process.env.NEXT_PRIVY_APP_ID || ""}
-          config={{
-            embeddedWallets: {
-              createOnLogin: "off",
-            },
-            loginMethods: ["telegram"],
-          }}
-        >
-          <Component {...pageProps} />
-        </PrivyProvider>
+        <TransferContextProvider>
+          <PrivyProvider
+            appId={process.env.NEXT_PRIVY_APP_ID || ""}
+            config={{
+              embeddedWallets: {
+                createOnLogin: "off",
+              },
+              loginMethods: ["telegram"],
+            }}
+          >
+            <Component {...pageProps} />
+          </PrivyProvider>
+        </TransferContextProvider>
       </WalletContextProvider>
     </>
   );

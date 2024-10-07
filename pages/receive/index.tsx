@@ -78,7 +78,7 @@ const Receive = () => {
           <div className={styles.qrCodeContainer}>
             <QRCode data={user.wallet.address} />
           </div>
-          {/* <div className={styles.addressCopyContainer}>
+          <div className={styles.addressCopyContainer}>
             <span className={styles.addressContainer}>
               {trimAddress(user.wallet.address)}
             </span>
@@ -91,7 +91,7 @@ const Receive = () => {
             >
               Copy
             </span>
-          </div> */}
+          </div>
           <div className={styles.receiveFormContainer}>
             <Form>
               <Form.Group

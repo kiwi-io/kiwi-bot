@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./send-transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useRouter } from "next/router";
-import { increaseDimensionsInUrl, TokenItem, trimAddress } from "../../utils";
+import { increaseDimensionsInUrl, trimAddress } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import Image from "next/image";
-import { useWalletContext } from "../../components/contexts";
 import { getTransferTransaction, TransferParams } from "../../utils/token/instructions";
 import { Connection, PublicKey } from "@solana/web3.js";
 import { useSolanaWallets } from "@privy-io/react-auth";
+import { useTransferContext } from "../../components/contexts/TransferContext";
 
 export interface SendTransactionConfirmationQueryParams {
     to?: string;
@@ -18,26 +18,18 @@ export interface SendTransactionConfirmationQueryParams {
 
 const SendTransactionConfirmation = () => {
     const router = useRouter();
-  const { to, token, amount }: SendTransactionConfirmationQueryParams = router.query;
-
-  const [selectedTokenItem, setSelectedTokenItem] =
-    useState<TokenItem>(undefined);
-
   const [isSending, setIsSending] = useState<boolean>(false);
 
   const { vibrate } = useTelegram();
-  const { portfolio } = useWalletContext();
 
   const { wallets } = useSolanaWallets();
 
+  const { token, recipient, amount } = useTransferContext();
+
   useEffect(() => {
     const doStuff = () => {
-      if (portfolio && portfolio.items.length > 0) {
-        const tokenItem = portfolio.items.filter(
-          (item) => item.address === token || item.symbol === token,
-        )[0];
-
-        setSelectedTokenItem((_) => tokenItem);
+      if(!token) {
+        router.push(`/tokens?navigateTo=send`)
       }
     };
 
@@ -52,9 +44,9 @@ const SendTransactionConfirmation = () => {
       const transferParams = {
         connection,
         fromPubkey: new PublicKey(wallets[0].address),
-        toPubkey: new PublicKey(to),
-        token: new PublicKey(selectedTokenItem.address),
-        tokenDecimals: selectedTokenItem.decimals,
+        toPubkey: new PublicKey(recipient),
+        token: new PublicKey(token.address),
+        tokenDecimals: token.decimals,
         amount: parseFloat(amount)
       } as TransferParams;
 
@@ -102,23 +94,23 @@ const SendTransactionConfirmation = () => {
     <div className={styles.sendPageContainer}>
       <div className={styles.sendHeaderContainer}>
         <StandardHeader
-          title={`Send ${selectedTokenItem ? selectedTokenItem.symbol : ""}`}
-          backButtonNavigateTo={`/send?recipient=${to}&token=${token}&amount=${amount}`}
+          title={`Send ${token ? token.symbol : ""}`}
+          backButtonNavigateTo={`/send`}
         />
       </div>
       <div className={styles.sendBodyContainer}>
         <div className={styles.tokenImageContainer}>
           {
-            selectedTokenItem ?
+            token ?
                 <Image
                     src={increaseDimensionsInUrl(
-                        selectedTokenItem.logoURI,
+                        token.logoURI,
                         60,
                         60,
                     )}
                     width={50}
                     height={50}
-                    alt={`${selectedTokenItem ? selectedTokenItem.symbol : "Token"} img`}
+                    alt={`${token ? token.symbol : "Token"} img`}
                     className={styles.tokenImage}
                 />
             :
@@ -139,7 +131,7 @@ const SendTransactionConfirmation = () => {
                 To
             </div>
             <div className={styles.valueContainer}>
-                {to ? trimAddress(to) : ''}
+                {recipient ? trimAddress(recipient) : ''}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
@@ -147,7 +139,7 @@ const SendTransactionConfirmation = () => {
                 Token
             </div>
             <div className={styles.valueContainer}>
-                {selectedTokenItem ? trimAddress(selectedTokenItem.address) : ``}
+                {token ? trimAddress(token.address) : ``}
             </div>
           </div>
           <div className={styles.keyValueContainer}>
