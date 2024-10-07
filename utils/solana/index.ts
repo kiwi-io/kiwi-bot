@@ -32,7 +32,7 @@ export const simulateTransaction = async () => {
     toPubkey: recipient,
     token: NATIVE_SOL_PUBKEY,
     tokenDecimals: 9,
-    amount: 100
+    amount: 0.01
   } as TransferParams;
 
   const transferTransaction = await getTransferTransaction(transferParams);
