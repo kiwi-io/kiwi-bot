@@ -1,33 +1,16 @@
-// import bot from "../../server/telegram-bot";
-import { botWebhook } from "../../../server/telegram-bot";
+// pages/api/index.ts
+import { VercelRequest, VercelResponse } from "@vercel/node";
 
-// export default async function handler(req: any, res: any) {
-//   if (req.method === 'POST') {
-//     await bot.handleUpdate(req.body); // Handle incoming Telegram updates
-//     res.status(200).send('OK');
-//   } else {
-//     res.status(405).end(); // Method Not Allowed
-//   }
-// }
-
-export default async function handler(req: any, res: any) {
-  if (req.method === "POST") {
+const handler = async (
+  _req: VercelRequest,
+  res: VercelResponse
+) => {
     try {
-      // // Initialize the bot
-      // if (!bot.isInited()) {
-      //   await bot.init(); // Fetch bot info from Telegram API
-      // }
-
-      // Handle incoming Telegram updates
-      // await bot.handleUpdate(req.body);
-      await botWebhook(req, res); // Handle the webhook with the bot
-
-      res.status(200).send("OK");
-    } catch (err) {
-      console.error("Error handling update:", err);
-      res.status(500).send("Internal Server Error");
+        return res.status(200).json("hello world");
     }
-  } else {
-    res.status(405).end(); // Method Not Allowed
-  }
+    catch(err) {
+        return res.status(500).json(err);
+    }
 }
+
+export default handler;
