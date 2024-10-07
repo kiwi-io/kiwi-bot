@@ -14,16 +14,20 @@ bot.on("message", async (ctx) => {
   const urlMatch = message.text.match(urlRegex);
 
   if(urlMatch) {
-    const url = urlMatch[0];
+    const url = new URL(urlMatch[0]);
 
-    ctx.reply(`You sent URL: ${url}`);
-
-    const response = await axios.get(`${url}/actions.json`);
+    console.log("url: ", url);
+    console.log("url.origin: ", url.origin);
+    
+    const response = await axios.get(`${url.origin}/actions.json`);
     const actionsJson = response.data as ActionsJsonConfig;
     const actionsUrlMapper = new ActionsURLMapper(actionsJson);
     const actionApiUrl = actionsUrlMapper.mapUrl(url);
 
     console.log("Action api url: ", actionApiUrl);
+
+    ctx.reply(`You sent URL: ${actionApiUrl}`);
+
   }
   else {
     ctx.reply("Invalid URL");
