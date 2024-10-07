@@ -42,7 +42,8 @@ bot.on("message", async (ctx) => {
           photo_url: getData.icon,
           thumbnail_url: getData.icon,
           caption: getData.title,
-          reply_markup: keyboard
+          reply_markup: new InlineKeyboard()
+            .url("Sample", "https://facebook.com").row()
         },
       ]);
     }
