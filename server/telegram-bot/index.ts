@@ -6,7 +6,7 @@ import axios from "axios";
 // Initialize the bot
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 
-bot.on("message", (ctx) => {
+bot.on("message", async (ctx) => {
   const message = ctx.message;
 
   const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -17,8 +17,7 @@ bot.on("message", (ctx) => {
 
     ctx.reply(`You sent URL: ${url}`);
 
-    const actionsJson = axios.get(`${url}/actions.json`)
-      .then((response) => response.data);
+    const actionsJson = axios.get(`${url}/actions.json`);
 
     console.log("actions json: ", actionsJson);
   }
