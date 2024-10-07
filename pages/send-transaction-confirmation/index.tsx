@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./send-transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useRouter } from "next/router";
-import { increaseDimensionsInUrl, trimAddress } from "../../utils";
+import { hasExistingSolanaWallet, increaseDimensionsInUrl, trimAddress } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import Image from "next/image";
 import { getTransferTransaction, TransferParams } from "../../utils/token/instructions";
 import { Connection, PublicKey } from "@solana/web3.js";
-import { useSolanaWallets } from "@privy-io/react-auth";
+import { usePrivy, useSolanaWallets } from "@privy-io/react-auth";
 import { useTransferContext } from "../../components/contexts/TransferContext";
+import { useWalletContext } from "../../components/contexts";
 
 export interface SendTransactionConfirmationQueryParams {
     to?: string;
@@ -22,15 +23,31 @@ const SendTransactionConfirmation = () => {
 
   const { vibrate } = useTelegram();
 
-  const { wallets } = useSolanaWallets();
+  const { wallets, createWallet } = useSolanaWallets();
 
   const { token, recipient, amount } = useTransferContext();
+  const { updatePortfolio } = useWalletContext();
+
+  const { user } = usePrivy();
 
   useEffect(() => {
     if(!token || !recipient || !amount) {
       router.push("/home");
     }
   }, []);
+
+  useEffect(() => {
+    const doStuff = () => {
+      if (user) {
+        if (!hasExistingSolanaWallet(user)) {
+          createWallet();
+        }
+        updatePortfolio(user);
+      }
+    }
+
+    doStuff();
+  }, [user]);
 
   useEffect(() => {
     const doStuff = () => {

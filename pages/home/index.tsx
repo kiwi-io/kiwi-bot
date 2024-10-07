@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import styles from "./home.module.css";
-import { usePrivy } from "@privy-io/react-auth";
+import { usePrivy, useSolanaWallets } from "@privy-io/react-auth";
 import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
 import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
-import { formatWithCommas } from "../../utils";
+import { formatWithCommas, hasExistingSolanaWallet } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
 import { useTransferContext } from "../../components/contexts/TransferContext";
@@ -16,6 +16,8 @@ const Home = () => {
   const { user, ready, authenticated } = usePrivy();
 
   const { portfolio, updatePortfolio } = useWalletContext();
+
+  const { createWallet } = useSolanaWallets();
 
   const { updateToken, updateRecipient, updateAmount } = useTransferContext();
 
@@ -28,9 +30,26 @@ const Home = () => {
   }, [portfolio]);
 
   useEffect(() => {
+    const doStuff = () => {
+      if (user) {
+        if (!hasExistingSolanaWallet(user)) {
+          createWallet();
+        }
+        updatePortfolio(user);
+      }
+    }
+
+    doStuff();
+  }, [user]);
+
+  useEffect(() => {
+    if(!user) {
+      router.push("/home");
+    }
+    
     //@ts-ignore
     const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
-    if(startParam) {
+    if(startParam && user) {
       const components = startParam.split("-");
 
       const action = components[0]; // 4
