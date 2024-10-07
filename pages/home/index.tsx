@@ -5,10 +5,11 @@ import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
 import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
-import { formatWithCommas, hasExistingSolanaWallet, pregenerateWallet } from "../../utils";
+import { formatWithCommas, hasExistingSolanaWallet } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
 import { useTransferContext } from "../../components/contexts/TransferContext";
+import axios from "axios";
 
 const Home = () => {
   const router = useRouter();
@@ -91,7 +92,10 @@ const Home = () => {
     const doStuff = async () => {
       const username = "kylesamani";
 
-      const response = await pregenerateWallet(username);
+      const response = await axios.post('https://kiwi-bot.vercel.app/api/privy/pregenerate-wallet', {
+        "username": username
+      });
+  
       console.log("final response: ", response);
     }
 
