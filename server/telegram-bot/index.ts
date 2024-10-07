@@ -2,6 +2,7 @@ import { Bot, InlineKeyboard } from "grammy";
 import { webhookCallback } from "grammy";
 import { BeneficiaryParams, extractPaymentBeneficiaryFromUrl } from "./utils";
 import axios from "axios";
+import { type ActionsJsonConfig, ActionsURLMapper } from "@dialectlabs/blinks-core";
 
 // Initialize the bot
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
@@ -17,9 +18,12 @@ bot.on("message", async (ctx) => {
 
     ctx.reply(`You sent URL: ${url}`);
 
-    const actionsJson = await axios.get(`${url}/actions.json`);
+    const response = await axios.get(`${url}/actions.json`);
+    const actionsJson = response.data as ActionsJsonConfig;
+    const actionsUrlMapper = new ActionsURLMapper(actionsJson);
+    const actionApiUrl = actionsUrlMapper.mapUrl(url);
 
-    console.log("actions json: ", actionsJson.data);
+    console.log("Action api url: ", actionApiUrl);
   }
   else {
     ctx.reply("Invalid URL");
