@@ -7,7 +7,18 @@ const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 
 bot.on("message", (ctx) => {
   const message = ctx.message;
-  ctx.reply(message.text);
+
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const urlMatch = message.text.match(urlRegex);
+
+  if(urlMatch) {
+    const url = urlMatch[0];
+
+    ctx.reply(`You sent URL: ${url}`);
+  }
+  else {
+    ctx.reply("Invalid URL");
+  }
 });
 
 // Inline query handler for URLs
