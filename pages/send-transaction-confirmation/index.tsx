@@ -27,6 +27,12 @@ const SendTransactionConfirmation = () => {
   const { token, recipient, amount } = useTransferContext();
 
   useEffect(() => {
+    if(!token || !recipient || !amount) {
+      router.push("/home");
+    }
+  }, []);
+
+  useEffect(() => {
     const doStuff = () => {
       if(!token) {
         router.push(`/tokens?navigateTo=send`)

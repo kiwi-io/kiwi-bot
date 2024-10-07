@@ -8,6 +8,7 @@ import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
 import { formatWithCommas } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
+import { useTransferContext } from "../../components/contexts/TransferContext";
 
 const Home = () => {
   const router = useRouter();
@@ -15,6 +16,8 @@ const Home = () => {
   const { user, ready, authenticated } = usePrivy();
 
   const { portfolio, updatePortfolio } = useWalletContext();
+
+  const { updateToken, updateRecipient, updateAmount } = useTransferContext();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -47,9 +50,19 @@ const Home = () => {
         amount = components[3]; 
       }
       
-      if(action === "send") {
-        let targetUrl = `/send-transaction-confirmation?${`to=${address}&token=${tokenSymbol}&amount=${amount}`}`;
+      if(action === "send" && portfolio) {
+        if (tokenSymbol && portfolio && portfolio.items.length > 0) {
+          const tokenItem = portfolio.items.filter(
+            (item) => item.symbol === tokenSymbol,
+          )[0];
+  
+          updateToken(tokenItem);
+        }
 
+        updateRecipient(address);
+        updateAmount(amount);
+
+        let targetUrl = `/send-transaction-confirmation`;
         router.push(targetUrl);
       }
     }
