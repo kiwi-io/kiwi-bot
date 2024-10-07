@@ -50,7 +50,17 @@ const Home = () => {
     //@ts-ignore
     const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
     if(startParam && user) {
-      console.log("Start param: ", startParam);
+      let base64String = startParam.replace(/-/g, '+').replace(/_/g, '/');
+      console.log("Received: ", base64String);
+      
+      while (base64String.length % 4) {
+        base64String += '=';
+      }
+
+      let decodedUrl = atob(base64String);
+      console.log("Decoded url: ", decodedUrl);
+
+
       // const components = startParam.split("-");
       // console.log("Components: ", components);
 
