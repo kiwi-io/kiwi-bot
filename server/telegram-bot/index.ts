@@ -27,13 +27,13 @@ bot.on("message", async (ctx) => {
     const keyboard = new InlineKeyboard();
 
     try {
-      getData.links.actions.forEach((action: any) => {
-        console.log("action: ", action);
-        if(!action.parameters) {
-          console.log("not having params");
-          keyboard.url(action.label, actionApiUrl.origin + action.href).row();
-        }
-       });
+      // getData.links.actions.forEach((action: any) => {
+      //   console.log("action: ", action);
+      //   if(!action.parameters) {
+      //     console.log("not having params");
+      //     keyboard.url(action.label, actionApiUrl.origin + action.href).row();
+      //   }
+      //  });
   
       await ctx.answerInlineQuery([
         {
