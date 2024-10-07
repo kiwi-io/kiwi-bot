@@ -90,11 +90,7 @@ const Home = () => {
 
   useEffect(() => {
     const doStuff = async () => {
-      const username = "kylesamani";
-
-      const response = await axios.post('https://kiwi-bot.vercel.app/api/privy/pregenerate-wallet', {
-        "username": username
-      });
+      const response = await axios.post('https://kiwi-bot.vercel.app/api/privy/pregenerate-wallet?username=kylesamani');
   
       console.log("final response: ", response);
     }
