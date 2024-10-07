@@ -1,4 +1,3 @@
-// pages/api/index.ts
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import axios from "axios";
 
@@ -12,16 +11,12 @@ const handler = async (
             Authorization: `Basic ${btoa(`${process.env.NEXT_PRIVY_APP_ID}:${process.env.NEXT_PRIVY_SECRET}`)}`,
             'privy-app-id': process.env.NEXT_PRIVY_APP_ID,
           },      
-      })
+      });
     
         const users = response.data.data;
-        console.log("Result: ", users[0]);
-        console.log("linkedAccounts: ", users[0]["linked_accounts"])
-    
         return res.status(200).json(users);
     }
     catch(err) {
-        console.log("error aaya: ", err);
         return res.status(500).json(err);
     }
 }
