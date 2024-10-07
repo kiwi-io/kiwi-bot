@@ -16,9 +16,6 @@ bot.on("message", async (ctx) => {
   if(urlMatch) {
     const url = new URL(urlMatch[0]);
 
-    console.log("url: ", url);
-    console.log("url.origin: ", url.origin);
-
     const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
     const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
     const actionsUrlMapper = new ActionsURLMapper(actionsJson);
@@ -26,14 +23,14 @@ bot.on("message", async (ctx) => {
 
     const getDataResponse = await axios.get(`${actionApiUrl}`);
     const getData = getDataResponse.data;
-    console.log("getData: ", getData);
-    console.log("getData.links.actions: ", getData.links.actions);
 
     const keyboard = new InlineKeyboard();
 
     try {
       getData.links.actions.forEach((action: any) => {
+        console.log("action: ", action);
         if(!action.parameters) {
+          console.log("not having params");
           keyboard.url(action.label, actionApiUrl.origin + action.href).row();
         }
        });
