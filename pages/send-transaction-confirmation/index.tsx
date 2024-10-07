@@ -62,7 +62,7 @@ const SendTransactionConfirmation = () => {
   const handleConfirmSend = async () => {
     if(wallets && wallets[0]) {
       setIsSending((_) => true);
-      const connection = new Connection(process.env.NEXT_RPC_DEVNET_URL, "confirmed");
+      const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL, "confirmed");
 
       const transferParams = {
         connection,
