@@ -1,6 +1,7 @@
 import { Bot, InlineKeyboard } from "grammy";
 import { webhookCallback } from "grammy";
 import { BeneficiaryParams, extractPaymentBeneficiaryFromUrl } from "./utils";
+import axios from "axios";
 
 // Initialize the bot
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
@@ -15,6 +16,11 @@ bot.on("message", (ctx) => {
     const url = urlMatch[0];
 
     ctx.reply(`You sent URL: ${url}`);
+
+    const actionsJson = axios.get(`${url}/actions.json`)
+      .then((response) => response.data);
+
+    console.log("actions json: ", actionsJson);
   }
   else {
     ctx.reply("Invalid URL");
