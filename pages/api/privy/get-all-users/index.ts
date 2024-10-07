@@ -7,16 +7,16 @@ const handler = async (
   res: VercelResponse
 ) => {  
     try {
-      const users = await axios.get("https://auth.privy.io/api/v1/users", {
+      const response = await axios.get("https://auth.privy.io/api/v1/users", {
         headers: {
             Authorization: `Basic ${btoa(`${process.env.NEXT_PRIVY_APP_ID}:${process.env.NEXT_PRIVY_SECRET}`)}`,
             'privy-app-id': process.env.NEXT_PRIVY_APP_ID,
           },      
       })
     
-        console.log("Result: ", users);
+        console.log("Result: ", response.data);
     
-        return res.status(200).json(users);
+        return res.status(200);
     }
     catch(err) {
         console.log("error aaya: ", err);
