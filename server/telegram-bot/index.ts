@@ -24,7 +24,7 @@ bot.on("message", async (ctx) => {
     const getDataResponse = await axios.get(`${actionApiUrl}`);
     const getData = getDataResponse.data;
 
-    const keyboard = new InlineKeyboard();
+    // const keyboard = new InlineKeyboard();
 
     try {
       // getData.links.actions.forEach((action: any) => {
@@ -41,9 +41,10 @@ bot.on("message", async (ctx) => {
           id: '1',
           photo_url: getData.icon,
           thumbnail_url: getData.icon,
-          caption: getData.title,
-          reply_markup: new InlineKeyboard()
-            .url("Sample", "https://facebook.com").row()
+          title: getData.title,
+          description: getData.description,
+          // reply_markup: new InlineKeyboard()
+          //   .url("Sample", "https://facebook.com").row()
         },
       ]);
     }
