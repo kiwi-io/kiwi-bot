@@ -25,3 +25,11 @@ export const extractPaymentBeneficiaryFromUrl = (url: string): BeneficiaryParams
   // If the URL is invalid, return null
   return null;
 }
+
+export const encodeTelegramCompatibleURL = (url: string): string => {
+      // Base64 encode the URL
+    let base64Encoded = btoa(url);
+    // Replace +, /, = with URL safe characters (-, _, no = padding)
+    let urlSafeBase64 = base64Encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    return urlSafeBase64;
+}

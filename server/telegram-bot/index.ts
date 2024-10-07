@@ -1,6 +1,6 @@
 import { Bot, InlineKeyboard } from "grammy";
 import { webhookCallback } from "grammy";
-import { BeneficiaryParams, extractPaymentBeneficiaryFromUrl } from "./utils";
+import { BeneficiaryParams, encodeTelegramCompatibleURL, extractPaymentBeneficiaryFromUrl } from "./utils";
 import axios from "axios";
 import { type ActionsJsonConfig, ActionsURLMapper } from "@dialectlabs/blinks-core";
 
@@ -18,16 +18,38 @@ bot.on("message", async (ctx) => {
 
     console.log("url: ", url);
     console.log("url.origin: ", url.origin);
-    
-    const response = await axios.get(`${url.origin}/actions.json`);
-    const actionsJson = response.data as ActionsJsonConfig;
+
+    const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
+    const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
     const actionsUrlMapper = new ActionsURLMapper(actionsJson);
-    const actionApiUrl = actionsUrlMapper.mapUrl(url);
+    const actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
 
-    console.log("Action api url: ", actionApiUrl);
+    const getDataResponse = await axios.get(`${actionApiUrl}`);
+    const getData = getDataResponse.data;
 
-    ctx.reply(`You sent URL: ${actionApiUrl}`);
+    const keyboard = new InlineKeyboard();
 
+    try {
+      getData.links.actions.forEach((action: any) => {
+        if(!action.parameters) {
+          keyboard.url(action.label, actionApiUrl.origin + action.href).row();
+        }
+       });
+  
+      await ctx.answerInlineQuery([
+        {
+          type: 'photo',
+          id: '1',
+          photo_url: getData.icon,
+          thumbnail_url: getData.icon,
+          caption: getData.title,
+          reply_markup: keyboard
+        },
+      ]);
+    }
+    catch(err) {
+      console.log("Error: ", err);
+    }
   }
   else {
     ctx.reply("Invalid URL");
@@ -47,12 +69,6 @@ bot.on("inline_query", async (ctx) => {
 
     const response: BeneficiaryParams = extractPaymentBeneficiaryFromUrl(url);
     
-    // // Base64 encode the URL
-    // let base64Encoded = btoa(`https://worker.jup.ag/blinks/swap/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/So11111111111111111111111111111111111111112/0.5`);
-    // // Replace +, /, = with URL safe characters (-, _, no = padding)
-    // let urlSafeBase64 = base64Encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-    // console.log("urlSafeBase64: ", urlSafeBase64);
-
     if(response && response.address) {
       await ctx.answerInlineQuery([
         {
@@ -103,19 +119,19 @@ bot.on("inline_query", async (ctx) => {
 //       const url = urlMatch[0];
 
 //       // Respond with a custom image, message, and buttons
-//       await ctx.answerInlineQuery([
-//         {
-//           type: 'photo',
-//           id: '1',
-//           photo_url: 'https://raw.githubusercontent.com/Smaler1/coin/main/logo.png', // Replace with your image URL
-//           thumbnail_url: 'https://raw.githubusercontent.com/Smaler1/coin/main/logo.png', // Thumbnail
-//           caption: `Custom message for ${url}`,
-//           reply_markup: new InlineKeyboard()
-//             .url('Open Kiwi App', `https://t.me/your_kiwi_bot?start=/rewards?text=unique_text_1`)
-//             .row()
-//             .url('Another Button', `https://t.me/your_kiwi_bot?start=/rewards?text=unique_text_2`),
-//         },
-//       ]);
+      // await ctx.answerInlineQuery([
+      //   {
+      //     type: 'photo',
+      //     id: '1',
+      //     photo_url: 'https://raw.githubusercontent.com/Smaler1/coin/main/logo.png', // Replace with your image URL
+      //     thumbnail_url: 'https://raw.githubusercontent.com/Smaler1/coin/main/logo.png', // Thumbnail
+      //     caption: `Custom message for ${url}`,
+      //     reply_markup: new InlineKeyboard()
+      //       .url('Open Kiwi App', `https://t.me/your_kiwi_bot?start=/rewards?text=unique_text_1`)
+      //       .row()
+      //       .url('Another Button', `https://t.me/your_kiwi_bot?start=/rewards?text=unique_text_2`),
+      //   },
+      // ]);
 //     } else {
 //       await ctx.answerInlineQuery([
 //         {
