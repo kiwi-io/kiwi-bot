@@ -17,7 +17,7 @@ bot.on("message", async (ctx) => {
 
     ctx.reply(`You sent URL: ${url}`);
 
-    const actionsJson = axios.get(`${url}/actions.json`);
+    const actionsJson = await axios.get(`${url}/actions.json`);
 
     console.log("actions json: ", actionsJson);
   }
