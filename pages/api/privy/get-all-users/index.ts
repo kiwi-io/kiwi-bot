@@ -14,9 +14,11 @@ const handler = async (
           },      
       })
     
-        console.log("Result: ", response.data);
+        const users = response.data.data;
+        console.log("Result: ", users[0]);
+        console.log("linkedAccounts: ", users[0]["linked_accounts"])
     
-        return res.status(200);
+        return res.status(200).json(users);
     }
     catch(err) {
         console.log("error aaya: ", err);
