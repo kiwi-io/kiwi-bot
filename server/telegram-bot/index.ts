@@ -30,7 +30,7 @@ bot.on("message", async (ctx) => {
       getData.links.actions.forEach((action: any) => {
         console.log("action: ", action);
         if(!action.parameters) {
-          keyboard.url(action.label, encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)).row();
+          keyboard.url(action.label, `https://t.me/samplekiwibot?startapp=${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`).row();
         }
        });
 
