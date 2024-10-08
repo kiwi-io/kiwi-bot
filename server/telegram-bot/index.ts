@@ -206,6 +206,7 @@ bot.on("inline_query", async (ctx) => {
   
       getData.links.actions.forEach((action: any) => {
         if(!action.parameters) {
+          console.log("Action label: ", action.label);
           const inline_url = `https://t.me/samplekiwibot/bot?startapp=tip-${action.label}-${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
           console.log("inline_url: ", inline_url);
           keyboard.url(action.label, inline_url).row();
@@ -219,7 +220,7 @@ bot.on("inline_query", async (ctx) => {
           gif_url: getData.icon,
           thumbnail_url: getData.icon,
           title: getData.title,
-          caption: `title: ${getData.title}\n\ndesc: ${getData.description}`,
+          caption: `${getData.title}\n\n${getData.description}`,
           // input_message_content: {
           //   message_text: getData.title,
           // },
