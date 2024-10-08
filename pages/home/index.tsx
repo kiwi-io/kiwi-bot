@@ -96,7 +96,7 @@ const Home = () => {
 
         const actionLink = components[1];
         updateActionUrl(actionLink);
-        updateActionTarget("Jupiter");
+        updateActionTarget("https://jup.ag/swap");
         updateActionTargetLogo("/logos/jupiter_logo.svg");
         
         router.push("/transaction-confirmation");        
