@@ -8,6 +8,9 @@ import { type ActionsJsonConfig, ActionsURLMapper } from "@dialectlabs/blinks-co
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 
 bot.on("message", async (ctx) => {
+  const userId = ctx.from.id;
+  console.log("User ID: ", userId);
+
   ctx.reply("Generating a blink, can take a few seconds");
   const message = ctx.message;
 
@@ -90,6 +93,8 @@ bot.on("message", async (ctx) => {
 // Inline query handler for URLs
 bot.on("inline_query", async (ctx) => {
   const queryText = ctx.inlineQuery.query;
+  const userId = ctx.from.id;
+  console.log("User ID: ", userId);
 
   if(queryText.startsWith("$")) {
     try {

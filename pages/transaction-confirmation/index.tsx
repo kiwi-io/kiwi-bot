@@ -96,7 +96,7 @@ const TransactionConfirmation = () => {
         <div className={styles.mainTransactionConfirmationContainer}>
             <div className={styles.transactionConfirmationHeaderContainer}>
                 <StandardHeader
-                title={`Confirm`}
+                title={`Confirm transaction`}
                 backButtonNavigateTo={"home"}
                 backButtonHide={true}
                 />
