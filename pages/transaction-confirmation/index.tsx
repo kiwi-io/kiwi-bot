@@ -32,15 +32,16 @@ const TransactionConfirmation = () => {
     }
 
     const handleApprove = async() => {
-        setIsLoading((_) => false);
-        await delay(2_000);
-        router.push(`/transaction-status?type=success&signature=px3jWwwuUt4DCoFo9rGYjcbQ79TT1gBAhafDZZ2gCmph2aBBwTRJ7r9vDLgXC3ZYmn2gJup3qpX4E89wGp8HMPg`);
         setIsLoading((_) => true);
+        await delay(3_000);
+        setIsLoading((_) => false);
+        vibrate("success");
+        router.push(`/transaction-status?type=success&signature=px3jWwwuUt4DCoFo9rGYjcbQ79TT1gBAhafDZZ2gCmph2aBBwTRJ7r9vDLgXC3ZYmn2gJup3qpX4E89wGp8HMPg`);
     }
 
     const handleReject = async() => {
+        vibrate("light");
         await delay(2_000);
-
         router.push(`/home`);
     }
 
@@ -126,7 +127,6 @@ const TransactionConfirmation = () => {
                     <div
                         className={styles.rejectButtonContainer}
                         onClick={() => {
-                            vibrate("light");
                             handleReject();
                         }}
                     >
@@ -135,7 +135,6 @@ const TransactionConfirmation = () => {
                     <div
                         className={styles.approveButtonContainer}
                         onClick={() => {
-                            vibrate("success");
                             handleApprove();
                         }}
                     >
