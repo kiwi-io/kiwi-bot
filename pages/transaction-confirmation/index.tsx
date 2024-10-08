@@ -28,7 +28,7 @@ const TransactionConfirmation = () => {
                 console.log("no action url found");
                 return;
             }
-            const response = await axios.post(`${decodeTelegramCompatibleUrl(actionUrl)}?account=${SAMPLE_USER_PUBKEY.toString()}`, {
+            const response = await axios.post(`${decodeTelegramCompatibleUrl(actionUrl)}`, {
                 "account": SAMPLE_USER_PUBKEY.toString()
             });
             const transaction = response.data.transaction;
