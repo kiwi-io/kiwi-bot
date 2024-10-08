@@ -33,3 +33,10 @@ export const encodeTelegramCompatibleURL = (url: string): string => {
     let urlSafeBase64 = base64Encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
     return urlSafeBase64;
 }
+
+export const trimString = (str: string): string => {
+  if (str.length > 100) {
+    return str.slice(0, 100) + '...';
+  }
+  return str;
+}

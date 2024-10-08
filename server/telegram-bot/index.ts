@@ -1,6 +1,6 @@
 import { Bot, InlineKeyboard } from "grammy";
 import { webhookCallback } from "grammy";
-import { BeneficiaryParams, encodeTelegramCompatibleURL, extractPaymentBeneficiaryFromUrl } from "./utils";
+import { BeneficiaryParams, encodeTelegramCompatibleURL, extractPaymentBeneficiaryFromUrl, trimString } from "./utils";
 import axios from "axios";
 import { type ActionsJsonConfig, ActionsURLMapper } from "@dialectlabs/blinks-core";
 
@@ -36,11 +36,19 @@ bot.on("message", async (ctx) => {
         }
        });
       
-      await ctx.replyWithPhoto(getData.icon, {
-        caption: `<b>${getData.title}</b>\n\n${getData.description}`,
-        parse_mode: "HTML",
-        reply_markup: keyboard,
-      });
+      try {
+        await ctx.replyWithPhoto(getData.icon, {
+          caption: `<b>${getData.title}</b>\n\n${trimString(getData.description)}`,
+          parse_mode: "HTML",
+          reply_markup: keyboard,
+        });
+      }
+      catch(err) {
+        await ctx.reply(`<b>${getData.title}</b>\n\n${trimString(getData.description)}`, {
+          parse_mode: "HTML",
+          reply_markup: keyboard,
+        });
+      }
   
     }
     catch(err) {
