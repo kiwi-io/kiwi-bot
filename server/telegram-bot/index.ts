@@ -217,7 +217,7 @@ bot.on("inline_query", async (ctx) => {
           gif_url: getData.icon,
           thumbnail_url: getData.icon,
           title: getData.title,
-          caption: getData.description,
+          caption: `title: ${getData.title}\n\ndesc: ${getData.description}`,
           // input_message_content: {
           //   message_text: getData.title,
           // },
