@@ -67,6 +67,25 @@ const TransactionConfirmation = () => {
                 <div className={styles.actionTargetContainer}>
                     <span>{actionTarget ? actionTarget : ``}</span>
                 </div>
+                
+                <div className={styles.sendDetailsContainer}>
+                    <div className={styles.keyValueContainer}>
+                        <div className={styles.keyContainer}>
+                            WIF
+                        </div>
+                        <div className={styles.valueContainer}>
+                            +5.78
+                        </div>
+                    </div>
+                    <div className={styles.keyValueContainer}>
+                        <div className={styles.keyContainer}>
+                            SOL
+                        </div>
+                        <div className={styles.valueContainer}>
+                            -0.1
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
