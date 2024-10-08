@@ -1,5 +1,5 @@
-import { hapticFeedback } from "@telegram-apps/sdk";
-import { closeMiniApp } from '@telegram-apps/sdk';
+import { initHapticFeedback } from "twa-sdk-v1";
+import { closeMiniApp } from 'twa-sdk-v2';
 
 interface useTelegramComposableState {
   vibrate: (
@@ -28,10 +28,7 @@ export const useTelegram = (): useTelegramComposableState => {
       | "warning"
       | "success" = "heavy",
   ): void => {
-    if(!hapticFeedback.isSupported()) {
-      console.log("vibrator not supported");
-      return;
-    }
+    const hapticFeedback = initHapticFeedback();
 
     switch (style) {
       case "light":
