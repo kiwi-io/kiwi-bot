@@ -29,15 +29,13 @@ bot.on("message", async (ctx) => {
     try {
       getData.links.actions.forEach((action: any) => {
         if(!action.parameters) {
-          const inline_url = `https://t.me/samplekiwibot?startapp=${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
+          const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
           console.log("inline_url: ", inline_url);
           keyboard.url(action.label, inline_url).row();
         }
        });
-
-      console.log("icon: ", getData.icon);
       
-      await ctx.replyWithPhoto("https://raw.githubusercontent.com/Smaler1/coin/main/logo.png", {
+      await ctx.replyWithPhoto(getData.icon, {
         caption: `<b>${getData.title}</b>\n\n${getData.description}`,
         parse_mode: "HTML",
         reply_markup: keyboard,
