@@ -92,43 +92,58 @@ bot.on("inline_query", async (ctx) => {
   const queryText = ctx.inlineQuery.query;
 
   if(queryText.startsWith("$")) {
-    // Render jupiter swap flow
-    const ticker = queryText.slice(1);
-    let getData: any;
-    let keyboard = new InlineKeyboard();
+    try {
+      // Render jupiter swap flow
+      const ticker = queryText.slice(1);
+      let getData: any;
+      let keyboard = new InlineKeyboard();
 
-    const url = new URL(`https://jup.ag/swap/SOL-${ticker}`);
+      const url = new URL(`https://jup.ag/swap/SOL-${ticker}`);
 
-    const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
-    const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
-    const actionsUrlMapper = new ActionsURLMapper(actionsJson);
+      const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
+      const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
+      const actionsUrlMapper = new ActionsURLMapper(actionsJson);
 
-    let actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
-    const getDataResponse = await axios.get(`${actionApiUrl}`);
-    getData = getDataResponse.data;
+      let actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
+      const getDataResponse = await axios.get(`${actionApiUrl}`);
+      getData = getDataResponse.data;
 
-    getData.links.actions.forEach((action: any) => {
-      if(!action.parameters) {
-        const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
-        console.log("inline_url: ", inline_url);
-        keyboard.url(action.label, inline_url).row();
-      }
-      });
+      getData.links.actions.forEach((action: any) => {
+        if(!action.parameters) {
+          const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
+          console.log("inline_url: ", inline_url);
+          keyboard.url(action.label, inline_url).row();
+        }
+        });
 
-    ctx.answerInlineQuery([
-      {
-        type: "photo",
-        id: "1",
-        photo_url: getData.icon,
-        thumbnail_url: getData.icon,
-        title: getData.title,
-        description: getData.description,
-        input_message_content: {
-          message_text: getData.description,
+      ctx.answerInlineQuery([
+        {
+          type: "photo",
+          id: "1",
+          photo_url: getData.icon,
+          thumbnail_url: getData.icon,
+          title: getData.title,
+          description: getData.description,
+          input_message_content: {
+            message_text: getData.description,
+          },
+          reply_markup: keyboard,
         },
-        reply_markup: keyboard,
-      },
-    ])
+      ]);
+    }
+    catch(err) {
+      await ctx.answerInlineQuery([
+        {
+          type: "article",
+          id: "1",
+          title: `Error generating Jupiter blink`,
+          description: `Error generating Jupiter blink`,
+          input_message_content: {
+            message_text: `Error generating Jupiter blink`,
+          },
+        },
+      ]);
+    } 
   }
   else {
     // Detect if the query contains a URL
