@@ -92,6 +92,7 @@ const Home = () => {
         const components = startParam.split("-");
 
         const actionLink = components[1];
+        console.log("going to: ", `/transaction-confirmation?actionUrl=${actionLink}`);
         router.push("/transaction-confirmation?actionUrl=", actionLink);        
       }
       else {

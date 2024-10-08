@@ -12,6 +12,7 @@ export interface TransactionConfirmationParams {
 
 const TransactionConfirmation = () => {
     const router = useRouter();
+    console.log("router.query: ", router.query);
     const { actionUrl }: TransactionConfirmationParams = router.query;
 
     const { user } = usePrivy();
@@ -40,7 +41,7 @@ const TransactionConfirmation = () => {
         }
 
         doStuff();
-    }, []);
+    }, [actionUrl]);
 
     return (
         <div className={styles.mainTransactionConfirmationContainer}>
