@@ -11,6 +11,7 @@ bot.on("message", async (ctx) => {
   const userId = ctx.from.id;
   if(!(userId === 1896100027)) {
     ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+    return;
   }
 
   ctx.reply("Generating a blink, can take a few seconds");
@@ -100,6 +101,7 @@ bot.on("inline_query", async (ctx) => {
     const userId = ctx.from.id;
     if(!(userId === 1896100027)) {
       ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+      return;
     }
 
     try {
@@ -161,6 +163,7 @@ bot.on("inline_query", async (ctx) => {
     const userId = ctx.from.id;
     if(!(userId === 1896100027)) {
       ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+      return;
     }
 
     try {
@@ -269,6 +272,7 @@ bot.on("inline_query", async (ctx) => {
     const userId = ctx.from.id;
     if(!(userId === 1896100027)) {
       ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+      return;
     }
     // Detect if the query contains a URL
     const urlRegex = /(https?:\/\/[^\s]+)/g;

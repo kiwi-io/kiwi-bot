@@ -38,11 +38,15 @@
 }
 
 .settingsContainer {
-  /* border: 1px solid rgba(87, 87, 87, 0.5); */
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background-color 0.3s ease;
   border-radius: 0.25rem;
   padding: 0.5rem;
   color: #fffefa;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .overviewContainer {
