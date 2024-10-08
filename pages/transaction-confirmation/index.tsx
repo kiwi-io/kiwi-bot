@@ -4,6 +4,7 @@ import StandardHeader from "../../components/StandardHeader";
 import { useRouter } from "next/router";
 import { usePrivy } from "@privy-io/react-auth";
 import axios from "axios";
+import { decodeTelegramCompatibleUrl } from "../../utils";
 
 export interface TransactionConfirmationParams {
     actionUrl?: string;
@@ -16,7 +17,7 @@ const TransactionConfirmation = () => {
     const { user } = usePrivy();
 
     const performAction = async () => {
-        const response = await axios.post(`${actionUrl}?account=${user.wallet.address}`, {
+        const response = await axios.post(`${decodeTelegramCompatibleUrl(actionUrl)}?account=${user.wallet.address}`, {
             "account": user.wallet.address
         });
         console.log("Response: ", response);
@@ -25,7 +26,7 @@ const TransactionConfirmation = () => {
     useEffect(() => {
         const doStuff = async() => {
             if(actionUrl) {
-                console.log("Action url found: ", actionUrl);
+                console.log("Action url found: ", decodeTelegramCompatibleUrl(actionUrl));
                 try {
                     await performAction();
                 }

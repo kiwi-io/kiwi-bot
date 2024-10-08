@@ -91,9 +91,7 @@ const Home = () => {
         console.log("starts with jup");
         const components = startParam.split("-");
 
-        const actionLink = decodeTelegramCompatibleUrl(components[1]);
-        console.log("components: ", components);
-        console.log("passing: ", actionLink);
+        const actionLink = components[1];
         router.push("/transaction-confirmation?actionUrl=", actionLink);        
       }
       else {
