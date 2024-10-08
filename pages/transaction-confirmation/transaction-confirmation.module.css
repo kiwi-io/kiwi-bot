@@ -9,13 +9,11 @@
   
 .transactionConfirmationBodyContainer {
   display: flex;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .actionTargetLogoContainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
 }
 
@@ -25,5 +23,6 @@
 }
 
 .actionTargetContainer {
-  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  font-size: 1rem;
 }
