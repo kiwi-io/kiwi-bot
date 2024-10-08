@@ -4,6 +4,7 @@ import Head from "next/head";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { WalletContextProvider } from "../components/contexts";
 import { TransferContextProvider } from "../components/contexts/TransferContext";
+import { ActionContextProvider } from "../components/contexts/ActionContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -25,17 +26,19 @@ function MyApp({ Component, pageProps }: AppProps) {
       />
       <WalletContextProvider>
         <TransferContextProvider>
-          <PrivyProvider
-            appId={process.env.NEXT_PRIVY_APP_ID || ""}
-            config={{
-              embeddedWallets: {
-                createOnLogin: "off",
-              },
-              loginMethods: ["telegram"],
-            }}
-          >
-            <Component {...pageProps} />
-          </PrivyProvider>
+          <ActionContextProvider>
+            <PrivyProvider
+              appId={process.env.NEXT_PRIVY_APP_ID || ""}
+              config={{
+                embeddedWallets: {
+                  createOnLogin: "off",
+                },
+                loginMethods: ["telegram"],
+              }}
+            >
+              <Component {...pageProps} />
+            </PrivyProvider>
+          </ActionContextProvider>
         </TransferContextProvider>
       </WalletContextProvider>
     </>

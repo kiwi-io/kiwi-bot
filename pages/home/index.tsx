@@ -9,6 +9,7 @@ import { decodeTelegramCompatibleUrl, formatWithCommas, hasExistingSolanaWallet 
 import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
 import { useTransferContext } from "../../components/contexts/TransferContext";
+import { useActionContext } from "../../components/contexts/ActionContext";
 
 const Home = () => {
   const router = useRouter();
@@ -20,6 +21,8 @@ const Home = () => {
   const { createWallet } = useSolanaWallets();
 
   const { updateToken, updateRecipient, updateAmount } = useTransferContext();
+
+  const { updateActionUrl } = useActionContext();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -92,8 +95,9 @@ const Home = () => {
         const components = startParam.split("-");
 
         const actionLink = components[1];
-        console.log("going to: ", `/transaction-confirmation?actionUrl=${actionLink}`);
-        router.push("/transaction-confirmation?actionUrl=", actionLink);        
+        updateActionUrl(actionLink);
+
+        router.push("/transaction-confirmation");        
       }
       else {
         const decodedUrl = decodeTelegramCompatibleUrl(startParam);

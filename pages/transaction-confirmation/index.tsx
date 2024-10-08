@@ -1,20 +1,17 @@
 import React, { useEffect } from "react";
 import styles from "./transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
-import { useRouter } from "next/router";
 import { usePrivy } from "@privy-io/react-auth";
 import axios from "axios";
 import { decodeTelegramCompatibleUrl } from "../../utils";
+import { useActionContext } from "../../components/contexts/ActionContext";
 
 export interface TransactionConfirmationParams {
     actionUrl?: string;
 }
 
 const TransactionConfirmation = () => {
-    const router = useRouter();
-    console.log("router.query: ", router.query);
-    const { actionUrl }: TransactionConfirmationParams = router.query;
-
+    const { actionUrl } = useActionContext();
     const { user } = usePrivy();
 
     const performAction = async () => {
