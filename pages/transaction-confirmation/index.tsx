@@ -129,7 +129,7 @@ const TransactionConfirmation = () => {
                                 color: `#e33d3d`
                             }}
                         >
-                            -{note}
+                            -{decodeTelegramCompatibleUrl(note)}
                         </div>
                     </div>
                 </div>
