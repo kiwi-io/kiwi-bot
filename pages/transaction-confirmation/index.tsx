@@ -66,6 +66,7 @@ const TransactionConfirmation = () => {
                 </div>
                 <div className={styles.actionTargetContainer}>
                     <span>{actionTarget ? actionTarget : ``}</span>
+                    <span>{actionTargetLogo ? actionTargetLogo : ``}</span>
                 </div>
             </div>
         </div>
