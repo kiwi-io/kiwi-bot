@@ -27,12 +27,12 @@ bot.on("message", async (ctx) => {
     const keyboard = new InlineKeyboard();
 
     try {
-      getData.links.actions.forEach((action: any) => {
-        console.log("action: ", action);
-        if(!action.parameters) {
-          keyboard.url(action.label, encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)).row();
-        }
-       });
+      // getData.links.actions.forEach((action: any) => {
+      //   console.log("action: ", action);
+      //   if(!action.parameters) {
+      //     keyboard.url(action.label, encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)).row();
+      //   }
+      //  });
   
       await ctx.answerInlineQuery([
         {
@@ -43,7 +43,7 @@ bot.on("message", async (ctx) => {
           input_message_content: {
             message_text: getData.description,
           },
-          reply_markup: keyboard
+          // reply_markup: keyboard
         },
       ]);
     }
