@@ -56,7 +56,7 @@ const TransactionConfirmation = () => {
                 <div className={styles.actionTargetLogoContainer}>
                     {
                         <Image
-                        src={increaseDimensionsInUrl(actionTargetLogo ? actionTargetLogo : ``, 60, 60)}
+                        src={actionTargetLogo}
                         width={25}
                         height={25}
                         alt={`${actionTarget ? actionTarget : ``} img`}
