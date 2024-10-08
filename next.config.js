@@ -16,6 +16,7 @@ const nextConfig = {
     NEXT_RPC_MAINNET_URL: process.env.NEXT_RPC_MAINNET_URL || "",
     NEXT_RPC_DEVNET_URL: process.env.NEXT_RPC_DEVNET_URL || "",
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || "",
+    NEXT_PRIVATE_KEYPAIR: process.env.NEXT_PRIVATE_KEYPAIR || "",
   },
   eslint: {
     ignoreDuringBuilds: true,
