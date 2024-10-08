@@ -109,7 +109,7 @@ const Home = () => {
         updateActionUrl(actionLink);
         updateActionTarget("https://tiplink.io/blinks");
         updateActionTargetLogo("/logos/tiplink_logo.svg");
-        updateNote(components[2]);
+        updateNote("0.01 SOL");
         
         router.push("/transaction-confirmation");
       }
