@@ -65,10 +65,14 @@
   font-weight: 400;
 }
 
+.tokenDetailContainer {
+  display: flex;
+}
+
 .actionButtonsContainer {
   width: 100%;
   box-sizing: border-box;
-  margin-top: 8rem;
+  margin-top: 12rem;
   display: flex;
   justify-content: space-between;
   bottom: 0;
@@ -79,7 +83,6 @@
   justify-content: center;
   align-items: center;
   background-color: #f2f1e5;
-  margin-top: 3rem;
   transition:
     transform 0.1s ease,
     background-color 0.2s ease;
@@ -99,7 +102,6 @@
   justify-content: center;
   align-items: center;
   background-color: #ff9d00;
-  margin-top: 3rem;
   transition:
     transform 0.1s ease,
     background-color 0.2s ease;

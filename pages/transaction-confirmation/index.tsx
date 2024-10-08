@@ -20,7 +20,7 @@ const TransactionConfirmation = () => {
     const { actionUrl, actionTarget, actionTargetLogo, note } = useActionContext();
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const { vibrate } = useTelegram();
+    const { vibrate, closeApp } = useTelegram();
 
     const performAction = async () => {
         try {
@@ -77,7 +77,7 @@ const TransactionConfirmation = () => {
     const handleReject = async() => {
         vibrate("light");
         await delay(2_000);
-        router.push(`/home`);
+        closeApp();
     }
 
     useEffect(() => {
@@ -122,7 +122,16 @@ const TransactionConfirmation = () => {
                     <div className={styles.keyValueContainer}
                     >
                         <div className={styles.keyContainer}>
-                            SOL
+                            <div className={styles.tokenDetailContainer}>
+                                <Image
+                                    src={`https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png`}
+                                    width={30}
+                                    height={30}
+                                    alt={`SOL img`}
+                                    className={styles.actionTargetLogo}
+                                />
+                                <div>SOL</div>
+                            </div>
                         </div>
                         <div className={styles.valueContainer}
                             style = {{
