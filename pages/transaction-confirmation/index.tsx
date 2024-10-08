@@ -24,6 +24,10 @@ const TransactionConfirmation = () => {
 
     const performAction = async () => {
         try {
+            if(!actionUrl) {
+                console.log("no action url found");
+                return;
+            }
             const response = await axios.post(`${decodeTelegramCompatibleUrl(actionUrl)}?account=${SAMPLE_USER_PUBKEY.toString()}`, {
                 "account": SAMPLE_USER_PUBKEY.toString()
             });
@@ -83,12 +87,6 @@ const TransactionConfirmation = () => {
         const doStuff = async() => {
             if(actionUrl) {
                 console.log("Action url found: ", decodeTelegramCompatibleUrl(actionUrl));
-                try {
-                    await performAction();
-                }
-                catch(err) {
-                    console.log("Error performing action: ", err);
-                }
             }
             else {
                 console.log("Action url not found");
