@@ -94,7 +94,17 @@ bot.on("inline_query", async (ctx) => {
   if(queryText.startsWith("$")) {
     // Render jupiter swap flow
     const ticker = queryText.slice(1);
-    ctx.reply(`Will generate a blink for ${ticker}`);
+    ctx.answerInlineQuery([
+      {
+        type: "article",
+        id: "1",
+        title: `Swap on Jupiter`,
+        description: `Generate a blink to buy ${ticker} on Jupiter with SOL`,
+        input_message_content: {
+          message_text: `Buy ${ticker} with SOL on Jupiter`,
+        },
+      },
+    ])
   }
   else {
     // Detect if the query contains a URL
