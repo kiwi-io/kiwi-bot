@@ -8,6 +8,7 @@ import { type ActionsJsonConfig, ActionsURLMapper } from "@dialectlabs/blinks-co
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 
 bot.on("message", async (ctx) => {
+  ctx.reply("Generating a blink, can take a few seconds");
   const message = ctx.message;
 
   const urlRegex = /(https?:\/\/[^\s]+)/g;
