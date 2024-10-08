@@ -205,8 +205,8 @@ bot.on("inline_query", async (ctx) => {
       console.log("actionApiUrl: ", actionApiUrl.toString());
   
       getData.links.actions.forEach((action: any) => {
+        console.log("action: ", action);
         if(!action.parameters) {
-          console.log("Action label: ", action.label);
           const inline_url = `https://t.me/samplekiwibot/bot?startapp=tip-${action.label}-${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
           console.log("inline_url: ", inline_url);
           keyboard.url(action.label, inline_url).row();
