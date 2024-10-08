@@ -147,6 +147,45 @@ bot.on("inline_query", async (ctx) => {
       ]);
     } 
   }
+  else if(queryText.startsWith("drift")) {
+    try {
+      let keyboard = new InlineKeyboard();
+      const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(`https://app.drift.trade/bet/TRUMP-WIN-2024-BET`)}`;
+
+      keyboard.url(`TRUMP`, inline_url).row();
+      keyboard.url(`HARRIS`, inline_url).row();
+
+      ctx.answerInlineQuery([
+        {
+          type: "photo",
+          id: "1",
+          photo_url: `https://app.drift.trade/_next/image?url=https%3A%2F%2Fdrift-public.s3.eu-central-1.amazonaws.com%2Fprediction-markets%2Fmarkets%2FTRUMP-WIN-2024-BET.webp&w=3840&q=75`,
+          thumbnail_url: `https://app.drift.trade/_next/image?url=https%3A%2F%2Fdrift-public.s3.eu-central-1.amazonaws.com%2Fprediction-markets%2Fmarkets%2FTRUMP-WIN-2024-BET.webp&w=3840&q=75`,
+          title: `Will Donald Trump win the 2024 Presidential Election?`,
+          description: `Will Donald Trump win the 2024 Presidential Election? Predict & Earn, powered by Drift`,
+          caption: `Will Donald Trump win the 2024 Presidential Election? Predict & Earn, powered by Drift`,
+          // input_message_content: {
+          //   message_text: getData.title,
+          // },
+          parse_mode: "HTML",
+          reply_markup: keyboard,
+        },
+      ]);
+    }
+    catch(err) {
+      await ctx.answerInlineQuery([
+        {
+          type: "article",
+          id: "1",
+          title: `Error generating Drift blink`,
+          description: `Error generating Drift blink`,
+          input_message_content: {
+            message_text: `Error generating Drift blink`,
+          },
+        },
+      ]);
+    } 
+  }
   else {
     // Detect if the query contains a URL
     const urlRegex = /(https?:\/\/[^\s]+)/g;
