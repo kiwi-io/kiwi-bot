@@ -129,7 +129,7 @@ const TransactionConfirmation = () => {
                                 color: `#e33d3d`
                             }}
                         >
-                            -{note.split(" ")[0]}
+                            -{note}
                         </div>
                     </div>
                 </div>
