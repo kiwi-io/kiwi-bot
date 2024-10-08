@@ -60,11 +60,12 @@
 
 .actionButtonsContainer {
   width: 100%;
+  box-sizing: border-box;
   margin-top: 6rem;
   display: flex;
   justify-content: space-between;
   position: absolute;
-  bottom: 0;
+  bottom: 20;
 }
 
 .rejectButtonContainer {
@@ -78,7 +79,7 @@
     background-color 0.2s ease;
   padding: 1rem;
   color: #481801;
-  width: 200px;
+  width: 180px;
   border: none;
   border-radius: 0.25rem;
   font-weight: 600;
@@ -98,7 +99,7 @@
     background-color 0.2s ease;
   padding: 1rem;
   color: #481801;
-  width: 200px;
+  width: 180px;
   border: none;
   border-radius: 0.25rem;
   font-weight: 600;
