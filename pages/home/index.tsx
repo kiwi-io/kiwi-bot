@@ -87,6 +87,12 @@ const Home = () => {
           router.push(targetUrl);
         }
       }
+      else if(startParam.startsWith("jup")) {
+        const components = startParam.split("-");
+
+        const actionLink = components[1];
+        router.push("/transaction-confirmation?actionUrl=", actionLink);        
+      }
       else {
         const decodedUrl = decodeTelegramCompatibleUrl(startParam);
 
