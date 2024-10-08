@@ -13,6 +13,10 @@
   flex-direction: column;
 }
 
+.actionTargetMainContainer {
+  display: flex;
+}
+
 .actionTargetLogoContainer {
   display: flex;
   width: 100%;
@@ -52,6 +56,7 @@
 
 .actionButtonsContainer {
   width: 100%;
+  display: flex;
 }
 
 .rejectButtonContainer {
@@ -65,7 +70,7 @@
     background-color 0.2s ease;
   padding: 1rem;
   color: #481801;
-  width: 100px;
+  width: 256px;
   border: none;
   border-radius: 0.25rem;
   font-weight: 600;
@@ -85,7 +90,7 @@
     background-color 0.2s ease;
   padding: 1rem;
   color: #481801;
-  width: 100px;
+  width: 256px;
   border: none;
   border-radius: 0.25rem;
   font-weight: 600;
