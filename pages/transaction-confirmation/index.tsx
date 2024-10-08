@@ -1,24 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { usePrivy } from "@privy-io/react-auth";
 import axios from "axios";
-import { decodeTelegramCompatibleUrl } from "../../utils";
+import { decodeTelegramCompatibleUrl, increaseDimensionsInUrl } from "../../utils";
 import { useActionContext } from "../../components/contexts/ActionContext";
+import Image from "next/image";
 
 export interface TransactionConfirmationParams {
     actionUrl?: string;
 }
 
 const TransactionConfirmation = () => {
-    const { actionUrl } = useActionContext();
+    const { actionUrl, actionTarget, actionTargetLogo } = useActionContext();
     const { user } = usePrivy();
+    const [transaction, setTransaction] = useState<string>(undefined);
 
     const performAction = async () => {
         const response = await axios.post(`${decodeTelegramCompatibleUrl(actionUrl)}?account=${user.wallet.address}`, {
             "account": user.wallet.address
         });
-        console.log("Response: ", response);
+        const transaction = response.data.transaction;
+        setTransaction((_) => transaction);
     }
 
     useEffect(() => {
@@ -46,10 +49,24 @@ const TransactionConfirmation = () => {
                 <StandardHeader
                 title={`Confirm`}
                 backButtonNavigateTo={"home"}
+                backButtonHide={true}
                 />
             </div>
             <div className={styles.transactionConfirmationBodyContainer}>
-
+                <div className={styles.actionTargetLogoContainer}>
+                    {
+                        <Image
+                        src={increaseDimensionsInUrl(actionTargetLogo ? actionTargetLogo : ``, 60, 60)}
+                        width={50}
+                        height={50}
+                        alt={`${actionTarget ? actionTarget : ``} img`}
+                        className={styles.tokenImage}
+                        />
+                    }
+                </div>
+                <div className={styles.actionTargetContainer}>
+                    <span>{actionTarget ? actionTarget : ``}</span>
+                </div>
             </div>
         </div>
     )

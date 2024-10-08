@@ -7,3 +7,21 @@
     box-sizing: border-box;
   }
   
+.transactionConfirmationBodyContainer {
+  display: flex;
+  padding: 1.5rem; 
+}
+
+.actionTargetLogoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.actionTargetLogo {
+  border: none;
+  border-radius: 100%;
+}

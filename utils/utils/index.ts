@@ -3,6 +3,10 @@ export const increaseDimensionsInUrl = (
   newWidth: number,
   newHeight: number,
 ): string => {
+  if(url.length < 3) {
+    return url;
+  }
+
   const parsedUrl = new URL(url);
 
   parsedUrl.searchParams.set("w", newWidth.toString());

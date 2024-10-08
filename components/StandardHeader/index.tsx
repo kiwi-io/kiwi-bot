@@ -6,11 +6,13 @@ import { useTelegram } from "../../utils/twa";
 export interface StandardHeaderProps {
   title: string;
   backButtonNavigateTo: string;
+  backButtonHide?: boolean;
 }
 
 const StandardHeader = ({
   title,
   backButtonNavigateTo,
+  backButtonHide
 }: StandardHeaderProps) => {
   const router = useRouter();
   const { vibrate } = useTelegram();
@@ -28,13 +30,20 @@ const StandardHeader = ({
             vibrate("light");
             backButtonHandler();
           }}
+          style={{
+            display: backButtonHide ? `none` : ``
+          }}
         >
           <i className={`${styles.backButton} fa-solid fa-arrow-left`}></i>
         </div>
         <div className={styles.titleContainer}>
           <span className={styles.title}>{title}</span>
         </div>
-        <div>
+        <div
+        style={{
+          display: backButtonHide ? `none` : ``
+        }}
+        >
           <span className={styles.dummyContainer}>
             <i className={`fa-solid fa-arrow-right`}></i>
           </span>

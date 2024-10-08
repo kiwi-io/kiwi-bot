@@ -22,7 +22,7 @@ const Home = () => {
 
   const { updateToken, updateRecipient, updateAmount } = useTransferContext();
 
-  const { updateActionUrl } = useActionContext();
+  const { updateActionTarget, updateActionUrl, updateActionTargetLogo } = useActionContext();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -96,7 +96,9 @@ const Home = () => {
 
         const actionLink = components[1];
         updateActionUrl(actionLink);
-
+        updateActionTarget("Jupiter Exchange");
+        updateActionTargetLogo("https://jup.ag/svg/jupiter-logo.svg");
+        
         router.push("/transaction-confirmation");        
       }
       else {
