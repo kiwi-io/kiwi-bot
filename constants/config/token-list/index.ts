@@ -25,7 +25,7 @@ export const DEFAULT_TOKENS_LIST: TokenItem[] = [
     logoURI:
       "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
     priceUsd: 0.0,
-    valueUsd: 807.07,
+    valueUsd: 68.0535,
   } as TokenItem,
   {
     address: "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
