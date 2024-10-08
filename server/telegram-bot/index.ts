@@ -49,6 +49,24 @@ bot.on("message", async (ctx) => {
     }
     catch(err) {
       console.log("Error: ", err);
+
+      await ctx.answerInlineQuery([
+        {
+          type: "article",
+          id: "1",
+          title: `Request a payment on Kiwi`,
+          description: `The received payment will be deposited on your Kiwi account`,
+          input_message_content: {
+            message_text: `Send SOL & memecoins using Kiwi`,
+          },
+          reply_markup: new InlineKeyboard()
+            .url(
+              "Pay using Kiwi",
+              `https://t.me/samplekiwibot/bot?startapp=send`,
+            )
+            .row()
+        },
+      ]);
     }
   }
   else {
