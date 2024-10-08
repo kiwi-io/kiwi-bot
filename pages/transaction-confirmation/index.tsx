@@ -140,9 +140,7 @@ const TransactionConfirmation = () => {
                     >
                         {
                             isLoading ?
-                                <div className={styles.loadingContainer}>
-                                    <div className={styles.loader}></div>
-                                </div>
+                                <div className={styles.loader}></div>
                             :
                                 <div>Approve</div>
                         }

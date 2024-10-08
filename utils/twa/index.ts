@@ -1,4 +1,5 @@
 import { initHapticFeedback } from "@telegram-apps/sdk";
+import {  } from '@telegram-apps/sdk';
 
 interface useTelegramComposableState {
   vibrate: (
@@ -12,6 +13,7 @@ interface useTelegramComposableState {
       | "warning"
       | "success",
   ) => void;
+  closeMiniApp: () => void;
 }
 
 export const useTelegram = (): useTelegramComposableState => {
@@ -43,7 +45,12 @@ export const useTelegram = (): useTelegramComposableState => {
         break;
     }
   };
+
+  const closeMiniApp = () => {
+    closeMiniApp();
+  }
   return {
     vibrate,
+    closeMiniApp
   };
 };
