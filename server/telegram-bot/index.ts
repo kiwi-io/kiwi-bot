@@ -35,7 +35,9 @@ bot.on("message", async (ctx) => {
         }
        });
 
-      await ctx.replyWithPhoto(getData.icon, {
+      console.log("icon: ", getData.icon);
+      
+      await ctx.replyWithPhoto("https://raw.githubusercontent.com/Smaler1/coin/main/logo.png", {
         caption: `<b>${getData.title}</b>\n\n${getData.description}`,
         parse_mode: "HTML",
         reply_markup: keyboard,
@@ -45,7 +47,7 @@ bot.on("message", async (ctx) => {
     catch(err) {
       console.log("Error: ", err);
 
-      await ctx.replyWithPhoto("title", {
+      await ctx.replyWithPhoto("https://raw.githubusercontent.com/Smaler1/coin/main/logo.png", {
         caption: `<b>${"Description"}</b>\n\n${"description"}`,
         parse_mode: "HTML",
         reply_markup: keyboard,
