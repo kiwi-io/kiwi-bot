@@ -28,7 +28,7 @@ bot.on("message", async (ctx) => {
     
         let actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
         const getDataResponse = await axios.get(`${actionApiUrl}`);
-        const getData = getDataResponse.data;
+        getData = getDataResponse.data;
     
         getData.links.actions.forEach((action: any) => {
           if(!action.parameters) {
@@ -38,11 +38,11 @@ bot.on("message", async (ctx) => {
           }
          });
       }
-      else if(urlMatch[0].includes("drift") || urlMatch[0].includes("lulo")) {
+      else if(urlMatch[0].includes("drift") || urlMatch[0].includes("lulo") || urlMatch[0].includes("sendarcade")) {
         let actionApiUrl = new URL(urlMatch[0]);
         const getDataResponse = await axios.get(`${actionApiUrl}`);
-        const getData = getDataResponse.data;
-  
+        getData = getDataResponse.data;
+        
         const keyboard = new InlineKeyboard();
   
         getData.links.actions.forEach((action: any) => {
