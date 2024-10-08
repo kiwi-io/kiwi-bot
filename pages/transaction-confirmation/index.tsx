@@ -60,7 +60,7 @@ const TransactionConfirmation = () => {
                         width={50}
                         height={50}
                         alt={`${actionTarget ? actionTarget : ``} img`}
-                        className={styles.tokenImage}
+                        className={styles.actionTargetLogo}
                         />
                     }
                 </div>
