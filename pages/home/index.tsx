@@ -148,7 +148,7 @@ const Home = () => {
                 <div className={styles.balanceValue}>
                   <span className={styles.dollarSign}>{`$ `}</span>
                   <span className={styles.balance}>
-                    {formatWithCommas((10904.1395).toFixed(2))}
+                    {formatWithCommas(portfolio.totalUsd.toFixed(2))}
                   </span>
                 </div>
               </div>
