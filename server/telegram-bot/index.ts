@@ -19,7 +19,7 @@ bot.on("message", async (ctx) => {
       let getData: any;
       let keyboard = new InlineKeyboard();
 
-      if(urlMatch[0].includes("jup") || urlMatch[0].includes("magiceden") || urlMatch[0].includes("underdog")) {
+      if(urlMatch[0].includes("jup") || urlMatch[0].includes("magiceden") || urlMatch[0].includes("underdog") || urlMatch[0].includes("tiplink")) {
         const url = new URL(urlMatch[0]);
 
         const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
