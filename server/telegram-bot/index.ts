@@ -206,7 +206,7 @@ bot.on("inline_query", async (ctx) => {
   
       getData.links.actions.forEach((action: any) => {
         if(!action.parameters) {
-          const inline_url = `https://t.me/samplekiwibot/bot?startapp=tip-${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
+          const inline_url = `https://t.me/samplekiwibot/bot?startapp=tip-${action.label}-${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
           console.log("inline_url: ", inline_url);
           keyboard.url(action.label, inline_url).row();
         }

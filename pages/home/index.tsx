@@ -105,11 +105,11 @@ const Home = () => {
         console.log("starts with tip");
         const components = startParam.split("-");
 
-        const actionLink = components[1];
+        const actionLink = components[2];
         updateActionUrl(actionLink);
         updateActionTarget("https://tiplink.io/blinks");
         updateActionTargetLogo("/logos/tiplink_logo.svg");
-        updateNote("0.01 SOL");
+        updateNote(components[1]);
         
         router.push("/transaction-confirmation");
       }
