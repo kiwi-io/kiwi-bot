@@ -27,46 +27,59 @@ bot.on("message", async (ctx) => {
     const keyboard = new InlineKeyboard();
 
     try {
-      // getData.links.actions.forEach((action: any) => {
-      //   console.log("action: ", action);
-      //   if(!action.parameters) {
-      //     keyboard.url(action.label, encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)).row();
-      //   }
-      //  });
+      getData.links.actions.forEach((action: any) => {
+        console.log("action: ", action);
+        if(!action.parameters) {
+          keyboard.url(action.label, encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)).row();
+        }
+       });
   
-      await ctx.answerInlineQuery([
-        {
-          type: "article",
-          id: "1",
-          title: "title",
-          description: "description",
-          input_message_content: {
-            message_text: "description",
-          },
-          // reply_markup: keyboard
-        },
-      ]);
+      // await ctx.answerInlineQuery([
+      //   {
+      //     type: "article",
+      //     id: "1",
+      //     title: "title",
+      //     description: "description",
+      //     input_message_content: {
+      //       message_text: "description",
+      //     },
+      //     // reply_markup: keyboard
+      //   },
+      // ]);
+
+      await ctx.replyWithPhoto(getData.title, {
+        caption: `<b>${getData.title}</b>\n\n${getData.description}`,
+        parse_mode: "HTML",
+        reply_markup: keyboard,
+      });
+  
     }
     catch(err) {
       console.log("Error: ", err);
 
-      await ctx.answerInlineQuery([
-        {
-          type: "article",
-          id: "1",
-          title: `Request a payment on Kiwi`,
-          description: `The received payment will be deposited on your Kiwi account`,
-          input_message_content: {
-            message_text: `Send SOL & memecoins using Kiwi`,
-          },
-          reply_markup: new InlineKeyboard()
-            .url(
-              "Pay using Kiwi",
-              `https://t.me/samplekiwibot/bot?startapp=send`,
-            )
-            .row()
-        },
-      ]);
+      // await ctx.answerInlineQuery([
+      //   {
+      //     type: "article",
+      //     id: "1",
+      //     title: `Request a payment on Kiwi`,
+      //     description: `The received payment will be deposited on your Kiwi account`,
+      //     input_message_content: {
+      //       message_text: `Send SOL & memecoins using Kiwi`,
+      //     },
+      //     reply_markup: new InlineKeyboard()
+      //       .url(
+      //         "Pay using Kiwi",
+      //         `https://t.me/samplekiwibot/bot?startapp=send`,
+      //       )
+      //       .row()
+      //   },
+      // ]);
+
+      await ctx.replyWithPhoto("title", {
+        caption: `<b>${"Description"}</b>\n\n${"description"}`,
+        parse_mode: "HTML",
+        reply_markup: keyboard,
+      });
     }
   }
   else {
