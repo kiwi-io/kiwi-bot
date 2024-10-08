@@ -108,8 +108,8 @@ const TransactionConfirmation = () => {
                         {
                             <Image
                             src={actionTargetLogo}
-                            width={25}
-                            height={25}
+                            width={30}
+                            height={30}
                             alt={`${actionTarget ? actionTarget : ``} img`}
                             className={styles.actionTargetLogo}
                             />
