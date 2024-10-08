@@ -9,3 +9,7 @@ export const TOKEN_EXTENSIONS_PROGRAM = new PublicKey(
 export const NATIVE_SOL_PUBKEY = new PublicKey(
   "So11111111111111111111111111111111111111111"
 );
+
+export const SAMPLE_USER_PUBKEY = new PublicKey(
+  "3J1PbrQ1j56h9xuZD5AYEPEtmgBWqxihEV9EY3JFNznR"
+);

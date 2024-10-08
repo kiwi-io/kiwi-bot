@@ -186,6 +186,60 @@ bot.on("inline_query", async (ctx) => {
       ]);
     } 
   }
+  else if(queryText.startsWith("tip")) {
+    try {
+      // Render tiplink flow
+      let getData: any;
+      let keyboard = new InlineKeyboard();
+
+      const url = new URL(`https://tiplink.io/blinks/donate?dest=3J1PbrQ1j56h9xuZD5AYEPEtmgBWqxihEV9EY3JFNznR`);
+
+      const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
+      const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
+      const actionsUrlMapper = new ActionsURLMapper(actionsJson);
+  
+      let actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
+      const getDataResponse = await axios.get(`${actionApiUrl}`);
+      getData = getDataResponse.data;
+  
+      getData.links.actions.forEach((action: any) => {
+        if(!action.parameters) {
+          const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
+          console.log("inline_url: ", inline_url);
+          keyboard.url(action.label, inline_url).row();
+        }
+        });
+
+      ctx.answerInlineQuery([
+        {
+          type: "gif",
+          id: "1",
+          gif_url: getData.icon,
+          thumbnail_url: getData.icon,
+          title: getData.title,
+          caption: getData.description,
+          // input_message_content: {
+          //   message_text: getData.title,
+          // },
+          parse_mode: "HTML",
+          reply_markup: keyboard,
+        },
+      ]);
+    }
+    catch(err) {
+      await ctx.answerInlineQuery([
+        {
+          type: "article",
+          id: "1",
+          title: `Error generating Tiplink blink`,
+          description: `Error generating Tiplink blink`,
+          input_message_content: {
+            message_text: `Error generating Tiplink blink`,
+          },
+        },
+      ]);
+    } 
+  }
   else {
     // Detect if the query contains a URL
     const urlRegex = /(https?:\/\/[^\s]+)/g;
