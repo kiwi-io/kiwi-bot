@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BIRDEYE_GET_WALLET_PORTFOLIO } from "../../constants/urls";
+import { BIRDEYE_GET_TOKEN, BIRDEYE_GET_WALLET_PORTFOLIO } from "../../constants/urls";
 
 export interface TokenItem {
   address: string;
@@ -12,6 +12,16 @@ export interface TokenItem {
   logoURI: string;
   priceUsd: number;
   valueUsd: number;
+}
+
+export interface TokenData {
+  address: string;
+  decimals: number;
+  symbol: string;
+  name: string;
+  extensions: string;
+  logoURI: string;
+  liquidity: number;
 }
 
 export interface WalletPortfolio {
@@ -44,3 +54,22 @@ export const getWalletPortfolio = async (
     };
   }
 };
+
+export const getToken = async (token: string): Promise<TokenData> => {
+  try {
+    const response = await axios.get(
+      `${BIRDEYE_GET_TOKEN}${token}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": `${process.env.NEXT_BIRDEYE_API_KEY}`,
+        },
+      },
+    );
+
+    return response.data.data as TokenData;
+  } catch (error) {
+    console.error("Error fetching wallet portfolio:", error);
+    return undefined;
+  }
+}
