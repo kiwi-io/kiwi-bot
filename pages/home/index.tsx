@@ -38,7 +38,7 @@ const Home = () => {
         if (!hasExistingSolanaWallet(user)) {
           createWallet();
         }
-        // updatePortfolio(user);
+        updatePortfolio(user);
       }
     }
 

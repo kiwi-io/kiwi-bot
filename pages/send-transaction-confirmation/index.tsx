@@ -42,7 +42,7 @@ const SendTransactionConfirmation = () => {
         if (!hasExistingSolanaWallet(user)) {
           createWallet();
         }
-        // updatePortfolio(user);
+        updatePortfolio(user);
       }
     }
 

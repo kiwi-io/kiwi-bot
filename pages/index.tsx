@@ -32,7 +32,7 @@ export default function Main() {
         if (!hasExistingSolanaWallet(user)) {
           createWallet();
         }
-        // updatePortfolio(user);
+        updatePortfolio(user);
       }
     },
     onError: (error) => {
