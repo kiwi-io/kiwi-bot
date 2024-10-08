@@ -44,6 +44,7 @@ export const trimString = (str: string): string => {
 export const multiplyAmountInUrl = (url: string, multiplier: number): string => {
   // Create a URL object to easily manipulate the URL
   const urlObj = new URL(url);
+  console.log("urlObj: ", urlObj.toString());
 
   // Extract the pathname and query parameters
   const pathSegments = urlObj.pathname.split('/');
@@ -64,6 +65,8 @@ export const multiplyAmountInUrl = (url: string, multiplier: number): string => 
   // Rebuild the pathname with the updated amount
   urlObj.pathname = pathSegments.join('/');
 
+  console.log("Returning: ", urlObj.toString());
   // Return the updated URL
   return urlObj.toString();
+  
 }
