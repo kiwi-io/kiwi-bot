@@ -88,9 +88,12 @@ const Home = () => {
         }
       }
       else if(startParam.startsWith("jup")) {
+        console.log("starts with jup");
         const components = startParam.split("-");
 
         const actionLink = components[1];
+        console.log("components: ", components);
+        console.log("passing: ", actionLink);
         router.push("/transaction-confirmation?actionUrl=", actionLink);        
       }
       else {
