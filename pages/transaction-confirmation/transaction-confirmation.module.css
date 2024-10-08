@@ -59,7 +59,7 @@
 }
 
 .networkFeeNoteContainer {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   font-size: 0.9rem;
   color: rgba(72, 24, 0, 0.65);
   font-weight: 400;
@@ -67,6 +67,11 @@
 
 .tokenDetailContainer {
   display: flex;
+  font-weight: 600;
+}
+
+.tokenDetailText {
+  margin-left: 0.5rem;
 }
 
 .actionButtonsContainer {
@@ -74,6 +79,7 @@
   box-sizing: border-box;
   margin-top: 12rem;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   bottom: 0;
 }
@@ -87,6 +93,7 @@
     transform 0.1s ease,
     background-color 0.2s ease;
   padding: 1rem;
+  margin-top: 1rem;
   color: #481801;
   width: 125px;
   border: none;
@@ -106,6 +113,7 @@
     transform 0.1s ease,
     background-color 0.2s ease;
   padding: 1rem;
+  margin-top: 1rem;
   color: #481801;
   width: 125px;
   border: none;

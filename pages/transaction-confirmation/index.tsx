@@ -76,7 +76,6 @@ const TransactionConfirmation = () => {
 
     const handleReject = async() => {
         vibrate("light");
-        await delay(2_000);
         closeApp();
     }
 
@@ -125,12 +124,12 @@ const TransactionConfirmation = () => {
                             <div className={styles.tokenDetailContainer}>
                                 <Image
                                     src={`https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png`}
-                                    width={30}
-                                    height={30}
+                                    width={25}
+                                    height={25}
                                     alt={`SOL img`}
                                     className={styles.actionTargetLogo}
                                 />
-                                <div>SOL</div>
+                                <div className={styles.tokenDetailText}>SOL</div>
                             </div>
                         </div>
                         <div className={styles.valueContainer}
@@ -144,18 +143,10 @@ const TransactionConfirmation = () => {
                 </div>
 
                 <div className={styles.networkFeeNoteContainer}>
-                    <span>Network Fee: Sponsored</span>
+                    <span>Network Fee: Free</span>
                 </div>
                 
                 <div className={styles.actionButtonsContainer}>
-                    <div
-                        className={styles.rejectButtonContainer}
-                        onClick={() => {
-                            handleReject();
-                        }}
-                    >
-                        Reject
-                    </div>
                     <div
                         className={styles.approveButtonContainer}
                         onClick={() => {
@@ -169,6 +160,15 @@ const TransactionConfirmation = () => {
                                 <div>Approve</div>
                         }
                     </div>
+                    <div
+                        className={styles.rejectButtonContainer}
+                        onClick={() => {
+                            handleReject();
+                        }}
+                    >
+                        Reject
+                    </div>
+                    
                 </div>
             </div>
         </div>
