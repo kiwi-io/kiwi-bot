@@ -15,10 +15,11 @@ const TransactionStatus = () => {
     const router = useRouter();
     const { type, signature, error }: TransactionStatusQueryParams = router.query;
 
-    const {vibrate} = useTelegram();
+    const {vibrate, closeApp} = useTelegram();
 
     const handleCloseButton = () => {
         vibrate("light");
+        closeApp();
         router.push("/home");
     }
 
