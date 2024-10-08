@@ -24,31 +24,26 @@ bot.on("message", async (ctx) => {
     const getDataResponse = await axios.get(`${actionApiUrl}`);
     const getData = getDataResponse.data;
 
-    // const keyboard = new InlineKeyboard();
+    const keyboard = new InlineKeyboard();
 
     try {
-      // getData.links.actions.forEach((action: any) => {
-      //   console.log("action: ", action);
-      //   if(!action.parameters) {
-      //     console.log("not having params");
-      //     keyboard.url(action.label, actionApiUrl.origin + action.href).row();
-      //   }
-      //  });
-
-      console.log("icon: ", getData.icon);
-      console.log("title: ", getData.title);
-      console.log("description: ", getData.description);
+      getData.links.actions.forEach((action: any) => {
+        console.log("action: ", action);
+        if(!action.parameters) {
+          keyboard.url(action.label, encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)).row();
+        }
+       });
   
       await ctx.answerInlineQuery([
         {
-          type: 'photo',
-          id: '1',
-          photo_url: getData.icon,
-          thumbnail_url: getData.icon,
+          type: "article",
+          id: "1",
           title: getData.title,
           description: getData.description,
-          // reply_markup: new InlineKeyboard()
-          //   .url("Sample", "https://facebook.com").row()
+          input_message_content: {
+            message_text: getData.description,
+          },
+          reply_markup: keyboard
         },
       ]);
     }

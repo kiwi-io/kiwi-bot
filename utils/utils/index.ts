@@ -39,3 +39,19 @@ export const trimAddress = (address: string) => {
 
   return `${firstPart}......${lastPart}`;
 };
+
+
+export const decodeTelegramCompatibleUrl = (startParam: string) => {
+  if(!startParam.startsWith("https")) {
+    let base64String = startParam.replace(/-/g, '+').replace(/_/g, '/');
+    while (base64String.length % 4) {
+      base64String += '=';
+    }
+    let decodedUrl = atob(base64String);
+
+    return decodedUrl;
+  }
+  else {
+    return undefined;
+  }
+}

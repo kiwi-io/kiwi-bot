@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
 import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
-import { formatWithCommas, hasExistingSolanaWallet } from "../../utils";
+import { decodeTelegramCompatibleUrl, formatWithCommas, hasExistingSolanaWallet } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
 import { useTransferContext } from "../../components/contexts/TransferContext";
@@ -50,46 +50,47 @@ const Home = () => {
     //@ts-ignore
     const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
     if(startParam && user) {
-      // let base64String = startParam.replace(/-/g, '+').replace(/_/g, '/');
-      // while (base64String.length % 4) {
-      //   base64String += '=';
-      // }
-      // let decodedUrl = atob(base64String);
+      if(startParam.startsWith("send")) {
+        const components = startParam.split("-");
+        console.log("Components: ", components);
 
-      const components = startParam.split("-");
-      console.log("Components: ", components);
+        const action = components[0]; // 4
 
-      const action = components[0]; // 4
-
-      let address = undefined;
-      if(components.length >= 2) {
-        address = components[1]; // 44
-      }
-
-      let tokenSymbol = undefined;
-      if(components.length >= 3) {
-        tokenSymbol = components[2]; 
-      }
-
-      let amount = undefined;
-      if(components.length == 4) {
-        amount = components[3]; 
-      }
-      
-      if(action === "send" && portfolio) {
-        if (tokenSymbol && portfolio && portfolio.items.length > 0) {
-          const tokenItem = portfolio.items.filter(
-            (item) => item.symbol === tokenSymbol,
-          )[0];
-  
-          updateToken(tokenItem);
+        let address = undefined;
+        if(components.length >= 2) {
+          address = components[1]; // 44
         }
 
-        updateRecipient(address);
-        updateAmount(amount);
+        let tokenSymbol = undefined;
+        if(components.length >= 3) {
+          tokenSymbol = components[2]; 
+        }
 
-        let targetUrl = `/send-transaction-confirmation`;
-        router.push(targetUrl);
+        let amount = undefined;
+        if(components.length == 4) {
+          amount = components[3]; 
+        }
+        
+        if(action === "send" && portfolio) {
+          if (tokenSymbol && portfolio && portfolio.items.length > 0) {
+            const tokenItem = portfolio.items.filter(
+              (item) => item.symbol === tokenSymbol,
+            )[0];
+    
+            updateToken(tokenItem);
+          }
+
+          updateRecipient(address);
+          updateAmount(amount);
+
+          let targetUrl = `/send-transaction-confirmation`;
+          router.push(targetUrl);
+        }
+      }
+      else {
+        const decodedUrl = decodeTelegramCompatibleUrl(startParam);
+
+        console.log("Action to be taken: ", decodedUrl);
       }
     }
   }, []);
