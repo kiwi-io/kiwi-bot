@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./receive.module.css";
 import { useTelegram } from "../../utils/twa";
 import QRCode from "../../components/QRCode";
@@ -7,6 +7,7 @@ import { trimAddress } from "../../utils";
 import StandardHeader from "../../components/StandardHeader";
 import { Form } from "react-bootstrap";
 import { useTransferContext } from "../../components/contexts/TransferContext";
+import { useRouter } from "next/router";
 
 export interface ReceiveQueryParams {
   token?: string;
@@ -16,6 +17,12 @@ const Receive = () => {
   const { token, amount, updateAmount } = useTransferContext();
 
   const { vibrate } = useTelegram();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/home")
+  }, []);
 
     const handleAmountChange = (e: any) => {
       updateAmount(e.target.value);
