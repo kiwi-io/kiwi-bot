@@ -17,7 +17,7 @@ bot.on("message", async (ctx) => {
   if(urlMatch) {
     try {
       let getData: any;
-      const keyboard = new InlineKeyboard();
+      let keyboard = new InlineKeyboard();
 
       if(urlMatch[0].includes("jup") || urlMatch[0].includes("magiceden") || urlMatch[0].includes("underdog")) {
         const url = new URL(urlMatch[0]);
@@ -38,13 +38,11 @@ bot.on("message", async (ctx) => {
           }
          });
       }
-      else if(urlMatch[0].includes("drift") || urlMatch[0].includes("lulo") || urlMatch[0].includes("sendarcade")) {
+      else if(urlMatch[0].includes("drift") || urlMatch[0].includes("lulo")) {
         let actionApiUrl = new URL(urlMatch[0]);
         const getDataResponse = await axios.get(`${actionApiUrl}`);
         getData = getDataResponse.data;
-        
-        const keyboard = new InlineKeyboard();
-  
+          
         getData.links.actions.forEach((action: any) => {
           if(!action.parameters) {
             const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(action.href)}`;
