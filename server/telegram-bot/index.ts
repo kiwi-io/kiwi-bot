@@ -214,7 +214,7 @@ bot.on("inline_query", async (ctx) => {
           newAmount = Math.min(newAmount, 2.0);
           console.log("new amount minimized: ", newAmount);
           
-          const inline_url = `https://t.me/samplekiwibot/bot?startapp=tip-${encodeTelegramCompatibleURL(newAmount.toString())}-${encodeTelegramCompatibleURL(actionApiUrl.origin + multiplyAmountInUrl(action.href, 10))}`;
+          const inline_url = `https://t.me/samplekiwibot/bot?startapp=tip-${encodeTelegramCompatibleURL(newAmount.toString())}-${encodeTelegramCompatibleURL(actionApiUrl.origin + multiplyAmountInUrl(action.href, 10))}&mode=compact`;
           console.log("inline_url: ", inline_url);
           keyboard.url(`${newAmount} SOL`, inline_url).row();
         }
