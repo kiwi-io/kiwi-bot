@@ -16,7 +16,7 @@ export interface TransactionConfirmationParams {
 const TransactionConfirmation = () => {
     const router = useRouter();
 
-    const { actionUrl, actionTarget, actionTargetLogo } = useActionContext();
+    const { actionUrl, actionTarget, actionTargetLogo, updateActionUrl, updateActionTarget, updateActionTargetLogo } = useActionContext();
     const { user } = usePrivy();
     const [transaction, setTransaction] = useState<string>(undefined);
 
@@ -33,6 +33,12 @@ const TransactionConfirmation = () => {
     const handleApprove = async() => {
         await delay(2_000);
         router.push(`/transaction-status?type=success&signature=px3jWwwuUt4DCoFo9rGYjcbQ79TT1gBAhafDZZ2gCmph2aBBwTRJ7r9vDLgXC3ZYmn2gJup3qpX4E89wGp8HMPg`);
+    }
+
+    const handleReject = async() => {
+        await delay(2_000);
+
+        router.push(`/home`);
     }
 
     useEffect(() => {
@@ -82,7 +88,11 @@ const TransactionConfirmation = () => {
                 </div>
                 
                 <div className={styles.sendDetailsContainer}>
-                    <div className={styles.keyValueContainer}>
+                    <div className={styles.keyValueContainer}
+                        style={{
+                            color: `#3de383`
+                        }}
+                    >
                         <div className={styles.keyContainer}>
                             WIF
                         </div>
@@ -90,11 +100,16 @@ const TransactionConfirmation = () => {
                             +5.78
                         </div>
                     </div>
-                    <div className={styles.keyValueContainer}>
+                    <div className={styles.keyValueContainer}
+                        style = {{
+                            color: `#e33d3d`
+                        }}
+                    >
                         <div className={styles.keyContainer}>
                             SOL
                         </div>
-                        <div className={styles.valueContainer}>
+                        <div className={styles.valueContainer}
+                        >
                             -0.1
                         </div>
                     </div>
@@ -105,7 +120,7 @@ const TransactionConfirmation = () => {
                         className={styles.rejectButtonContainer}
                         onClick={() => {
                             vibrate("light");
-                            router.push("/home");
+                            handleReject();
                         }}
                     >
                         Reject
