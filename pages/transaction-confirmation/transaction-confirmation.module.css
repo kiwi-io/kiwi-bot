@@ -11,6 +11,7 @@
   display: flex;
   margin-top: 0.75rem;
   flex-direction: column;
+  justify-content: space-between;
   width: 100%;
 }
 
