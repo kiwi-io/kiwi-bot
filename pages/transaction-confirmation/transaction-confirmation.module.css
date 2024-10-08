@@ -31,16 +31,18 @@
 .actionTargetContainer {
   margin-left: 0.5rem;
   font-size: 1rem;
+  color: #481801;
 }
 
 .sendDetailsContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  /* width: 100%; */
   background-color: #f2f1e5;
   border: none;
   border-radius: 0.25rem;
   padding: 0.5rem;
+  margin-top: 1rem;
 }
 
 .keyValueContainer {
@@ -57,7 +59,7 @@
 
 .actionButtonsContainer {
   width: 100%;
-  margin-top: 3rem;
+  margin-top: 6rem;
   display: flex;
   justify-content: space-between;
 }
@@ -93,7 +95,7 @@
     background-color 0.2s ease;
   padding: 1rem;
   color: #481801;
-  width: 256px;
+  width: 200px;
   border: none;
   border-radius: 0.25rem;
   font-weight: 600;

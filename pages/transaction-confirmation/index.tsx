@@ -81,34 +81,34 @@ const TransactionConfirmation = () => {
                             className={styles.actionTargetLogo}
                             />
                         }
-                    </div>
-                    <div className={styles.actionTargetContainer}>
-                        <span>{actionTarget ? actionTarget : ``}</span>
+                        <span className={styles.actionTargetContainer}>{actionTarget ? actionTarget : ``}</span>
                     </div>
                 </div>
                 
                 <div className={styles.sendDetailsContainer}>
                     <div className={styles.keyValueContainer}
-                        style={{
-                            color: `#3de383`
-                        }}
                     >
                         <div className={styles.keyContainer}>
                             WIF
                         </div>
-                        <div className={styles.valueContainer}>
+                        <div
+                            className={styles.valueContainer}
+                            style={{
+                                color: `#3de383`
+                            }}
+                        >
                             +5.78
                         </div>
                     </div>
                     <div className={styles.keyValueContainer}
-                        style = {{
-                            color: `#e33d3d`
-                        }}
                     >
                         <div className={styles.keyContainer}>
                             SOL
                         </div>
                         <div className={styles.valueContainer}
+                            style = {{
+                                color: `#e33d3d`
+                            }}
                         >
                             -0.1
                         </div>
