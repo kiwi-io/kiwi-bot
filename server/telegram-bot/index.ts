@@ -22,20 +22,38 @@ bot.on("message", async (ctx) => {
       const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
       console.log("actionsJson: ", actionsJson);
       const actionsUrlMapper = new ActionsURLMapper(actionsJson);
-      const actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
 
-      const getDataResponse = await axios.get(`${actionApiUrl}`);
-      const getData = getDataResponse.data;
-
+      let getData: any;
       const keyboard = new InlineKeyboard();
 
-      getData.links.actions.forEach((action: any) => {
-        if(!action.parameters) {
-          const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
-          console.log("inline_url: ", inline_url);
-          keyboard.url(action.label, inline_url).row();
-        }
-       });
+      if(urlMatch[0].includes("jup") || urlMatch[0].includes("magiceden") || urlMatch[0].includes("underdog")) {
+        let actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
+        const getDataResponse = await axios.get(`${actionApiUrl}`);
+        const getData = getDataResponse.data;
+    
+        getData.links.actions.forEach((action: any) => {
+          if(!action.parameters) {
+            const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
+            console.log("inline_url: ", inline_url);
+            keyboard.url(action.label, inline_url).row();
+          }
+         });
+      }
+      else if(urlMatch[0].includes("drift") || urlMatch[0].includes("lulo")) {
+        let actionApiUrl = actionsUrlMapper.mapUrl(url);
+        const getDataResponse = await axios.get(`${actionApiUrl}`);
+        const getData = getDataResponse.data;
+  
+        const keyboard = new InlineKeyboard();
+  
+        getData.links.actions.forEach((action: any) => {
+          if(!action.parameters) {
+            const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(action.href)}`;
+            console.log("inline_url: ", inline_url);
+            keyboard.url(action.label, inline_url).row();
+          }
+         });
+      }
       
       try {
         console.log("icon: ", getData.icon);
