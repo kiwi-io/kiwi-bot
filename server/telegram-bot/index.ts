@@ -16,17 +16,16 @@ bot.on("message", async (ctx) => {
 
   if(urlMatch) {
     try {
-      const url = new URL(urlMatch[0]);
-
-      const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
-      const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
-      console.log("actionsJson: ", actionsJson);
-      const actionsUrlMapper = new ActionsURLMapper(actionsJson);
-
       let getData: any;
       const keyboard = new InlineKeyboard();
 
       if(urlMatch[0].includes("jup") || urlMatch[0].includes("magiceden") || urlMatch[0].includes("underdog")) {
+        const url = new URL(urlMatch[0]);
+
+        const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
+        const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
+        const actionsUrlMapper = new ActionsURLMapper(actionsJson);
+    
         let actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
         const getDataResponse = await axios.get(`${actionApiUrl}`);
         const getData = getDataResponse.data;
@@ -40,7 +39,7 @@ bot.on("message", async (ctx) => {
          });
       }
       else if(urlMatch[0].includes("drift") || urlMatch[0].includes("lulo")) {
-        let actionApiUrl = actionsUrlMapper.mapUrl(url);
+        let actionApiUrl = new URL(urlMatch[0]);
         const getDataResponse = await axios.get(`${actionApiUrl}`);
         const getData = getDataResponse.data;
   
