@@ -25,12 +25,16 @@ const TransactionConfirmation = () => {
     useEffect(() => {
         const doStuff = async() => {
             if(actionUrl) {
+                console.log("Action url found: ", actionUrl);
                 try {
                     await performAction();
                 }
                 catch(err) {
                     console.log("Error performing action: ", err);
                 }
+            }
+            else {
+                console.log("Action url not found");
             }
         }
 
