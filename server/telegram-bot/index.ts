@@ -15,19 +15,19 @@ bot.on("message", async (ctx) => {
   const urlMatch = message.text.match(urlRegex);
 
   if(urlMatch) {
-    const url = new URL(urlMatch[0]);
-
-    const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
-    const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
-    const actionsUrlMapper = new ActionsURLMapper(actionsJson);
-    const actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
-
-    const getDataResponse = await axios.get(`${actionApiUrl}`);
-    const getData = getDataResponse.data;
-
-    const keyboard = new InlineKeyboard();
-
     try {
+      const url = new URL(urlMatch[0]);
+
+      const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
+      const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
+      const actionsUrlMapper = new ActionsURLMapper(actionsJson);
+      const actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
+
+      const getDataResponse = await axios.get(`${actionApiUrl}`);
+      const getData = getDataResponse.data;
+
+      const keyboard = new InlineKeyboard();
+
       getData.links.actions.forEach((action: any) => {
         if(!action.parameters) {
           const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
@@ -46,11 +46,7 @@ bot.on("message", async (ctx) => {
     catch(err) {
       console.log("Error: ", err);
 
-      await ctx.replyWithPhoto("https://raw.githubusercontent.com/Smaler1/coin/main/logo.png", {
-        caption: `<b>${"Description"}</b>\n\n${"description"}`,
-        parse_mode: "HTML",
-        reply_markup: keyboard,
-      });
+      ctx.reply("Error generating a blink");
     }
   }
   else {
