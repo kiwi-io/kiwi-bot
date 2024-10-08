@@ -88,58 +88,66 @@ bot.on("message", async (ctx) => {
 });
 
 // Inline query handler for URLs
-// bot.on("inline_query", async (ctx) => {
-//   const queryText = ctx.inlineQuery.query;
+bot.on("inline_query", async (ctx) => {
+  const queryText = ctx.inlineQuery.query;
 
-//   // Detect if the query contains a URL
-//   const urlRegex = /(https?:\/\/[^\s]+)/g;
-//   const urlMatch = queryText.match(urlRegex);
+  if(queryText.startsWith("$")) {
+    // Render jupiter swap flow
+    const ticker = queryText.slice(1);
+    ctx.reply(`Will generate a blink for ${ticker}`);
+  }
+  else {
+    // Detect if the query contains a URL
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const urlMatch = queryText.match(urlRegex);
 
-//   if (urlMatch) {
-//     const url = urlMatch[0];
+    // If a url, a payment blink is expected
+    if (urlMatch) {
+      const url = urlMatch[0];
 
-//     const response: BeneficiaryParams = extractPaymentBeneficiaryFromUrl(url);
-    
-//     if(response && response.address) {
-//       await ctx.answerInlineQuery([
-//         {
-//           type: "article",
-//           id: "1",
-//           title: `Request a payment on Kiwi`,
-//           description: `The received payment will be deposited on ` + (response ? `${response.username}'s Kiwi wallet. Click 'space' to activate.` : ``),
-//           input_message_content: {
-//             message_text: response ? `🧾 ${response.username} is requesting a payment of ${response.amount} ${response.token}` : `You are requested to make a payment using Kiwi`,
-//           },
-//           reply_markup: new InlineKeyboard()
-//             .url(
-//               "Pay using Kiwi",
-//               `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${parseInt(response.amount.toString())}`)}`,
-//             )
-//             .row()
-//         },
-//       ]);
-//     }
-//     else {
-//     await ctx.answerInlineQuery([
-//       {
-//         type: "article",
-//         id: "1",
-//         title: `Request a payment on Kiwi`,
-//         description: `The received payment will be deposited on your Kiwi account`,
-//         input_message_content: {
-//           message_text: `Send SOL & memecoins using Kiwi`,
-//         },
-//         reply_markup: new InlineKeyboard()
-//           .url(
-//             "Pay using Kiwi",
-//             `https://t.me/samplekiwibot/bot?startapp=send`,
-//           )
-//           .row()
-//       },
-//     ]);
-//     }
-//   }
-// });
+      const response: BeneficiaryParams = extractPaymentBeneficiaryFromUrl(url);
+      
+      if(response && response.address) {
+        await ctx.answerInlineQuery([
+          {
+            type: "article",
+            id: "1",
+            title: `Request a payment on Kiwi`,
+            description: `The received payment will be deposited on ` + (response ? `${response.username}'s Kiwi wallet. Click 'space' to activate.` : ``),
+            input_message_content: {
+              message_text: response ? `🧾 ${response.username} is requesting a payment of ${response.amount} ${response.token}` : `You are requested to make a payment using Kiwi`,
+            },
+            reply_markup: new InlineKeyboard()
+              .url(
+                "Pay using Kiwi",
+                `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${parseInt(response.amount.toString())}`)}`,
+              )
+              .row()
+          },
+        ]);
+      }
+      else {
+      await ctx.answerInlineQuery([
+        {
+          type: "article",
+          id: "1",
+          title: `Request a payment on Kiwi`,
+          description: `The received payment will be deposited on your Kiwi account`,
+          input_message_content: {
+            message_text: `Send SOL & memecoins using Kiwi`,
+          },
+          reply_markup: new InlineKeyboard()
+            .url(
+              "Pay using Kiwi",
+              `https://t.me/samplekiwibot/bot?startapp=send`,
+            )
+            .row()
+        },
+      ]);
+      }
+    }
+  }
+});
 
 // Launch the bot
 export const botWebhook = webhookCallback(bot, "next-js");
