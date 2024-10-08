@@ -46,10 +46,17 @@ bot.on("message", async (ctx) => {
         getData.links.actions.forEach((action: any) => {
           if(!action.parameters) {
             const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(action.href)}`;
-            console.log("inline_url: ", inline_url);
             keyboard.url(action.label, inline_url).row();
           }
          });
+
+         if(urlMatch[0].includes("drift")) {
+          for(let index = 1; index <= 3; index++) {
+            const depositAmount = 50 * index;
+            const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(`://actions.drift.trade/transactions/deposit?token=USDC&amount=${depositAmount}`)}`;
+            keyboard.url(`${depositAmount} USD`, inline_url).row();
+          }  
+         }
       }
       
       try {
