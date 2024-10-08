@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import axios from "axios";
-import { decodeTelegramCompatibleUrl, delay, requestComputeUnitsInstructions } from "../../utils";
+import { decodeTelegramCompatibleUrl, delay } from "../../utils";
 import { useActionContext } from "../../components/contexts/ActionContext";
 import Image from "next/image";
 import { useTelegram } from "../../utils/twa";
 import { useRouter } from "next/router";
-import { Connection, Keypair, Transaction } from "@solana/web3.js";
+import { Connection, Keypair, VersionedTransaction } from "@solana/web3.js";
 import { SAMPLE_USER_PUBKEY } from "../../constants";
 
 export interface TransactionConfirmationParams {
@@ -32,15 +32,11 @@ const TransactionConfirmation = () => {
                 "account": SAMPLE_USER_PUBKEY.toString()
             });
             const transaction = response.data.transaction;
-            const deserializedTransaction = Transaction.from(Buffer.from(transaction, 'base64'));
-            console.log("deserialized tx prepared");
+            const txBuffer = Buffer.from(transaction, 'base64');
 
-            const tx = new Transaction();
-            tx.add(...requestComputeUnitsInstructions(100, 200_000));
-            for(let ix of deserializedTransaction.instructions) {
-                tx.add(ix);
-            }
-            console.log("tx with priority fee prepared");
+            // Deserialize the versioned transaction
+            const deserializedTransaction = VersionedTransaction.deserialize(txBuffer);
+            console.log("deserialized tx prepared");
     
             //@ts-ignore
             let privateKeyArray = JSON.parse(process.env.NEXT_PRIVATE_KEYPAIR);
@@ -51,15 +47,16 @@ const TransactionConfirmation = () => {
             );
             console.log("pubkey: ", traderKeypair.publicKey.toString());
 
-            tx.partialSign(traderKeypair);
+            deserializedTransaction.sign([traderKeypair]);
             console.log("signed");
     
             const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
-            const signature = await connection.sendTransaction(deserializedTransaction, [], {
+            const signature = await connection.sendTransaction(deserializedTransaction, {
                 skipPreflight: true,
                 maxRetries: 1,
                 preflightCommitment: 'processed'
             });
+
             console.log("signature: ", signature);
             router.push(`/transaction-status?type=success&signature=${signature}`);
         }
