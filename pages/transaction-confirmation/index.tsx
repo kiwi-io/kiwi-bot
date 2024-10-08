@@ -3,18 +3,24 @@ import styles from "./transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { usePrivy } from "@privy-io/react-auth";
 import axios from "axios";
-import { decodeTelegramCompatibleUrl, increaseDimensionsInUrl } from "../../utils";
+import { decodeTelegramCompatibleUrl, delay } from "../../utils";
 import { useActionContext } from "../../components/contexts/ActionContext";
 import Image from "next/image";
+import { useTelegram } from "../../utils/twa";
+import { useRouter } from "next/router";
 
 export interface TransactionConfirmationParams {
     actionUrl?: string;
 }
 
 const TransactionConfirmation = () => {
+    const router = useRouter();
+
     const { actionUrl, actionTarget, actionTargetLogo } = useActionContext();
     const { user } = usePrivy();
     const [transaction, setTransaction] = useState<string>(undefined);
+
+    const { vibrate } = useTelegram();
 
     const performAction = async () => {
         const response = await axios.post(`${decodeTelegramCompatibleUrl(actionUrl)}?account=${user.wallet.address}`, {
@@ -22,6 +28,11 @@ const TransactionConfirmation = () => {
         });
         const transaction = response.data.transaction;
         setTransaction((_) => transaction);
+    }
+
+    const handleApprove = async() => {
+        await delay(2_000);
+        router.push(`/transaction-status?type=success&signature=px3jWwwuUt4DCoFo9rGYjcbQ79TT1gBAhafDZZ2gCmph2aBBwTRJ7r9vDLgXC3ZYmn2gJup3qpX4E89wGp8HMPg`);
     }
 
     useEffect(() => {
@@ -84,6 +95,27 @@ const TransactionConfirmation = () => {
                         <div className={styles.valueContainer}>
                             -0.1
                         </div>
+                    </div>
+                </div>
+                
+                <div className={styles.actionButtonsContainer}>
+                    <div
+                        className={styles.rejectButtonContainer}
+                        onClick={() => {
+                            vibrate("light");
+                            router.push("/home");
+                        }}
+                    >
+                        Reject
+                    </div>
+                    <div
+                        className={styles.approveButtonContainer}
+                        onClick={() => {
+                            vibrate("light");
+                            handleApprove();
+                        }}
+                    >
+                        Reject
                     </div>
                 </div>
             </div>
