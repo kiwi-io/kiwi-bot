@@ -64,19 +64,21 @@ const TransactionConfirmation = () => {
                 />
             </div>
             <div className={styles.transactionConfirmationBodyContainer}>
-                <div className={styles.actionTargetLogoContainer}>
-                    {
-                        <Image
-                        src={actionTargetLogo}
-                        width={30}
-                        height={30}
-                        alt={`${actionTarget ? actionTarget : ``} img`}
-                        className={styles.actionTargetLogo}
-                        />
-                    }
-                </div>
-                <div className={styles.actionTargetContainer}>
-                    <span>{actionTarget ? actionTarget : ``}</span>
+                <div className={styles.actionTargetMainContainer}>
+                    <div className={styles.actionTargetLogoContainer}>
+                        {
+                            <Image
+                            src={actionTargetLogo}
+                            width={30}
+                            height={30}
+                            alt={`${actionTarget ? actionTarget : ``} img`}
+                            className={styles.actionTargetLogo}
+                            />
+                        }
+                    </div>
+                    <div className={styles.actionTargetContainer}>
+                        <span>{actionTarget ? actionTarget : ``}</span>
+                    </div>
                 </div>
                 
                 <div className={styles.sendDetailsContainer}>
@@ -115,7 +117,7 @@ const TransactionConfirmation = () => {
                             handleApprove();
                         }}
                     >
-                        Reject
+                        Approve
                     </div>
                 </div>
             </div>

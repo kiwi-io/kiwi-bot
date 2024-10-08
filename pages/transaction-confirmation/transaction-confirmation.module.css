@@ -10,6 +10,7 @@
 .transactionConfirmationBodyContainer {
   display: flex;
   margin-top: 0.75rem;
+  flex-direction: column;
 }
 
 .actionTargetLogoContainer {
@@ -47,5 +48,58 @@
 
 .valueContainer {
   font-weight: 600;
+}
+
+.actionButtonsContainer {
+  width: 100%;
+}
+
+.rejectButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f1e5;
+  margin-top: 3rem;
+  transition:
+    transform 0.1s ease,
+    background-color 0.2s ease;
+  padding: 1rem;
+  color: #481801;
+  width: 100px;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.approveButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff9d00;
+  margin-top: 3rem;
+  transition:
+    transform 0.1s ease,
+    background-color 0.2s ease;
+  padding: 1rem;
+  color: #481801;
+  width: 100px;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+
+.rejectButtonContainer:active {
+  transform: scale(0.95);
+}
+
+.approveButtonContainer:active {
+  transform: scale(0.95);
 }
 
