@@ -35,7 +35,7 @@ bot.on("message", async (ctx) => {
         }
        });
 
-      await ctx.replyWithPhoto(getData.title, {
+      await ctx.replyWithPhoto(getData.icon, {
         caption: `<b>${getData.title}</b>\n\n${getData.description}`,
         parse_mode: "HTML",
         reply_markup: keyboard,
