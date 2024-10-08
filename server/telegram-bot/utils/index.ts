@@ -42,31 +42,26 @@ export const trimString = (str: string): string => {
 }
 
 export const multiplyAmountInUrl = (url: string, multiplier: number): string => {
-  // Create a URL object to easily manipulate the URL
-  const urlObj = new URL(url);
-  console.log("urlObj: ", urlObj.toString());
+  // Find the last '/' to locate the amount in the URL
+  const lastSlashIndex = url.lastIndexOf('/');
+  const queryStartIndex = url.indexOf('?', lastSlashIndex);
 
-  // Extract the pathname and query parameters
-  const pathSegments = urlObj.pathname.split('/');
+  // Extract the amount between the last '/' and the '?'
+  const amountStr = queryStartIndex === -1
+    ? url.substring(lastSlashIndex + 1)
+    : url.substring(lastSlashIndex + 1, queryStartIndex);
 
-  // The amount is the last segment in this case
-  const amountStr = pathSegments[pathSegments.length - 1];
-
-  // Parse the amount, multiply by the multiplier, and update the value
+  // Multiply the amount
   const amount = parseFloat(amountStr);
   let newAmount = (amount * multiplier);
 
   newAmount = Math.min(newAmount, 2);
   let newAmountStr = newAmount.toString();
 
-  // Replace the last segment with the new amount
-  pathSegments[pathSegments.length - 1] = newAmountStr;
+  // Replace the old amount with the new one
+  const newUrl = queryStartIndex === -1
+    ? url.substring(0, lastSlashIndex + 1) + newAmountStr
+    : url.substring(0, lastSlashIndex + 1) + newAmountStr + url.substring(queryStartIndex);
 
-  // Rebuild the pathname with the updated amount
-  urlObj.pathname = pathSegments.join('/');
-
-  console.log("Returning: ", urlObj.toString());
-  // Return the updated URL
-  return urlObj.toString();
-  
+  return newUrl;
 }
