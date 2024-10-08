@@ -124,9 +124,11 @@ bot.on("inline_query", async (ctx) => {
           thumbnail_url: getData.icon,
           title: getData.title,
           description: getData.description,
-          input_message_content: {
-            message_text: getData.description,
-          },
+          caption: getData.description,
+          // input_message_content: {
+          //   message_text: getData.title,
+          // },
+          parse_mode: "HTML",
           reply_markup: keyboard,
         },
       ]);
