@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./tokens.module.css";
 import { useWalletContext } from "../../components/contexts";
 import TokenDisplay from "../../components/TokenDisplay";
@@ -17,6 +17,10 @@ const Tokens = () => {
   const { vibrate } = useTelegram();
 
   const { updateToken } = useTransferContext();
+
+  useEffect(() => {
+    router.push("/home")
+  }, []);
 
   const navigateToSend = (selectedTokenItem: TokenItem) => {
     vibrate("light");
