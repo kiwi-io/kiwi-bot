@@ -23,7 +23,6 @@ bot.on("message", async (ctx) => {
       console.log("actionsJson: ", actionsJson);
       const actionsUrlMapper = new ActionsURLMapper(actionsJson);
       const actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
-      console.log("actionsApiUrl: ", actionApiUrl);
 
       const getDataResponse = await axios.get(`${actionApiUrl}`);
       const getData = getDataResponse.data;
