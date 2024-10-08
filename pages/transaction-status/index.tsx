@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./transaction-status.module.css";
 import { useRouter } from "next/router";
 import { useTelegram } from "../../utils/twa";
@@ -22,6 +22,12 @@ const TransactionStatus = () => {
         closeApp();
         router.push("/home");
     }
+
+    useEffect(() => {
+        if(type === "success") {
+            vibrate("success");
+        }
+    }, [type]);
 
     return (
         <div className={styles.transactionStatusMainContainer}>

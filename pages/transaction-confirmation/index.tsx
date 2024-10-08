@@ -32,10 +32,10 @@ const TransactionConfirmation = () => {
     }
 
     const handleApprove = async() => {
+        vibrate("heavy");
         setIsLoading((_) => true);
         await delay(3_000);
         setIsLoading((_) => false);
-        vibrate("success");
         router.push(`/transaction-status?type=success&signature=px3jWwwuUt4DCoFo9rGYjcbQ79TT1gBAhafDZZ2gCmph2aBBwTRJ7r9vDLgXC3ZYmn2gJup3qpX4E89wGp8HMPg`);
     }
 
