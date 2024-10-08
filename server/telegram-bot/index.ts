@@ -208,8 +208,11 @@ bot.on("inline_query", async (ctx) => {
         console.log("action: ", action);
         if(!action.parameters) {
           const initialAmount = parseFloat(action.label.split(" ")[0]);
+          console.log("initialAmount: ", initialAmount);
           let newAmount = initialAmount * 10;
+          console.log("new amount: ", newAmount);
           newAmount = Math.min(newAmount, 2.0);
+          console.log("new amount minimized: ", newAmount);
           
           const inline_url = `https://t.me/samplekiwibot/bot?startapp=tip-${encodeTelegramCompatibleURL(newAmount.toString())}-${encodeTelegramCompatibleURL(actionApiUrl.origin + multiplyAmountInUrl(action.href, 10))}`;
           console.log("inline_url: ", inline_url);
