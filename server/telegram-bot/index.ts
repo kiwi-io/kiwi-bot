@@ -38,10 +38,10 @@ bot.on("message", async (ctx) => {
         {
           type: "article",
           id: "1",
-          title: getData.title,
-          description: getData.description,
+          title: "title",
+          description: "description",
           input_message_content: {
-            message_text: getData.description,
+            message_text: "description",
           },
           // reply_markup: keyboard
         },
