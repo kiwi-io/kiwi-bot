@@ -201,6 +201,8 @@ bot.on("inline_query", async (ctx) => {
       let actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
       const getDataResponse = await axios.get(`${actionApiUrl}`);
       getData = getDataResponse.data;
+
+      console.log("actionApiUrl: ", actionApiUrl.toString());
   
       getData.links.actions.forEach((action: any) => {
         if(!action.parameters) {
