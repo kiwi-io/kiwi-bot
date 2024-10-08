@@ -29,6 +29,7 @@ export const useTelegram = (): useTelegramComposableState => {
       | "success" = "heavy",
   ): void => {
     if(!hapticFeedback.isSupported()) {
+      console.log("vibrator not supported");
       return;
     }
 
