@@ -9,7 +9,9 @@ const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 
 bot.on("message", async (ctx) => {
   const userId = ctx.from.id;
-  console.log("User ID: ", userId);
+  if(!(userId === 1896100027)) {
+    ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+  }
 
   ctx.reply("Generating a blink, can take a few seconds");
   const message = ctx.message;
@@ -93,10 +95,13 @@ bot.on("message", async (ctx) => {
 // Inline query handler for URLs
 bot.on("inline_query", async (ctx) => {
   const queryText = ctx.inlineQuery.query;
-  const userId = ctx.from.id;
-  console.log("User ID: ", userId);
 
   if(queryText.startsWith("$")) {
+    const userId = ctx.from.id;
+    if(!(userId === 1896100027)) {
+      ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+    }
+
     try {
       // Render jupiter swap flow
       const ticker = queryText.slice(1);
@@ -153,6 +158,11 @@ bot.on("inline_query", async (ctx) => {
     } 
   }
   else if(queryText.startsWith("drift")) {
+    const userId = ctx.from.id;
+    if(!(userId === 1896100027)) {
+      ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+    }
+
     try {
       let keyboard = new InlineKeyboard();
       const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(`https://app.drift.trade/bet/TRUMP-WIN-2024-BET`)}`;
@@ -256,6 +266,10 @@ bot.on("inline_query", async (ctx) => {
     } 
   }
   else {
+    const userId = ctx.from.id;
+    if(!(userId === 1896100027)) {
+      ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+    }
     // Detect if the query contains a URL
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const urlMatch = queryText.match(urlRegex);

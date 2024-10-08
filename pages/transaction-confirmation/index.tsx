@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import axios from "axios";
-import { decodeTelegramCompatibleUrl, delay } from "../../utils";
+import { decodeTelegramCompatibleUrl } from "../../utils";
 import { useActionContext } from "../../components/contexts/ActionContext";
 import Image from "next/image";
 import { useTelegram } from "../../utils/twa";
