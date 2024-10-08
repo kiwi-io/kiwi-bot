@@ -57,8 +57,8 @@ const TransactionConfirmation = () => {
                     {
                         <Image
                         src={increaseDimensionsInUrl(actionTargetLogo ? actionTargetLogo : ``, 60, 60)}
-                        width={50}
-                        height={50}
+                        width={25}
+                        height={25}
                         alt={`${actionTarget ? actionTarget : ``} img`}
                         className={styles.actionTargetLogo}
                         />
