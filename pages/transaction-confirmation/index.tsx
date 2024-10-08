@@ -19,6 +19,7 @@ const TransactionConfirmation = () => {
     const { actionUrl, actionTarget, actionTargetLogo, updateActionUrl, updateActionTarget, updateActionTargetLogo } = useActionContext();
     const { user } = usePrivy();
     const [transaction, setTransaction] = useState<string>(undefined);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { vibrate } = useTelegram();
 
@@ -31,8 +32,10 @@ const TransactionConfirmation = () => {
     }
 
     const handleApprove = async() => {
+        setIsLoading((_) => false);
         await delay(2_000);
         router.push(`/transaction-status?type=success&signature=px3jWwwuUt4DCoFo9rGYjcbQ79TT1gBAhafDZZ2gCmph2aBBwTRJ7r9vDLgXC3ZYmn2gJup3qpX4E89wGp8HMPg`);
+        setIsLoading((_) => true);
     }
 
     const handleReject = async() => {
@@ -132,7 +135,14 @@ const TransactionConfirmation = () => {
                             handleApprove();
                         }}
                     >
-                        Approve
+                        {
+                            isLoading ?
+                                <div className={styles.loadingContainer}>
+                                    <div className={styles.loader}></div>
+                                </div>
+                            :
+                                <div>Approve</div>
+                        }
                     </div>
                 </div>
             </div>
