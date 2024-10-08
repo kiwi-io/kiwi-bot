@@ -64,8 +64,7 @@
   margin-top: 6rem;
   display: flex;
   justify-content: space-between;
-  position: absolute;
-  bottom: 20;
+  bottom: 0;
 }
 
 .rejectButtonContainer {
