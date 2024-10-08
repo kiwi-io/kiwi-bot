@@ -113,7 +113,7 @@ const TransactionConfirmation = () => {
                     <div
                         className={styles.approveButtonContainer}
                         onClick={() => {
-                            vibrate("light");
+                            vibrate("success");
                             handleApprove();
                         }}
                     >
