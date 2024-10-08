@@ -78,8 +78,8 @@ const TransactionConfirmation = () => {
                         {
                             <Image
                             src={actionTargetLogo}
-                            width={30}
-                            height={30}
+                            width={25}
+                            height={25}
                             alt={`${actionTarget ? actionTarget : ``} img`}
                             className={styles.actionTargetLogo}
                             />
@@ -116,6 +116,10 @@ const TransactionConfirmation = () => {
                             -0.1
                         </div>
                     </div>
+                </div>
+
+                <div className={styles.networkFeeNoteContainer}>
+                    <span>Network Fee: Sponsored</span>
                 </div>
                 
                 <div className={styles.actionButtonsContainer}>
