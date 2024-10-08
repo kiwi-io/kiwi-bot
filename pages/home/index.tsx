@@ -149,10 +149,10 @@ const Home = () => {
               <div
                 className={styles.settingsContainer}
                 onClick={() => {
-                  navigateToSettings();
+                  // navigateToSettings();
                 }}
               >
-                <div>{/* <i className="fa-solid fa-gear"></i> */}</div>
+                <div>Tester mode</div>
               </div>
             </div>
             <div className={styles.overviewContainer}>
