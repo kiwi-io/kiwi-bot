@@ -22,7 +22,7 @@ const Home = () => {
 
   const { updateToken, updateRecipient, updateAmount } = useTransferContext();
 
-  const { updateActionTarget, updateActionUrl, updateActionTargetLogo } = useActionContext();
+  const { updateActionTarget, updateActionUrl, updateActionTargetLogo, updateNote } = useActionContext();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -100,6 +100,18 @@ const Home = () => {
         updateActionTargetLogo("/logos/jupiter_logo.svg");
         
         router.push("/transaction-confirmation");        
+      }
+      else if(startParam.startsWith("tip")) {
+        console.log("starts with tip");
+        const components = startParam.split("-");
+
+        const actionLink = components[1];
+        updateActionUrl(actionLink);
+        updateActionTarget("https://tiplink.io/blinks");
+        updateActionTargetLogo("/logos/tiplink_logo.svg");
+        updateNote(components[2]);
+        
+        router.push("/transaction-confirmation");
       }
       else {
         const decodedUrl = decodeTelegramCompatibleUrl(startParam);

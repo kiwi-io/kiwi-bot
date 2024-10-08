@@ -5,9 +5,11 @@ interface ActionContextType {
   actionUrl: string;
   actionTarget: string;
   actionTargetLogo: string;
+  note: string;
   updateActionUrl: (actionUrl: string) => void;
   updateActionTarget: (actionTarget: string) => void; 
-  updateActionTargetLogo: (actionTarget: string) => void; 
+  updateActionTargetLogo: (actionTarget: string) => void;
+  updateNote: (note: string) => void;
 }
 
 const ActionContext = createContext<ActionContextType | undefined>(undefined);
@@ -27,6 +29,7 @@ export const ActionContextProvider = ({ children }) => {
     const [actionUrl, setActionUrl] = useState<string>("");
     const [actionTarget, setActionTarget] = useState<string>("");
     const [actionTargetLogo, setActionTargetLogo] = useState<string>("");
+    const [note, setNote] = useState<string>("");
 
     const updateActionUrl = (actionUrl: string) => {
         setActionUrl((_) => actionUrl);
@@ -40,13 +43,19 @@ export const ActionContextProvider = ({ children }) => {
       setActionTargetLogo((_) => actionTargetLogo);
     }
 
+    const updateNote = (actionUrl: string) => {
+      setNote((_) => actionUrl);
+  }
+
   const value = {
     actionUrl,
     actionTarget,
     actionTargetLogo,
+    note,
     updateActionUrl,
     updateActionTarget,
-    updateActionTargetLogo
+    updateActionTargetLogo,
+    updateNote
   } as ActionContextType;
 
   return (

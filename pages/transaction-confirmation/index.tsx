@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./transaction-confirmation.module.css";
 import StandardHeader from "../../components/StandardHeader";
-import { usePrivy } from "@privy-io/react-auth";
 import axios from "axios";
-import { decodeTelegramCompatibleUrl, delay } from "../../utils";
+import { decodeTelegramCompatibleUrl, delay, requestComputeUnitsInstructions } from "../../utils";
 import { useActionContext } from "../../components/contexts/ActionContext";
 import Image from "next/image";
 import { useTelegram } from "../../utils/twa";
 import { useRouter } from "next/router";
+import { Connection, Keypair, Transaction } from "@solana/web3.js";
+import { SAMPLE_USER_PUBKEY } from "../../constants";
 
 export interface TransactionConfirmationParams {
     actionUrl?: string;
@@ -16,25 +17,58 @@ export interface TransactionConfirmationParams {
 const TransactionConfirmation = () => {
     const router = useRouter();
 
-    const { actionUrl, actionTarget, actionTargetLogo, updateActionUrl, updateActionTarget, updateActionTargetLogo } = useActionContext();
-    const { user } = usePrivy();
-    const [transaction, setTransaction] = useState<string>(undefined);
+    const { actionUrl, actionTarget, actionTargetLogo, note } = useActionContext();
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { vibrate } = useTelegram();
 
     const performAction = async () => {
-        const response = await axios.post(`${decodeTelegramCompatibleUrl(actionUrl)}?account=${user.wallet.address}`, {
-            "account": user.wallet.address
-        });
-        const transaction = response.data.transaction;
-        setTransaction((_) => transaction);
+        try {
+            const response = await axios.post(`${decodeTelegramCompatibleUrl(actionUrl)}?account=${SAMPLE_USER_PUBKEY.toString()}`, {
+                "account": SAMPLE_USER_PUBKEY.toString()
+            });
+            const transaction = response.data.transaction;
+            const deserializedTransaction = Transaction.from(Buffer.from(transaction, 'base64'));
+            console.log("deserialized tx prepared");
+
+            const tx = new Transaction();
+            tx.add(...requestComputeUnitsInstructions(100, 200_000));
+            for(let ix of deserializedTransaction.instructions) {
+                tx.add(ix);
+            }
+            console.log("tx with priority fee prepared");
+    
+            //@ts-ignore
+            let privateKeyArray = JSON.parse(process.env.NEXT_PRIVATE_KEYPAIR);
+            console.log("privatekey: ", privateKeyArray);
+    
+            let traderKeypair = Keypair.fromSecretKey(
+                Uint8Array.from(privateKeyArray)
+            );
+            console.log("pubkey: ", traderKeypair.publicKey.toString());
+
+            tx.partialSign(traderKeypair);
+            console.log("signed");
+    
+            const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
+            const signature = await connection.sendTransaction(deserializedTransaction, [], {
+                skipPreflight: true,
+                maxRetries: 1,
+                preflightCommitment: 'processed'
+            });
+            console.log("signature: ", signature);
+            router.push(`/transaction-status?type=success&signature=${signature}`);
+        }
+        catch(err) {
+            console.log("Err: ", err);
+            router.push(`/transaction-status?type=unconfirmed`);
+        }
     }
 
     const handleApprove = async() => {
         vibrate("heavy");
         setIsLoading((_) => true);
-        await delay(3_000);
+        await performAction();
         setIsLoading((_) => false);
         router.push(`/transaction-status?type=success&signature=px3jWwwuUt4DCoFo9rGYjcbQ79TT1gBAhafDZZ2gCmph2aBBwTRJ7r9vDLgXC3ZYmn2gJup3qpX4E89wGp8HMPg`);
     }
@@ -93,20 +127,6 @@ const TransactionConfirmation = () => {
                     <div className={styles.keyValueContainer}
                     >
                         <div className={styles.keyContainer}>
-                            WIF
-                        </div>
-                        <div
-                            className={styles.valueContainer}
-                            style={{
-                                color: `#3de383`
-                            }}
-                        >
-                            +5.78
-                        </div>
-                    </div>
-                    <div className={styles.keyValueContainer}
-                    >
-                        <div className={styles.keyContainer}>
                             SOL
                         </div>
                         <div className={styles.valueContainer}
@@ -114,7 +134,7 @@ const TransactionConfirmation = () => {
                                 color: `#e33d3d`
                             }}
                         >
-                            -0.1
+                            -{note.split(" ")[0]}
                         </div>
                     </div>
                 </div>
