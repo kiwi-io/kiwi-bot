@@ -20,8 +20,10 @@ bot.on("message", async (ctx) => {
 
       const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
       const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
+      console.log("actionsJson: ", actionsJson);
       const actionsUrlMapper = new ActionsURLMapper(actionsJson);
       const actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
+      console.log("actionsApiUrl: ", actionApiUrl);
 
       const getDataResponse = await axios.get(`${actionApiUrl}`);
       const getData = getDataResponse.data;
@@ -37,6 +39,7 @@ bot.on("message", async (ctx) => {
        });
       
       try {
+        console.log("icon: ", getData.icon);
         await ctx.replyWithPhoto(getData.icon, {
           caption: `<b>${getData.title}</b>\n\n${trimString(getData.description)}`,
           parse_mode: "HTML",
@@ -44,6 +47,7 @@ bot.on("message", async (ctx) => {
         });
       }
       catch(err) {
+        console.log("Error sending photo response: ", err);
         await ctx.reply(`<b>${getData.title}</b>\n\n${trimString(getData.description)}`, {
           parse_mode: "HTML",
           reply_markup: keyboard,
@@ -52,7 +56,7 @@ bot.on("message", async (ctx) => {
   
     }
     catch(err) {
-      console.log("Error: ", err);
+      console.log("Error overall: ", err);
 
       ctx.reply("Error generating a blink");
     }
