@@ -1,6 +1,6 @@
 import { Bot, InlineKeyboard } from "grammy";
 import { webhookCallback } from "grammy";
-import { BeneficiaryParams, encodeTelegramCompatibleURL, extractPaymentBeneficiaryFromUrl, trimString } from "./utils";
+import { BeneficiaryParams, encodeTelegramCompatibleURL, extractPaymentBeneficiaryFromUrl, multiplyAmountInUrl, trimString } from "./utils";
 import axios from "axios";
 import { type ActionsJsonConfig, ActionsURLMapper } from "@dialectlabs/blinks-core";
 
@@ -207,10 +207,13 @@ bot.on("inline_query", async (ctx) => {
       getData.links.actions.forEach((action: any) => {
         console.log("action: ", action);
         if(!action.parameters) {
+          const initialAmount = parseFloat(action.label.split(" ")[0]);
+          let newAmount = initialAmount * 10;
+          newAmount = Math.min(newAmount, 2.0);
           
-          const inline_url = `https://t.me/samplekiwibot/bot?startapp=tip-${encodeTelegramCompatibleURL(action.label.split(" ")[0])}-${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
+          const inline_url = `https://t.me/samplekiwibot/bot?startapp=tip-${encodeTelegramCompatibleURL(newAmount.toString())}-${encodeTelegramCompatibleURL(actionApiUrl.origin + multiplyAmountInUrl(action.href, 10))}`;
           console.log("inline_url: ", inline_url);
-          keyboard.url(action.label, inline_url).row();
+          keyboard.url(`${newAmount} SOL`, inline_url).row();
         }
         });
 

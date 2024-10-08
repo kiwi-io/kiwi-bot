@@ -40,3 +40,30 @@ export const trimString = (str: string): string => {
   }
   return str;
 }
+
+export const multiplyAmountInUrl = (url: string, multiplier: number): string => {
+  // Create a URL object to easily manipulate the URL
+  const urlObj = new URL(url);
+
+  // Extract the pathname and query parameters
+  const pathSegments = urlObj.pathname.split('/');
+
+  // The amount is the last segment in this case
+  const amountStr = pathSegments[pathSegments.length - 1];
+
+  // Parse the amount, multiply by the multiplier, and update the value
+  const amount = parseFloat(amountStr);
+  let newAmount = (amount * multiplier);
+
+  newAmount = Math.min(newAmount, 2);
+  let newAmountStr = newAmount.toString();
+
+  // Replace the last segment with the new amount
+  pathSegments[pathSegments.length - 1] = newAmountStr;
+
+  // Rebuild the pathname with the updated amount
+  urlObj.pathname = pathSegments.join('/');
+
+  // Return the updated URL
+  return urlObj.toString();
+}
