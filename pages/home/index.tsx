@@ -123,7 +123,7 @@ const Home = () => {
   
   const navigateToAllTokens = (target: string) => {
     if (user && ready && authenticated) {
-      // router.push(`/tokens?navigateTo=${target}`);
+      router.push(`/tokens?navigateTo=${target}`);
     }
   };
 
@@ -148,7 +148,7 @@ const Home = () => {
                   // navigateToSettings();
                 }}
               >
-                <div>Tester mode</div>
+                <div>{/* <i className="fa-solid fa-gear"></i> */}</div>
               </div>
             </div>
             <div className={styles.overviewContainer}>
