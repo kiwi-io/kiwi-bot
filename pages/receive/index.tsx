@@ -20,10 +20,6 @@ const Receive = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    router.push("/home")
-  }, []);
-
     const handleAmountChange = (e: any) => {
       updateAmount(e.target.value);
     };

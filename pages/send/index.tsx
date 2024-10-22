@@ -16,10 +16,6 @@ const Send = () => {
   const { vibrate } = useTelegram();
 
   useEffect(() => {
-    router.push("/home")
-  }, []);
-
-  useEffect(() => {
     const doStuff = () => {
       if(!token) {
         router.push(`/tokens?navigateTo=send`)
