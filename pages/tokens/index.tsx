@@ -18,10 +18,6 @@ const Tokens = () => {
 
   const { updateToken } = useTransferContext();
 
-  useEffect(() => {
-    router.push("/home")
-  }, []);
-
   const navigateToSend = (selectedTokenItem: TokenItem) => {
     vibrate("light");
     updateToken(selectedTokenItem);

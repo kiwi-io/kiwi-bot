@@ -38,7 +38,7 @@
 }
 
 .settingsContainer {
-  border: 1px solid rgba(87, 87, 87, 0.5); 
+  display: none;
   /* background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
