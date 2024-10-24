@@ -2,10 +2,14 @@ import { User } from "@privy-io/react-auth";
 import React from "react";
 import { useState, createContext, useContext } from "react";
 import { getWalletPortfolio, TokenItem, WalletPortfolio } from "../../../utils";
+import axios from "axios";
+import { LinkedAccountWithMetadata } from "@privy-io/server-auth";
 
 interface WalletContextType {
   portfolio: WalletPortfolio;
+  users: LinkedAccountWithMetadata[];
   updatePortfolio: (user: User) => void;
+  updateUsersDb: () => void;
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
@@ -67,6 +71,8 @@ export const WalletContextProvider = ({ children }) => {
     ],
   });
 
+  const [users, setUsers] = useState<LinkedAccountWithMetadata[]>([]);
+
   const updatePortfolio = async (user: User) => {
     if (user && user.wallet) {
       const latestPortfolio = await getWalletPortfolio(user.wallet.address);
@@ -75,9 +81,19 @@ export const WalletContextProvider = ({ children }) => {
     }
   };
 
+  const updateUsersDb = async () => {
+    const data = await axios.get(`${process.env.NEXT_KIWI_API_HOST}/privy/get-all-users`);
+    //@ts-ignore
+    const linkedAccounts: LinkedAccountWithMetadata[] = data["linked_accounts"];
+    console.log("Setting new linked accounts: ", linkedAccounts);
+    setUsers((_) => linkedAccounts);
+  }
+
   const value = {
     portfolio,
+    users,
     updatePortfolio,
+    updateUsersDb
   } as WalletContextType;
 
   return (

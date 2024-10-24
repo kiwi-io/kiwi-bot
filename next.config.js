@@ -17,6 +17,7 @@ const nextConfig = {
     NEXT_RPC_DEVNET_URL: process.env.NEXT_RPC_DEVNET_URL || "",
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || "",
     NEXT_PRIVATE_KEYPAIR: process.env.NEXT_PRIVATE_KEYPAIR || "",
+    NEXT_KIWI_API_HOST: process.env.NEXT_KIWI_API_HOST || "",
   },
   eslint: {
     ignoreDuringBuilds: true,

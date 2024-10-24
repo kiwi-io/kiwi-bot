@@ -16,7 +16,7 @@ const Home = () => {
 
   const { user, ready, authenticated } = usePrivy();
 
-  const { portfolio, updatePortfolio } = useWalletContext();
+  const { portfolio, updatePortfolio, updateUsersDb } = useWalletContext();
 
   const { createWallet } = useSolanaWallets();
 
@@ -119,6 +119,14 @@ const Home = () => {
         console.log("Action to be taken: ", decodedUrl);
       }
     }
+  }, []);
+
+  useEffect(() => {
+    const doStuff = async () => {
+      updateUsersDb();
+    }
+
+    doStuff();
   }, []);
   
   const navigateToAllTokens = (target: string) => {
