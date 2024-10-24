@@ -87,25 +87,25 @@
 }
 
 .receiveButtonContainer {
-  width: 30%;
+  width: 45%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .sendButtonContainer {
-  width: 30%;
+  width: 45%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.copyButtonContainer {
+/* .copyButtonContainer {
   width: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .actionButtonIcon {
   font-size: 1rem;

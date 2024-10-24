@@ -184,7 +184,7 @@ const Home = () => {
                     <span
                       className={`${styles.actionButtonIcon} ${styles.receiveButtonIcon} fa-solid fa-download`}
                     ></span>
-                    <span>Receive</span>
+                    <span>Deposit</span>
                   </button>
                 </div>
                 <div className={styles.sendButtonContainer}>
@@ -198,10 +198,10 @@ const Home = () => {
                     <span
                       className={`${styles.actionButtonIcon} ${styles.sendButtonIcon} fa-solid fa-upload`}
                     ></span>
-                    <span>Send</span>
+                    <span>Withdraw</span>
                   </button>
                 </div>
-                <div className={styles.copyButtonContainer}>
+                {/* <div className={styles.copyButtonContainer}>
                   <button
                     className={`${styles.actionButton} ${styles.copyButton}`}
                     onClick={() => {
@@ -214,7 +214,7 @@ const Home = () => {
                     ></span>
                     <span>Copy</span>
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

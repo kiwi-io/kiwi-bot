@@ -109,7 +109,7 @@ const Send = () => {
               >
                 <div className={styles.recipientFieldContainer}>
                   <Form.Control
-                    placeholder={"Recipient address"}
+                    placeholder={"Paste Solana address"}
                     // disabled={!wallet.connected}
                     className={styles.recipientFormField}
                     onChange={(e) => handleRecipientChange(e)}
