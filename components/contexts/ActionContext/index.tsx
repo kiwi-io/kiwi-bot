@@ -7,7 +7,7 @@ interface ActionContextType {
   actionTargetLogo: string;
   note: string;
   updateActionUrl: (actionUrl: string) => void;
-  updateActionTarget: (actionTarget: string) => void; 
+  updateActionTarget: (actionTarget: string) => void;
   updateActionTargetLogo: (actionTarget: string) => void;
   updateNote: (note: string) => void;
 }
@@ -26,26 +26,26 @@ export const useActionContext = () => {
 
 //@ts-ignore
 export const ActionContextProvider = ({ children }) => {
-    const [actionUrl, setActionUrl] = useState<string>("");
-    const [actionTarget, setActionTarget] = useState<string>("");
-    const [actionTargetLogo, setActionTargetLogo] = useState<string>("");
-    const [note, setNote] = useState<string>("");
+  const [actionUrl, setActionUrl] = useState<string>("");
+  const [actionTarget, setActionTarget] = useState<string>("");
+  const [actionTargetLogo, setActionTargetLogo] = useState<string>("");
+  const [note, setNote] = useState<string>("");
 
-    const updateActionUrl = (actionUrl: string) => {
-        setActionUrl((_) => actionUrl);
-    }
-    
-    const updateActionTarget = (actionTarget: string) => {
-      setActionTarget((_) => actionTarget);
-    }
+  const updateActionUrl = (actionUrl: string) => {
+    setActionUrl((_) => actionUrl);
+  };
 
-    const updateActionTargetLogo = (actionTargetLogo: string) => {
-      setActionTargetLogo((_) => actionTargetLogo);
-    }
+  const updateActionTarget = (actionTarget: string) => {
+    setActionTarget((_) => actionTarget);
+  };
 
-    const updateNote = (actionUrl: string) => {
-      setNote((_) => actionUrl);
-  }
+  const updateActionTargetLogo = (actionTargetLogo: string) => {
+    setActionTargetLogo((_) => actionTargetLogo);
+  };
+
+  const updateNote = (actionUrl: string) => {
+    setNote((_) => actionUrl);
+  };
 
   const value = {
     actionUrl,
@@ -55,7 +55,7 @@ export const ActionContextProvider = ({ children }) => {
     updateActionUrl,
     updateActionTarget,
     updateActionTargetLogo,
-    updateNote
+    updateNote,
   } as ActionContextType;
 
   return (

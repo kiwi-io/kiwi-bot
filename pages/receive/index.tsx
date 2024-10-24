@@ -18,9 +18,9 @@ const Receive = () => {
 
   const { vibrate } = useTelegram();
 
-    // const handleAmountChange = (e: any) => {
-    //   updateAmount(e.target.value);
-    // };
+  // const handleAmountChange = (e: any) => {
+  //   updateAmount(e.target.value);
+  // };
 
   const copyToClipboard = async (text: string) => {
     await navigator.clipboard.writeText(text);
@@ -37,7 +37,7 @@ const Receive = () => {
   //   }
   //   const shareText = encodeURIComponent(`${botName} ${url}`);
   //   const telegramUrl = `https://t.me/share/url?url=&text=${shareText}`;
-    
+
   //   window.open(telegramUrl, "_blank");
   // };
 

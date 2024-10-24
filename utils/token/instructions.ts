@@ -1,7 +1,21 @@
-import { Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
-import { getAssociatedTokenAddress, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, createTransferCheckedInstruction, createAssociatedTokenAccountInstruction } from '@solana/spl-token';
-import { NATIVE_SOL_PUBKEY } from '../../constants';
-import { requestComputeUnitsInstructions } from '../solana';
+import {
+  Connection,
+  LAMPORTS_PER_SOL,
+  PublicKey,
+  SystemProgram,
+  TransactionInstruction,
+  TransactionMessage,
+  VersionedTransaction,
+} from "@solana/web3.js";
+import {
+  getAssociatedTokenAddress,
+  TOKEN_PROGRAM_ID,
+  TOKEN_2022_PROGRAM_ID,
+  createTransferCheckedInstruction,
+  createAssociatedTokenAccountInstruction,
+} from "@solana/spl-token";
+import { NATIVE_SOL_PUBKEY } from "../../constants";
+import { requestComputeUnitsInstructions } from "../solana";
 
 export interface TransferParams {
   connection: Connection;
@@ -13,87 +27,93 @@ export interface TransferParams {
 }
 
 export const getTransferTransaction = async ({
-    connection,
-    fromPubkey,
-    toPubkey,
-    token,
-    tokenDecimals,
-    amount
+  connection,
+  fromPubkey,
+  toPubkey,
+  token,
+  tokenDecimals,
+  amount,
 }: TransferParams): Promise<VersionedTransaction> => {
-     
-    const instructions: TransactionInstruction[] = [];
+  const instructions: TransactionInstruction[] = [];
 
+  instructions.push(...requestComputeUnitsInstructions(100, 200_000));
+
+  const amountInLamports = amount * LAMPORTS_PER_SOL;
+
+  if (token.equals(NATIVE_SOL_PUBKEY)) {
     instructions.push(
-        ...requestComputeUnitsInstructions(100, 200_000)
+      SystemProgram.transfer({
+        fromPubkey,
+        toPubkey,
+        lamports: amountInLamports,
+      }),
     );
 
-    const amountInLamports = amount * LAMPORTS_PER_SOL;
+    const messageV0 = new TransactionMessage({
+      payerKey: fromPubkey,
+      recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
+      instructions,
+    }).compileToV0Message();
 
-    if(token.equals(NATIVE_SOL_PUBKEY)) {
-        instructions.push(
-            SystemProgram.transfer({
-              fromPubkey,
-              toPubkey,
-              lamports: amountInLamports
-            })
-        );
+    const versionedTransaction = new VersionedTransaction(messageV0);
 
-        const messageV0 = new TransactionMessage({
-            payerKey: fromPubkey,
-            recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
-            instructions,
-        }).compileToV0Message();
+    return versionedTransaction;
+  } else {
+    let tokenInfo = await connection.getAccountInfo(token);
 
-        const versionedTransaction = new VersionedTransaction(messageV0);
-
-          return versionedTransaction;
+    let tokenOwnerProgram = TOKEN_PROGRAM_ID;
+    if (tokenInfo.owner.toString() === TOKEN_2022_PROGRAM_ID.toString()) {
+      tokenOwnerProgram = TOKEN_2022_PROGRAM_ID;
     }
-    else {
-        let tokenInfo = await connection.getAccountInfo(token);
 
-        let tokenOwnerProgram = TOKEN_PROGRAM_ID;
-        if(tokenInfo.owner.toString() === TOKEN_2022_PROGRAM_ID.toString()) {
-            tokenOwnerProgram = TOKEN_2022_PROGRAM_ID;
-        }
+    const fromTokenAccount = await getAssociatedTokenAddress(
+      token,
+      fromPubkey,
+      false,
+      tokenOwnerProgram,
+    );
+    const toTokenAccount = await getAssociatedTokenAddress(
+      token,
+      toPubkey,
+      false,
+      tokenOwnerProgram,
+    );
 
-        const fromTokenAccount = await getAssociatedTokenAddress(token, fromPubkey, false, tokenOwnerProgram);
-        const toTokenAccount = await getAssociatedTokenAddress(token, toPubkey, false, tokenOwnerProgram);
+    let toTokenAccountInfo = await connection.getAccountInfo(token);
 
-        let toTokenAccountInfo = await connection.getAccountInfo(token);
-
-        if(!toTokenAccountInfo) {
-            instructions.push(
-                createAssociatedTokenAccountInstruction(
-                    fromPubkey,
-                    toTokenAccount,
-                    toPubkey,
-                    token,
-                    tokenOwnerProgram
-                )
-            )
-        }
-
-        instructions.push(
-            createTransferCheckedInstruction(
-                fromTokenAccount,
-                token,
-                toTokenAccount,
-                fromPubkey,
-                amount * (10 ** tokenDecimals),
-                tokenDecimals,
-                [],
-                tokenOwnerProgram
-            )
-        );
-
-        const messageV0 = new TransactionMessage({
-            payerKey: fromPubkey,
-            recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
-            instructions,
-        }).compileToV0Message();
-
-        const versionedTransaction = new VersionedTransaction(messageV0);
-        
-        return versionedTransaction;
+    if (!toTokenAccountInfo) {
+      instructions.push(
+        createAssociatedTokenAccountInstruction(
+          fromPubkey,
+          toTokenAccount,
+          toPubkey,
+          token,
+          tokenOwnerProgram,
+        ),
+      );
     }
-}
+
+    instructions.push(
+      createTransferCheckedInstruction(
+        fromTokenAccount,
+        token,
+        toTokenAccount,
+        fromPubkey,
+        amount * 10 ** tokenDecimals,
+        tokenDecimals,
+        [],
+        tokenOwnerProgram,
+      ),
+    );
+
+    const messageV0 = new TransactionMessage({
+      payerKey: fromPubkey,
+      recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
+      instructions,
+    }).compileToV0Message();
+
+    const versionedTransaction = new VersionedTransaction(messageV0);
+
+    return versionedTransaction;
+  }
+};

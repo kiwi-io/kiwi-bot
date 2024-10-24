@@ -1,5 +1,5 @@
 import { initHapticFeedback } from "twa-sdk-v1";
-import { closeMiniApp } from 'twa-sdk-v2';
+import { closeMiniApp } from "twa-sdk-v2";
 
 interface useTelegramComposableState {
   vibrate: (
@@ -48,9 +48,9 @@ export const useTelegram = (): useTelegramComposableState => {
 
   const closeApp = () => {
     closeMiniApp();
-  }
+  };
   return {
     vibrate,
-    closeApp
+    closeApp,
   };
 };

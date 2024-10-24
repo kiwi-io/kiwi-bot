@@ -30,4 +30,4 @@ export default async function handler(req: any, res: any) {
   } else {
     res.status(405).end(); // Method Not Allowed
   }
-} 
+}

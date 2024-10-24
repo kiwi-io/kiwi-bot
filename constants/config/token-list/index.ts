@@ -59,7 +59,8 @@ export const DEFAULT_TOKENS_LIST: TokenItem[] = [
     chainId: "solana",
     name: "Bonk",
     symbol: "BONK",
-    logoURI: "https://assets.coingecko.com/coins/images/28600/standard/bonk.jpg?1696527587",
+    logoURI:
+      "https://assets.coingecko.com/coins/images/28600/standard/bonk.jpg?1696527587",
     priceUsd: 0.00002074,
     valueUsd: 29.036,
   } as TokenItem,

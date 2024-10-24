@@ -5,7 +5,11 @@ import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
 import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
-import { decodeTelegramCompatibleUrl, formatWithCommas, hasExistingSolanaWallet } from "../../utils";
+import {
+  decodeTelegramCompatibleUrl,
+  formatWithCommas,
+  hasExistingSolanaWallet,
+} from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
 import { useTransferContext } from "../../components/contexts/TransferContext";
@@ -22,7 +26,12 @@ const Home = () => {
 
   const { updateToken, updateRecipient, updateAmount } = useTransferContext();
 
-  const { updateActionTarget, updateActionUrl, updateActionTargetLogo, updateNote } = useActionContext();
+  const {
+    updateActionTarget,
+    updateActionUrl,
+    updateActionTargetLogo,
+    updateNote,
+  } = useActionContext();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -40,46 +49,46 @@ const Home = () => {
         }
         updatePortfolio(user);
       }
-    }
+    };
 
     doStuff();
   }, [user]);
 
   useEffect(() => {
-    if(!user) {
+    if (!user) {
       router.push("/home");
     }
-    
+
     //@ts-ignore
     const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
-    if(startParam && user) {
-      if(startParam.startsWith("send")) {
+    if (startParam && user) {
+      if (startParam.startsWith("send")) {
         const components = startParam.split("-");
         console.log("Components: ", components);
 
         const action = components[0]; // 4
 
         let address = undefined;
-        if(components.length >= 2) {
+        if (components.length >= 2) {
           address = components[1]; // 44
         }
 
         let tokenSymbol = undefined;
-        if(components.length >= 3) {
-          tokenSymbol = components[2]; 
+        if (components.length >= 3) {
+          tokenSymbol = components[2];
         }
 
         let amount = undefined;
-        if(components.length == 4) {
-          amount = components[3]; 
+        if (components.length == 4) {
+          amount = components[3];
         }
-        
-        if(action === "send" && portfolio) {
+
+        if (action === "send" && portfolio) {
           if (tokenSymbol && portfolio && portfolio.items.length > 0) {
             const tokenItem = portfolio.items.filter(
               (item) => item.symbol === tokenSymbol,
             )[0];
-    
+
             updateToken(tokenItem);
           }
 
@@ -89,8 +98,7 @@ const Home = () => {
           let targetUrl = `/send-transaction-confirmation`;
           router.push(targetUrl);
         }
-      }
-      else if(startParam.startsWith("jup")) {
+      } else if (startParam.startsWith("jup")) {
         console.log("starts with jup");
         const components = startParam.split("-");
 
@@ -98,10 +106,9 @@ const Home = () => {
         updateActionUrl(actionLink);
         updateActionTarget("https://jup.ag/swap");
         updateActionTargetLogo("/logos/jupiter_logo.svg");
-        
-        router.push("/transaction-confirmation");        
-      }
-      else if(startParam.startsWith("tip")) {
+
+        router.push("/transaction-confirmation");
+      } else if (startParam.startsWith("tip")) {
         console.log("starts with tip");
         const components = startParam.split("-");
 
@@ -110,10 +117,9 @@ const Home = () => {
         updateActionTarget("https://tiplink.io/blinks");
         updateActionTargetLogo("/logos/tiplink_logo.svg");
         updateNote(components[1]);
-        
+
         router.push("/transaction-confirmation");
-      }
-      else {
+      } else {
         const decodedUrl = decodeTelegramCompatibleUrl(startParam);
 
         console.log("Action to be taken: ", decodedUrl);
@@ -124,11 +130,11 @@ const Home = () => {
   useEffect(() => {
     const doStuff = async () => {
       updateUsersDb();
-    }
+    };
 
     doStuff();
   }, []);
-  
+
   const navigateToAllTokens = (target: string) => {
     if (user && ready && authenticated) {
       router.push(`/tokens?navigateTo=${target}`);
@@ -136,10 +142,10 @@ const Home = () => {
   };
 
   const navigateToReceive = () => {
-    if(user && ready && authenticated) {
+    if (user && ready && authenticated) {
       router.push(`/receive`);
     }
-  }
+  };
 
   const copyToClipboard = async (text: string) => {
     await navigator.clipboard.writeText(text);
@@ -155,7 +161,7 @@ const Home = () => {
             <div className={styles.headerContainer}>
               <div className={styles.usernameContainer}>
                 <div>{`${user.telegram?.username}`}</div>
-                </div>
+              </div>
               <div
                 className={styles.settingsContainer}
                 onClick={() => {

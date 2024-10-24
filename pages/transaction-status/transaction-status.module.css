@@ -1,14 +1,14 @@
 .transactionStatusMainContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 1.5rem;
-    margin: 0;
-    box-sizing: border-box;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 .transactionStatusTypeImageContainer {
   margin-top: 1rem;
@@ -76,7 +76,6 @@
   font-size: 0.9rem;
   color: rgba(72, 24, 0, 0.65);
   font-weight: 400;
-
 }
 
 .closeButtonContainer {
@@ -86,8 +85,8 @@
   background-color: #ff9d00;
   margin-top: 3rem;
   transition:
-  transform 0.1s ease,
-  background-color 0.2s ease;
+    transform 0.1s ease,
+    background-color 0.2s ease;
   padding: 1rem;
   color: #481801;
   width: 100%;

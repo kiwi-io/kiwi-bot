@@ -1,12 +1,12 @@
 .mainTransactionConfirmationContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    padding: 1.5rem;
-    box-sizing: border-box;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
 .transactionConfirmationBodyContainer {
   display: flex;
   margin-top: 0.75rem;
@@ -124,7 +124,6 @@
   cursor: pointer;
 }
 
-
 .rejectButtonContainer:active {
   transform: scale(0.95);
 }
@@ -132,7 +131,6 @@
 .approveButtonContainer:active {
   transform: scale(0.95);
 }
-
 
 .loadingContainer {
   display: flex;

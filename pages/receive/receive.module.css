@@ -79,10 +79,10 @@
 }
 
 .formLabelAndFieldContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }

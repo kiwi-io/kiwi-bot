@@ -1,16 +1,27 @@
 import { Bot, InlineKeyboard } from "grammy";
 import { webhookCallback } from "grammy";
-import { BeneficiaryParams, encodeTelegramCompatibleURL, extractPaymentBeneficiaryFromUrl, multiplyAmountInUrl, trimString } from "./utils";
+import {
+  BeneficiaryParams,
+  encodeTelegramCompatibleURL,
+  extractPaymentBeneficiaryFromUrl,
+  multiplyAmountInUrl,
+  trimString,
+} from "./utils";
 import axios from "axios";
-import { type ActionsJsonConfig, ActionsURLMapper } from "@dialectlabs/blinks-core";
+import {
+  type ActionsJsonConfig,
+  ActionsURLMapper,
+} from "@dialectlabs/blinks-core";
 
 // Initialize the bot
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 
 bot.on("message", async (ctx) => {
   const userId = ctx.from.id;
-  if(!(userId === 1896100027)) {
-    ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+  if (!(userId === 1896100027)) {
+    ctx.reply(
+      "Kiwi is launching soon. Contact @mmdhrumil for private beta access",
+    );
     return;
   }
 
@@ -20,51 +31,60 @@ bot.on("message", async (ctx) => {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   const urlMatch = message.text.match(urlRegex);
 
-  if(urlMatch) {
+  if (urlMatch) {
     try {
       let getData: any;
       let keyboard = new InlineKeyboard();
 
-      if(urlMatch[0].includes("jup") || urlMatch[0].includes("magiceden") || urlMatch[0].includes("underdog") || urlMatch[0].includes("tiplink")) {
+      if (
+        urlMatch[0].includes("jup") ||
+        urlMatch[0].includes("magiceden") ||
+        urlMatch[0].includes("underdog") ||
+        urlMatch[0].includes("tiplink")
+      ) {
         const url = new URL(urlMatch[0]);
 
-        const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
+        const actionsJsonResponse = await axios.get(
+          `${url.origin}/actions.json`,
+        );
         const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
         const actionsUrlMapper = new ActionsURLMapper(actionsJson);
-    
+
         let actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
         const getDataResponse = await axios.get(`${actionApiUrl}`);
         getData = getDataResponse.data;
-    
+
         getData.links.actions.forEach((action: any) => {
-          if(!action.parameters) {
+          if (!action.parameters) {
             const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}`;
             console.log("inline_url: ", inline_url);
             keyboard.url(action.label, inline_url).row();
           }
-         });
-      }
-      else if(urlMatch[0].includes("drift") || urlMatch[0].includes("lulo")) {
+        });
+      } else if (
+        urlMatch[0].includes("drift") ||
+        urlMatch[0].includes("lulo")
+      ) {
         let actionApiUrl = new URL(urlMatch[0]);
         const getDataResponse = await axios.get(`${actionApiUrl}`);
         getData = getDataResponse.data;
-          
+
         getData.links.actions.forEach((action: any) => {
-          if(!action.parameters) {
+          if (!action.parameters) {
             const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(action.href)}`;
             keyboard.url(action.label, inline_url).row();
           }
-         });
+        });
 
-         if(urlMatch[0].includes("drift")) {
-          for(let index = 1; index <= 3; index++) {
+        if (urlMatch[0].includes("drift")) {
+          for (let index = 1; index <= 3; index++) {
             const depositAmount = 50 * index;
             const inline_url = `https://t.me/samplekiwibot/bot?startapp=${encodeTelegramCompatibleURL(`://actions.drift.trade/transactions/deposit?token=USDC&amount=${depositAmount}`)}`;
             keyboard.url(`${depositAmount} USD`, inline_url).row();
-          }  
-         }
+          }
+        }
       }
-      
+
       try {
         console.log("icon: ", getData.icon);
         await ctx.replyWithPhoto(getData.icon, {
@@ -72,23 +92,22 @@ bot.on("message", async (ctx) => {
           parse_mode: "HTML",
           reply_markup: keyboard,
         });
-      }
-      catch(err) {
+      } catch (err) {
         console.log("Error sending photo response: ", err);
-        await ctx.reply(`<b>${getData.title}</b>\n\n${trimString(getData.description)}`, {
-          parse_mode: "HTML",
-          reply_markup: keyboard,
-        });
+        await ctx.reply(
+          `<b>${getData.title}</b>\n\n${trimString(getData.description)}`,
+          {
+            parse_mode: "HTML",
+            reply_markup: keyboard,
+          },
+        );
       }
-  
-    }
-    catch(err) {
+    } catch (err) {
       console.log("Error overall: ", err);
 
       ctx.reply("Error generating a blink");
     }
-  }
-  else {
+  } else {
     ctx.reply("Invalid URL");
   }
 });
@@ -97,10 +116,12 @@ bot.on("message", async (ctx) => {
 bot.on("inline_query", async (ctx) => {
   const queryText = ctx.inlineQuery.query;
 
-  if(queryText.startsWith("$")) {
+  if (queryText.startsWith("$")) {
     const userId = ctx.from.id;
-    if(!(userId === 1896100027)) {
-      ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+    if (!(userId === 1896100027)) {
+      ctx.reply(
+        "Kiwi is launching soon. Contact @mmdhrumil for private beta access",
+      );
       return;
     }
 
@@ -121,12 +142,12 @@ bot.on("inline_query", async (ctx) => {
       getData = getDataResponse.data;
 
       getData.links.actions.forEach((action: any) => {
-        if(!action.parameters) {
+        if (!action.parameters) {
           const inline_url = `https://t.me/samplekiwibot/bot?startapp=jup-${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}&mode=compact`;
           console.log("inline_url: ", inline_url);
           keyboard.url(action.label, inline_url).row();
         }
-        });
+      });
 
       ctx.answerInlineQuery([
         {
@@ -144,8 +165,7 @@ bot.on("inline_query", async (ctx) => {
           reply_markup: keyboard,
         },
       ]);
-    }
-    catch(err) {
+    } catch (err) {
       await ctx.answerInlineQuery([
         {
           type: "article",
@@ -157,12 +177,13 @@ bot.on("inline_query", async (ctx) => {
           },
         },
       ]);
-    } 
-  }
-  else if(queryText.startsWith("drift")) {
+    }
+  } else if (queryText.startsWith("drift")) {
     const userId = ctx.from.id;
-    if(!(userId === 1896100027)) {
-      ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+    if (!(userId === 1896100027)) {
+      ctx.reply(
+        "Kiwi is launching soon. Contact @mmdhrumil for private beta access",
+      );
       return;
     }
 
@@ -189,8 +210,7 @@ bot.on("inline_query", async (ctx) => {
           reply_markup: keyboard,
         },
       ]);
-    }
-    catch(err) {
+    } catch (err) {
       await ctx.answerInlineQuery([
         {
           type: "article",
@@ -202,41 +222,42 @@ bot.on("inline_query", async (ctx) => {
           },
         },
       ]);
-    } 
-  }
-  else if(queryText.startsWith("tip")) {
+    }
+  } else if (queryText.startsWith("tip")) {
     try {
       // Render tiplink flow
       let getData: any;
       let keyboard = new InlineKeyboard();
 
-      const url = new URL(`https://tiplink.io/blinks/donate?dest=3J1PbrQ1j56h9xuZD5AYEPEtmgBWqxihEV9EY3JFNznR`);
+      const url = new URL(
+        `https://tiplink.io/blinks/donate?dest=3J1PbrQ1j56h9xuZD5AYEPEtmgBWqxihEV9EY3JFNznR`,
+      );
 
       const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
       const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
       const actionsUrlMapper = new ActionsURLMapper(actionsJson);
-  
+
       let actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
       const getDataResponse = await axios.get(`${actionApiUrl}`);
       getData = getDataResponse.data;
 
       console.log("actionApiUrl: ", actionApiUrl.toString());
-  
+
       getData.links.actions.forEach((action: any) => {
         console.log("action: ", action);
-        if(!action.parameters) {
+        if (!action.parameters) {
           const initialAmount = parseFloat(action.label.split(" ")[0]);
           console.log("initialAmount: ", initialAmount);
           let newAmount = initialAmount * 10;
           console.log("new amount: ", newAmount);
           newAmount = Math.min(newAmount, 2.0);
           console.log("new amount minimized: ", newAmount);
-          
+
           const inline_url = `https://t.me/samplekiwibot/bot?startapp=tip-${encodeTelegramCompatibleURL(newAmount.toString())}-${encodeTelegramCompatibleURL(actionApiUrl.origin + multiplyAmountInUrl(action.href, 10))}`;
           console.log("inline_url: ", inline_url);
           keyboard.url(`${newAmount} SOL`, inline_url).row();
         }
-        });
+      });
 
       ctx.answerInlineQuery([
         {
@@ -253,8 +274,7 @@ bot.on("inline_query", async (ctx) => {
           reply_markup: keyboard,
         },
       ]);
-    }
-    catch(err) {
+    } catch (err) {
       await ctx.answerInlineQuery([
         {
           type: "article",
@@ -266,12 +286,13 @@ bot.on("inline_query", async (ctx) => {
           },
         },
       ]);
-    } 
-  }
-  else {
+    }
+  } else {
     const userId = ctx.from.id;
-    if(!(userId === 1896100027)) {
-      ctx.reply("Kiwi is launching soon. Contact @mmdhrumil for private beta access");
+    if (!(userId === 1896100027)) {
+      ctx.reply(
+        "Kiwi is launching soon. Contact @mmdhrumil for private beta access",
+      );
       return;
     }
     // Detect if the query contains a URL
@@ -283,44 +304,49 @@ bot.on("inline_query", async (ctx) => {
       const url = urlMatch[0];
 
       const response: BeneficiaryParams = extractPaymentBeneficiaryFromUrl(url);
-      
-      if(response && response.address) {
+
+      if (response && response.address) {
         await ctx.answerInlineQuery([
           {
             type: "article",
             id: "1",
             title: `Request a payment on Kiwi`,
-            description: `The received payment will be deposited on ` + (response ? `${response.username}'s Kiwi wallet. Click 'space' to activate.` : ``),
+            description:
+              `The received payment will be deposited on ` +
+              (response
+                ? `${response.username}'s Kiwi wallet. Click 'space' to activate.`
+                : ``),
             input_message_content: {
-              message_text: response ? `🧾 ${response.username} is requesting a payment of ${response.amount} ${response.token}` : `You are requested to make a payment using Kiwi`,
+              message_text: response
+                ? `🧾 ${response.username} is requesting a payment of ${response.amount} ${response.token}`
+                : `You are requested to make a payment using Kiwi`,
             },
             reply_markup: new InlineKeyboard()
               .url(
                 "Pay using Kiwi",
                 `https://t.me/samplekiwibot/bot?startapp=${encodeURIComponent(`send-${response.address}-${response.token}-${parseInt(response.amount.toString())}`)}`,
               )
-              .row()
+              .row(),
           },
         ]);
-      }
-      else {
-      await ctx.answerInlineQuery([
-        {
-          type: "article",
-          id: "1",
-          title: `Request a payment on Kiwi`,
-          description: `The received payment will be deposited on your Kiwi account`,
-          input_message_content: {
-            message_text: `Send SOL & memecoins using Kiwi`,
+      } else {
+        await ctx.answerInlineQuery([
+          {
+            type: "article",
+            id: "1",
+            title: `Request a payment on Kiwi`,
+            description: `The received payment will be deposited on your Kiwi account`,
+            input_message_content: {
+              message_text: `Send SOL & memecoins using Kiwi`,
+            },
+            reply_markup: new InlineKeyboard()
+              .url(
+                "Pay using Kiwi",
+                `https://t.me/samplekiwibot/bot?startapp=send`,
+              )
+              .row(),
           },
-          reply_markup: new InlineKeyboard()
-            .url(
-              "Pay using Kiwi",
-              `https://t.me/samplekiwibot/bot?startapp=send`,
-            )
-            .row()
-        },
-      ]);
+        ]);
       }
     }
   }

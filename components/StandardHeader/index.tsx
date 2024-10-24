@@ -12,7 +12,7 @@ export interface StandardHeaderProps {
 const StandardHeader = ({
   title,
   backButtonNavigateTo,
-  backButtonHide
+  backButtonHide,
 }: StandardHeaderProps) => {
   const router = useRouter();
   const { vibrate } = useTelegram();
@@ -31,7 +31,7 @@ const StandardHeader = ({
             backButtonHandler();
           }}
           style={{
-            display: backButtonHide ? `none` : ``
+            display: backButtonHide ? `none` : ``,
           }}
         >
           <i className={`${styles.backButton} fa-solid fa-arrow-left`}></i>
@@ -40,9 +40,9 @@ const StandardHeader = ({
           <span className={styles.title}>{title}</span>
         </div>
         <div
-        style={{
-          display: backButtonHide ? `none` : ``
-        }}
+          style={{
+            display: backButtonHide ? `none` : ``,
+          }}
         >
           <span className={styles.dummyContainer}>
             <i className={`fa-solid fa-arrow-right`}></i>

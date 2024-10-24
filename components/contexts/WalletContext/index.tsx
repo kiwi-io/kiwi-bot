@@ -82,18 +82,20 @@ export const WalletContextProvider = ({ children }) => {
   };
 
   const updateUsersDb = async () => {
-    const data = await axios.get(`${process.env.NEXT_KIWI_API_HOST}/privy/get-all-users`);
+    const data = await axios.get(
+      `${process.env.NEXT_KIWI_API_HOST}/privy/get-all-users`,
+    );
     //@ts-ignore
     const linkedAccounts: LinkedAccountWithMetadata[] = data["linked_accounts"];
     console.log("Setting new linked accounts: ", linkedAccounts);
     setUsers((_) => linkedAccounts);
-  }
+  };
 
   const value = {
     portfolio,
     users,
     updatePortfolio,
-    updateUsersDb
+    updateUsersDb,
   } as WalletContextType;
 
   return (

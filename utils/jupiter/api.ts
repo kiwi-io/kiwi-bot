@@ -70,7 +70,9 @@ export const swapOnJupiterTx = async ({
       userPublicKey,
       quoteResponse,
       wrapAndUnwrapSol: true,
-      computeUnitPriceMicroLamports: parseInt(priorityFeeInMicroLamportsPerUnit.toString()),
+      computeUnitPriceMicroLamports: parseInt(
+        priorityFeeInMicroLamportsPerUnit.toString(),
+      ),
     });
 
     const response = await axios.post(

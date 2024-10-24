@@ -56,7 +56,7 @@ export const getHoldings = async (
 
 export const getAmountInLamports = (
   amountInUnits: string,
-  decimals: number
+  decimals: number,
 ): number => {
-  return (parseFloat(amountInUnits) / 10 ** decimals);
-}
+  return parseFloat(amountInUnits) / 10 ** decimals;
+};

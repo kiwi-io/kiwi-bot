@@ -1,3 +1,1 @@
-export interface KiwiActionScheme {
-    
-}
+export interface KiwiActionScheme {}

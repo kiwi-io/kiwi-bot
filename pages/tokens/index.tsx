@@ -41,11 +41,10 @@ const Tokens = () => {
                 className={styles.tokenDisplayContainer}
                 key={token.address}
                 onClick={() => {
-                  if(navigateTo === "send") {
-                    navigateToSend(token)
-                  }
-                  else if(navigateTo === "receive") {
-                    navigateToReceive(token)
+                  if (navigateTo === "send") {
+                    navigateToSend(token);
+                  } else if (navigateTo === "receive") {
+                    navigateToReceive(token);
                   }
                 }}
               >

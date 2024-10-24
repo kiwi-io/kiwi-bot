@@ -11,14 +11,15 @@ import { useTransferContext } from "../../components/contexts/TransferContext";
 const Send = () => {
   const router = useRouter();
 
-  const { recipient, token, amount, updateRecipient, updateAmount } = useTransferContext();
+  const { recipient, token, amount, updateRecipient, updateAmount } =
+    useTransferContext();
 
   const { vibrate } = useTelegram();
 
   useEffect(() => {
     const doStuff = () => {
-      if(!token) {
-        router.push(`/tokens?navigateTo=send`)
+      if (!token) {
+        router.push(`/tokens?navigateTo=send`);
       }
     };
 
@@ -46,7 +47,7 @@ const Send = () => {
     } catch (error) {
       console.error("Failed to read clipboard contents: ", error);
     }
-  }
+  };
 
   // const handleScanQr = async () => {
   //   const qrScanner = initQRScanner();
@@ -59,13 +60,16 @@ const Send = () => {
   // }
 
   const handleMaxAmount = async () => {
-    let maxAmount = getAmountInLamports(token.balance.toString(), token ? token.decimals : 1);
+    let maxAmount = getAmountInLamports(
+      token.balance.toString(),
+      token ? token.decimals : 1,
+    );
     updateAmount(maxAmount.toString());
-  }
+  };
 
   const confirmSendHandler = async () => {
-    router.push(`/send-transaction-confirmation`)
-  }
+    router.push(`/send-transaction-confirmation`);
+  };
 
   return (
     <div className={styles.sendPageContainer}>
@@ -77,22 +81,17 @@ const Send = () => {
       </div>
       <div className={styles.sendBodyContainer}>
         <div className={styles.tokenImageContainer}>
-          {
-            token ?
-                <Image
-                    src={increaseDimensionsInUrl(
-                        token.logoURI,
-                        60,
-                        60,
-                    )}
-                    width={50}
-                    height={50}
-                    alt={`${token ? token.symbol : "Token"} img`}
-                    className={styles.tokenImage}
-                />
-            :
-                <></>
-          }
+          {token ? (
+            <Image
+              src={increaseDimensionsInUrl(token.logoURI, 60, 60)}
+              width={50}
+              height={50}
+              alt={`${token ? token.symbol : "Token"} img`}
+              className={styles.tokenImage}
+            />
+          ) : (
+            <></>
+          )}
         </div>
         <div className={styles.sendFormContainer}>
           <Form>
@@ -100,33 +99,33 @@ const Send = () => {
               controlId="formInput"
               className={styles.formGroupContainer}
             >
-              <div className={styles.formLabelAndFieldContainer}
-                style = {{
-                  border: 'none',
-                  borderRadius: '0rem',
+              <div
+                className={styles.formLabelAndFieldContainer}
+                style={{
+                  border: "none",
+                  borderRadius: "0rem",
                   borderBottom: `2px solid #481801`,
                 }}
               >
                 <div className={styles.recipientFieldContainer}>
-                <Form.Control
-                  placeholder={"Recipient address"}
-                  // disabled={!wallet.connected}
-                  className={styles.recipientFormField}
-                  onChange={(e) => handleRecipientChange(e)}
-                  value={recipient}
-                />
-                <div className={styles.scanQrButton}>
-                  <i className={`fa-solid fa-qrcode`}
-                    onClick={
-                      () => {
+                  <Form.Control
+                    placeholder={"Recipient address"}
+                    // disabled={!wallet.connected}
+                    className={styles.recipientFormField}
+                    onChange={(e) => handleRecipientChange(e)}
+                    value={recipient}
+                  />
+                  <div className={styles.scanQrButton}>
+                    <i
+                      className={`fa-solid fa-qrcode`}
+                      onClick={() => {
                         vibrate("soft");
                         // handleScanQr();
                         handlePaste();
-                      }
-                    }
-                  ></i>
-                </div>
-                {/* <div className={styles.pasteAddressButton}>
+                      }}
+                    ></i>
+                  </div>
+                  {/* <div className={styles.pasteAddressButton}>
                   <i className={`fa-regular fa-paste`}
                     onClick={
                       () => {
@@ -145,34 +144,31 @@ const Send = () => {
               controlId="formInput"
               className={styles.formGroupContainer}
             >
-              <div className={styles.formLabelAndFieldContainer}
-                style = {{
-                  border: 'none',
-                  borderRadius: '0rem',
+              <div
+                className={styles.formLabelAndFieldContainer}
+                style={{
+                  border: "none",
+                  borderRadius: "0rem",
                   borderBottom: `2px solid #481801`,
                 }}
               >
                 <div className={styles.recipientFieldContainer}>
-                <Form.Control
-                  placeholder={"Amount"}
-                  className={styles.recipientFormField}
-                  onChange={(e) => handleAmountChange(e)}
-                  value={
-                    amount
-                  }
-                />
-                <div className={styles.maxAmountButton}>
-                  <span
-                    onClick={
-                      () => {
+                  <Form.Control
+                    placeholder={"Amount"}
+                    className={styles.recipientFormField}
+                    onChange={(e) => handleAmountChange(e)}
+                    value={amount}
+                  />
+                  <div className={styles.maxAmountButton}>
+                    <span
+                      onClick={() => {
                         vibrate("soft");
                         handleMaxAmount();
-                      }
-                    }
-                  >
-                    MAX
-                  </span>
-                </div>
+                      }}
+                    >
+                      MAX
+                    </span>
+                  </div>
                 </div>
               </div>
             </Form.Group>

@@ -5,7 +5,7 @@ import { PrivyProvider } from "@privy-io/react-auth";
 import { WalletContextProvider } from "../components/contexts";
 import { TransferContextProvider } from "../components/contexts/TransferContext";
 import { ActionContextProvider } from "../components/contexts/ActionContext";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
