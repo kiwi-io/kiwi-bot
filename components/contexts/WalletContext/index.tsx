@@ -85,6 +85,7 @@ export const WalletContextProvider = ({ children }) => {
     const data = await axios.get(
       `${process.env.NEXT_KIWI_API_HOST}/privy/get-all-users`,
     );
+    console.log("data: ", data);
     //@ts-ignore
     const linkedAccounts: LinkedAccountWithMetadata[] = data["linked_accounts"];
     console.log("Setting new linked accounts: ", linkedAccounts);
