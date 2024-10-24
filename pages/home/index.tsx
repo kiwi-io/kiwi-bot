@@ -127,6 +127,12 @@ const Home = () => {
     }
   };
 
+  const navigateToReceive = () => {
+    if(user && ready && authenticated) {
+      router.push(`/receive`);
+    }
+  }
+
   const copyToClipboard = async (text: string) => {
     await navigator.clipboard.writeText(text);
   };
@@ -166,7 +172,7 @@ const Home = () => {
                     className={`${styles.actionButton} ${styles.receiveButton}`}
                     onClick={() => {
                       vibrate("medium");
-                      navigateToAllTokens("receive");
+                      navigateToReceive();
                     }}
                   >
                     <span

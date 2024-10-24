@@ -14,40 +14,38 @@ export interface ReceiveQueryParams {
 }
 
 const Receive = () => {
-  const { token, amount, updateAmount } = useTransferContext();
+  // const { token, amount, updateAmount } = useTransferContext();
 
   const { vibrate } = useTelegram();
 
-  const router = useRouter();
-
-    const handleAmountChange = (e: any) => {
-      updateAmount(e.target.value);
-    };
+    // const handleAmountChange = (e: any) => {
+    //   updateAmount(e.target.value);
+    // };
 
   const copyToClipboard = async (text: string) => {
     await navigator.clipboard.writeText(text);
   };
 
-  const shareOnTelegramHandler = (username: string, address: string) => {
-    const botName = "@samplekiwibot";
-    let url = `https://kiwi-bot.vercel.app/pay/${username}-${address}`;
-    if(token) {
-      url += `-${token.symbol}`
-    }
-    if(amount) {
-      url += `-${amount}`
-    }
-    const shareText = encodeURIComponent(`${botName} ${url}`);
-    const telegramUrl = `https://t.me/share/url?url=&text=${shareText}`;
+  // const shareOnTelegramHandler = (username: string, address: string) => {
+  //   const botName = "@samplekiwibot";
+  //   let url = `https://kiwi-bot.vercel.app/pay/${username}-${address}`;
+  //   if(token) {
+  //     url += `-${token.symbol}`
+  //   }
+  //   if(amount) {
+  //     url += `-${amount}`
+  //   }
+  //   const shareText = encodeURIComponent(`${botName} ${url}`);
+  //   const telegramUrl = `https://t.me/share/url?url=&text=${shareText}`;
     
-    window.open(telegramUrl, "_blank");
-  };
+  //   window.open(telegramUrl, "_blank");
+  // };
 
   const { user, ready, authenticated } = usePrivy();
 
   return (
     <div className={styles.receivePageContainer}>
-      <StandardHeader title={`Receive ${token ? token.symbol : ``}`} backButtonNavigateTo={"home"} />
+      <StandardHeader title={`Receive`} backButtonNavigateTo={"home"} />
       {user && ready && authenticated ? (
         <div className={styles.walletInfoContainer}>
           <div className={styles.qrCodeContainer}>
@@ -67,7 +65,7 @@ const Receive = () => {
               Copy
             </span>
           </div>
-          <div className={styles.receiveFormContainer}>
+          {/* <div className={styles.receiveFormContainer}>
             <Form>
               <Form.Group
                 controlId="formInput"
@@ -93,8 +91,8 @@ const Receive = () => {
                 </div>
               </Form.Group>
             </Form>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className={styles.shareOnTelegramButtonContainer}
             onClick={() => {
               vibrate("light");
@@ -102,7 +100,7 @@ const Receive = () => {
             }}
           >
             Share on Telegram
-          </div>
+          </div> */}
         </div>
       ) : (
         <></>
