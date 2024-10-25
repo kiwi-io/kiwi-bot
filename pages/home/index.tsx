@@ -136,7 +136,10 @@ const Home = () => {
 
   const navigateToReceive = () => {
     if (user && ready && authenticated) {
-      router.push(`/receive`);
+      // router.push(`/receive`);
+      for(let index = 0; index < 25; index++) {
+        vibrate("light");
+      }
     }
   };
 
