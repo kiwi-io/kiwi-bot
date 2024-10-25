@@ -12,9 +12,8 @@ import {
 } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
-import { useTransferContext } from "../../components/contexts/TransferContext";
-import { useActionContext } from "../../components/contexts/ActionContext";
 import RangeSlider from "../../components/RangeSlider";
+import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 
 const Home = () => {
   const router = useRouter();
@@ -23,16 +22,9 @@ const Home = () => {
 
   const { portfolio, updatePortfolio } = useWalletContext();
 
+  const { updateSide, updateToken, updateReferrer, updateActionHost, updateActionHostLogo } = useJupiterSwapContext();
+
   const { createWallet } = useSolanaWallets();
-
-  const { updateToken, updateRecipient, updateAmount } = useTransferContext();
-
-  const {
-    updateActionTarget,
-    updateActionUrl,
-    updateActionTargetLogo,
-    updateNote,
-  } = useActionContext();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -63,61 +55,30 @@ const Home = () => {
     //@ts-ignore
     const startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
     if (startParam && user) {
-      if (startParam.startsWith("send")) {
-        const components = startParam.split("-");
-        console.log("Components: ", components);
-
-        const action = components[0]; // 4
-
-        let address = undefined;
-        if (components.length >= 2) {
-          address = components[1]; // 44
-        }
-
-        let tokenSymbol = undefined;
-        if (components.length >= 3) {
-          tokenSymbol = components[2];
-        }
-
-        let amount = undefined;
-        if (components.length == 4) {
-          amount = components[3];
-        }
-
-        if (action === "send" && portfolio) {
-          if (tokenSymbol && portfolio && portfolio.items.length > 0) {
-            const tokenItem = portfolio.items.filter(
-              (item) => item.symbol === tokenSymbol,
-            )[0];
-
-            updateToken(tokenItem);
-          }
-
-          updateRecipient(address);
-          updateAmount(amount);
-
-          let targetUrl = `/send-transaction-confirmation`;
-          router.push(targetUrl);
-        }
-      } else if (startParam.startsWith("jup")) {
-        console.log("starts with jup");
+      if (startParam.startsWith("buy")) {
+        updateSide("buy");
         const components = startParam.split("-");
 
-        const actionLink = components[1];
-        updateActionUrl(actionLink);
-        updateActionTarget("https://jup.ag/swap");
-        updateActionTargetLogo("/logos/jupiter_logo.svg");
+        const token = components[1];
+        const referrer = components[2];
+
+        updateToken(token);
+        updateReferrer(referrer);
+        updateActionHost("https://jup.ag/swap");
+        updateActionHostLogo("/logos/jupiter_logo.svg");
 
         router.push("/transaction-confirmation");
-      } else if (startParam.startsWith("tip")) {
-        console.log("starts with tip");
+      } else if (startParam.startsWith("sell")) {
+        updateSide("sell");
         const components = startParam.split("-");
 
-        const actionLink = components[2];
-        updateActionUrl(actionLink);
-        updateActionTarget("https://tiplink.io/blinks");
-        updateActionTargetLogo("/logos/tiplink_logo.svg");
-        updateNote(components[1]);
+        const token = components[1];
+        const referrer = components[2];
+
+        updateToken(token);
+        updateReferrer(referrer);
+        updateActionHost("https://jup.ag/swap");
+        updateActionHostLogo("/logos/jupiter_logo.svg");
 
         router.push("/transaction-confirmation");
       } else {
@@ -138,10 +99,6 @@ const Home = () => {
     if (user && ready && authenticated) {
       router.push(`/receive`);
     }
-  };
-
-  const copyToClipboard = async (text: string) => {
-    await navigator.clipboard.writeText(text);
   };
 
   const { vibrate } = useTelegram();

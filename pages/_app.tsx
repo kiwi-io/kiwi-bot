@@ -4,7 +4,7 @@ import Head from "next/head";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { WalletContextProvider } from "../components/contexts";
 import { TransferContextProvider } from "../components/contexts/TransferContext";
-import { ActionContextProvider } from "../components/contexts/ActionContext";
+import { JupiterSwapContextProvider } from "../components/contexts/JupiterSwapContext";
 import { Analytics } from "@vercel/analytics/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       />
       <WalletContextProvider>
         <TransferContextProvider>
-          <ActionContextProvider>
+          <JupiterSwapContextProvider>
             <PrivyProvider
               appId={process.env.NEXT_PRIVY_APP_ID || ""}
               config={{
@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <Component {...pageProps} />
               <Analytics />
             </PrivyProvider>
-          </ActionContextProvider>
+          </JupiterSwapContextProvider>
         </TransferContextProvider>
       </WalletContextProvider>
     </>

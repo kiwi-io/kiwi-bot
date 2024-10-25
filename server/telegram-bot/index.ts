@@ -8,6 +8,7 @@ const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 // Inline query handler for URLs
 bot.on("inline_query", async (ctx) => {
   const queryText = ctx.inlineQuery.query;
+  const userId = ctx.from.id;
 
   try {
     // Render jupiter swap flow
@@ -34,10 +35,10 @@ bot.on("inline_query", async (ctx) => {
     //   }
     // });
 
-    let inline_url = `https://t.me/samplekiwibot/bot?mode=compact`;
-    keyboard.url(`BUY`, inline_url).row();
-    keyboard.url(`SELL`, inline_url).row();
-
+    let buyInlineUrl = `https://t.me/samplekiwibot/bot?startapp=buy-${address}-${userId}&mode=compact`;
+    let sellInlineUrl = `https://t.me/samplekiwibot/bot?startapp=sell-${address}-${userId}&mode=compact`;
+    keyboard.url(`BUY`, buyInlineUrl).row();
+    keyboard.url(`SELL`, sellInlineUrl).row();
 
     const response = await axios.get(
       `https://public-api.birdeye.so/defi/token_overview?address=${address}`,
@@ -52,34 +53,34 @@ bot.on("inline_query", async (ctx) => {
     const logoUri = response.data.data["logoURI"];
     const symbol = response.data.data["symbol"];
 
-    ctx.answerInlineQuery([
-      {
-        type: "photo",
-        id: "1",
-        photo_url: logoUri,
-        thumbnail_url: `https://i.ibb.co/6vHYGBg/Kiwi-Logo.png`,
-        title: `Refer trades on ${symbol} & earn 50% trading fees`,
-        description: `Refer trades on ${symbol} & earn 50% trading fees`,
-        caption: `Trade ${symbol} with SOL using Kiwi`,
-        parse_mode: "HTML",
-        reply_markup: keyboard,
-      },
-    ]);
-
     // ctx.answerInlineQuery([
     //   {
-    //     type: "article",
+    //     type: "photo",
     //     id: "1",
-    //     title: `Trade ${symbol} with SOL using Kiwi`,
-    //     description: `Trade ${symbol} with SOL using Kiwi`,
-    //     input_message_content: {
-    //       message_text: `InputMessageContext - Trade ${symbol} with SOL using Kiwi`,
-    //       parse_mode: "HTML"
-    //     },
-    //     thumbnail_url: logoUri,
+    //     photo_url: logoUri,
+    //     thumbnail_url: `https://i.ibb.co/6vHYGBg/Kiwi-Logo.png`,
+    //     title: `Refer trades on ${symbol} & earn 50% trading fees`,
+    //     description: `Refer trades on ${symbol} & earn 50% trading fees`,
+    //     caption: `Trade ${symbol} with SOL using Kiwi`,
+    //     parse_mode: "HTML",
     //     reply_markup: keyboard,
     //   },
     // ]);
+
+    ctx.answerInlineQuery([
+      {
+        type: "article",
+        id: "1",
+        title: `Trade ${symbol} with SOL using Kiwi`,
+        description: `Trade ${symbol} with SOL using Kiwi`,
+        input_message_content: {
+          message_text: `Trade ${symbol} with SOL using Kiwi`,
+          parse_mode: "HTML"
+        },
+        thumbnail_url: logoUri,
+        reply_markup: keyboard,
+      },
+    ]);
   } catch (err) {
     await ctx.answerInlineQuery([
       {
