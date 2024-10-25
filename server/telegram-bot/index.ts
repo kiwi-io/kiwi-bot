@@ -70,10 +70,10 @@ bot.on("inline_query", async (ctx) => {
       {
         type: "article",
         id: "1",
-        title: `Title - Trade ${symbol} with SOL using Kiwi`,
-        description: `Description - Trade ${symbol} with SOL using Kiwi`,
+        title: `Trade ${symbol} with SOL using Kiwi`,
+        description: `Trade ${symbol} with SOL using Kiwi`,
         input_message_content: {
-          message_text: `Input message context - Trade ${symbol} with SOL using Kiwi`,
+          message_text: `<div><img src=${logoUri}/></div>`,
           parse_mode: "HTML"
         },
         thumbnail_url: logoUri,
