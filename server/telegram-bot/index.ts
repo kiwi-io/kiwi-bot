@@ -52,34 +52,34 @@ bot.on("inline_query", async (ctx) => {
     const logoUri = response.data.data["logoURI"];
     const symbol = response.data.data["symbol"];
 
-    // ctx.answerInlineQuery([
-    //   {
-    //     type: "photo",
-    //     id: "1",
-    //     photo_url: logoUri,
-    //     thumbnail_url: logoUri,
-    //     title: `Title - Trade ${symbol} with SOL using Kiwi`,
-    //     description: `Description - Trade ${symbol} with SOL using Kiwi`,
-    //     caption: `Caption - Trade ${symbol} with SOL using Kiwi`,
-    //     parse_mode: "HTML",
-    //     reply_markup: keyboard,
-    //   },
-    // ]);
-
     ctx.answerInlineQuery([
       {
-        type: "article",
+        type: "photo",
         id: "1",
-        title: `Trade ${symbol} with SOL using Kiwi`,
-        description: `Trade ${symbol} with SOL using Kiwi`,
-        input_message_content: {
-          message_text: `InputMessageContext - Trade ${symbol} with SOL using Kiwi`,
-          parse_mode: "HTML"
-        },
-        thumbnail_url: logoUri,
+        photo_url: logoUri,
+        thumbnail_url: `https://i.ibb.co/6vHYGBg/Kiwi-Logo.png`,
+        title: `Refer trades on ${symbol} & earn 50% trading fees`,
+        description: `Refer trades on ${symbol} & earn 50% trading fees`,
+        caption: `Trade ${symbol} with SOL using Kiwi`,
+        parse_mode: "HTML",
         reply_markup: keyboard,
       },
     ]);
+
+    // ctx.answerInlineQuery([
+    //   {
+    //     type: "article",
+    //     id: "1",
+    //     title: `Trade ${symbol} with SOL using Kiwi`,
+    //     description: `Trade ${symbol} with SOL using Kiwi`,
+    //     input_message_content: {
+    //       message_text: `InputMessageContext - Trade ${symbol} with SOL using Kiwi`,
+    //       parse_mode: "HTML"
+    //     },
+    //     thumbnail_url: logoUri,
+    //     reply_markup: keyboard,
+    //   },
+    // ]);
   } catch (err) {
     await ctx.answerInlineQuery([
       {
