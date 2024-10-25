@@ -14,6 +14,7 @@ import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
 import { useTransferContext } from "../../components/contexts/TransferContext";
 import { useActionContext } from "../../components/contexts/ActionContext";
+import RangeSlider from "../../components/RangeSlider";
 
 const Home = () => {
   const router = useRouter();
@@ -217,6 +218,9 @@ const Home = () => {
                 </div> */}
               </div>
             </div>
+          </div>
+          <div>
+            <RangeSlider min={0} max={100} step={20}/>
           </div>
           {portfolio ? (
             <div className={styles.tokensOuterContainer}>
