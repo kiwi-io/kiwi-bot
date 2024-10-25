@@ -58,9 +58,9 @@ bot.on("inline_query", async (ctx) => {
         id: "1",
         photo_url: logoUri,
         thumbnail_url: logoUri,
-        title: `Trade ${symbol} with SOL using Kiwi`,
-        description: `Trade ${symbol} with SOL using Kiwi`,
-        caption: `Trade ${symbol} with SOL using Kiwi`,
+        title: `Title - Trade ${symbol} with SOL using Kiwi`,
+        description: `Description - Trade ${symbol} with SOL using Kiwi`,
+        caption: `Caption - Trade ${symbol} with SOL using Kiwi`,
         parse_mode: "HTML",
         reply_markup: keyboard,
       },
@@ -77,6 +77,8 @@ bot.on("inline_query", async (ctx) => {
         },
       },
     ]);
+
+    return;
   }
 });
 
