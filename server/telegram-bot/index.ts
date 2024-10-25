@@ -86,10 +86,13 @@ bot.on("inline_query", async (ctx) => {
         type: "article",
         id: "1",
         title: `Refer trades & earn 50% trading fees`,
-        description: `Paste a token CA and refer trades to your community. You earn 50% trading fees from all volume you generate`,
+        description: `Paste a token CA to refer trades. You earn 50% fees from all volume`,
         input_message_content: {
           message_text: `Error - Refer trades & earn 50% trading fees`,
         },
+        thumbnail_url: `https://i.ibb.co/6vHYGBg/Kiwi-Logo.png`,
+        thumbnail_height: 50,
+        thumbnail_width: 50
       },
     ]);
 
