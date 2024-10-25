@@ -91,8 +91,8 @@ bot.on("inline_query", async (ctx) => {
           message_text: `Error - Refer trades & earn 50% trading fees`,
         },
         thumbnail_url: `https://i.ibb.co/6vHYGBg/Kiwi-Logo.png`,
-        thumbnail_height: 50,
-        thumbnail_width: 50
+        thumbnail_height: 30,
+        thumbnail_width: 30
       },
     ]);
 
