@@ -17,11 +17,11 @@ const RangeSlider = ({
   const { vibrate } = useTelegram();
 
   const handleSliderChange = (e: any) => {
+    vibrate("light");
     setValue(parseFloat(e.target.value));
   };
 
   const handleClickValue = (newValue: any) => {
-    vibrate("light");
     setValue(newValue);
   };
 
