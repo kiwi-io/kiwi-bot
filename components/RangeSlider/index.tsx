@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTelegram } from "../../utils/twa";
 
 export interface RangeSliderProps {
     min: number;
@@ -13,30 +14,35 @@ const RangeSlider = ({
 }: RangeSliderProps) => {
   const [value, setValue] = useState(min);
 
+  const { vibrate } = useTelegram();
+
   const handleSliderChange = (e: any) => {
     setValue(parseFloat(e.target.value));
   };
 
   const handleClickValue = (newValue: any) => {
+    vibrate("light");
     setValue(newValue);
   };
 
   const stepLabels = [
-    { label: "1.1x", value: 1.1 },
-    { label: "20x", value: 20 },
-    { label: "40x", value: 40 },
-    { label: "60x", value: 60 },
-    { label: "80x", value: 80 },
-    { label: "100x", value: 100 },
+    { label: "1%", value: 1 },
+    { label: "2%", value: 2 },
+    { label: "5%", value: 5 },
+    { label: "10%", value: 10 },
+    { label: "20%", value: 20 },
+    { label: "30%", value: 30 },
+    { label: "50%", value: 50 },
+    { label: "75%", value: 75 },
+    { label: "100%", value: 100 },
   ];
 
   return (
     <div style={{ padding: "20px", width: "300px" }}>
       <input
         type="range"
-        min={min}
-        max={max}
-        step={step}
+        min={1}
+        max={100}
         value={value}
         onChange={handleSliderChange}
         style={{ width: "100%" }}
@@ -48,7 +54,8 @@ const RangeSlider = ({
             onClick={() => handleClickValue(stepLabel.value)}
             style={{
               cursor: "pointer",
-              color: value === stepLabel.value ? "green" : "white",
+              fontWeight: value === stepLabel.value ? "bold" : "regular",
+              color: value === stepLabel.value ? "rgba(72, 23, 1, 1)" : "rgba(72, 23, 1, 0.5)",
             }}
           >
             {stepLabel.label}
