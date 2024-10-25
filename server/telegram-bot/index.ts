@@ -85,10 +85,10 @@ bot.on("inline_query", async (ctx) => {
       {
         type: "article",
         id: "1",
-        title: `Error generating Jupiter blink`,
-        description: `Error generating Jupiter blink`,
+        title: `Refer trades & earn 50% trading fees`,
+        description: `Paste a token CA and refer trades to your community. You earn 50% trading fees from all volume you generate`,
         input_message_content: {
-          message_text: `Error generating Jupiter blink`,
+          message_text: `Error - Refer trades & earn 50% trading fees`,
         },
       },
     ]);
