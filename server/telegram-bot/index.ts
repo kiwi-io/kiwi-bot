@@ -73,7 +73,7 @@ bot.on("inline_query", async (ctx) => {
         title: `Trade ${symbol} with SOL using Kiwi`,
         description: `Trade ${symbol} with SOL using Kiwi`,
         input_message_content: {
-          message_text: `<div><img src=${logoUri}/></div>`,
+          message_text: `InputMessageContext - Trade ${symbol} with SOL using Kiwi`,
           parse_mode: "HTML"
         },
         thumbnail_url: logoUri,
