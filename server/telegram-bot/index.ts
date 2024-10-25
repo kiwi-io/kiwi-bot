@@ -52,16 +52,31 @@ bot.on("inline_query", async (ctx) => {
     const logoUri = response.data.data["logoURI"];
     const symbol = response.data.data["symbol"];
 
+    // ctx.answerInlineQuery([
+    //   {
+    //     type: "photo",
+    //     id: "1",
+    //     photo_url: logoUri,
+    //     thumbnail_url: logoUri,
+    //     title: `Title - Trade ${symbol} with SOL using Kiwi`,
+    //     description: `Description - Trade ${symbol} with SOL using Kiwi`,
+    //     caption: `Caption - Trade ${symbol} with SOL using Kiwi`,
+    //     parse_mode: "HTML",
+    //     reply_markup: keyboard,
+    //   },
+    // ]);
+
     ctx.answerInlineQuery([
       {
-        type: "photo",
+        type: "article",
         id: "1",
-        photo_url: logoUri,
-        thumbnail_url: logoUri,
         title: `Title - Trade ${symbol} with SOL using Kiwi`,
         description: `Description - Trade ${symbol} with SOL using Kiwi`,
-        caption: `Caption - Trade ${symbol} with SOL using Kiwi`,
-        parse_mode: "HTML",
+        input_message_content: {
+          message_text: `Input message context - Trade ${symbol} with SOL using Kiwi`,
+          parse_mode: "HTML"
+        },
+        thumbnail_url: logoUri,
         reply_markup: keyboard,
       },
     ]);
