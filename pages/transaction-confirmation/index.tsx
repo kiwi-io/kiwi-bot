@@ -17,7 +17,7 @@ export interface TransactionConfirmationParams {
 const TransactionConfirmation = () => {
   const router = useRouter();
 
-  const { side, token, tokenData, referrer, actionHost, actionHostLogo } = useJupiterSwapContext();
+  const { side, tokenIn, tokenOut, tokenInData, tokenOutData, referrer, actionHost, actionHostLogo } = useJupiterSwapContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { vibrate, closeApp } = useTelegram();
@@ -92,7 +92,7 @@ const TransactionConfirmation = () => {
     <div className={styles.mainTransactionConfirmationContainer}>
       <div className={styles.transactionConfirmationHeaderContainer}>
         <StandardHeader
-          title={`${side === "buy" ? `Buy ` : `Sell `} ${tokenData ? tokenData.symbol : ``}`}
+          title={`${side === "buy" ? `Buy ${tokenInData ? tokenInData.symbol : ``}` : `Sell ${tokenOutData ? tokenOutData.symbol : ``}`}`}
           backButtonNavigateTo={"home"}
           backButtonHide={true}
         />
@@ -120,25 +120,33 @@ const TransactionConfirmation = () => {
             <div className={styles.keyContainer}>
               <div className={styles.tokenDetailContainer}>
                 <Image
-                  src={`https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png`}
+                  src={`${tokenOutData ? tokenOutData.logoURI : ``}`}
                   width={25}
                   height={25}
-                  alt={`SOL img`}
+                  alt={`${tokenOutData ? tokenOutData.symbol : ``} img`}
                   className={styles.actionTargetLogo}
                 />
-                <div className={styles.tokenDetailText}>SOL</div>
+                <div className={styles.tokenDetailText}>
+                  {
+                    tokenOutData ? tokenOutData.symbol : ``
+                  }
+                </div>
               </div>
             </div>
             <div className={styles.valueContainer}>
-              <div className={styles.tokenDetailContainer}>
+            <div className={styles.tokenDetailContainer}>
                 <Image
-                  src={`https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png`}
+                  src={`${tokenInData ? tokenInData.logoURI : ``}`}
                   width={25}
                   height={25}
-                  alt={`SOL img`}
+                  alt={`${tokenInData ? tokenInData.symbol : ``} img`}
                   className={styles.actionTargetLogo}
                 />
-                <div className={styles.tokenDetailText}>SOL</div>
+                <div className={styles.tokenDetailText}>
+                  {
+                    tokenInData ? tokenInData.symbol : ``
+                  }
+                </div>
               </div>
             </div>
           </div>

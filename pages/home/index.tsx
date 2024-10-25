@@ -22,7 +22,7 @@ const Home = () => {
 
   const { portfolio, updatePortfolio } = useWalletContext();
 
-  const { updateSide, updateToken, updateReferrer, updateActionHost, updateActionHostLogo } = useJupiterSwapContext();
+  const { updateSide, updateTokenIn, updateTokenOut, updateReferrer, updateActionHost, updateActionHostLogo } = useJupiterSwapContext();
 
   const { createWallet } = useSolanaWallets();
 
@@ -62,7 +62,8 @@ const Home = () => {
         const token = components[1];
         const referrer = components[2];
 
-        updateToken(token);
+        updateTokenIn(token);
+        updateTokenOut(`So11111111111111111111111111111111111111112`);
         updateReferrer(referrer);
         updateActionHost("https://jup.ag/swap");
         updateActionHostLogo("/logos/jupiter_logo.svg");
@@ -75,7 +76,8 @@ const Home = () => {
         const token = components[1];
         const referrer = components[2];
 
-        updateToken(token);
+        updateTokenIn(`So11111111111111111111111111111111111111112`);
+        updateTokenOut(token);
         updateReferrer(referrer);
         updateActionHost("https://jup.ag/swap");
         updateActionHostLogo("/logos/jupiter_logo.svg");

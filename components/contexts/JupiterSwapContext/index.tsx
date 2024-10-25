@@ -6,14 +6,24 @@ export type Side = "buy" | "sell";
 
 interface JupiterSwapContextType {
   side: Side;
-  token: string;
-  tokenData: TokenData;
+  tokenIn: string;
+  tokenOut: string;
+  
+  quantityIn: string;
+  quantityOut: string;
+
+  tokenInData: TokenData;
+  tokenOutData: TokenData;
+
   referrer: string;
   actionHost: string;
   actionHostLogo: string;
   
   updateSide: (side: Side) => void;
-  updateToken: (token: string) => Promise<void>;
+  updateTokenIn: (token: string) => Promise<void>;
+  updateTokenOut: (token: string) => Promise<void>;
+  updateQuantityIn: (quantity: string) => Promise<void>;
+  updateQuantityOut: (quantity: string) => Promise<void>;
   updateReferrer: (referrer: string) => void;
   updateActionHost: (actionHost: string) => void;
   updateActionHostLogo: (actionHostLogo: string) => void; 
@@ -35,8 +45,12 @@ export const useJupiterSwapContext = () => {
 export const JupiterSwapContextProvider = ({ children }) => {
 
   const [side, setSide] = useState<Side>("buy");
-  const [token, setToken] = useState<string>("");
-  const [tokenData, setTokenData] = useState<TokenData>();
+  const [tokenIn, setTokenIn] = useState<string>("");
+  const [tokenOut, setTokenOut] = useState<string>("");
+  const [quantityIn, setQuantityIn] = useState<string>("");
+  const [quantityOut, setQuantityOut] = useState<string>("");
+  const [tokenInData, setTokenInData] = useState<TokenData>();
+  const [tokenOutData, setTokenOutData] = useState<TokenData>();
   const [referrer, setReferrer] = useState<string>("");
   const [actionHost, setActionHost] = useState<string>("");
   const [actionHostLogo, setActionHostLogo] = useState<string>("");
@@ -45,17 +59,38 @@ export const JupiterSwapContextProvider = ({ children }) => {
     setSide((_) => side);
   }
 
-  const updateToken = async (token: string) => {
+  const updateTokenIn = async (token: string) => {
     try {
         const tokenDataRes = await getToken(token);
-        setTokenData((_) => tokenDataRes);
+        setTokenInData((_) => tokenDataRes);
     }
     catch(err) {
-        console.log("Error getting token data: ", token);
-        setTokenData((_) => null);
+        console.log("Error getting tokenIn data: ", token);
+        setTokenInData((_) => null);
     }
 
-    setToken((_) => token);
+    setTokenIn((_) => tokenIn);
+  }
+
+  const updateTokenOut = async (token: string) => {
+    try {
+        const tokenDataRes = await getToken(token);
+        setTokenOutData((_) => tokenDataRes);
+    }
+    catch(err) {
+        console.log("Error getting tokenIn data: ", token);
+        setTokenOutData((_) => null);
+    }
+
+    setTokenOut((_) => tokenOut);
+  }
+
+  const updateQuantityIn = (quantity: string) => {
+    setQuantityIn((_) => quantity);
+  }
+
+  const updateQuantityOut = (quantity: string) => {
+    setQuantityOut((_) => quantity);
   }
 
   const updateReferrer = (referrer: string) => {
@@ -72,13 +107,24 @@ export const JupiterSwapContextProvider = ({ children }) => {
 
   const value = {
     side,
-    token,
-    tokenData,
+
+    tokenIn,
+    tokenOut,
+    
+    quantityIn,
+    quantityOut,
+
+    tokenInData,
+    tokenOutData,
+
     referrer,
     actionHost,
     actionHostLogo,
     updateSide,
-    updateToken,
+    updateTokenIn,
+    updateTokenOut,
+    updateQuantityIn,
+    updateQuantityOut,
     updateReferrer,
     updateActionHost,
     updateActionHostLogo
