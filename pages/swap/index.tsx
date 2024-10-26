@@ -2,11 +2,22 @@ import React, { useState } from "react";
 import styles from "./swap.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useTelegram } from "../../utils/twa";
+import { delay } from "../../utils";
 
 const Swap = () => {
 
   const [swapButtonText, setSwapButtonText] = useState<string>("Swap");
+  const [isSwapExecuting, setIsSwapExecuting] = useState<boolean>(false);
+
   const { vibrate } = useTelegram();
+
+  const performSwapAction = async() => {
+    vibrate("soft");
+    setIsSwapExecuting((_) => true);
+    await delay(3_000);
+    setIsSwapExecuting((_) => false);
+    vibrate("success");
+  }
 
   return (
     <div className={styles.swapPageContainer}>
@@ -39,11 +50,15 @@ const Swap = () => {
             className={styles.swapButtonContainer}
             onClick = {
               () => {
-                vibrate("soft");
+                performSwapAction();
               }
             }
           >
-            {swapButtonText}
+            {isSwapExecuting ? (
+              <div className={styles.loader}></div>
+            ) : (
+              <div>{swapButtonText}</div>
+            )}
           </div>
         </div>
       </div>

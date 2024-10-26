@@ -34,7 +34,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  font-weight: 600;
+  color: #481801;
 }
 
 .numKeyContainer {
@@ -67,7 +67,26 @@
   border: none;
   border-radius: 0.25rem;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.5rem;
   background-color: #ff9d00;
   color: #481801;
+}
+
+.loader {
+  border: 4px solid #481801;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  /* margin-top: 1rem; */
+  animation: spin 1.25s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
