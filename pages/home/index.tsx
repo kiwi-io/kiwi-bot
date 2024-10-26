@@ -68,7 +68,8 @@ const Home = () => {
         updateActionHost("https://jup.ag/swap");
         updateActionHostLogo("/logos/jupiter_logo.svg");
 
-        router.push("/transaction-confirmation");
+        // router.push("/transaction-confirmation");
+        router.push("/swap");
       } else if (startParam.startsWith("sell")) {
         updateSide("sell");
         const components = startParam.split("-");
