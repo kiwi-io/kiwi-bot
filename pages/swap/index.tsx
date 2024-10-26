@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button, Image, InputGroup, FormControl } from 'react-bootstrap';
 import { FaCog, FaArrowDown } from 'react-icons/fa';
-import './SwapPage.css';
+import "./swap.module.css";
 
 const SwapPage: React.FC = () => {
   return (
