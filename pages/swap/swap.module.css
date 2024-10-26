@@ -34,3 +34,16 @@
   height: 100px;
 }
 
+.numKeypadContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.numKeyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  margin: 1rem;
+}
