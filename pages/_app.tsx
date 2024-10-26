@@ -6,8 +6,20 @@ import { WalletContextProvider } from "../components/contexts";
 import { TransferContextProvider } from "../components/contexts/TransferContext";
 import { JupiterSwapContextProvider } from "../components/contexts/JupiterSwapContext";
 import { Analytics } from "@vercel/analytics/react";
+import { useTelegram } from "../utils/twa";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { disableVerticalSwipe } = useTelegram();
+
+  useEffect(() => {
+    const doStuff = () => {
+      disableVerticalSwipe();
+    }
+
+    doStuff();
+  }, []);
+  
   return (
     <>
       <Head>
