@@ -44,8 +44,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 1rem;
+  padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   font-size: 2rem;
   width: 33%
+}
+
+.swapButtonContainer {
+  width: 100%;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  font-size: 1.25rem;
+  background-color: #ff9d00;
 }
