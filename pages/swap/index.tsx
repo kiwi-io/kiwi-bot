@@ -36,15 +36,15 @@ const Swap = () => {
               })
             }
           </div>
-          <div className={styles.swapButtonContainer}>
-            <Button
-              className={styles.swapButton}
-              onClick = {
-                () => {
-                  vibrate("soft");
-                }
+          <div
+            className={styles.swapButtonContainer}
+            onClick = {
+              () => {
+                vibrate("soft");
               }
-            >{swapButtonText}</Button>
+            }
+          >
+            {swapButtonText}
           </div>
         </div>
       </div>

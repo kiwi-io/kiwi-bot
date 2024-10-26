@@ -51,6 +51,12 @@
   width: 33%
 }
 
+.numKeyContainer:active {
+  outline: none;
+  background-color: inherit;
+  color: inherit;
+}
+
 .swapButtonContainer {
   width: 100%;
   margin-top: 1rem;
@@ -61,4 +67,5 @@
   font-weight: bold;
   font-size: 1.25rem;
   background-color: #ff9d00;
+  color: #481801;
 }
