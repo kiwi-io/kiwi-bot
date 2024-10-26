@@ -6,6 +6,14 @@ const Swap = () => {
   return (
     <div className={styles.swapPageContainer}>
       <StandardHeader title={`Trade`} backButtonNavigateTo={"home"} backButtonHide={true}/>
+      <div className={styles.swapComponentsContainer}>
+        <div className={styles.swapFormContainer}>
+          
+        </div>
+        <div className={styles.swapInputContainer}>
+
+        </div>
+      </div>
     </div>
   )
 }

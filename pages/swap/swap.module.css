@@ -6,3 +6,23 @@
   padding: 1.5rem;
   box-sizing: border-box;
 }
+
+.swapComponentsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.swapFormContainer {
+  width: 100%;
+  background-color: red;
+  height: 200px;
+}
+
+.swapInputContainer {
+  width: 100%;
+  background-color: green;
+  height: 400px;
+}
+

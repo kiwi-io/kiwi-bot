@@ -12,7 +12,6 @@ import {
 } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
-import RangeSlider from "../../components/RangeSlider";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 
 const Home = () => {
@@ -179,9 +178,6 @@ const Home = () => {
                 </div> */}
               </div>
             </div>
-          </div>
-          <div>
-            <RangeSlider min={0} max={100} step={20}/>
           </div>
           {portfolio ? (
             <div className={styles.tokensOuterContainer}>
