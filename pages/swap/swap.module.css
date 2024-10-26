@@ -51,13 +51,19 @@
   width: 33%
 }
 
-.numKeyContainer:active {
+.numKeyContainer:active,
+.numKeyContainer:focus,
+.numKeyContainer:hover
+ {
   outline: none;
   background-color: inherit;
   color: inherit;
 }
 
 .swapButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   margin-top: 1rem;
   padding-top: 0.75rem;
