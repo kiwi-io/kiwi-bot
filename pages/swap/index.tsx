@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./swap.module.css";
 import StandardHeader from "../../components/StandardHeader";
-import { Button } from "react-bootstrap";
 import { useTelegram } from "../../utils/twa";
 
 const Swap = () => {

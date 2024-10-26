@@ -6,7 +6,6 @@
   padding: 1.5rem;
   padding-top: 1rem;
   box-sizing: border-box;
-  background-color: yellow;
   justify-content: center;
 }
 
@@ -19,18 +18,15 @@
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
   box-sizing: border-box;
-  background-color: cyan;
 }
 
 .swapFormContainer {
   width: 100%;
-  background-color: red;
   height: 100px;
 }
 
 .swapInputContainer {
   width: 100%;
-  background-color: green;
 }
 
 .numKeypadContainer {
@@ -71,7 +67,7 @@
   border: none;
   border-radius: 0.25rem;
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 2rem;
   background-color: #ff9d00;
   color: #481801;
 }
