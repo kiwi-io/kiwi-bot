@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vw;
+  height: 100vh;
   padding: 1.5rem;
   padding-top: 1rem;
   box-sizing: border-box;
@@ -14,7 +14,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 500px;
+  height: 100%;
 }
 
 .swapFormContainer {
@@ -26,6 +26,6 @@
 .swapInputContainer {
   width: 100%;
   background-color: green;
-  height: 200px;
+  height: 100px;
 }
 
