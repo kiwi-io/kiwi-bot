@@ -12,17 +12,18 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  height: 500px;
 }
 
 .swapFormContainer {
   width: 100%;
   background-color: red;
-  height: 200px;
+  height: 100px;
 }
 
 .swapInputContainer {
   width: 100%;
   background-color: green;
-  height: 400px;
+  height: 200px;
 }
 
