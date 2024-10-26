@@ -31,13 +31,13 @@
 .swapInputContainer {
   width: 100%;
   background-color: green;
-  height: 100px;
 }
 
 .numKeypadContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .numKeyContainer {
@@ -46,4 +46,5 @@
   align-items: center;
   font-size: 1.25rem;
   margin: 1rem;
+  width: 33%
 }
