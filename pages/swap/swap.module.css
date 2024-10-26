@@ -1,0 +1,94 @@
+/* SwapPage.css */
+
+.swap-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #000;
+    color: #fff;
+  }
+  
+  .swap-header {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .swap-header span {
+    color: #6c757d;
+  }
+  
+  .swap-header .settings-icon {
+    color: #6c757d;
+    padding: 0;
+  }
+  
+  .swap-box {
+    width: 100%;
+    max-width: 20rem;
+    background-color: #343a40;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .swap-box .amount-input {
+    font-size: 2rem;
+    color: #fff;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+  }
+  
+  .swap-box .eth-icon-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .swap-box .eth-icon-container img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .swap-box .max-button {
+    color: #6c757d;
+    padding: 0;
+  }
+  
+  .swap-arrow-button {
+    background-color: #212529;
+    border-radius: 50%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .number-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 20rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .number-pad button {
+    font-size: 1.5rem;
+    color: #fff;
+    background-color: #343a40;
+    border: none;
+    padding: 1rem;
+  }
+  
+  .select-token-button {
+    background-color: #e91e63;
+    color: #fff;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  
+  .footer-select-token {
+    color: #6c757d;
+  }
+  
