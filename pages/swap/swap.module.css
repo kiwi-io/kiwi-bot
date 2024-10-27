@@ -1,4 +1,4 @@
-.swapPageContainer {
+ .swapPageContainer {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -45,15 +45,20 @@
   background-color: blue;
   display: flex;
   justify-content: flex-start;
+  padding: 0.5rem;
 }
 
 .outTokenQuantityForm {
   font-size: 2rem;
   font-weight: bold;
-  padding: 1rem;
   border: none;
   background-color: transparent;
   color: #481801;
+}
+
+.outTokenDollarQuantityContainer {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
 }
 
 .outTokenInfoContainer {

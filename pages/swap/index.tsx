@@ -4,6 +4,7 @@ import StandardHeader from "../../components/StandardHeader";
 import { useTelegram } from "../../utils/twa";
 import { delay } from "../../utils";
 import { Form } from "react-bootstrap";
+import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 
 const Swap = () => {
 
@@ -29,6 +30,8 @@ const Swap = () => {
   
 
   const { vibrate } = useTelegram();
+
+  const { tokenOutData, tokenInData } = useJupiterSwapContext();
 
   const performSwapAction = async() => {
     vibrate("soft");
@@ -75,6 +78,9 @@ const Swap = () => {
                   readOnly
                 />
               </Form.Group>
+              <div className={styles.outTokenDollarQuantityContainer}>
+                {`$ ${tokenOutData.price.toFixed(3)}`}
+              </div>
             </div>
             <div className={styles.outTokenInfoContainer}>
               SOL

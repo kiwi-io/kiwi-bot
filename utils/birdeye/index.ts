@@ -25,6 +25,7 @@ export interface TokenData {
   extensions: string;
   logoURI: string;
   liquidity: number;
+  price: number;
 }
 
 export interface WalletPortfolio {
