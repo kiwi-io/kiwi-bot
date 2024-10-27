@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./swap.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useTelegram } from "../../utils/twa";
-import { delay } from "../../utils";
+import { delay, getToken, TokenData } from "../../utils";
 import { Form } from "react-bootstrap";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
+import Image from "next/image";
 
 const Swap = () => {
 
@@ -15,6 +16,9 @@ const Swap = () => {
   const inputFieldRef = useRef(null);
 
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
+
+  const [tokenInData, setTokenInData] = useState<TokenData>();
+  const [tokenOutData, setTokenOutData] = useState<TokenData>(); 
 
   const handleKeypadInput = (value: any) => {
     vibrate("soft");
@@ -27,11 +31,10 @@ const Swap = () => {
     vibrate("soft");
     setQuantity((prev) => prev.slice(0, -1));
   }
-  
 
   const { vibrate } = useTelegram();
 
-  const { tokenIn, tokenOut, tokenOutData, tokenInData, updateTokenInData, updateTokenOutData } = useJupiterSwapContext();
+  const { tokenIn, tokenOut } = useJupiterSwapContext();
 
   const performSwapAction = async() => {
     vibrate("soft");
@@ -47,7 +50,6 @@ const Swap = () => {
     }
   }, []);
 
-
   useEffect(() => {
     const doStuff = () => {
       if(quantity.includes(".")) {
@@ -61,19 +63,59 @@ const Swap = () => {
     doStuff();
   }, [quantity]);
 
-  // useEffect(() => {
-  //   const doStuff = async () => {
-  //     if(!tokenInData) {
-  //       await updateTokenInData(tokenIn);
-  //     }
+  useEffect(() => {
+    const doStuff = async () => {
+      const tokenDataRes = await getToken(tokenIn);
+      console.log("tokenIn address: ", tokenDataRes["address"]);
+      console.log("tokenIn decimals: ", tokenDataRes["decimals"]);
+      console.log("tokenIn symbol: ", tokenDataRes["symbol"]);
+      console.log("tokenIn name: ", tokenDataRes["name"]);
+      console.log("tokenIn logoURI: ", tokenDataRes["logoURI"]);
+      console.log("tokenIn liquidity: ", tokenDataRes["liquidity"]);
+      console.log("tokenIn price: ", tokenDataRes["price"]);
 
-  //     if(!tokenOutData) {
-  //       await updateTokenOutData(tokenOut);
-  //     }
-  //   }
+      const td = {
+        address: tokenDataRes["address"],
+        decimals: tokenDataRes["decimals"],
+        symbol: tokenDataRes["symbol"],
+        name: tokenDataRes["name"],
+        logoURI: tokenDataRes["logoURI"],
+        liquidity: tokenDataRes["liquidity"],
+        price: tokenDataRes["price"]
+      } as TokenData;
 
-  //   doStuff();
-  // }, []);
+      setTokenInData((_) => td);
+    }
+
+    doStuff();
+  }, [tokenIn]);
+
+  useEffect(() => {
+    const doStuff = async () => {
+      const tokenDataRes = await getToken(tokenOut);
+      console.log("tokenOut address: ", tokenDataRes["address"]);
+      console.log("tokenOut decimals: ", tokenDataRes["decimals"]);
+      console.log("tokenOut symbol: ", tokenDataRes["symbol"]);
+      console.log("tokenOut name: ", tokenDataRes["name"]);
+      console.log("tokenOut logoURI: ", tokenDataRes["logoURI"]);
+      console.log("tokenOut liquidity: ", tokenDataRes["liquidity"]);
+      console.log("tokenOut price: ", tokenDataRes["price"]);
+
+      const td = {
+        address: tokenDataRes["address"],
+        decimals: tokenDataRes["decimals"],
+        symbol: tokenDataRes["symbol"],
+        name: tokenDataRes["name"],
+        logoURI: tokenDataRes["logoURI"],
+        liquidity: tokenDataRes["liquidity"],
+        price: tokenDataRes["price"]
+      } as TokenData;
+
+      setTokenOutData((_) => td);
+    }
+
+    doStuff();
+  }, [tokenIn]);
 
   return (
     <div className={styles.swapPageContainer}>
@@ -99,7 +141,21 @@ const Swap = () => {
             <div className={styles.outTokenInfoContainer}>
               <div className={styles.outTokenInfo}>
                 <div className={styles.outTokenImageContainer}>
-                  II
+                  {
+                    tokenOutData ?
+                      <Image
+                        src={tokenOutData.logoURI}
+                        width={50}
+                        height={50}
+                        alt={`${tokenOutData ? tokenOutData.symbol : "Token"} img`}
+                        className={styles.tokenImage}
+                      />
+                    :
+                      <>{
+                        tokenOutData ?
+                          tokenOutData.symbol : ``
+                      }</>
+                  }
                 </div>
                 <div className={styles.outTokenSymbolContainer}>
                   SOL
