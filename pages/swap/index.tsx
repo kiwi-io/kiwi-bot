@@ -151,14 +151,14 @@ const Swap = () => {
                         className={styles.tokenImage}
                       />
                     :
-                      <>{
-                        tokenOutData ?
-                          tokenOutData.symbol : ``
-                      }</>
+                      <></>
                   }
                 </div>
                 <div className={styles.outTokenSymbolContainer}>
-                  SOL
+                  {
+                    tokenOutData ?
+                      tokenOutData.symbol : ``
+                  }
                 </div>
               </div>
             </div>
