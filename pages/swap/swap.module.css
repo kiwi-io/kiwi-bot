@@ -33,26 +33,26 @@
   width: 100%;
   background-color: red;
   border-radius: 0.5rem;
-  height: 75px;
+  height: 100px;
 }
 
 .swapIconContainer {
-  margin-top: -1rem;
+  margin-top: -0.75rem;
   z-index: 1000;
   font-size: 1rem;
   color: #481801;
-  padding: 0.5rem;
+  padding: 0.75rem;
   background-color: cyan;
   border-radius: 0.1rem;
 }
 
 .swapInTokenContainer {
-  margin-top: -1rem;
+  margin-top: -0.75rem;
   display: flex;
   width: 100%;
   background-color: yellow;
   border-radius: 0.5rem;
-  height: 50px;
+  height: 75px;
 }
 
 .swapInputContainer {
