@@ -66,7 +66,6 @@
   background-color: green;
   display: flex;
   justify-content: flex-end;
-  padding: 0.5rem;
 }
 
 .outTokenInfo {
@@ -79,9 +78,7 @@
 }
 
 .tokenImage {
-  margin-top: 0.5rem;
   border-radius: 100%;
-  margin-right: 0.5rem;
 }
 
 .outTokenSymbolContainer {
