@@ -26,9 +26,8 @@ const Swap = () => {
         <div className={styles.swapFormContainer}>
           <div className={styles.swapOutTokenContainer}>
           </div>
-          <div className={styles.swapIconContainer}>
-            {/* <i className="fa-solid fa-arrow-right-arrow-left"></i> */}
-            <i className={`fa-solid fa-arrow-right`}></i>
+          <div className={styles.swapIconContainer}> 
+            <i className="fa-solid fa-arrow-down"></i>
           </div>
           <div className={styles.swapInTokenContainer}>
           </div>
@@ -36,7 +35,7 @@ const Swap = () => {
         <div className={styles.swapInputContainer}>
           <div className={styles.numKeypadContainer}>
             {
-              [`1`, `2`, `3`, `4`, `5`, `6`, "7", `8`, `9`, `.`, `0`, <i className="fa-solid fa-arrow-left"></i>].map((value, index) => {
+              [`7`, `8`, `9`, `4`, `5`, `6`, "1", `2`, `3`, `.`, `0`, <i className="fa-solid fa-arrow-left"></i>].map((value, index) => {
                 return (
                   <div
                     key={index}

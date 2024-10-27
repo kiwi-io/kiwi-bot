@@ -33,7 +33,7 @@
   width: 100%;
   background-color: red;
   border-radius: 0.5rem;
-  height: 50px;
+  height: 75px;
 }
 
 .swapIconContainer {
@@ -41,7 +41,6 @@
   z-index: 1000;
   font-size: 1rem;
   color: #481801;
-  width: 10%;
   padding: 0.5rem;
   background-color: cyan;
   border-radius: 0.1rem;
@@ -53,7 +52,7 @@
   width: 100%;
   background-color: yellow;
   border-radius: 0.5rem;
-  height: 35px;
+  height: 50px;
 }
 
 .swapInputContainer {
