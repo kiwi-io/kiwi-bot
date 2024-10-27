@@ -36,6 +36,10 @@
 .swapIconContainer {
   margin-top: -1rem;
   z-index: 1000;
+  font-size: 1rem;
+  padding: 0.5rem;
+  background-color: cyan;
+  border-radius: 0.1rem;
 }
 
 .swapInTokenContainer {

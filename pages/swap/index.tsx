@@ -27,6 +27,7 @@ const Swap = () => {
           <div className={styles.swapOutTokenContainer}>
           </div>
           <div className={styles.swapIconContainer}>
+            <i className="fa-solid fa-arrow-right-arrow-left"></i>
           </div>
           <div className={styles.swapInTokenContainer}>
           </div>
