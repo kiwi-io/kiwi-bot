@@ -35,10 +35,11 @@ body {
   background-color: #fffefa;
   width: 100%;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 html {
-  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 * {
