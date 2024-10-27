@@ -68,6 +68,7 @@ export const JupiterSwapContextProvider = ({ children }) => {
   const updateTokenInData = async (token: string) => {
     try {
         const tokenDataRes = await getToken(token);
+        console.log("Response tokenInData: ", tokenDataRes);
 
         const td = {
           address: tokenDataRes["address"],
@@ -96,6 +97,7 @@ export const JupiterSwapContextProvider = ({ children }) => {
   const updateTokenOutData = async (token: string) => {
     try {
         const tokenDataRes = await getToken(token);
+        console.log("Response tokenOutData: ", tokenDataRes);
 
         const td = {
           address: tokenDataRes["address"],
