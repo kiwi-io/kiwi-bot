@@ -61,19 +61,19 @@ const Swap = () => {
     doStuff();
   }, [quantity]);
 
-  useEffect(() => {
-    const doStuff = async () => {
-      if(!tokenInData) {
-        await updateTokenInData(tokenIn);
-      }
+  // useEffect(() => {
+  //   const doStuff = async () => {
+  //     if(!tokenInData) {
+  //       await updateTokenInData(tokenIn);
+  //     }
 
-      if(!tokenOutData) {
-        await updateTokenOutData(tokenOut);
-      }
-    }
+  //     if(!tokenOutData) {
+  //       await updateTokenOutData(tokenOut);
+  //     }
+  //   }
 
-    doStuff();
-  }, []);
+  //   doStuff();
+  // }, []);
 
   return (
     <div className={styles.swapPageContainer}>

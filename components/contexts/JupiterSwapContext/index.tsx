@@ -68,6 +68,13 @@ export const JupiterSwapContextProvider = ({ children }) => {
   const updateTokenInData = async (token: string) => {
     try {
         const tokenDataRes = await getToken(token);
+        console.log("tokenIn address: ", tokenDataRes["address"]);
+        console.log("tokenIn decimals: ", tokenDataRes["decimals"]);
+        console.log("tokenIn symbol: ", tokenDataRes["symbol"]);
+        console.log("tokenIn name: ", tokenDataRes["name"]);
+        console.log("tokenIn logoURI: ", tokenDataRes["logoURI"]);
+        console.log("tokenIn liquidity: ", tokenDataRes["liquidity"]);
+        console.log("tokenIn price: ", tokenDataRes["price"]);
 
         const td = {
           address: tokenDataRes["address"],
@@ -96,6 +103,13 @@ export const JupiterSwapContextProvider = ({ children }) => {
   const updateTokenOutData = async (token: string) => {
     try {
         const tokenDataRes = await getToken(token);
+        console.log("tokenOut address: ", tokenDataRes["address"]);
+        console.log("tokenOut decimals: ", tokenDataRes["decimals"]);
+        console.log("tokenOut symbol: ", tokenDataRes["symbol"]);
+        console.log("tokenOut name: ", tokenDataRes["name"]);
+        console.log("tokenOut logoURI: ", tokenDataRes["logoURI"]);
+        console.log("tokenOut liquidity: ", tokenDataRes["liquidity"]);
+        console.log("tokenOut price: ", tokenDataRes["price"]);
 
         const td = {
           address: tokenDataRes["address"],
