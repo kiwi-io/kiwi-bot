@@ -75,17 +75,19 @@
   justify-content: space-between;
   align-items: center;
   border: 1px solid rgb(234, 234, 234, 0.5);
-  border-radius: 0.5rem;
-  padding: 0.35rem;
+  border-radius: 1rem;
+  padding: 0.1rem;
 }
 
 .tokenImage {
   margin-top: 0.5rem;
   border-radius: 100%;
+  margin-right: 1rem;
 }
 
 .outTokenSymbolContainer {
   font-weight: 600;
+  margin-left: 1rem;
 }
 
 .swapIconContainer {
