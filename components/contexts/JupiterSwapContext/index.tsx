@@ -68,7 +68,18 @@ export const JupiterSwapContextProvider = ({ children }) => {
   const updateTokenInData = async (token: string) => {
     try {
         const tokenDataRes = await getToken(token);
-        setTokenInData((_) => tokenDataRes);
+
+        const td = {
+          address: tokenDataRes["address"],
+          decimals: tokenDataRes["decimals"],
+          symbol: tokenDataRes["symbol"],
+          name: tokenDataRes["name"],
+          logoURI: tokenInData["logoURI"],
+          liquidity: tokenDataRes["liquidity"],
+          price: tokenDataRes["price"]
+        } as TokenData;
+
+        setTokenInData((_) => td);
         console.log("token in data is set: ", tokenInData);
     }
     catch(err) {
@@ -84,7 +95,18 @@ export const JupiterSwapContextProvider = ({ children }) => {
   const updateTokenOutData = async (token: string) => {
     try {
         const tokenDataRes = await getToken(token);
-        setTokenOutData((_) => tokenDataRes);
+
+        const td = {
+          address: tokenDataRes["address"],
+          decimals: tokenDataRes["decimals"],
+          symbol: tokenDataRes["symbol"],
+          name: tokenDataRes["name"],
+          logoURI: tokenInData["logoURI"],
+          liquidity: tokenDataRes["liquidity"],
+          price: tokenDataRes["price"]
+        } as TokenData;
+
+        setTokenOutData((_) => td);
         console.log("token out data is set: ", tokenOutData);
     }
     catch(err) {

@@ -22,7 +22,6 @@ export interface TokenData {
   decimals: number;
   symbol: string;
   name: string;
-  extensions: string;
   logoURI: string;
   liquidity: number;
   price: number;
