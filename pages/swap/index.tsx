@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./swap.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useTelegram } from "../../utils/twa";
@@ -11,9 +11,12 @@ const Swap = () => {
   const [isSwapExecuting, setIsSwapExecuting] = useState<boolean>(false);
 
   const [quantity, setQuantity] = useState<string>(``);
+  const inputFieldRef = useRef(null);
+
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
 
   const handleKeypadInput = (value: any) => {
+    vibrate("soft");
     // Prevent multiple decimals
     if (value === '.' && quantity.includes('.')) return;
     setQuantity((prev) => prev + value);
@@ -34,6 +37,13 @@ const Swap = () => {
     setIsSwapExecuting((_) => false);
     vibrate("success");
   }
+
+  useEffect(() => {
+    if (inputFieldRef.current) {
+      inputFieldRef.current.focus();
+    }
+  }, []);
+
 
   useEffect(() => {
     const doStuff = () => {
@@ -57,6 +67,7 @@ const Swap = () => {
             <div className={styles.outTokenQuantityFormContainer}>
               <Form.Group>
                 <Form.Control
+                  ref={inputFieldRef}
                   className={styles.outTokenQuantityForm}
                   placeholder="0"
                   type="text"
@@ -66,7 +77,7 @@ const Swap = () => {
               </Form.Group>
             </div>
             <div className={styles.outTokenInfoContainer}>
-
+              SOL
             </div>
           </div>
           <div className={styles.swapIconContainer}> 
