@@ -42,6 +42,9 @@
 
 .outTokenQuantityFormContainer {
   width: 50%;
+  background-color: blue;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .outTokenQuantityForm {
@@ -55,6 +58,9 @@
 
 .outTokenInfoContainer {
   width: 50%;
+  background-color: green;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .swapIconContainer {
