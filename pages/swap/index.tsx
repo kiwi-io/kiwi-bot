@@ -24,7 +24,12 @@ const Swap = () => {
       <StandardHeader title={`Trade`} backButtonNavigateTo={"home"} backButtonHide={true}/>
       <div className={styles.swapComponentsContainer}>
         <div className={styles.swapFormContainer}>
-          
+          <div className={styles.swapOutTokenContainer}>
+          </div>
+          <div className={styles.swapIconContainer}>
+          </div>
+          <div className={styles.swapInTokenContainer}>
+          </div>
         </div>
         <div className={styles.swapInputContainer}>
           <div className={styles.numKeypadContainer}>
