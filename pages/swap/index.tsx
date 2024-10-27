@@ -97,7 +97,12 @@ const Swap = () => {
               </div>
             </div>
             <div className={styles.outTokenInfoContainer}>
-              SOL
+              <div className={styles.outTokenImageContainer}>
+                II
+              </div>
+              <div className={styles.outTokenSymbolContainer}>
+                SOL
+              </div>
             </div>
           </div>
           <div className={styles.swapIconContainer}> 
