@@ -145,8 +145,8 @@ const Swap = () => {
                     tokenOutData ?
                       <Image
                         src={tokenOutData.logoURI}
-                        width={50}
-                        height={50}
+                        width={20}
+                        height={20}
                         alt={`${tokenOutData ? tokenOutData.symbol : "Token"} img`}
                         className={styles.tokenImage}
                       />
