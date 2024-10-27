@@ -31,7 +31,7 @@ const Swap = () => {
 
   const { vibrate } = useTelegram();
 
-  const { tokenOutData, tokenInData } = useJupiterSwapContext();
+  const { tokenIn, tokenOut, tokenOutData, tokenInData, updateTokenInData, updateTokenOutData } = useJupiterSwapContext();
 
   const performSwapAction = async() => {
     vibrate("soft");
@@ -62,9 +62,14 @@ const Swap = () => {
   }, [quantity]);
 
   useEffect(() => {
-    const doStuff = () => {
-      console.log("tokenInData: ", tokenInData);
-      console.log("tokenOutData: ", tokenOutData);
+    const doStuff = async () => {
+      if(!tokenInData) {
+        await updateTokenInData(tokenIn);
+      }
+
+      if(!tokenOutData) {
+        await updateTokenOutData(tokenOut);
+      }
     }
 
     doStuff();
