@@ -51,8 +51,27 @@ export const JupiterSwapContextProvider = ({ children }) => {
   const [tokenOut, setTokenOut] = useState<string>("");
   const [quantityIn, setQuantityIn] = useState<string>("");
   const [quantityOut, setQuantityOut] = useState<string>("");
-  const [tokenInData, setTokenInData] = useState<TokenData>();
-  const [tokenOutData, setTokenOutData] = useState<TokenData>();
+
+  const [tokenInData, setTokenInData] = useState<TokenData>({
+    address: `So11111111111111111111111111111111111111112`,
+    decimals: 9,
+    symbol: `SOL`,
+    name: `Wrapped SOL`,
+    logoURI: `https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png`,
+    liquidity: 0.0,
+    price: 0.0,
+  } as TokenData);
+
+  const [tokenOutData, setTokenOutData] = useState<TokenData>({
+    address: `EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v`,
+    decimals: 6,
+    symbol: `USDC`,
+    name: `USDC`,
+    logoURI: `https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png`,
+    liquidity: 0.0,
+    price: 0.0,
+  } as TokenData);
+  
   const [referrer, setReferrer] = useState<string>("");
   const [actionHost, setActionHost] = useState<string>("");
   const [actionHostLogo, setActionHostLogo] = useState<string>("");

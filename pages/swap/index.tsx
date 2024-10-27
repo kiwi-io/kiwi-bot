@@ -61,21 +61,19 @@ const Swap = () => {
     doStuff();
   }, [quantity]);
 
-  useEffect(() => {
-    const doStuff = async () => {
-      console.log("useEffect tokenInData: ", tokenInData);
-      if(!tokenInData) {
-        await updateTokenInData(tokenIn);
-      }
+  // useEffect(() => {
+  //   const doStuff = async () => {
+  //     if(!tokenInData) {
+  //       await updateTokenInData(tokenIn);
+  //     }
 
-      console.log("useEffect tokenOutData: ", tokenOutData);
-      if(!tokenOutData) {
-        await updateTokenOutData(tokenOut);
-      }
-    }
+  //     if(!tokenOutData) {
+  //       await updateTokenOutData(tokenOut);
+  //     }
+  //   }
 
-    doStuff();
-  }, []);
+  //   doStuff();
+  // }, []);
 
   return (
     <div className={styles.swapPageContainer}>
