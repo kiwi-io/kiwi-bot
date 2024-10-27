@@ -84,6 +84,7 @@ export const JupiterSwapContextProvider = ({ children }) => {
     }
     catch(err) {
         console.log("Error getting tokenIn data: ", token);
+        console.log("err: ", err);
         setTokenInData((_) => null);
     }
   }
@@ -111,6 +112,7 @@ export const JupiterSwapContextProvider = ({ children }) => {
     }
     catch(err) {
         console.log("Error getting tokenIn data: ", token);
+        console.log("err: ", err);
         setTokenOutData((_) => null);
     }
   }
