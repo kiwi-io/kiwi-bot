@@ -61,6 +61,15 @@ const Swap = () => {
     doStuff();
   }, [quantity]);
 
+  useEffect(() => {
+    const doStuff = () => {
+      console.log("tokenInData: ", tokenInData);
+      console.log("tokenOutData: ", tokenOutData);
+    }
+
+    doStuff();
+  }, []);
+
   return (
     <div className={styles.swapPageContainer}>
       <StandardHeader title={`Trade`} backButtonNavigateTo={"home"} backButtonHide={true}/>
