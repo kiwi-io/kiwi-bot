@@ -21,7 +21,9 @@ interface JupiterSwapContextType {
   
   updateSide: (side: Side) => void;
   updateTokenIn: (token: string) => Promise<void>;
+  updateTokenInData: (token: string) => Promise<void>;
   updateTokenOut: (token: string) => Promise<void>;
+  updateTokenOutData: (token: string) => Promise<void>;
   updateQuantityIn: (quantity: string) => Promise<void>;
   updateQuantityOut: (quantity: string) => Promise<void>;
   updateReferrer: (referrer: string) => void;
@@ -60,29 +62,35 @@ export const JupiterSwapContextProvider = ({ children }) => {
   }
 
   const updateTokenIn = async (token: string) => {
+    setTokenIn((_) => token);
+  }
+
+  const updateTokenInData = async (token: string) => {
     try {
         const tokenDataRes = await getToken(token);
+        console.log("tokenInData: ", tokenDataRes);
         setTokenInData((_) => tokenDataRes);
     }
     catch(err) {
         console.log("Error getting tokenIn data: ", token);
         setTokenInData((_) => null);
     }
-
-    setTokenIn((_) => tokenIn);
   }
 
   const updateTokenOut = async (token: string) => {
+    setTokenOut((_) => token);
+  }
+
+  const updateTokenOutData = async (token: string) => {
     try {
         const tokenDataRes = await getToken(token);
+        console.log("tokenOutData: ", tokenDataRes);
         setTokenOutData((_) => tokenDataRes);
     }
     catch(err) {
         console.log("Error getting tokenIn data: ", token);
         setTokenOutData((_) => null);
     }
-
-    setTokenOut((_) => tokenOut);
   }
 
   const updateQuantityIn = (quantity: string) => {
@@ -122,7 +130,9 @@ export const JupiterSwapContextProvider = ({ children }) => {
     actionHostLogo,
     updateSide,
     updateTokenIn,
+    updateTokenInData,
     updateTokenOut,
+    updateTokenOutData,
     updateQuantityIn,
     updateQuantityOut,
     updateReferrer,
