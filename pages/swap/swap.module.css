@@ -40,6 +40,10 @@
   height: 85px;
 }
 
+.outTokenQuantityFormContainer {
+  width: 50%;
+}
+
 .outTokenQuantityForm {
   font-size: 2rem;
   font-weight: bold;
@@ -47,6 +51,10 @@
   border: none;
   background-color: transparent;
   color: #481801;
+}
+
+.outTokenInfoContainer {
+  width: 50%;
 }
 
 .swapIconContainer {
