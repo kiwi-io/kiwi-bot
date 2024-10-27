@@ -79,7 +79,7 @@ const Swap = () => {
                 />
               </Form.Group>
               <div className={styles.outTokenDollarQuantityContainer}>
-                {`$ ${tokenOutData.price.toFixed(3)}`}
+                {tokenOutData ? `$ ${tokenOutData.price.toFixed(3)}` : ``}
               </div>
             </div>
             <div className={styles.outTokenInfoContainer}>
