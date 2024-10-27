@@ -88,7 +88,7 @@ const Swap = () => {
                     }}
                     onClick = {
                       () => {
-                        if([`0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `.`].includes(value)) {
+                        if(typeof value === `string`) {
                           handleKeypadInput(value);
                         }
                         else {
