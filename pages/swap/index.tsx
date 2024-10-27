@@ -10,7 +10,7 @@ const Swap = () => {
   const [swapButtonText, setSwapButtonText] = useState<string>("Swap");
   const [isSwapExecuting, setIsSwapExecuting] = useState<boolean>(false);
 
-  const [quantity, setQuantity] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState<string>(``);
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
 
   const handleKeypadInput = (value: any) => {
