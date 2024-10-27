@@ -79,12 +79,14 @@
 
 .tokenImage {
   border-radius: 100%;
-  margin-top: 0.25rem;
+  margin: 0.25rem;
+  
 }
 
 .outTokenSymbolContainer {
   font-weight: 600;
   margin-left: 0.5rem;
+  margin-right: 0.5rem;
   font-size: 1.25rem;
 }
 
