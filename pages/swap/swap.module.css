@@ -30,14 +30,23 @@
 
 .swapOutTokenContainer {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   background-color: red;
   border-radius: 0.5rem;
   height: 85px;
 }
 
+.outTokenQuantityForm {
+  font-size: 1.5rem;
+  padding: 1rem;
+  border: none;
+  color: #481801;
+}
+
 .swapIconContainer {
-  margin-top: -1rem;
+  margin-top: -0.85rem;
   z-index: 1000;
   font-size: 1.25rem;
   color: #481801;
@@ -47,7 +56,7 @@
 }
 
 .swapInTokenContainer {
-  margin-top: -1rem;
+  margin-top: -0.85rem;
   display: flex;
   width: 100%;
   background-color: yellow;
