@@ -44,11 +44,12 @@
   display: flex;
   justify-content: flex-start;
   padding: 0.5rem;
+  padding-bottom: 0;
 }
 
 .outTokenQuantityForm {
   width: 50%;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   border: none;
   background-color: transparent;
@@ -65,6 +66,7 @@
   flex-direction: row;
   justify-content: flex-start;
   padding: 0.5rem;
+  padding-top: 0.25rem;
 }
 
 .outTokenInfoContainer {
@@ -80,10 +82,12 @@
   flex-direction: row;
   justify-content: space-between;
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   align-items: center;
   border: 1px solid rgba(72, 24, 1, 0.05);
   border-radius: 24px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .outTokenSymbolContainer {
@@ -136,11 +140,12 @@
   display: flex;
   justify-content: flex-start;
   padding: 0.5rem;
+  padding-bottom: 0;
 }
 
 .inTokenQuantityForm {
   width: 50%;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   border: none;
   background-color: transparent;
@@ -157,6 +162,7 @@
   flex-direction: row;
   justify-content: flex-start;
   padding: 0.5rem;
+  padding-top: 0.25rem;
 }
 
 .inTokenInfoContainer {
@@ -172,10 +178,12 @@
   flex-direction: row;
   justify-content: space-between;
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   align-items: center;
   /* border: 1px solid rgba(72, 24, 1, 0.5); */
   border-radius: 24px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .inTokenSymbolContainer {
