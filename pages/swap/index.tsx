@@ -134,19 +134,21 @@ const Swap = () => {
               />
               <div className={styles.outTokenInfoContainer}>
                 <div className={styles.outTokenInfo}>
-                  tokenOutData ?
-                    <>
-                      <Image
-                        src={tokenOutData.logoURI}
-                        width={24}
-                        height={24}
-                        alt={`${tokenOutData ? tokenOutData.symbol : "Token"} img`}
-                        className={styles.tokenImage}
-                      />
-                      <div className={styles.outTokenSymbolContainer}>{tokenOutData.symbol}</div>
-                    </>
-                  :
-                    <></>
+                  {
+                    tokenOutData ?
+                      <>
+                        <Image
+                          src={tokenOutData.logoURI}
+                          width={24}
+                          height={24}
+                          alt={`${tokenOutData ? tokenOutData.symbol : "Token"} img`}
+                          className={styles.tokenImage}
+                        />
+                        <div className={styles.outTokenSymbolContainer}>{tokenOutData.symbol}</div>
+                      </>
+                    :
+                      <></>
+                  }
                 </div>
               </div>
             </div>
