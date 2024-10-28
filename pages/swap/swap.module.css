@@ -55,8 +55,8 @@
   border-bottom: 1px solid black;
   background-color: transparent;
   color: #481801;
-  margin: none;
-  padding: none;
+  margin: 0;
+  padding: 0;
 }
 
 .outTokenDollarQuantityContainer {
@@ -151,8 +151,8 @@
   border-bottom: 1px solid black;
   background-color: transparent;
   color: #481801;
-  margin: none;
-  padding: none;
+  margin: 0;
+  padding: 0;
 }
 
 .inTokenDollarQuantityContainer {
