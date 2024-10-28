@@ -39,12 +39,11 @@
   width: 100%;
   box-sizing: border-box;
   flex-direction: row;
-  /* background-color: blue; */
+  background-color: #fffefa;
   display: flex;
   justify-content: flex-start;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-right: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid rgba(72, 24, 1, 0.1);
 }
 
 .outTokenQuantityForm {
@@ -52,7 +51,6 @@
   font-size: 2rem;
   font-weight: bold;
   border: none;
-  border-bottom: 1px solid black;
   background-color: transparent;
   color: #481801;
   margin: 0;
@@ -68,11 +66,11 @@
   box-sizing: border-box;
   flex-direction: row;
   justify-content: flex-start;
-  padding-left: 0.5rem;
+  padding: 0.5rem;
 }
 
 .outTokenInfoContainer {
-  /* background-color: green; */
+  background-color: #fffefa;
   width: 50%;
   display: flex;
   justify-content: flex-end;
@@ -85,7 +83,7 @@
   font-weight: 600;
   font-size: 1.4rem;
   align-items: center;
-  border: 1px solid rgba(72, 24, 1, 0.5);
+  /* border: 1px solid rgba(72, 24, 1, 0.5); */
   border-radius: 24px;
 }
 
@@ -110,8 +108,8 @@
   padding-right: 0.75rem;
   /* background-color: cyan; */
   background-color: #f2f1e5;
-  border-radius: 0.1rem;
-  border: 1px solid rgba(72, 24, 1, 0.5);
+  border-radius: 1rem;
+  border: 3px solid #fffefa;
 }
 
 /* .swapInTokenContainer {
@@ -138,9 +136,7 @@
   /* background-color: blue; */
   display: flex;
   justify-content: flex-start;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-right: 0.5rem;
+  padding: 0.5rem;
 }
 
 .inTokenQuantityForm {
@@ -148,7 +144,6 @@
   font-size: 2rem;
   font-weight: bold;
   border: none;
-  border-bottom: 1px solid black;
   background-color: transparent;
   color: #481801;
   margin: 0;
@@ -164,11 +159,11 @@
   box-sizing: border-box;
   flex-direction: row;
   justify-content: flex-start;
-  padding-left: 0.5rem;
+  padding: 0.5rem;
 }
 
 .inTokenInfoContainer {
-  /* background-color: green; */
+  background-color: #fffefa;
   width: 50%;
   display: flex;
   justify-content: flex-end;
@@ -181,7 +176,7 @@
   font-weight: 600;
   font-size: 1.4rem;
   align-items: center;
-  border: 1px solid rgba(72, 24, 1, 0.5);
+  /* border: 1px solid rgba(72, 24, 1, 0.5); */
   border-radius: 24px;
 }
 
