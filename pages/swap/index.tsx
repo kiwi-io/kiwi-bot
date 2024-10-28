@@ -157,7 +157,7 @@ const Swap = () => {
                   tokenOutData && outQuantity ?
                     <>{`$ ${parseFloat(outQuantity) * tokenOutData.price}`}</>
                   :
-                    <>{``}</>
+                    <>{` `}</>
                 }
             </div>  
           </div>
@@ -199,7 +199,7 @@ const Swap = () => {
                   tokenInData && outQuantity ?
                     <>{`$ ${parseFloat(outQuantity) * tokenInData.price}`}</>
                   :
-                    <>{``}</>
+                    <>{` `}</>
                 }
             </div>  
           </div>
