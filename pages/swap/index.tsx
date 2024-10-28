@@ -21,14 +21,14 @@ const Swap = () => {
   const [tokenOutData, setTokenOutData] = useState<TokenData>(); 
 
   const handleKeypadInput = (value: any) => {
-    vibrate("soft");
+    vibrate("light");
     // Prevent multiple decimals
     if (value === '.' && outQuantity.includes('.')) return;
     setOutQuantity((prev) => prev + value);
   };
 
   const handleBackspace = () => {
-    vibrate("soft");
+    vibrate("light");
     setOutQuantity((prev) => prev.slice(0, -1));
   }
 
@@ -37,7 +37,7 @@ const Swap = () => {
   const { tokenIn, tokenOut } = useJupiterSwapContext();
 
   const performSwapAction = async() => {
-    vibrate("soft");
+    vibrate("light");
     setIsSwapExecuting((_) => true);
     await delay(3_000);
     setIsSwapExecuting((_) => false);
