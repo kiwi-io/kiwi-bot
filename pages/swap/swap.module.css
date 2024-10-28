@@ -42,7 +42,9 @@
   /* background-color: blue; */
   display: flex;
   justify-content: flex-start;
-  padding: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .outTokenQuantityForm {
@@ -57,6 +59,13 @@
 .outTokenDollarQuantityContainer {
   margin-top: 0.5rem;
   font-size: 0.75rem;
+
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 0.5rem;
 }
 
 .outTokenInfoContainer {
@@ -97,6 +106,7 @@
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   /* background-color: cyan; */
+  background-color: #f2f1e5;
   border-radius: 0.1rem;
   border: 1px solid rgba(72, 24, 1, 0.5);
 }
@@ -125,12 +135,14 @@
   /* background-color: blue; */
   display: flex;
   justify-content: flex-start;
-  padding: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .inTokenQuantityForm {
   width: 50%;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   border: none;
   background-color: transparent;
@@ -140,6 +152,13 @@
 .inTokenDollarQuantityContainer {
   margin-top: 0.5rem;
   font-size: 0.75rem;
+
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 0.5rem;
 }
 
 .inTokenInfoContainer {
