@@ -124,25 +124,18 @@ const Swap = () => {
         <div className={styles.swapFormContainer}>
           <div className={styles.swapOutTokenContainer}>
             <div className={styles.outTokenQuantityFormContainer}>
-              <Form.Group>
-                <Form.Control
-                  ref={inputFieldRef}
-                  className={styles.outTokenQuantityForm}
-                  placeholder="0"
-                  type="text"
-                  value={quantity}
-                  readOnly
-                />
-              </Form.Group>
-              <div className={styles.outTokenDollarQuantityContainer}>
-                {tokenOutData ? `$ ${tokenOutData.price.toFixed(3)}` : ``}
-              </div>
-            </div>
-            <div className={styles.outTokenInfoContainer}>
-              <div className={styles.outTokenInfo}>
-                <div className={styles.outTokenImageContainer}>
-                  {
-                    tokenOutData ?
+              <Form.Control
+                ref={inputFieldRef}
+                className={styles.outTokenQuantityForm}
+                placeholder="0"
+                type="text"
+                value={quantity}
+                readOnly
+              />
+              <div className={styles.outTokenInfoContainer}>
+                <div className={styles.outTokenInfo}>
+                  tokenOutData ?
+                    <>
                       <Image
                         src={tokenOutData.logoURI}
                         width={24}
@@ -150,15 +143,10 @@ const Swap = () => {
                         alt={`${tokenOutData ? tokenOutData.symbol : "Token"} img`}
                         className={styles.tokenImage}
                       />
-                    :
-                      <></>
-                  }
-                </div>
-                <div className={styles.outTokenSymbolContainer}>
-                  {
-                    tokenOutData ?
-                      tokenOutData.symbol : ``
-                  }
+                      <div className={styles.outTokenSymbolContainer}>{tokenOutData.symbol}</div>
+                    </>
+                  :
+                    <></>
                 </div>
               </div>
             </div>
