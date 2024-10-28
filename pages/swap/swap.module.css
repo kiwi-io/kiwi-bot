@@ -67,6 +67,7 @@
   justify-content: flex-start;
   padding: 0.5rem;
   padding-top: 0.25rem;
+  opacity: 0.5;
 }
 
 .outTokenInfoContainer {
@@ -163,6 +164,7 @@
   justify-content: flex-start;
   padding: 0.5rem;
   padding-top: 0.25rem;
+  opacity: 0.5;
 }
 
 .inTokenInfoContainer {
