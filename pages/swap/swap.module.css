@@ -30,7 +30,6 @@
 
 .swapOutTokenContainer {
   width: 100%;
-  background-color: red;
   border-radius: 0.5rem;
   height: 85px;
 }
@@ -40,7 +39,6 @@
   width: 100%;
   box-sizing: border-box;
   flex-direction: row;
-  background-color: blue;
   display: flex;
   justify-content: flex-start;
   padding: 0.5rem;
@@ -61,7 +59,6 @@
 }
 
 .outTokenInfoContainer {
-  background-color: green;
   width: 50%;
   display: flex;
   justify-content: flex-end;
@@ -97,23 +94,13 @@
   padding-bottom: 0.5rem;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
-  background-color: cyan;
   border-radius: 0.1rem;
+  border: 1px solid rgb(234, 234, 234, 0.5);
 }
-
-/* .swapInTokenContainer {
-  margin-top: -1.25rem;
-  display: flex;
-  width: 100%;
-  background-color: yellow;
-  border-radius: 0.5rem;
-  height: 85px;
-} */
 
 .swapInTokenContainer {
   margin-top: -1.25rem;
   width: 100%;
-  background-color: yellow;
   border-radius: 0.5rem;
   height: 85px;
 }
@@ -123,7 +110,6 @@
   width: 100%;
   box-sizing: border-box;
   flex-direction: row;
-  background-color: blue;
   display: flex;
   justify-content: flex-start;
   padding: 0.5rem;
@@ -144,7 +130,6 @@
 }
 
 .inTokenInfoContainer {
-  background-color: green;
   width: 50%;
   display: flex;
   justify-content: flex-end;
