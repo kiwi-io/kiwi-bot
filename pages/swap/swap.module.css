@@ -30,7 +30,8 @@
 
 .swapOutTokenContainer {
   width: 100%;
-  background-color: #f2f1e5;
+  background-color: #fffefa;
+  border: 1px solid rgba(72, 24, 1, 0.1);
   border-radius: 0.5rem;
 }
 
@@ -39,11 +40,10 @@
   width: 100%;
   box-sizing: border-box;
   flex-direction: row;
-  background-color: #fffefa;
+  /* background-color: blue; */
   display: flex;
   justify-content: flex-start;
   padding: 0.5rem;
-  border: 1px solid rgba(72, 24, 1, 0.1);
 }
 
 .outTokenQuantityForm {
@@ -70,20 +70,21 @@
 }
 
 .outTokenInfoContainer {
-  background-color: #fffefa;
+  /* background-color: green; */
   width: 50%;
   display: flex;
   justify-content: flex-end;
 }
 
 .outTokenInfo {
+  background-color: #fffefa;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   font-weight: 600;
   font-size: 1.4rem;
   align-items: center;
-  /* border: 1px solid rgba(72, 24, 1, 0.5); */
+  border: 1px solid rgba(72, 24, 1, 0.5);
   border-radius: 24px;
 }
 
@@ -108,8 +109,8 @@
   padding-right: 0.75rem;
   /* background-color: cyan; */
   background-color: #f2f1e5;
-  border-radius: 1rem;
-  border: 3px solid #fffefa;
+  border-radius: 0.1rem;
+  border: 1px solid rgba(72, 24, 1, 0.5);
 }
 
 /* .swapInTokenContainer {
@@ -163,20 +164,21 @@
 }
 
 .inTokenInfoContainer {
-  background-color: #fffefa;
+  /* background-color: green; */
   width: 50%;
   display: flex;
   justify-content: flex-end;
 }
 
 .inTokenInfo {
+  background-color: #fffefa;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   font-weight: 600;
   font-size: 1.4rem;
   align-items: center;
-  /* border: 1px solid rgba(72, 24, 1, 0.5); */
+  border: 1px solid rgba(72, 24, 1, 0.5);
   border-radius: 24px;
 }
 
