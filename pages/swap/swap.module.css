@@ -52,6 +52,7 @@
   font-size: 2rem;
   font-weight: bold;
   border: none;
+  border-bottom: 1px solid black;
   background-color: transparent;
   color: #481801;
 }
@@ -83,7 +84,7 @@
   font-size: 1.4rem;
   align-items: center;
   border: 1px solid rgba(72, 24, 1, 0.5);
-  border-radius: 0.25rem;
+  border-radius: 24px;
 }
 
 .outTokenSymbolContainer {
@@ -142,9 +143,10 @@
 
 .inTokenQuantityForm {
   width: 50%;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   border: none;
+  border-bottom: 1px solid black;
   background-color: transparent;
   color: #481801;
 }
@@ -176,7 +178,7 @@
   font-size: 1.4rem;
   align-items: center;
   border: 1px solid rgba(72, 24, 1, 0.5);
-  border-radius: 0.25rem;
+  border-radius: 24px;
 }
 
 .inTokenSymbolContainer {
