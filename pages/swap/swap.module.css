@@ -78,14 +78,14 @@
   border-radius: 0.25rem;
 }
 
-.tokenImage {
-  border-radius: 100%;
-  margin-left: 0.5rem;
-}
-
 .outTokenSymbolContainer {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+}
+
+.tokenImage {
+  border-radius: 100%;
+  margin-left: 0.5rem;
 }
 
 .swapIconContainer {
@@ -101,13 +101,69 @@
   border-radius: 0.1rem;
 }
 
-.swapInTokenContainer {
+/* .swapInTokenContainer {
   margin-top: -1.25rem;
   display: flex;
   width: 100%;
   background-color: yellow;
   border-radius: 0.5rem;
   height: 85px;
+} */
+
+.swapInTokenContainer {
+  margin-top: -1.25rem;
+  width: 100%;
+  background-color: yellow;
+  border-radius: 0.5rem;
+  height: 85px;
+}
+
+.inTokenQuantityFormContainer {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  background-color: blue;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0.5rem;
+}
+
+.inTokenQuantityForm {
+  width: 50%;
+  font-size: 2rem;
+  font-weight: bold;
+  border: none;
+  background-color: transparent;
+  color: #481801;
+}
+
+.inTokenDollarQuantityContainer {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.inTokenInfoContainer {
+  background-color: green;
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.inTokenInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 1.4rem;
+  align-items: center;
+  border: 1px solid rgb(234, 234, 234, 0.5);
+  border-radius: 0.25rem;
+}
+
+.inTokenSymbolContainer {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .swapInputContainer {
