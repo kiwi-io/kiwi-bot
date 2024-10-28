@@ -31,7 +31,7 @@
 .swapOutTokenContainer {
   width: 100%;
   background-color: #fffefa;
-  border: 1px solid rgba(72, 24, 1, 0.1);
+  border: 1px solid rgba(72, 24, 1, 0.05);
   border-radius: 0.5rem;
 }
 
@@ -84,7 +84,7 @@
   font-weight: 600;
   font-size: 1.4rem;
   align-items: center;
-  border: 1px solid rgba(72, 24, 1, 0.5);
+  border: 1px solid rgba(72, 24, 1, 0.05);
   border-radius: 24px;
 }
 
@@ -109,8 +109,8 @@
   padding-right: 0.75rem;
   /* background-color: cyan; */
   background-color: #f2f1e5;
-  border-radius: 0.1rem;
-  border: 1px solid rgba(72, 24, 1, 0.5);
+  border-radius: 1rem;
+  border: 3px solid #fffefa;
 }
 
 /* .swapInTokenContainer {
@@ -178,7 +178,7 @@
   font-weight: 600;
   font-size: 1.4rem;
   align-items: center;
-  border: 1px solid rgba(72, 24, 1, 0.5);
+  /* border: 1px solid rgba(72, 24, 1, 0.5); */
   border-radius: 24px;
 }
 
