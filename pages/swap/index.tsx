@@ -12,7 +12,7 @@ const Swap = () => {
   const [swapButtonText, setSwapButtonText] = useState<string>("Swap");
   const [isSwapExecuting, setIsSwapExecuting] = useState<boolean>(false);
 
-  const [quantity, setQuantity] = useState<string>(``);
+  const [outQuantity, setOutQuantity] = useState<string>(``);
   const inputFieldRef = useRef(null);
 
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
@@ -23,13 +23,13 @@ const Swap = () => {
   const handleKeypadInput = (value: any) => {
     vibrate("soft");
     // Prevent multiple decimals
-    if (value === '.' && quantity.includes('.')) return;
-    setQuantity((prev) => prev + value);
+    if (value === '.' && outQuantity.includes('.')) return;
+    setOutQuantity((prev) => prev + value);
   };
 
   const handleBackspace = () => {
     vibrate("soft");
-    setQuantity((prev) => prev.slice(0, -1));
+    setOutQuantity((prev) => prev.slice(0, -1));
   }
 
   const { vibrate } = useTelegram();
@@ -52,7 +52,7 @@ const Swap = () => {
 
   useEffect(() => {
     const doStuff = () => {
-      if(quantity.includes(".")) {
+      if(outQuantity.includes(".")) {
         setIsDecimalEntered((_) => true);
       }
       else {
@@ -61,7 +61,7 @@ const Swap = () => {
     }
 
     doStuff();
-  }, [quantity]);
+  }, [outQuantity]);
 
   useEffect(() => {
     const doStuff = async () => {
@@ -115,7 +115,7 @@ const Swap = () => {
     }
 
     doStuff();
-  }, [tokenIn]);
+  }, [tokenOut]);
 
   return (
     <div className={styles.swapPageContainer}>
@@ -129,7 +129,7 @@ const Swap = () => {
                 className={styles.outTokenQuantityForm}
                 placeholder="0"
                 type="text"
-                value={quantity}
+                value={outQuantity}
                 readOnly
               />
               <div className={styles.outTokenInfoContainer}>
@@ -157,6 +157,35 @@ const Swap = () => {
             <i className="fa-solid fa-arrow-down"></i>
           </div>
           <div className={styles.swapInTokenContainer}>
+            <div className={styles.inTokenQuantityFormContainer}>
+              <Form.Control
+                ref={inputFieldRef}
+                className={styles.inTokenQuantityForm}
+                placeholder="0"
+                type="text"
+                value={outQuantity}
+                readOnly
+              />
+              <div className={styles.inTokenInfoContainer}>
+                <div className={styles.inTokenInfo}>
+                  {
+                    tokenInData ?
+                      <>
+                        <Image
+                          src={tokenInData.logoURI}
+                          width={24}
+                          height={24}
+                          alt={`${tokenInData ? tokenInData.symbol : "Token"} img`}
+                          className={styles.tokenImage}
+                        />
+                        <div className={styles.inTokenSymbolContainer}>{tokenInData.symbol}</div>
+                      </>
+                    :
+                      <></>
+                  }
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className={styles.swapInputContainer}>
