@@ -36,7 +36,7 @@ const Swap = () => {
     vibrate("light");
 
     const tempIn = tokenInData;
-    setTokenInData((_) => tokenInData);
+    setTokenInData((_) => tokenOutData);
     setTokenOutData((_) => tempIn);
   }
 
