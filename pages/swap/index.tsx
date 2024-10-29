@@ -69,8 +69,10 @@ const Swap = () => {
         setIsDecimalEntered((_) => false);
       }
 
-      if(parseFloat(outQuantity) > 0) {
-        const inQuantityQuote = await fetchQuote(tokenOutData.address, tokenInData.address, parseFloat(outQuantity), 3);
+      const outQuantityDecimals = parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
+
+      if(outQuantityDecimals > 0) {
+        const inQuantityQuote = await fetchQuote(tokenOutData.address, tokenInData.address, outQuantityDecimals, 3);
         setInQuantity((_) => inQuantityQuote.outAmount.toString());
       }
     }
