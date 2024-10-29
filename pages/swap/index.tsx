@@ -69,8 +69,10 @@ const Swap = () => {
         setIsDecimalEntered((_) => false);
       }
 
-      const inQuantityQuote = await fetchQuote(tokenOutData.address, tokenInData.address, parseFloat(outQuantity), 3);
-      setInQuantity((_) => inQuantityQuote.outAmount.toString());
+      if(parseFloat(outQuantity) > 0) {
+        const inQuantityQuote = await fetchQuote(tokenOutData.address, tokenInData.address, parseFloat(outQuantity), 3);
+        setInQuantity((_) => inQuantityQuote.outAmount.toString());
+      }
     }
 
     doStuff();
@@ -79,13 +81,6 @@ const Swap = () => {
   useEffect(() => {
     const doStuff = async () => {
       const tokenDataRes = await getToken(tokenIn);
-      console.log("tokenIn address: ", tokenDataRes["address"]);
-      console.log("tokenIn decimals: ", tokenDataRes["decimals"]);
-      console.log("tokenIn symbol: ", tokenDataRes["symbol"]);
-      console.log("tokenIn name: ", tokenDataRes["name"]);
-      console.log("tokenIn logoURI: ", tokenDataRes["logoURI"]);
-      console.log("tokenIn liquidity: ", tokenDataRes["liquidity"]);
-      console.log("tokenIn price: ", tokenDataRes["price"]);
 
       const td = {
         address: tokenDataRes["address"],
@@ -106,13 +101,6 @@ const Swap = () => {
   useEffect(() => {
     const doStuff = async () => {
       const tokenDataRes = await getToken(tokenOut);
-      console.log("tokenOut address: ", tokenDataRes["address"]);
-      console.log("tokenOut decimals: ", tokenDataRes["decimals"]);
-      console.log("tokenOut symbol: ", tokenDataRes["symbol"]);
-      console.log("tokenOut name: ", tokenDataRes["name"]);
-      console.log("tokenOut logoURI: ", tokenDataRes["logoURI"]);
-      console.log("tokenOut liquidity: ", tokenDataRes["liquidity"]);
-      console.log("tokenOut price: ", tokenDataRes["price"]);
 
       const td = {
         address: tokenDataRes["address"],
