@@ -73,7 +73,7 @@ const Swap = () => {
 
       if(outQuantityDecimals > 0) {
         const inQuantityQuote = await fetchQuote(tokenOutData.address, tokenInData.address, outQuantityDecimals, 3);
-        setInQuantity((_) => inQuantityQuote.outAmount.toString());
+        setInQuantity((_) => (inQuantityQuote.outAmount / (10 ** tokenInData.decimals)).toString());
       }
     }
 
