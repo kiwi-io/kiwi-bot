@@ -178,7 +178,7 @@ const Swap = () => {
                 className={styles.inTokenQuantityForm}
                 placeholder="0"
                 type="text"
-                value={outQuantity}
+                value={inQuantity}
                 readOnly
               />
               <div className={styles.inTokenInfoContainer}>
