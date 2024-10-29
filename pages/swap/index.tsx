@@ -6,6 +6,7 @@ import { delay, getToken, TokenData } from "../../utils";
 import { Form } from "react-bootstrap";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 import Image from "next/image";
+import { fetchQuote } from "../../utils/jupiter/api";
 
 const Swap = () => {
 
@@ -13,6 +14,7 @@ const Swap = () => {
   const [isSwapExecuting, setIsSwapExecuting] = useState<boolean>(false);
 
   const [outQuantity, setOutQuantity] = useState<string>(``);
+  const [inQuantity, setInQuantity] = useState<string>(``);
   const inputFieldRef = useRef(null);
 
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
@@ -59,13 +61,16 @@ const Swap = () => {
   }, []);
 
   useEffect(() => {
-    const doStuff = () => {
+    const doStuff = async () => {
       if(outQuantity.includes(".")) {
         setIsDecimalEntered((_) => true);
       }
       else {
         setIsDecimalEntered((_) => false);
       }
+
+      const inQuantityQuote = await fetchQuote(tokenOutData.address, tokenInData.address, parseFloat(outQuantity), 3);
+      setInQuantity((_) => inQuantityQuote.outAmount.toString());
     }
 
     doStuff();
@@ -180,7 +185,6 @@ const Swap = () => {
           <div className={styles.swapInTokenContainer}>
             <div className={styles.inTokenQuantityFormContainer}>
               <Form.Control
-                ref={inputFieldRef}
                 className={styles.inTokenQuantityForm}
                 placeholder="0"
                 type="text"
@@ -209,8 +213,8 @@ const Swap = () => {
             </div>
             <div className={styles.inTokenDollarQuantityContainer}>
                 {
-                  tokenInData && outQuantity ?
-                    <>{`$ ${parseFloat(outQuantity) * tokenInData.price}`}</>
+                  tokenInData && inQuantity ?
+                    <>{`$ ${parseFloat(inQuantity) * tokenInData.price}`}</>
                   :
                     <>{` `}</>
                 }
