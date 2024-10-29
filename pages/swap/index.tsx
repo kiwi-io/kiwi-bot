@@ -32,6 +32,14 @@ const Swap = () => {
     setOutQuantity((prev) => prev.slice(0, -1));
   }
 
+  const handleSideChange = () => {
+    vibrate("light");
+
+    const tempIn = tokenInData;
+    setTokenInData((_) => tokenInData);
+    setTokenOutData((_) => tempIn);
+  }
+
   const { vibrate } = useTelegram();
 
   const { tokenIn, tokenOut } = useJupiterSwapContext();
@@ -161,7 +169,12 @@ const Swap = () => {
                 }
             </div>  
           </div>
-          <div className={styles.swapIconContainer}> 
+          <div
+            className={styles.swapIconContainer}
+            onClick={() => {
+              handleSideChange();
+            }}
+          > 
             <i className="fa-solid fa-arrow-down"></i>
           </div>
           <div className={styles.swapInTokenContainer}>
