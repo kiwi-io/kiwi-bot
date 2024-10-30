@@ -8,7 +8,7 @@ import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapCont
 import Image from "next/image";
 import { fetchQuote, swapOnJupiterTx } from "../../utils/jupiter/api";
 import { useSolanaWallets } from "@privy-io/react-auth";
-import { Connection, PublicKey, SystemProgram, VersionedTransaction, TransactionMessage, TransactionConfirmationStrategy } from "@solana/web3.js";
+import { Connection, PublicKey, SystemProgram, VersionedTransaction, TransactionMessage, TransactionConfirmationStrategy, AddressLookupTableAccount, sendAndConfirmTransaction } from "@solana/web3.js";
 import { useRouter } from "next/router";
 
 const Swap = () => {
@@ -111,7 +111,18 @@ const Swap = () => {
 
       console.log("feeTransfer ix ready: ", feeTransferInstruction);
 
-      const originalTxMessage = TransactionMessage.decompile(jupiterTx.message);
+
+      const addressLookupTableAccounts = await Promise.all(
+        jupiterTx.message.addressTableLookups.map(async (lookup) => {
+          return new AddressLookupTableAccount({
+            key: lookup.accountKey,
+            state: AddressLookupTableAccount.deserialize(await connection.getAccountInfo(lookup.accountKey).then((res) => res.data)),
+          })
+        }));
+
+      const originalTxMessage = TransactionMessage.decompile(jupiterTx.message, {
+        addressLookupTableAccounts: addressLookupTableAccounts
+      });
       const originalInstructions = originalTxMessage.instructions;
 
       if (tokenOutData.symbol === "SOL") {
@@ -136,7 +147,7 @@ const Swap = () => {
         await wallets[0].signTransaction(versionedJupiterTxWithFee);
 
       console.log("signature on new tx done");
-      
+
       signature = await connection.sendTransaction(signedTx, {
         skipPreflight: false,
         preflightCommitment: 'confirmed',
