@@ -87,14 +87,6 @@ const Swap = () => {
 
     // try once
     try {
-      signature = await wallets[0].sendTransaction(
-        jupiterTx,
-        connection,
-      );
-      console.log("unexpectedly didnt fail, sig: ", signature);
-    } catch (err) {
-      console.log("Error as expected: ", err);
-      
       const referrerData = await getTelegramUserData(referrer);
 
       const referrerAddress = referrerData["linked_accounts"][1]["address"];
@@ -129,25 +121,15 @@ const Swap = () => {
         await wallets[0].signTransaction(jupiterTx);
 
       signature = await connection.sendTransaction(signedTx, {
-        skipPreflight: true,
+        skipPreflight: false,
         preflightCommitment: 'processed',
         maxRetries: 3
       });
       console.log("signature: ", signature);
-
-      // try {
-      //   console.log("Awaiting tx confirmation");
-      //   await connection.confirmTransaction({
-      //     signature: signature
-      //   } as TransactionConfirmationStrategy,
-      //   'processed'
-      // );
-      // }
-      // catch(err) {
-      //   console.log("Transaction could not be confirmed: ", signature);
-      //   setIsSwapExecuting((_) => false);
-      //   router.push(`/transaction-status?type=unconfirmed&signature=${signature}`);
-      // }
+    } catch (err) {
+      console.log("Error as expected: ", err);
+      setIsSwapExecuting((_) => false);
+      router.push(`/transaction-status?type=error&error=${err}`);
     }
 
     setIsSwapExecuting((_) => false);
