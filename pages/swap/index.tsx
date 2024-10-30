@@ -117,12 +117,11 @@ const Swap = () => {
       const originalTxMessage = TransactionMessage.decompile(jupiterTx.message, {
         addressLookupTableAccounts: addressLookupTableAccounts
       });
-      const originalInstructions = originalTxMessage.instructions;
 
       if (tokenOutData.symbol === "SOL") {
-        originalInstructions.unshift(feeTransferInstruction);
+        originalTxMessage.instructions.unshift(feeTransferInstruction);
       } else if (tokenInData.symbol === "SOL") {
-        originalInstructions.push(feeTransferInstruction);
+        originalTxMessage.instructions.push(feeTransferInstruction);
       }
 
       // const messageV0 = new TransactionMessage({
