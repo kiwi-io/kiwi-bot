@@ -72,6 +72,8 @@ const Swap = () => {
       }
     }
 
+    console.log("inQuantity: ", inQuantity);
+    console.log("totalFee: ", totalFee);
 
     const jupiterTxSerialized = await swapOnJupiterTx({
       userPublicKey: wallets[0].address,
