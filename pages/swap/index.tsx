@@ -8,7 +8,7 @@ import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapCont
 import Image from "next/image";
 import { fetchQuote, swapOnJupiterTx } from "../../utils/jupiter/api";
 import { useSolanaWallets } from "@privy-io/react-auth";
-import { Connection, PublicKey, SystemProgram, Transaction, TransactionConfirmationStrategy } from "@solana/web3.js";
+import { Connection, PublicKey, SystemProgram, VersionedTransaction, TransactionMessage, TransactionConfirmationStrategy } from "@solana/web3.js";
 import { useRouter } from "next/router";
 
 const Swap = () => {
@@ -72,7 +72,7 @@ const Swap = () => {
     });
     
     const swapTransactionBuf = Buffer.from(jupiterTxSerialized, 'base64');
-    var jupiterTx = Transaction.from(swapTransactionBuf);
+    var jupiterTx = VersionedTransaction.deserialize(swapTransactionBuf);
 
     let signature = "";
 
@@ -109,23 +109,31 @@ const Swap = () => {
         lamports: totalFee,
       });
 
+      const originalTxMessage = TransactionMessage.decompile(jupiterTx.message);
+      const originalInstructions = originalTxMessage.instructions;
 
-      // Insert the instruction at the beginning or end based on txType
-      // if (tokenOutData.symbol === "SOL") {
-      //   jupiterTx.instructions.unshift(feeTransferInstruction);
-      // } else if (tokenInData.symbol === 'SOL') {
-      //   jupiterTx.instructions.push(feeTransferInstruction);
-      // }
+      if (tokenOutData.symbol === "SOL") {
+        originalInstructions.unshift(feeTransferInstruction);
+      } else if (tokenInData.symbol === "SOL") {
+        originalInstructions.push(feeTransferInstruction);
+      }
+
+      const messageV0 = new TransactionMessage({
+        payerKey: new PublicKey(wallets[0].address),
+        recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
+        instructions: originalInstructions,
+      }).compileToV0Message();
+  
+      const versionedJupiterTxWithFee = new VersionedTransaction(messageV0);
 
       const signedTx =
-        await wallets[0].signTransaction(jupiterTx);
+        await wallets[0].signTransaction(versionedJupiterTxWithFee);
 
-      signature = await connection.sendTransaction(signedTx, [],  {
+      signature = await connection.sendTransaction(signedTx, {
         skipPreflight: false,
         preflightCommitment: 'confirmed',
         maxRetries: 3
       });
-
       try {
         console.log("Awaiting tx confirmation");
         await connection.confirmTransaction({
