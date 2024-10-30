@@ -76,10 +76,6 @@ const Swap = () => {
 
     let signature = "";
 
-    console.log("wallet: ", wallets[0].address);
-    console.log("tx: ", jupiterTx);
-    console.log("connection: ", connection);
-
     // try once
     try {
       signature = await wallets[0].sendTransaction(
@@ -99,7 +95,7 @@ const Swap = () => {
       });
     }
 
-    // console.log("Simulation: ", (await connection.simulateTransaction(jupiterTx)));
+    console.log("Simulation: ", (await connection.simulateTransaction(jupiterTx)));
 
     setIsSwapExecuting((_) => false);
     router.push(`/transaction-status?type=success&signature=${signature}`);
