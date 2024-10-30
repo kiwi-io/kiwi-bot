@@ -136,7 +136,7 @@ const Swap = () => {
         await wallets[0].signTransaction(jupiterTx);
 
       signature = await connection.sendTransaction(signedTx, {
-        skipPreflight: false,
+        skipPreflight: true,
         preflightCommitment: 'confirmed',
         maxRetries: 3
       });
