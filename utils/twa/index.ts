@@ -53,8 +53,7 @@ export const useTelegram = (): useTelegramComposableState => {
 
   const disableVerticalSwipe = () => {
     swipeBehavior.disableVertical();
-  }
-
+  };
 
   return {
     vibrate,

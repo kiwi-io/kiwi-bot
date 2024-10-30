@@ -17,7 +17,16 @@ export interface TransactionConfirmationParams {
 const TransactionConfirmation = () => {
   const router = useRouter();
 
-  const { side, tokenIn, tokenOut, tokenInData, tokenOutData, referrer, actionHost, actionHostLogo } = useJupiterSwapContext();
+  const {
+    side,
+    tokenIn,
+    tokenOut,
+    tokenInData,
+    tokenOutData,
+    referrer,
+    actionHost,
+    actionHostLogo,
+  } = useJupiterSwapContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { vibrate, closeApp } = useTelegram();
@@ -127,14 +136,12 @@ const TransactionConfirmation = () => {
                   className={styles.actionTargetLogo}
                 />
                 <div className={styles.tokenDetailText}>
-                  {
-                    tokenOutData ? tokenOutData.symbol : ``
-                  }
+                  {tokenOutData ? tokenOutData.symbol : ``}
                 </div>
               </div>
             </div>
             <div className={styles.valueContainer}>
-            <div className={styles.tokenDetailContainer}>
+              <div className={styles.tokenDetailContainer}>
                 <Image
                   src={`${tokenInData ? tokenInData.logoURI : ``}`}
                   width={25}
@@ -143,9 +150,7 @@ const TransactionConfirmation = () => {
                   className={styles.actionTargetLogo}
                 />
                 <div className={styles.tokenDetailText}>
-                  {
-                    tokenInData ? tokenInData.symbol : ``
-                  }
+                  {tokenInData ? tokenInData.symbol : ``}
                 </div>
               </div>
             </div>

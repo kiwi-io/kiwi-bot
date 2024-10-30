@@ -29,9 +29,9 @@ bot.on("inline_query", async (ctx) => {
 
     // getData.links.actions.forEach((action: any) => {
     //   if (!action.parameters) {
-        // const inline_url = `https://t.me/samplekiwibot/bot?startapp=jup-${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}&mode=compact`;
-        // console.log("inline_url: ", inline_url);
-        // keyboard.url(action.label, inline_url).row();
+    // const inline_url = `https://t.me/samplekiwibot/bot?startapp=jup-${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}&mode=compact`;
+    // console.log("inline_url: ", inline_url);
+    // keyboard.url(action.label, inline_url).row();
     //   }
     // });
 
@@ -75,7 +75,7 @@ bot.on("inline_query", async (ctx) => {
         description: `Trade ${symbol} with SOL using Kiwi`,
         input_message_content: {
           message_text: `Trade ${symbol} with SOL using Kiwi`,
-          parse_mode: "HTML"
+          parse_mode: "HTML",
         },
         thumbnail_url: logoUri,
         reply_markup: keyboard,
@@ -93,7 +93,7 @@ bot.on("inline_query", async (ctx) => {
         },
         thumbnail_url: `https://i.ibb.co/6vHYGBg/Kiwi-Logo.png`,
         thumbnail_height: 30,
-        thumbnail_width: 30
+        thumbnail_width: 30,
       },
     ]);
 

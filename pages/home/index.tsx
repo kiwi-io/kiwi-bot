@@ -21,7 +21,16 @@ const Home = () => {
 
   const { portfolio, updatePortfolio } = useWalletContext();
 
-  const { updateSide, updateTokenIn, updateTokenInData, updateTokenOut, updateTokenOutData, updateReferrer, updateActionHost, updateActionHostLogo } = useJupiterSwapContext();
+  const {
+    updateSide,
+    updateTokenIn,
+    updateTokenInData,
+    updateTokenOut,
+    updateTokenOutData,
+    updateReferrer,
+    updateActionHost,
+    updateActionHostLogo,
+  } = useJupiterSwapContext();
 
   const { createWallet } = useSolanaWallets();
 

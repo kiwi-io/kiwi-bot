@@ -8,7 +8,7 @@ interface JupiterSwapContextType {
   side: Side;
   tokenIn: string;
   tokenOut: string;
-  
+
   quantityIn: string;
   quantityOut: string;
 
@@ -18,7 +18,7 @@ interface JupiterSwapContextType {
   referrer: string;
   actionHost: string;
   actionHostLogo: string;
-  
+
   updateSide: (side: Side) => void;
   updateTokenIn: (token: string) => Promise<void>;
   updateTokenInData: (token: string) => Promise<void>;
@@ -28,10 +28,12 @@ interface JupiterSwapContextType {
   updateQuantityOut: (quantity: string) => Promise<void>;
   updateReferrer: (referrer: string) => void;
   updateActionHost: (actionHost: string) => void;
-  updateActionHostLogo: (actionHostLogo: string) => void; 
+  updateActionHostLogo: (actionHostLogo: string) => void;
 }
 
-const JupiterSwapContext = createContext<JupiterSwapContextType | undefined>(undefined);
+const JupiterSwapContext = createContext<JupiterSwapContextType | undefined>(
+  undefined,
+);
 
 export const useJupiterSwapContext = () => {
   const context = useContext(JupiterSwapContext);
@@ -45,7 +47,6 @@ export const useJupiterSwapContext = () => {
 
 //@ts-ignore
 export const JupiterSwapContextProvider = ({ children }) => {
-
   const [side, setSide] = useState<Side>("buy");
   const [tokenIn, setTokenIn] = useState<string>("");
   const [tokenOut, setTokenOut] = useState<string>("");
@@ -71,111 +72,109 @@ export const JupiterSwapContextProvider = ({ children }) => {
     liquidity: 0.0,
     price: 0.0,
   } as TokenData);
-  
+
   const [referrer, setReferrer] = useState<string>("");
   const [actionHost, setActionHost] = useState<string>("");
   const [actionHostLogo, setActionHostLogo] = useState<string>("");
 
   const updateSide = (side: Side) => {
     setSide((_) => side);
-  }
+  };
 
   const updateTokenIn = async (token: string) => {
     setTokenIn((_) => token);
-  }
+  };
 
   const updateTokenInData = async (token: string) => {
     try {
-        const tokenDataRes = await getToken(token);
-        console.log("tokenIn address: ", tokenDataRes["address"]);
-        console.log("tokenIn decimals: ", tokenDataRes["decimals"]);
-        console.log("tokenIn symbol: ", tokenDataRes["symbol"]);
-        console.log("tokenIn name: ", tokenDataRes["name"]);
-        console.log("tokenIn logoURI: ", tokenDataRes["logoURI"]);
-        console.log("tokenIn liquidity: ", tokenDataRes["liquidity"]);
-        console.log("tokenIn price: ", tokenDataRes["price"]);
+      const tokenDataRes = await getToken(token);
+      console.log("tokenIn address: ", tokenDataRes["address"]);
+      console.log("tokenIn decimals: ", tokenDataRes["decimals"]);
+      console.log("tokenIn symbol: ", tokenDataRes["symbol"]);
+      console.log("tokenIn name: ", tokenDataRes["name"]);
+      console.log("tokenIn logoURI: ", tokenDataRes["logoURI"]);
+      console.log("tokenIn liquidity: ", tokenDataRes["liquidity"]);
+      console.log("tokenIn price: ", tokenDataRes["price"]);
 
-        const td = {
-          address: tokenDataRes["address"],
-          decimals: tokenDataRes["decimals"],
-          symbol: tokenDataRes["symbol"],
-          name: tokenDataRes["name"],
-          logoURI: tokenDataRes["logoURI"],
-          liquidity: tokenDataRes["liquidity"],
-          price: tokenDataRes["price"]
-        } as TokenData;
+      const td = {
+        address: tokenDataRes["address"],
+        decimals: tokenDataRes["decimals"],
+        symbol: tokenDataRes["symbol"],
+        name: tokenDataRes["name"],
+        logoURI: tokenDataRes["logoURI"],
+        liquidity: tokenDataRes["liquidity"],
+        price: tokenDataRes["price"],
+      } as TokenData;
 
-        setTokenInData((_) => td);
-        console.log("token in data is set: ", tokenInData);
+      setTokenInData((_) => td);
+      console.log("token in data is set: ", tokenInData);
+    } catch (err) {
+      console.log("Error getting tokenIn data: ", token);
+      console.log("err: ", err);
+      setTokenInData((_) => null);
     }
-    catch(err) {
-        console.log("Error getting tokenIn data: ", token);
-        console.log("err: ", err);
-        setTokenInData((_) => null);
-    }
-  }
+  };
 
   const updateTokenOut = async (token: string) => {
     setTokenOut((_) => token);
-  }
+  };
 
   const updateTokenOutData = async (token: string) => {
     try {
-        const tokenDataRes = await getToken(token);
-        console.log("tokenOut address: ", tokenDataRes["address"]);
-        console.log("tokenOut decimals: ", tokenDataRes["decimals"]);
-        console.log("tokenOut symbol: ", tokenDataRes["symbol"]);
-        console.log("tokenOut name: ", tokenDataRes["name"]);
-        console.log("tokenOut logoURI: ", tokenDataRes["logoURI"]);
-        console.log("tokenOut liquidity: ", tokenDataRes["liquidity"]);
-        console.log("tokenOut price: ", tokenDataRes["price"]);
+      const tokenDataRes = await getToken(token);
+      console.log("tokenOut address: ", tokenDataRes["address"]);
+      console.log("tokenOut decimals: ", tokenDataRes["decimals"]);
+      console.log("tokenOut symbol: ", tokenDataRes["symbol"]);
+      console.log("tokenOut name: ", tokenDataRes["name"]);
+      console.log("tokenOut logoURI: ", tokenDataRes["logoURI"]);
+      console.log("tokenOut liquidity: ", tokenDataRes["liquidity"]);
+      console.log("tokenOut price: ", tokenDataRes["price"]);
 
-        const td = {
-          address: tokenDataRes["address"],
-          decimals: tokenDataRes["decimals"],
-          symbol: tokenDataRes["symbol"],
-          name: tokenDataRes["name"],
-          logoURI: tokenDataRes["logoURI"],
-          liquidity: tokenDataRes["liquidity"],
-          price: tokenDataRes["price"]
-        } as TokenData;
+      const td = {
+        address: tokenDataRes["address"],
+        decimals: tokenDataRes["decimals"],
+        symbol: tokenDataRes["symbol"],
+        name: tokenDataRes["name"],
+        logoURI: tokenDataRes["logoURI"],
+        liquidity: tokenDataRes["liquidity"],
+        price: tokenDataRes["price"],
+      } as TokenData;
 
-        setTokenOutData((_) => td);
-        console.log("token out data is set: ", tokenOutData);
+      setTokenOutData((_) => td);
+      console.log("token out data is set: ", tokenOutData);
+    } catch (err) {
+      console.log("Error getting tokenIn data: ", token);
+      console.log("err: ", err);
+      setTokenOutData((_) => null);
     }
-    catch(err) {
-        console.log("Error getting tokenIn data: ", token);
-        console.log("err: ", err);
-        setTokenOutData((_) => null);
-    }
-  }
+  };
 
   const updateQuantityIn = (quantity: string) => {
     setQuantityIn((_) => quantity);
-  }
+  };
 
   const updateQuantityOut = (quantity: string) => {
     setQuantityOut((_) => quantity);
-  }
+  };
 
   const updateReferrer = (referrer: string) => {
     setReferrer((_) => referrer);
-  }
+  };
 
   const updateActionHost = (actionHost: string) => {
     setActionHost((_) => actionHost);
-  }
+  };
 
   const updateActionHostLogo = (actionHostLogo: string) => {
     setActionHostLogo((_) => actionHostLogo);
-  }
+  };
 
   const value = {
     side,
 
     tokenIn,
     tokenOut,
-    
+
     quantityIn,
     quantityOut,
 
@@ -194,10 +193,12 @@ export const JupiterSwapContextProvider = ({ children }) => {
     updateQuantityOut,
     updateReferrer,
     updateActionHost,
-    updateActionHostLogo
+    updateActionHostLogo,
   } as JupiterSwapContextType;
 
   return (
-    <JupiterSwapContext.Provider value={value}>{children}</JupiterSwapContext.Provider>
+    <JupiterSwapContext.Provider value={value}>
+      {children}
+    </JupiterSwapContext.Provider>
   );
 };

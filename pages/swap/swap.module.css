@@ -1,4 +1,4 @@
- .swapPageContainer {
+.swapPageContainer {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -128,7 +128,7 @@
 .swapInTokenContainer {
   margin-top: -1.25rem;
   width: 100%;
-  background-color: #f2f1e5;;
+  background-color: #f2f1e5;
   border-radius: 0.5rem;
 }
 
@@ -213,13 +213,12 @@
   padding-bottom: 0.75rem;
   font-size: 2rem;
   font-weight: 600;
-  width: 33%
+  width: 33%;
 }
 
 .numKeyContainer:active,
 .numKeyContainer:focus,
-.numKeyContainer:hover
- {
+.numKeyContainer:hover {
   outline: none;
   background-color: inherit;
   color: inherit;

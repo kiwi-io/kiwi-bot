@@ -15,11 +15,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const doStuff = () => {
       disableVerticalSwipe();
-    }
+    };
 
     doStuff();
   }, []);
-  
+
   return (
     <>
       <Head>

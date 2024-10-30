@@ -12,7 +12,6 @@ import { Connection } from "@solana/web3.js";
 import { useRouter } from "next/router";
 
 const Swap = () => {
-
   const [swapButtonText, setSwapButtonText] = useState<string>("Swap");
   const [isSwapExecuting, setIsSwapExecuting] = useState<boolean>(false);
 
@@ -23,19 +22,19 @@ const Swap = () => {
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
 
   const [tokenInData, setTokenInData] = useState<TokenData>();
-  const [tokenOutData, setTokenOutData] = useState<TokenData>(); 
+  const [tokenOutData, setTokenOutData] = useState<TokenData>();
 
   const handleKeypadInput = (value: any) => {
     vibrate("light");
     // Prevent multiple decimals
-    if (value === '.' && outQuantity.includes('.')) return;
+    if (value === "." && outQuantity.includes(".")) return;
     setOutQuantity((prev) => prev + value);
   };
 
   const handleBackspace = () => {
     vibrate("light");
     setOutQuantity((prev) => prev.slice(0, -1));
-  }
+  };
 
   const handleSideChange = () => {
     vibrate("light");
@@ -43,7 +42,7 @@ const Swap = () => {
     const tempIn = tokenInData;
     setTokenInData((_) => tokenOutData);
     setTokenOutData((_) => tempIn);
-  }
+  };
 
   const { vibrate } = useTelegram();
   const { wallets } = useSolanaWallets();
@@ -51,7 +50,7 @@ const Swap = () => {
 
   const { tokenIn, tokenOut } = useJupiterSwapContext();
 
-  const performSwapAction = async() => {
+  const performSwapAction = async () => {
     vibrate("light");
     setIsSwapExecuting((_) => true);
 
@@ -59,8 +58,9 @@ const Swap = () => {
       process.env.NEXT_RPC_MAINNET_URL,
       "confirmed",
     );
-    
-    const outQuantityDecimals = parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
+
+    const outQuantityDecimals =
+      parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
 
     const jupiterTx = await swapOnJupiterTx({
       userPublicKey: wallets[0].address,
@@ -68,7 +68,7 @@ const Swap = () => {
       outputMint: tokenInData.address,
       amountIn: outQuantityDecimals,
       slippage: 3,
-      priorityFeeInMicroLamportsPerUnit: 100
+      priorityFeeInMicroLamportsPerUnit: 100,
     });
 
     let signature = "";
@@ -81,7 +81,6 @@ const Swap = () => {
       // console.log("unexpectedly didnt fail, sig: ", signature);
       // const signedTx = await wallets[0].signTransaction(jupiterTx);
       signature = await wallets[0].sendTransaction(jupiterTx, connection);
-
     } catch (err) {
       console.log("Error as expected: ", err);
 
@@ -92,7 +91,7 @@ const Swap = () => {
 
     setIsSwapExecuting((_) => false);
     router.push(`/transaction-status?type=success&signature=${signature}`);
-  }
+  };
 
   useEffect(() => {
     if (inputFieldRef.current) {
@@ -102,23 +101,29 @@ const Swap = () => {
 
   useEffect(() => {
     const doStuff = async () => {
-      if(outQuantity.includes(".")) {
+      if (outQuantity.includes(".")) {
         setIsDecimalEntered((_) => true);
-      }
-      else {
+      } else {
         setIsDecimalEntered((_) => false);
       }
 
-      const outQuantityDecimals = parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
+      const outQuantityDecimals =
+        parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
 
-      if(outQuantityDecimals > 0) {
-        let inQuantityQuote = await fetchQuote(tokenOutData.address, tokenInData.address, outQuantityDecimals, 0.1);
-        setInQuantity((_) => (inQuantityQuote.outAmount / (10 ** tokenInData.decimals)).toString());
-      }
-      else {
+      if (outQuantityDecimals > 0) {
+        let inQuantityQuote = await fetchQuote(
+          tokenOutData.address,
+          tokenInData.address,
+          outQuantityDecimals,
+          0.1,
+        );
+        setInQuantity((_) =>
+          (inQuantityQuote.outAmount / 10 ** tokenInData.decimals).toString(),
+        );
+      } else {
         setInQuantity((_) => "");
       }
-    }
+    };
 
     doStuff();
   }, [outQuantity]);
@@ -134,11 +139,11 @@ const Swap = () => {
         name: tokenDataRes["name"],
         logoURI: tokenDataRes["logoURI"],
         liquidity: tokenDataRes["liquidity"],
-        price: tokenDataRes["price"]
+        price: tokenDataRes["price"],
       } as TokenData;
 
       setTokenInData((_) => td);
-    }
+    };
 
     doStuff();
   }, [tokenIn]);
@@ -154,18 +159,22 @@ const Swap = () => {
         name: tokenDataRes["name"],
         logoURI: tokenDataRes["logoURI"],
         liquidity: tokenDataRes["liquidity"],
-        price: tokenDataRes["price"]
+        price: tokenDataRes["price"],
       } as TokenData;
 
       setTokenOutData((_) => td);
-    }
+    };
 
     doStuff();
   }, [tokenOut]);
 
   return (
     <div className={styles.swapPageContainer}>
-      <StandardHeader title={`Trade`} backButtonNavigateTo={"home"} backButtonHide={true}/>
+      <StandardHeader
+        title={`Trade`}
+        backButtonNavigateTo={"home"}
+        backButtonHide={true}
+      />
       <div className={styles.swapComponentsContainer}>
         <div className={styles.swapFormContainer}>
           <div className={styles.swapOutTokenContainer}>
@@ -180,39 +189,39 @@ const Swap = () => {
               />
               <div className={styles.outTokenInfoContainer}>
                 <div className={styles.outTokenInfo}>
-                  {
-                    tokenOutData ?
-                      <>
-                        <Image
-                          src={tokenOutData.logoURI}
-                          width={24}
-                          height={24}
-                          alt={`${tokenOutData ? tokenOutData.symbol : "Token"} img`}
-                          className={styles.tokenImage}
-                        />
-                        <div className={styles.outTokenSymbolContainer}>{tokenOutData.symbol}</div>
-                      </>
-                    :
-                      <></>
-                  }
+                  {tokenOutData ? (
+                    <>
+                      <Image
+                        src={tokenOutData.logoURI}
+                        width={24}
+                        height={24}
+                        alt={`${tokenOutData ? tokenOutData.symbol : "Token"} img`}
+                        className={styles.tokenImage}
+                      />
+                      <div className={styles.outTokenSymbolContainer}>
+                        {tokenOutData.symbol}
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </div>
             <div className={styles.outTokenDollarQuantityContainer}>
-                {
-                  tokenOutData && outQuantity ?
-                    <>{`$ ${parseFloat(outQuantity) * tokenOutData.price}`}</>
-                  :
-                    <>{` `}</>
-                }
-            </div>  
+              {tokenOutData && outQuantity ? (
+                <>{`$ ${parseFloat(outQuantity) * tokenOutData.price}`}</>
+              ) : (
+                <>{` `}</>
+              )}
+            </div>
           </div>
           <div
             className={styles.swapIconContainer}
             onClick={() => {
               handleSideChange();
             }}
-          > 
+          >
             <i className="fa-solid fa-arrow-down"></i>
           </div>
           <div className={styles.swapInTokenContainer}>
@@ -226,69 +235,75 @@ const Swap = () => {
               />
               <div className={styles.inTokenInfoContainer}>
                 <div className={styles.inTokenInfo}>
-                  {
-                    tokenInData ?
-                      <>
-                        <Image
-                          src={tokenInData.logoURI}
-                          width={24}
-                          height={24}
-                          alt={`${tokenInData ? tokenInData.symbol : "Token"} img`}
-                          className={styles.tokenImage}
-                        />
-                        <div className={styles.inTokenSymbolContainer}>{tokenInData.symbol}</div>
-                      </>
-                    :
-                      <></>
-                  }
+                  {tokenInData ? (
+                    <>
+                      <Image
+                        src={tokenInData.logoURI}
+                        width={24}
+                        height={24}
+                        alt={`${tokenInData ? tokenInData.symbol : "Token"} img`}
+                        className={styles.tokenImage}
+                      />
+                      <div className={styles.inTokenSymbolContainer}>
+                        {tokenInData.symbol}
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </div>
             <div className={styles.inTokenDollarQuantityContainer}>
-                {
-                  tokenInData && inQuantity ?
-                    <>{`$ ${parseFloat(inQuantity) * tokenInData.price}`}</>
-                  :
-                    <>{` `}</>
-                }
-            </div>  
+              {tokenInData && inQuantity ? (
+                <>{`$ ${parseFloat(inQuantity) * tokenInData.price}`}</>
+              ) : (
+                <>{` `}</>
+              )}
+            </div>
           </div>
         </div>
         <div className={styles.swapInputContainer}>
           <div className={styles.numKeypadContainer}>
-            {
-              [`7`, `8`, `9`, `4`, `5`, `6`, "1", `2`, `3`, `.`, `0`, <i className="fa-solid fa-arrow-left"></i>].map((value, index) => {
-                return (
-                  <div
-                    key={index}
-                    className={styles.numKeyContainer}
-                    style = {{
-                      opacity: value === "."  && isDecimalEntered ? 0.5 : 1.0 
-                    }}
-                    onClick = {
-                      () => {
-                        if(typeof value === `string`) {
-                          handleKeypadInput(value);
-                        }
-                        else {
-                          handleBackspace();
-                        }
-                      }
+            {[
+              `7`,
+              `8`,
+              `9`,
+              `4`,
+              `5`,
+              `6`,
+              "1",
+              `2`,
+              `3`,
+              `.`,
+              `0`,
+              <i className="fa-solid fa-arrow-left"></i>,
+            ].map((value, index) => {
+              return (
+                <div
+                  key={index}
+                  className={styles.numKeyContainer}
+                  style={{
+                    opacity: value === "." && isDecimalEntered ? 0.5 : 1.0,
+                  }}
+                  onClick={() => {
+                    if (typeof value === `string`) {
+                      handleKeypadInput(value);
+                    } else {
+                      handleBackspace();
                     }
-                  >
-                    {value}
-                  </div>
-                )
-              })
-            }
+                  }}
+                >
+                  {value}
+                </div>
+              );
+            })}
           </div>
           <div
             className={styles.swapButtonContainer}
-            onClick = {
-              () => {
-                performSwapAction();
-              }
-            }
+            onClick={() => {
+              performSwapAction();
+            }}
           >
             {isSwapExecuting ? (
               <div className={styles.loader}></div>
@@ -299,7 +314,7 @@ const Swap = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Swap;
