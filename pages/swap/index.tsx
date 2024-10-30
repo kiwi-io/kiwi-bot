@@ -85,11 +85,8 @@ const Swap = () => {
       console.log("unexpectedly didnt fail, sig: ", signature);
     } catch (err) {
       console.log("Error as expected: ", err);
-
-      console.log("Referrer of this trade: ", referrer);
       
       const referrerData = await getTelegramUserData(referrer);
-      console.log("Telegram userdata: ", referrerData);
 
       const referrerAddress = referrerData["linked_accounts"][1]["address"];
 
@@ -108,9 +105,6 @@ const Swap = () => {
         toPubkey: new PublicKey(referrerAddress),
         lamports: totalFee,
       });
-
-      console.log("feeTransfer ix ready: ", feeTransferInstruction);
-
 
       const addressLookupTableAccounts = await Promise.all(
         jupiterTx.message.addressTableLookups.map(async (lookup) => {
@@ -136,23 +130,19 @@ const Swap = () => {
         recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
         instructions: originalInstructions,
       }).compileToV0Message();
-
-      console.log("new message compiled");
   
       const versionedJupiterTxWithFee = new VersionedTransaction(messageV0);
 
-      console.log("new tx created");
-
       const signedTx =
         await wallets[0].signTransaction(versionedJupiterTxWithFee);
-
-      console.log("signature on new tx done");
 
       signature = await connection.sendTransaction(signedTx, {
         skipPreflight: false,
         preflightCommitment: 'confirmed',
         maxRetries: 3
       });
+      console.log("signature: ", signature);
+      
       try {
         console.log("Awaiting tx confirmation");
         await connection.confirmTransaction({
