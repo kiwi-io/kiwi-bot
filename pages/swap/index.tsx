@@ -92,7 +92,11 @@ const Swap = () => {
 
       const signedTx =
         await wallets[0].signTransaction(jupiterTx);
-      signature = await connection.sendTransaction(signedTx);
+      signature = await connection.sendTransaction(signedTx, {
+        skipPreflight: false,
+        preflightCommitment: 'confirmed',
+        maxRetries: 3
+      });
     }
 
     // console.log("Simulation: ", (await connection.simulateTransaction(jupiterTx)));
