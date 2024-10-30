@@ -14,9 +14,7 @@ import {
   SystemProgram,
   VersionedTransaction,
   TransactionMessage,
-  TransactionConfirmationStrategy,
   AddressLookupTableAccount,
-  sendAndConfirmTransaction,
 } from "@solana/web3.js";
 import { useRouter } from "next/router";
 
@@ -101,6 +99,13 @@ const Swap = () => {
 
     // try once
     try {
+      
+      const signature = await wallets[0].sendTransaction(jupiterTx, connection);
+      console.log("signature: ", signature);
+
+    } catch (err) {
+      console.log("Error as expected: ", err);
+
       const referrerData = await getTelegramUserData(referrer);
 
       const referrerAddress = referrerData["linked_accounts"][1]["address"];
@@ -151,8 +156,7 @@ const Swap = () => {
         maxRetries: 3,
       });
       console.log("signature: ", signature);
-    } catch (err) {
-      console.log("Error as expected: ", err);
+
       setIsSwapExecuting((_) => false);
       router.push(`/transaction-status?type=error&error=${err}`);
     }
