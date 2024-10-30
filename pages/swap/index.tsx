@@ -68,7 +68,7 @@ const Swap = () => {
       outputMint: tokenInData.address,
       amountIn: outQuantityDecimals,
       slippage: 5,
-      priorityFeeInMicroLamportsPerUnit: 100,
+      priorityFeeInMicroLamportsPerUnit: 100_000,
     });
     
     const swapTransactionBuf = Buffer.from(jupiterTxSerialized, 'base64');
