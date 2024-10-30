@@ -72,6 +72,8 @@ const Swap = () => {
       }
     }
 
+    totalFee = parseInt(totalFee.toString());
+
     console.log("totalFee: ", totalFee);
 
     const jupiterTxSerialized = await swapOnJupiterTx({
