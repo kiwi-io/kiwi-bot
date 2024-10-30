@@ -8,7 +8,7 @@ import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapCont
 import Image from "next/image";
 import { fetchQuote, swapOnJupiterTx } from "../../utils/jupiter/api";
 import { useSolanaWallets } from "@privy-io/react-auth";
-import { Connection } from "@solana/web3.js";
+import { Connection, VersionedTransaction } from "@solana/web3.js";
 import { useRouter } from "next/router";
 
 const Swap = () => {
@@ -62,7 +62,7 @@ const Swap = () => {
     const outQuantityDecimals =
       parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
 
-    const jupiterTx = await swapOnJupiterTx({
+    const jupiterTxSerialized = await swapOnJupiterTx({
       userPublicKey: wallets[0].address,
       inputMint: tokenOutData.address,
       outputMint: tokenInData.address,
@@ -70,6 +70,9 @@ const Swap = () => {
       slippage: 3,
       priorityFeeInMicroLamportsPerUnit: 100,
     });
+    
+    const swapTransactionBuf = Buffer.from(jupiterTxSerialized, 'base64');
+    var jupiterTx = VersionedTransaction.deserialize(swapTransactionBuf);
 
     let signature = "";
 
@@ -78,21 +81,21 @@ const Swap = () => {
     console.log("connection: ", connection);
 
     // try once
-    // try {
-    //   signature = await wallets[0].sendTransaction(
-    //     jupiterTx,
-    //     connection,
-    //   );
-    //   console.log("unexpectedly didnt fail, sig: ", signature);
-    // } catch (err) {
-    //   console.log("Error as expected: ", err);
+    try {
+      signature = await wallets[0].sendTransaction(
+        jupiterTx,
+        connection,
+      );
+      console.log("unexpectedly didnt fail, sig: ", signature);
+    } catch (err) {
+      console.log("Error as expected: ", err);
 
-    //   const signedTx =
-    //     await wallets[0].signTransaction(jupiterTx);
-    //   signature = await connection.sendTransaction(signedTx);
-    // }
+      const signedTx =
+        await wallets[0].signTransaction(jupiterTx);
+      signature = await connection.sendTransaction(signedTx);
+    }
 
-    console.log("Simulation: ", (await connection.simulateTransaction(jupiterTx)));
+    // console.log("Simulation: ", (await connection.simulateTransaction(jupiterTx)));
 
     setIsSwapExecuting((_) => false);
     router.push(`/transaction-status?type=success&signature=${signature}`);
