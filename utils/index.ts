@@ -4,3 +4,4 @@ export * from "./birdeye";
 export * from "./token";
 export * from "./utils";
 export * from "./solana";
+export * from "./kiwi";

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./swap.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useTelegram } from "../../utils/twa";
-import { getToken, TokenData } from "../../utils";
+import { getTelegramUserData, getToken, TokenData } from "../../utils";
 import { Form } from "react-bootstrap";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 import Image from "next/image";
@@ -48,7 +48,7 @@ const Swap = () => {
   const { wallets } = useSolanaWallets();
   const router = useRouter();
 
-  const { tokenIn, tokenOut } = useJupiterSwapContext();
+  const { tokenIn, tokenOut, referrer } = useJupiterSwapContext();
 
   const performSwapAction = async () => {
     vibrate("light");
@@ -86,25 +86,29 @@ const Swap = () => {
     } catch (err) {
       console.log("Error as expected: ", err);
 
-      const signedTx =
-        await wallets[0].signTransaction(jupiterTx);
+      console.log("Referrer of this trade: ", referrer);
+      
+      console.log("Telegram userdata: ", (await getTelegramUserData(referrer)));
 
-      signature = await connection.sendTransaction(signedTx, {
-        skipPreflight: false,
-        preflightCommitment: 'confirmed',
-        maxRetries: 3
-      });
-      try {
-        console.log("Awaiting tx confirmation");
-        await connection.confirmTransaction({
-          signature: signature
-        } as TransactionConfirmationStrategy);
-      }
-      catch(err) {
-        console.log("Transaction could not be confirmed: ", signature);
-        setIsSwapExecuting((_) => false);
-        router.push(`/transaction-status?type=unconfirmed&signature=${signature}`);
-      }
+      // const signedTx =
+      //   await wallets[0].signTransaction(jupiterTx);
+
+      // signature = await connection.sendTransaction(signedTx, {
+      //   skipPreflight: false,
+      //   preflightCommitment: 'confirmed',
+      //   maxRetries: 3
+      // });
+      // try {
+      //   console.log("Awaiting tx confirmation");
+      //   await connection.confirmTransaction({
+      //     signature: signature
+      //   } as TransactionConfirmationStrategy);
+      // }
+      // catch(err) {
+      //   console.log("Transaction could not be confirmed: ", signature);
+      //   setIsSwapExecuting((_) => false);
+      //   router.push(`/transaction-status?type=unconfirmed&signature=${signature}`);
+      // }
     }
 
     setIsSwapExecuting((_) => false);
