@@ -8,7 +8,7 @@ import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapCont
 import Image from "next/image";
 import { fetchQuote, swapOnJupiterTx } from "../../utils/jupiter/api";
 import { useSolanaWallets } from "@privy-io/react-auth";
-import { Connection, TransactionConfirmationStrategy, VersionedTransaction } from "@solana/web3.js";
+import { Connection, PublicKey, SystemProgram, Transaction, TransactionConfirmationStrategy } from "@solana/web3.js";
 import { useRouter } from "next/router";
 
 const Swap = () => {
@@ -72,7 +72,7 @@ const Swap = () => {
     });
     
     const swapTransactionBuf = Buffer.from(jupiterTxSerialized, 'base64');
-    var jupiterTx = VersionedTransaction.deserialize(swapTransactionBuf);
+    var jupiterTx = Transaction.from(swapTransactionBuf);
 
     let signature = "";
 
@@ -92,29 +92,51 @@ const Swap = () => {
       console.log("Telegram userdata: ", referrerData);
 
       const referrerAddress = referrerData["linked_accounts"][1]["address"];
-      
-      console.log("referrer wallet: ", referrerAddress);
+
+      let totalFee = 0;
+      if(tokenOutData.symbol === "SOL") {
+        totalFee = outQuantityDecimals * 0.01;
+      }
+      else {
+        if(inQuantity) {
+          totalFee = (parseFloat(inQuantity) * (10 ** tokenInData.decimals)) * 0.01;
+        }
+      }
+
+      const feeTransferInstruction = SystemProgram.transfer({
+        fromPubkey: new PublicKey(wallets[0].address),
+        toPubkey: new PublicKey(referrerAddress),
+        lamports: totalFee,
+      });
 
 
-      // const signedTx =
-      //   await wallets[0].signTransaction(jupiterTx);
-
-      // signature = await connection.sendTransaction(signedTx, {
-      //   skipPreflight: false,
-      //   preflightCommitment: 'confirmed',
-      //   maxRetries: 3
-      // });
-      // try {
-      //   console.log("Awaiting tx confirmation");
-      //   await connection.confirmTransaction({
-      //     signature: signature
-      //   } as TransactionConfirmationStrategy);
+      // Insert the instruction at the beginning or end based on txType
+      // if (tokenOutData.symbol === "SOL") {
+      //   jupiterTx.instructions.unshift(feeTransferInstruction);
+      // } else if (tokenInData.symbol === 'SOL') {
+      //   jupiterTx.instructions.push(feeTransferInstruction);
       // }
-      // catch(err) {
-      //   console.log("Transaction could not be confirmed: ", signature);
-      //   setIsSwapExecuting((_) => false);
-      //   router.push(`/transaction-status?type=unconfirmed&signature=${signature}`);
-      // }
+
+      const signedTx =
+        await wallets[0].signTransaction(jupiterTx);
+
+      signature = await connection.sendTransaction(signedTx, [],  {
+        skipPreflight: false,
+        preflightCommitment: 'confirmed',
+        maxRetries: 3
+      });
+
+      try {
+        console.log("Awaiting tx confirmation");
+        await connection.confirmTransaction({
+          signature: signature
+        } as TransactionConfirmationStrategy);
+      }
+      catch(err) {
+        console.log("Transaction could not be confirmed: ", signature);
+        setIsSwapExecuting((_) => false);
+        router.push(`/transaction-status?type=unconfirmed&signature=${signature}`);
+      }
     }
 
     setIsSwapExecuting((_) => false);
