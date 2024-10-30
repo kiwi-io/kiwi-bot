@@ -76,15 +76,15 @@ const Swap = () => {
     console.log("wallet: ", wallets[0].address);
     console.log("tx: ", jupiterTx);
     console.log("connection: ", connection);
-    
+
     try {
       // signature = await wallets[0].sendTransaction(
       //   jupiterTx,
       //   connection,
       // );
       // console.log("unexpectedly didnt fail, sig: ", signature);
-      // const signedTx = await wallets[0].signTransaction(jupiterTx);
-      signature = await wallets[0].sendTransaction(jupiterTx, connection);
+      const signedTx = await wallets[0].signTransaction(jupiterTx);
+      // signature = await wallets[0].sendTransaction(jupiterTx, connection);
     } catch (err) {
       console.log("Error as expected: ", err);
 
