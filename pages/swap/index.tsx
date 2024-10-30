@@ -146,19 +146,24 @@ const Swap = () => {
         addressLookupTableAccounts,
       );
 
-      const signedTx = await wallets[0].signTransaction(jupiterTx);
+      try {
+        const signedTx = await wallets[0].signTransaction(jupiterTx);
 
-      console.log("signed");
+        console.log("signed");
 
-      signature = await connection.sendTransaction(signedTx, {
-        skipPreflight: false,
-        preflightCommitment: "processed",
-        maxRetries: 3,
-      });
-      console.log("signature: ", signature);
-
-      setIsSwapExecuting((_) => false);
-      router.push(`/transaction-status?type=error&error=${err}`);
+        signature = await connection.sendTransaction(signedTx, {
+          skipPreflight: false,
+          preflightCommitment: "processed",
+          maxRetries: 3,
+        });
+        console.log("signature: ", signature);
+      }
+      catch(err) {
+        console.log("Error submitting tx second time: ", err);
+        
+        setIsSwapExecuting((_) => false);
+        router.push(`/transaction-status?type=error&error=${err}`);
+      }
     }
 
     setIsSwapExecuting((_) => false);
