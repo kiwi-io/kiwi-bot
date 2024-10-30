@@ -8,7 +8,16 @@ import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapCont
 import Image from "next/image";
 import { fetchQuote, swapOnJupiterTx } from "../../utils/jupiter/api";
 import { useSolanaWallets } from "@privy-io/react-auth";
-import { Connection, PublicKey, SystemProgram, VersionedTransaction, TransactionMessage, TransactionConfirmationStrategy, AddressLookupTableAccount, sendAndConfirmTransaction } from "@solana/web3.js";
+import {
+  Connection,
+  PublicKey,
+  SystemProgram,
+  VersionedTransaction,
+  TransactionMessage,
+  TransactionConfirmationStrategy,
+  AddressLookupTableAccount,
+  sendAndConfirmTransaction,
+} from "@solana/web3.js";
 import { useRouter } from "next/router";
 
 const Swap = () => {
@@ -63,12 +72,11 @@ const Swap = () => {
       parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
 
     let totalFee = 0;
-    if(tokenOutData.symbol === "SOL") {
+    if (tokenOutData.symbol === "SOL") {
       totalFee = outQuantityDecimals * 0.01;
-    }
-    else {
-      if(inQuantity) {
-        totalFee = (parseFloat(inQuantity) * (10 ** tokenInData.decimals)) * 0.01;
+    } else {
+      if (inQuantity) {
+        totalFee = parseFloat(inQuantity) * 10 ** tokenInData.decimals * 0.01;
       }
     }
 
@@ -85,8 +93,8 @@ const Swap = () => {
     });
 
     console.log("jup tx fetched");
-    
-    const swapTransactionBuf = Buffer.from(jupiterTxSerialized, 'base64');
+
+    const swapTransactionBuf = Buffer.from(jupiterTxSerialized, "base64");
     var jupiterTx = VersionedTransaction.deserialize(swapTransactionBuf);
 
     let signature = "";
@@ -107,31 +115,40 @@ const Swap = () => {
         jupiterTx.message.addressTableLookups.map(async (lookup) => {
           return new AddressLookupTableAccount({
             key: lookup.accountKey,
-            state: AddressLookupTableAccount.deserialize(await connection.getAccountInfo(lookup.accountKey).then((res) => res.data)),
-          })
-        }));
+            state: AddressLookupTableAccount.deserialize(
+              await connection
+                .getAccountInfo(lookup.accountKey)
+                .then((res) => res.data),
+            ),
+          });
+        }),
+      );
 
-      const originalTxMessage = TransactionMessage.decompile(jupiterTx.message, {
-        addressLookupTableAccounts: addressLookupTableAccounts
-      });
+      const originalTxMessage = TransactionMessage.decompile(
+        jupiterTx.message,
+        {
+          addressLookupTableAccounts: addressLookupTableAccounts,
+        },
+      );
 
       if (tokenOutData.symbol === "SOL") {
         originalTxMessage.instructions.unshift(feeTransferInstruction);
       } else if (tokenInData.symbol === "SOL") {
         originalTxMessage.instructions.push(feeTransferInstruction);
       }
-      
-      jupiterTx.message = originalTxMessage.compileToV0Message(addressLookupTableAccounts);
-  
-      const signedTx =
-        await wallets[0].signTransaction(jupiterTx);
+
+      jupiterTx.message = originalTxMessage.compileToV0Message(
+        addressLookupTableAccounts,
+      );
+
+      const signedTx = await wallets[0].signTransaction(jupiterTx);
 
       console.log("signed");
 
       signature = await connection.sendTransaction(signedTx, {
         skipPreflight: false,
-        preflightCommitment: 'processed',
-        maxRetries: 3
+        preflightCommitment: "processed",
+        maxRetries: 3,
       });
       console.log("signature: ", signature);
     } catch (err) {

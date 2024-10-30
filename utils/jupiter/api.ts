@@ -69,16 +69,16 @@ export const swapOnJupiterTx = async ({
       quoteResponse,
       wrapAndUnwrapSol: true,
       dynamicComputeUnitLimit: true, // Set this to true to get the best optimized CU usage.
-      dynamicSlippage: { // This will set an optimized slippage to ensure high success rate
-        maxBps: 300 // Make sure to set a reasonable cap here to prevent MEV
+      dynamicSlippage: {
+        // This will set an optimized slippage to ensure high success rate
+        maxBps: 300, // Make sure to set a reasonable cap here to prevent MEV
       },
-        prioritizationFeeLamports: {
+      prioritizationFeeLamports: {
         priorityLevelWithMaxLamports: {
           maxLamports: 1_000_000,
-          priorityLevel: "veryHigh" // If you want to land transaction fast, set this to use `veryHigh`. You will pay on average higher priority fee.
-        }
-      }
-
+          priorityLevel: "veryHigh", // If you want to land transaction fast, set this to use `veryHigh`. You will pay on average higher priority fee.
+        },
+      },
     });
 
     const response = await axios.post(
