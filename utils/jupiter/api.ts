@@ -14,7 +14,6 @@ export interface JupiterSwapParams {
   outputMint: string;
   amountIn: number;
   slippage: number;
-  priorityFeeInMicroLamportsPerUnit: number;
 }
 
 export const fetchQuote = async (
@@ -51,11 +50,10 @@ export const swapOnJupiterTx = async ({
   outputMint,
   amountIn,
   slippage,
-  priorityFeeInMicroLamportsPerUnit,
 }: JupiterSwapParams) => {
   try {
     const res = await axios.get(
-      `https://quote-api.jup.ag/v6/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountIn}&slippage=${slippage}`,
+      `https://quote-api.jup.ag/v6/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountIn}&slippage=${slippage}&restrictIntermediateTokens=true`,
     );
 
     const quoteResponse = res.data;
@@ -70,9 +68,17 @@ export const swapOnJupiterTx = async ({
       userPublicKey,
       quoteResponse,
       wrapAndUnwrapSol: true,
-      computeUnitPriceMicroLamports: parseInt(
-        priorityFeeInMicroLamportsPerUnit.toString(),
-      ),
+      dynamicComputeUnitLimit: true, // Set this to true to get the best optimized CU usage.
+      dynamicSlippage: { // This will set an optimized slippage to ensure high success rate
+        maxBps: 300 // Make sure to set a reasonable cap here to prevent MEV
+      },
+        prioritizationFeeLamports: {
+        priorityLevelWithMaxLamports: {
+          maxLamports: 1_000_000,
+          priorityLevel: "veryHigh" // If you want to land transaction fast, set this to use `veryHigh`. You will pay on average higher priority fee.
+        }
+      }
+
     });
 
     const response = await axios.post(

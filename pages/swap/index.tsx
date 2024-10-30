@@ -79,7 +79,6 @@ const Swap = () => {
       outputMint: tokenInData.address,
       amountIn: outQuantityDecimals,
       slippage: 100,
-      priorityFeeInMicroLamportsPerUnit: 100,
     });
     
     const swapTransactionBuf = Buffer.from(jupiterTxSerialized, 'base64');
@@ -124,13 +123,7 @@ const Swap = () => {
       } else if (tokenInData.symbol === "SOL") {
         originalTxMessage.instructions.push(feeTransferInstruction);
       }
-
-      // const messageV0 = new TransactionMessage({
-      //   payerKey: new PublicKey(wallets[0].address),
-      //   recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
-      //   instructions: originalInstructions,
-      // }).compileToV0Message();
-
+      
       jupiterTx.message = originalTxMessage.compileToV0Message(addressLookupTableAccounts);
   
       const signedTx =
