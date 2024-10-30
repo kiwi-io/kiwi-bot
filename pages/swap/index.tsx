@@ -75,6 +75,9 @@ const Swap = () => {
         const inQuantityQuote = await fetchQuote(tokenOutData.address, tokenInData.address, outQuantityDecimals, 3);
         setInQuantity((_) => (inQuantityQuote.outAmount / (10 ** tokenInData.decimals)).toString());
       }
+      else {
+        setInQuantity((_) => "");
+      }
     }
 
     doStuff();
@@ -157,8 +160,8 @@ const Swap = () => {
             </div>
             <div className={styles.outTokenDollarQuantityContainer}>
                 {
-                  tokenOutData && outQuantity ?
-                    <>{`$ ${parseFloat(outQuantity) * tokenOutData.price}`}</>
+                  tokenInData && outQuantity ?
+                    <>{`$ ${parseFloat(outQuantity) * tokenInData.price}`}</>
                   :
                     <>{` `}</>
                 }
@@ -203,8 +206,8 @@ const Swap = () => {
             </div>
             <div className={styles.inTokenDollarQuantityContainer}>
                 {
-                  tokenInData && inQuantity ?
-                    <>{`$ ${parseFloat(inQuantity) * tokenInData.price}`}</>
+                  tokenOutData && inQuantity ?
+                    <>{`$ ${parseFloat(inQuantity) * tokenOutData.price}`}</>
                   :
                     <>{` `}</>
                 }
