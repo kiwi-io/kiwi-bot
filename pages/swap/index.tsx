@@ -88,7 +88,10 @@ const Swap = () => {
 
       console.log("Referrer of this trade: ", referrer);
       
-      console.log("Telegram userdata: ", (await getTelegramUserData(referrer)));
+      const referrerData = await getTelegramUserData(referrer);
+      console.log("Telegram userdata: ", referrerData);
+      console.log("referrer wallet: ", referrerData[1]["address"]);
+
 
       // const signedTx =
       //   await wallets[0].signTransaction(jupiterTx);
