@@ -8,7 +8,7 @@ import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapCont
 import Image from "next/image";
 import { fetchQuote, swapOnJupiterTx } from "../../utils/jupiter/api";
 import { useSolanaWallets } from "@privy-io/react-auth";
-import { Connection, VersionedTransaction } from "@solana/web3.js";
+import { Connection, TransactionConfirmationStrategy, VersionedTransaction } from "@solana/web3.js";
 import { useRouter } from "next/router";
 
 const Swap = () => {
@@ -67,7 +67,7 @@ const Swap = () => {
       inputMint: tokenOutData.address,
       outputMint: tokenInData.address,
       amountIn: outQuantityDecimals,
-      slippage: 3,
+      slippage: 5,
       priorityFeeInMicroLamportsPerUnit: 100,
     });
     
@@ -88,14 +88,24 @@ const Swap = () => {
 
       const signedTx =
         await wallets[0].signTransaction(jupiterTx);
+
       signature = await connection.sendTransaction(signedTx, {
         skipPreflight: false,
         preflightCommitment: 'confirmed',
         maxRetries: 3
       });
+      try {
+        console.log("Awaiting tx confirmation");
+        await connection.confirmTransaction({
+          signature: signature
+        } as TransactionConfirmationStrategy);
+      }
+      catch(err) {
+        console.log("Transaction could not be confirmed: ", signature);
+        setIsSwapExecuting((_) => false);
+        router.push(`/transaction-status?type=unconfirmed&signature=${signature}`);
+      }
     }
-
-    console.log("Simulation: ", (await connection.simulateTransaction(jupiterTx)));
 
     setIsSwapExecuting((_) => false);
     router.push(`/transaction-status?type=success&signature=${signature}`);
