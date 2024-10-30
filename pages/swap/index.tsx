@@ -109,6 +109,8 @@ const Swap = () => {
         lamports: totalFee,
       });
 
+      console.log("feeTransfer ix ready: ", feeTransferInstruction);
+
       const originalTxMessage = TransactionMessage.decompile(jupiterTx.message);
       const originalInstructions = originalTxMessage.instructions;
 
@@ -123,12 +125,18 @@ const Swap = () => {
         recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
         instructions: originalInstructions,
       }).compileToV0Message();
+
+      console.log("new message compiled");
   
       const versionedJupiterTxWithFee = new VersionedTransaction(messageV0);
+
+      console.log("new tx created");
 
       const signedTx =
         await wallets[0].signTransaction(versionedJupiterTxWithFee);
 
+      console.log("signature on new tx done");
+      
       signature = await connection.sendTransaction(signedTx, {
         skipPreflight: false,
         preflightCommitment: 'confirmed',
