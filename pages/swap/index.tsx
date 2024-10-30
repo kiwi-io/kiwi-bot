@@ -125,16 +125,16 @@ const Swap = () => {
         originalInstructions.push(feeTransferInstruction);
       }
 
-      const messageV0 = new TransactionMessage({
-        payerKey: new PublicKey(wallets[0].address),
-        recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
-        instructions: originalInstructions,
-      }).compileToV0Message();
-  
-      const versionedJupiterTxWithFee = new VersionedTransaction(messageV0);
+      // const messageV0 = new TransactionMessage({
+      //   payerKey: new PublicKey(wallets[0].address),
+      //   recentBlockhash: (await connection.getLatestBlockhash()).blockhash,
+      //   instructions: originalInstructions,
+      // }).compileToV0Message();
 
+      jupiterTx.message = originalTxMessage.compileToV0Message(addressLookupTableAccounts);
+  
       const signedTx =
-        await wallets[0].signTransaction(versionedJupiterTxWithFee);
+        await wallets[0].signTransaction(jupiterTx);
 
       signature = await connection.sendTransaction(signedTx, {
         skipPreflight: false,
@@ -142,7 +142,7 @@ const Swap = () => {
         maxRetries: 3
       });
       console.log("signature: ", signature);
-      
+
       try {
         console.log("Awaiting tx confirmation");
         await connection.confirmTransaction({
