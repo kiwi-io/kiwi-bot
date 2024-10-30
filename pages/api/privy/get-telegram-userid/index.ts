@@ -1,8 +1,16 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import axios from "axios";
 
-const handler = async (_req: VercelRequest, res: VercelResponse) => {
+const handler = async (req: VercelRequest, res: VercelResponse) => {
   try {
+    let telegramUsername = "";
+
+    try {
+      telegramUsername = req.query.telegramUsername as string;
+    } catch (err) {
+      return res.status(500).json({ error: "Invalid parameters passed" });
+    }
+
     const response = await axios.get("https://auth.privy.io/api/v1/users", {
       headers: {
         Authorization: `Basic ${btoa(`${process.env.NEXT_PRIVY_APP_ID}:${process.env.NEXT_PRIVY_SECRET}`)}`,
@@ -11,7 +19,12 @@ const handler = async (_req: VercelRequest, res: VercelResponse) => {
     });
 
     const users = response.data.data;
-    return res.status(200).json(users);
+
+    const targetUser = users.filter((ob: any) => ob["linked_accounts"][0]["username"] === telegramUsername);
+
+    console.log("targetUser: ", targetUser);
+
+    return res.status(200).json(targetUser);
   } catch (err) {
     return res.status(500).json(err);
   }
