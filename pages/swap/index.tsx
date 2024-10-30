@@ -74,17 +74,20 @@ const Swap = () => {
     let signature = "";
 
     try {
-      signature = await wallets[0].sendTransaction(
-        jupiterTx,
-        connection,
-      );
-      console.log("unexpectedly didnt fail, sig: ", signature);
+      // signature = await wallets[0].sendTransaction(
+      //   jupiterTx,
+      //   connection,
+      // );
+      // console.log("unexpectedly didnt fail, sig: ", signature);
+      const signedTx = await wallets[0].signTransaction(jupiterTx);
+      signature = await connection.sendTransaction(signedTx);
+
     } catch (err) {
       console.log("Error as expected: ", err);
 
-      const signedTx =
-        await wallets[0].signTransaction(jupiterTx);
-      signature = await connection.sendTransaction(signedTx);
+      // const signedTx =
+      //   await wallets[0].signTransaction(jupiterTx);
+      // signature = await connection.sendTransaction(signedTx);
     }
 
     setIsSwapExecuting((_) => false);
