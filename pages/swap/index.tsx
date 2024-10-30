@@ -2,11 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./swap.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useTelegram } from "../../utils/twa";
-import { delay, getToken, TokenData } from "../../utils";
+import { getToken, TokenData } from "../../utils";
 import { Form } from "react-bootstrap";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 import Image from "next/image";
-import { fetchQuote } from "../../utils/jupiter/api";
+import { fetchQuote, swapOnJupiterTx } from "../../utils/jupiter/api";
+import { useSolanaWallets } from "@privy-io/react-auth";
+import { Connection } from "@solana/web3.js";
+import { useRouter } from "next/router";
 
 const Swap = () => {
 
@@ -43,15 +46,49 @@ const Swap = () => {
   }
 
   const { vibrate } = useTelegram();
+  const { wallets } = useSolanaWallets();
+  const router = useRouter();
 
   const { tokenIn, tokenOut } = useJupiterSwapContext();
 
   const performSwapAction = async() => {
     vibrate("light");
     setIsSwapExecuting((_) => true);
-    await delay(3_000);
+
+    const connection = new Connection(
+      process.env.NEXT_RPC_MAINNET_URL,
+      "confirmed",
+    );
+    
+    const outQuantityDecimals = parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
+
+    const jupiterTx = await swapOnJupiterTx({
+      userPublicKey: wallets[0].address,
+      inputMint: tokenOutData.address,
+      outputMint: tokenInData.address,
+      amountIn: outQuantityDecimals,
+      slippage: 3,
+      priorityFeeInMicroLamportsPerUnit: 100
+    });
+
+    let signature = "";
+
+    try {
+      signature = await wallets[0].sendTransaction(
+        jupiterTx,
+        connection,
+      );
+      console.log("unexpectedly didnt fail, sig: ", signature);
+    } catch (err) {
+      console.log("Error as expected: ", err);
+
+      const signedTx =
+        await wallets[0].signTransaction(jupiterTx);
+      signature = await connection.sendTransaction(signedTx);
+    }
+
     setIsSwapExecuting((_) => false);
-    vibrate("success");
+    router.push(`/transaction-status?type=success&signature=${signature}`);
   }
 
   useEffect(() => {
