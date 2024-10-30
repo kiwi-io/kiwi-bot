@@ -72,9 +72,6 @@ const Swap = () => {
       }
     }
 
-    console.log("inQuantity: ", inQuantity);
-    console.log("totalFee: ", totalFee);
-
     const jupiterTxSerialized = await swapOnJupiterTx({
       userPublicKey: wallets[0].address,
       inputMint: tokenOutData.address,
@@ -131,8 +128,6 @@ const Swap = () => {
       const signedTx =
         await wallets[0].signTransaction(jupiterTx);
 
-      console.log("Simulation: ", (await connection.simulateTransaction(signedTx)));
-
       signature = await connection.sendTransaction(signedTx, {
         skipPreflight: true,
         preflightCommitment: 'processed',
@@ -140,19 +135,19 @@ const Swap = () => {
       });
       console.log("signature: ", signature);
 
-      try {
-        console.log("Awaiting tx confirmation");
-        await connection.confirmTransaction({
-          signature: signature
-        } as TransactionConfirmationStrategy,
-        'processed'
-      );
-      }
-      catch(err) {
-        console.log("Transaction could not be confirmed: ", signature);
-        setIsSwapExecuting((_) => false);
-        router.push(`/transaction-status?type=unconfirmed&signature=${signature}`);
-      }
+      // try {
+      //   console.log("Awaiting tx confirmation");
+      //   await connection.confirmTransaction({
+      //     signature: signature
+      //   } as TransactionConfirmationStrategy,
+      //   'processed'
+      // );
+      // }
+      // catch(err) {
+      //   console.log("Transaction could not be confirmed: ", signature);
+      //   setIsSwapExecuting((_) => false);
+      //   router.push(`/transaction-status?type=unconfirmed&signature=${signature}`);
+      // }
     }
 
     setIsSwapExecuting((_) => false);
