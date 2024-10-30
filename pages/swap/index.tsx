@@ -79,7 +79,7 @@ const Swap = () => {
       outputMint: tokenInData.address,
       amountIn: outQuantityDecimals,
       slippage: 100,
-      priorityFeeInMicroLamportsPerUnit: 100_000,
+      priorityFeeInMicroLamportsPerUnit: 100,
     });
     
     const swapTransactionBuf = Buffer.from(jupiterTxSerialized, 'base64');
@@ -138,7 +138,7 @@ const Swap = () => {
 
       signature = await connection.sendTransaction(signedTx, {
         skipPreflight: true,
-        preflightCommitment: 'confirmed',
+        preflightCommitment: 'processed',
         maxRetries: 3
       });
       console.log("signature: ", signature);
@@ -147,7 +147,9 @@ const Swap = () => {
         console.log("Awaiting tx confirmation");
         await connection.confirmTransaction({
           signature: signature
-        } as TransactionConfirmationStrategy);
+        } as TransactionConfirmationStrategy,
+        'processed'
+      );
       }
       catch(err) {
         console.log("Transaction could not be confirmed: ", signature);
