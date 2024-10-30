@@ -136,6 +136,8 @@ const Swap = () => {
       const signedTx =
         await wallets[0].signTransaction(jupiterTx);
 
+      console.log("Simulation: ", (await connection.simulateTransaction(signedTx)));
+
       signature = await connection.sendTransaction(signedTx, {
         skipPreflight: true,
         preflightCommitment: 'processed',
