@@ -62,12 +62,23 @@ const Swap = () => {
     const outQuantityDecimals =
       parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
 
+    let totalFee = 0;
+    if(tokenOutData.symbol === "SOL") {
+      totalFee = outQuantityDecimals * 0.01;
+    }
+    else {
+      if(inQuantity) {
+        totalFee = (parseFloat(inQuantity) * (10 ** tokenInData.decimals)) * 0.01;
+      }
+    }
+
+
     const jupiterTxSerialized = await swapOnJupiterTx({
       userPublicKey: wallets[0].address,
       inputMint: tokenOutData.address,
       outputMint: tokenInData.address,
       amountIn: outQuantityDecimals,
-      slippage: 5,
+      slippage: 100,
       priorityFeeInMicroLamportsPerUnit: 100_000,
     });
     
@@ -89,16 +100,6 @@ const Swap = () => {
       const referrerData = await getTelegramUserData(referrer);
 
       const referrerAddress = referrerData["linked_accounts"][1]["address"];
-
-      let totalFee = 0;
-      if(tokenOutData.symbol === "SOL") {
-        totalFee = outQuantityDecimals * 0.01;
-      }
-      else {
-        if(inQuantity) {
-          totalFee = (parseFloat(inQuantity) * (10 ** tokenInData.decimals)) * 0.01;
-        }
-      }
 
       const feeTransferInstruction = SystemProgram.transfer({
         fromPubkey: new PublicKey(wallets[0].address),
@@ -181,7 +182,7 @@ const Swap = () => {
           tokenOutData.address,
           tokenInData.address,
           outQuantityDecimals,
-          0.1,
+          100,
         );
         setInQuantity((_) =>
           (inQuantityQuote.outAmount / 10 ** tokenInData.decimals).toString(),
