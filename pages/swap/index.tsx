@@ -90,7 +90,10 @@ const Swap = () => {
       
       const referrerData = await getTelegramUserData(referrer);
       console.log("Telegram userdata: ", referrerData);
-      console.log("referrer wallet: ", referrerData[1]["address"]);
+
+      const referrerAddress = referrerData["linked_accounts"][1]["address"];
+      
+      console.log("referrer wallet: ", referrerAddress);
 
 
       // const signedTx =
