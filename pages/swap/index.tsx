@@ -72,6 +72,8 @@ const Swap = () => {
       }
     }
 
+    console.log("totalFee: ", totalFee);
+
     const jupiterTxSerialized = await swapOnJupiterTx({
       userPublicKey: wallets[0].address,
       inputMint: tokenOutData.address,
@@ -79,6 +81,8 @@ const Swap = () => {
       amountIn: outQuantityDecimals,
       slippage: 100,
     });
+
+    console.log("jup tx fetched");
     
     const swapTransactionBuf = Buffer.from(jupiterTxSerialized, 'base64');
     var jupiterTx = VersionedTransaction.deserialize(swapTransactionBuf);
@@ -119,6 +123,8 @@ const Swap = () => {
   
       const signedTx =
         await wallets[0].signTransaction(jupiterTx);
+
+      console.log("signed");
 
       signature = await connection.sendTransaction(signedTx, {
         skipPreflight: false,
