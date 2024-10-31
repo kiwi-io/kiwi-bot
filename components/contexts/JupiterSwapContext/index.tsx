@@ -48,8 +48,8 @@ export const useJupiterSwapContext = () => {
 //@ts-ignore
 export const JupiterSwapContextProvider = ({ children }) => {
   const [side, setSide] = useState<Side>("buy");
-  const [tokenIn, setTokenIn] = useState<string>("");
-  const [tokenOut, setTokenOut] = useState<string>("");
+  const [tokenIn, setTokenIn] = useState<string>("So11111111111111111111111111111111111111112");
+  const [tokenOut, setTokenOut] = useState<string>("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
   const [quantityIn, setQuantityIn] = useState<string>("");
   const [quantityOut, setQuantityOut] = useState<string>("");
 

@@ -71,7 +71,12 @@ export default function Main() {
   };
 
   return (
-    <div className={styles.mainContainer}>
+    <div
+      className={styles.mainContainer}
+      style = {{
+        backgroundImage: activePage === "/home" ? `-webkit-linear-gradient(top, #2c1002 0%, #1f0b01 24%);` : ``
+      }}
+    >
       {ready && authenticated ? (
         <div className={styles.mainAuthenticatedContainer}>
           <div className={styles.activePage}>{renderActivePage()}</div>
