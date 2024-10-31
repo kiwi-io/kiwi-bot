@@ -6,12 +6,15 @@ import { usePrivy, useLogin, useSolanaWallets } from "@privy-io/react-auth";
 import { hasExistingSolanaWallet } from "../utils";
 
 const Home = dynamic(() => import("./home"));
+const Swap = dynamic(() => import("./swap"));
 
 // import NavButton from "../components/NavButton";
 import { useWalletContext } from "../components/contexts";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import NavButton from "../components/NavButton";
 
 export default function Main() {
-  const [activePage, _setActivePage] = useState("/home");
+  const [activePage, setActivePage] = useState("/home");
   const [loginTimeout, setLoginTimeout] = useState(false);
 
   const { createWallet } = useSolanaWallets();
@@ -50,21 +53,17 @@ export default function Main() {
     return () => clearTimeout(timer);
   }, [ready, authenticated]);
 
-  // const handleNavClick = (page: string) => {
-  //   setActivePage(page);
-  // };
+  const handleNavClick = (page: string) => {
+    setActivePage(page);
+  };
 
   const renderActivePage = () => {
     switch (activePage) {
       case "/home":
         return <Home />;
-      case "/apps":
-        return <Home />;
       case "/swap":
-        return <Home />;
+        return <Swap />;
       case "/history":
-        return <Home />;
-      case "/rewards":
         return <Home />;
       default:
         return <Home />;
@@ -76,7 +75,7 @@ export default function Main() {
       {ready && authenticated ? (
         <div className={styles.mainAuthenticatedContainer}>
           <div className={styles.activePage}>{renderActivePage()}</div>
-          {/* <Navbar className={styles.navbar}>
+          <Navbar className={styles.navbar}>
               <Container className={styles.navContainer}>
                 <Nav className={styles.nav}>
                   <Nav.Link
@@ -91,20 +90,7 @@ export default function Main() {
                       iconClass={"fa-solid fa-house"}
                       isActive={activePage === "/home"}
                     />
-                  </Nav.Link>
-                  <Nav.Link
-                    className={`${styles.navLink}`}
-                    style={{
-                      color: activePage === "/apps" ? `red` : `black`,
-                    }}
-                    onClick={() => handleNavClick("/apps")}
-                  >
-                    <NavButton
-                      name={"Apps"}
-                      iconClass={"fa-solid fa-rocket"}
-                      isActive={activePage === "/apps"}
-                    />
-                  </Nav.Link>
+                  </Nav.Link>                  
                   <Nav.Link
                     className={`${styles.navLink}`}
                     style={{
@@ -131,22 +117,9 @@ export default function Main() {
                       isActive={activePage === "/history"}
                     />
                   </Nav.Link>
-                  <Nav.Link
-                    className={`${styles.navLink}`}
-                    style={{
-                      color: activePage === "/rewards" ? `red` : `black`,
-                    }}
-                    onClick={() => handleNavClick("/rewards")}
-                  >
-                    <NavButton
-                      name={"Rewards"}
-                      iconClass={"fa-solid fa-parachute-box"}
-                      isActive={activePage === "/rewards"}
-                    />
-                  </Nav.Link>
                 </Nav>
               </Container>
-            </Navbar> */}
+            </Navbar>
         </div>
       ) : loginTimeout ? (
         <div className={styles.failedAuthenticationTextContainer}>
