@@ -20,13 +20,14 @@
   font-size: 1.2em;
   /* color: #fffefa; */
   width: 100%;
-  height: 100%;
+  height: 90%;
 }
 
 .navbar {
   position: sticky;
   bottom: 0;
   width: 100%;
+  height: 10%;
   background-color: #fffefa;
   z-index: 1000;
 }
