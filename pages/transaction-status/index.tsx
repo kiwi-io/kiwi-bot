@@ -20,7 +20,7 @@ const TransactionStatus = () => {
   const handleCloseButton = () => {
     vibrate("light");
     closeApp();
-    router.push("/home");
+    router.push("/");
   };
 
   useEffect(() => {

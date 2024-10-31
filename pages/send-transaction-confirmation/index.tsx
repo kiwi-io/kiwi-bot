@@ -39,7 +39,7 @@ const SendTransactionConfirmation = () => {
 
   useEffect(() => {
     if (!token || !recipient || !amount) {
-      router.push("/home");
+      router.push("/");
     }
   }, []);
 

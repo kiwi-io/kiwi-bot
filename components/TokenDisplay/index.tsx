@@ -7,6 +7,7 @@ import {
   TokenItem,
 } from "../../utils";
 import { useTelegram } from "../../utils/twa";
+import { useJupiterSwapContext } from "../contexts/JupiterSwapContext";
 
 export interface TokenDisplayProps {
   tokenItem: TokenItem;
@@ -16,11 +17,19 @@ export interface TokenDisplayProps {
 const TokenDisplay = ({ tokenItem, showUsdValue }: TokenDisplayProps) => {
   const { vibrate } = useTelegram();
 
+  const { updateTokenIn, updateTokenOut } = useJupiterSwapContext();
+
+  const handleClick = () => {
+    vibrate("light");
+    updateTokenOut(tokenItem.address);
+    updateTokenIn(`So11111111111111111111111111111111111111112`);
+  }
+
   return (
     <div
       className={styles.mainContainer}
       onClick={() => {
-        vibrate("light");
+        handleClick();
       }}
     >
       <div className={styles.tokenInfoContainer}>

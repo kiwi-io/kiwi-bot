@@ -57,7 +57,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!user) {
-      router.push("/home");
+      router.push("/");
     }
 
     //@ts-ignore
