@@ -12,6 +12,7 @@ const Swap = dynamic(() => import("./swap"));
 import { useWalletContext } from "../components/contexts";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import NavButton from "../components/NavButton";
+import { useTelegram } from "../utils/twa";
 
 export default function Main() {
   const [activePage, setActivePage] = useState("/home");
@@ -22,6 +23,8 @@ export default function Main() {
   const { updatePortfolio } = useWalletContext();
 
   const { ready, authenticated } = usePrivy();
+  
+  const { vibrate } = useTelegram();
 
   useLogin({
     onComplete(
@@ -54,6 +57,7 @@ export default function Main() {
   }, [ready, authenticated]);
 
   const handleNavClick = (page: string) => {
+    vibrate("light");
     setActivePage(page);
   };
 
