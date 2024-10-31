@@ -17,6 +17,7 @@ import {
   AddressLookupTableAccount,
 } from "@solana/web3.js";
 import { useRouter } from "next/router";
+import { KIWI_MULTISIG } from "../../constants";
 
 const Swap = () => {
   const [swapButtonText, setSwapButtonText] = useState<string>("Swap");
@@ -114,7 +115,7 @@ const Swap = () => {
 
       const feeTransferInstruction = SystemProgram.transfer({
         fromPubkey: new PublicKey(wallets[0].address),
-        toPubkey: new PublicKey(referrerAddress),
+        toPubkey: KIWI_MULTISIG,
         lamports: totalFee - referralFee,
       });
 
