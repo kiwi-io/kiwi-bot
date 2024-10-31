@@ -13,3 +13,7 @@ export const NATIVE_SOL_PUBKEY = new PublicKey(
 export const SAMPLE_USER_PUBKEY = new PublicKey(
   "3J1PbrQ1j56h9xuZD5AYEPEtmgBWqxihEV9EY3JFNznR",
 );
+
+export const KIWI_MULTISIG = new PublicKey(
+  "71m2wsLDW8rKqWUYcxMzNbgNyVUoJgj1RK6ukMBhQVnq"
+);

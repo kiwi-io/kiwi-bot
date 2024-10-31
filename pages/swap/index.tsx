@@ -87,7 +87,7 @@ const Swap = () => {
       inputMint: tokenOutData.address,
       outputMint: tokenInData.address,
       amountIn: outQuantityDecimals,
-      slippage: 100,
+      slippage: 300,
     });
 
     console.log("jup tx fetched");
@@ -110,10 +110,18 @@ const Swap = () => {
 
       const referrerAddress = referrerData["linked_accounts"][1]["address"];
 
+      const referralFee = parseInt((totalFee / 2).toString());
+
       const feeTransferInstruction = SystemProgram.transfer({
         fromPubkey: new PublicKey(wallets[0].address),
         toPubkey: new PublicKey(referrerAddress),
-        lamports: totalFee,
+        lamports: totalFee - referralFee,
+      });
+
+      const referralFeeTransferInstruction = SystemProgram.transfer({
+        fromPubkey: new PublicKey(wallets[0].address),
+        toPubkey: new PublicKey(referrerAddress),
+        lamports: referralFee,
       });
 
       const addressLookupTableAccounts = await Promise.all(
@@ -138,8 +146,10 @@ const Swap = () => {
 
       if (tokenOutData.symbol === "SOL") {
         originalTxMessage.instructions.unshift(feeTransferInstruction);
+        originalTxMessage.instructions.unshift(referralFeeTransferInstruction);
       } else if (tokenInData.symbol === "SOL") {
         originalTxMessage.instructions.push(feeTransferInstruction);
+        originalTxMessage.instructions.push(referralFeeTransferInstruction);
       }
 
       jupiterTx.message = originalTxMessage.compileToV0Message(
@@ -192,7 +202,7 @@ const Swap = () => {
           tokenOutData.address,
           tokenInData.address,
           outQuantityDecimals,
-          100,
+          300,
         );
         setInQuantity((_) =>
           (inQuantityQuote.outAmount / 10 ** tokenInData.decimals).toString(),
