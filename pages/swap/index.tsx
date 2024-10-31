@@ -33,6 +33,10 @@ const Swap = () => {
   const [tokenOutData, setTokenOutData] = useState<TokenData>();
 
   const handleKeypadInput = (value: any) => {
+    if(isSwapExecuting) {
+      return;
+    }
+
     vibrate("light");
     // Prevent multiple decimals
     if (value === "." && outQuantity.includes(".")) return;
@@ -40,11 +44,19 @@ const Swap = () => {
   };
 
   const handleBackspace = () => {
+    if(isSwapExecuting) {
+      return;
+    }
+
     vibrate("light");
     setOutQuantity((prev) => prev.slice(0, -1));
   };
 
   const handleSideChange = () => {
+    if(isSwapExecuting) {
+      return;
+    }
+
     vibrate("light");
 
     const tempIn = tokenInData;
@@ -61,6 +73,7 @@ const Swap = () => {
   const performSwapAction = async () => {
     vibrate("light");
     setIsSwapExecuting((_) => true);
+    setSwapButtonText((_) => `Executing...`);
 
     const connection = new Connection(
       process.env.NEXT_RPC_MAINNET_URL,
@@ -109,7 +122,10 @@ const Swap = () => {
 
       const referrerData = await getTelegramUserData(referrer);
 
-      const referrerAddress = referrerData["linked_accounts"][1]["address"];
+      let referrerAddress = KIWI_MULTISIG;
+      if(referrerData && referrerData["linked_accounts"][1]["address"]) {
+        referrerAddress = referrerData["linked_accounts"][1]["address"];
+      }
 
       const referralFee = parseInt((totalFee / 2).toString());
 
@@ -391,6 +407,9 @@ const Swap = () => {
             className={styles.swapButtonContainer}
             onClick={() => {
               performSwapAction();
+            }}
+            style={{
+              opacity: isSwapExecuting ? `50%` : `100%`
             }}
           >
             {isSwapExecuting ? (
