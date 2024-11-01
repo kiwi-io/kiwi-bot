@@ -80,10 +80,8 @@ export const getTransferTransaction = async ({
     );
 
     let toTokenAccountInfo = await connection.getAccountInfo(toTokenAccount);
-    console.log("toTokenAccountInfo: ", toTokenAccountInfo);
 
     if (!toTokenAccountInfo) {
-      console.log('Adding instruction createAta');
       instructions.push(
         createAssociatedTokenAccountInstruction(
           fromPubkey,
@@ -96,9 +94,6 @@ export const getTransferTransaction = async ({
     }
 
     const amountInDecimals = amount * (10 ** tokenDecimals);
-    console.log("amount: ", amount);
-    console.log('tokenDecimals: ', tokenDecimals);
-    console.log("amountInDecimals: ", amountInDecimals);
 
     instructions.push(
       createTransferCheckedInstruction(
@@ -112,8 +107,6 @@ export const getTransferTransaction = async ({
         tokenOwnerProgram,
       ),
     );
-
-    console.log("final ixs: ", instructions);
 
     const messageV0 = new TransactionMessage({
       payerKey: fromPubkey,
