@@ -208,7 +208,7 @@ const Swap = () => {
         console.log("signed");
 
         signature = await connection.sendTransaction(signedTx, {
-          skipPreflight: true,
+          skipPreflight: false,
           preflightCommitment: "processed",
           maxRetries: 3,
         });
