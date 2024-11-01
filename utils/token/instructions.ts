@@ -94,6 +94,9 @@ export const getTransferTransaction = async ({
     }
 
     const amountInDecimals = amount * (10 ** tokenDecimals);
+    console.log("amount: ", amount);
+    console.log('tokenDecimals: ', tokenDecimals);
+    console.log("amountInDecimals: ", amountInDecimals);
 
     instructions.push(
       createTransferCheckedInstruction(
