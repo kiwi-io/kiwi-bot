@@ -143,6 +143,18 @@ const Swap = () => {
         lamports: totalFee - referralFee,
       });
 
+      const referrerBalance = await connection.getBalance(new PublicKey(referrerAddress));
+      const rentExemptMin = await connection.getMinimumBalanceForRentExemption(0);
+      console.log("Referrer balance: ", referrerBalance);
+      console.log("Rent exempt min: ", rentExemptMin);
+            
+      if(referrerBalance < rentExemptMin) {
+        console.log("Will do the system account creation logic");
+      }
+      else {
+        console.log("Will do the rent transfer logic")
+      }
+
       const referralFeeTransferInstruction = SystemProgram.transfer({
         fromPubkey: new PublicKey(wallets[0].address),
         toPubkey: new PublicKey(referrerAddress),
