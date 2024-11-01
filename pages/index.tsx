@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import dynamic from "next/dynamic";
 import { usePrivy, useLogin, useSolanaWallets, User, SolanaFundingConfig } from "@privy-io/react-auth";
+//@ts-ignore
 import { useFundWallet } from "@privy-io/react-auth/solana";
 import { hasExistingSolanaWallet } from "../utils";
 

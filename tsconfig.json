@@ -20,7 +20,7 @@
     "noImplicitOverride": false,
     "noPropertyAccessFromIndexSignature": false,
     "exactOptionalPropertyTypes": false,
-    "moduleResolution": "Bundler",
+    "moduleResolution": "node",
     "strictNullChecks": false
   },
   "include": [
