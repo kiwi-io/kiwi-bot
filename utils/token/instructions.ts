@@ -79,7 +79,7 @@ export const getTransferTransaction = async ({
       tokenOwnerProgram,
     );
 
-    let toTokenAccountInfo = await connection.getAccountInfo(token);
+    let toTokenAccountInfo = await connection.getAccountInfo(toTokenAccount);
     console.log("toTokenAccountInfo: ", toTokenAccountInfo);
 
     if (!toTokenAccountInfo) {
