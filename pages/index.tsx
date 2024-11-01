@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 // import { Nav, Navbar, Container } from "react-bootstrap";
 import styles from "./index.module.css";
 import dynamic from "next/dynamic";
-import { usePrivy, useLogin, useSolanaWallets, useFundWallet, SolanaFundingConfig, User } from "@privy-io/react-auth";
+import { usePrivy, useLogin, useSolanaWallets, User, SolanaFundingConfig } from "@privy-io/react-auth";
+import { useFundWallet } from "@privy-io/react-auth/solana";
 import { hasExistingSolanaWallet } from "../utils";
 
 const Home = dynamic(() => import("./home"));
