@@ -93,13 +93,15 @@ export const getTransferTransaction = async ({
       );
     }
 
+    const amountInDecimals = amount * (10 ** tokenDecimals);
+
     instructions.push(
       createTransferCheckedInstruction(
         fromTokenAccount,
         token,
         toTokenAccount,
         fromPubkey,
-        amount * 10 ** tokenDecimals,
+        amountInDecimals,
         tokenDecimals,
         [],
         tokenOwnerProgram,
