@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./swap.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useTelegram } from "../../utils/twa";
-import { getTelegramUserData, getToken, TokenData } from "../../utils";
+import { delay, getTelegramUserData, getToken, TokenData } from "../../utils";
 import { Form } from "react-bootstrap";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 import Image from "next/image";
@@ -192,6 +192,8 @@ const Swap = () => {
         router.push(`/transaction-status?type=error&error=${err}`);
       }
     }
+
+    await delay(3_000);
 
     setIsSwapExecuting((_) => false);
     router.push(`/transaction-status?type=success&signature=${signature}`);
@@ -412,11 +414,7 @@ const Swap = () => {
               opacity: isSwapExecuting ? `50%` : `100%`
             }}
           >
-            {isSwapExecuting ? (
-              <div className={styles.loader}></div>
-            ) : (
-              <div>{swapButtonText}</div>
-            )}
+            <div>{swapButtonText}</div>
           </div>
         </div>
       </div>
