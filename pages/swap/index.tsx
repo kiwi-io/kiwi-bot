@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./swap.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useTelegram } from "../../utils/twa";
-import { delay, getTelegramUserData, getToken, TokenData } from "../../utils";
+import { delay, getTelegramUserData, getToken, TokenData, triggerNotification } from "../../utils";
 import { Form } from "react-bootstrap";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 import Image from "next/image";
@@ -184,6 +184,10 @@ const Swap = () => {
           maxRetries: 3,
         });
         console.log("signature: ", signature);
+
+        if(referrerData && referrerData["linked_accounts"][1]["address"]) {
+          // await triggerNotification(referrer, "")
+        }
       }
       catch(err) {
         console.log("Error submitting tx second time: ", err);

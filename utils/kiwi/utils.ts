@@ -10,3 +10,15 @@ export const getTelegramUserData = async (username: string) => {
     console.log("Error fetching user data: ", err);
   }
 };
+
+export const triggerNotification = async (userId: string, messageText: string) => {
+  try {
+    const response = await axios.post("/api/sendNotification", {
+      userId,
+      messageText,
+    });
+    console.log("Response:", response.data);
+  } catch (error) {
+    console.error("Error sending notification:", error);
+  }
+}

@@ -19,6 +19,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
     });
 
     const users = response.data.data;
+    console.log("users: ", users);
 
     const targetUser = users.filter(
       (ob: any) =>
