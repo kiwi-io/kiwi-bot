@@ -16,6 +16,7 @@ import {
   TransactionMessage,
   AddressLookupTableAccount,
   LAMPORTS_PER_SOL,
+  TransactionInstruction,
 } from "@solana/web3.js";
 import { useRouter } from "next/router";
 import { KIWI_MULTISIG } from "../../constants";
@@ -147,19 +148,27 @@ const Swap = () => {
       const rentExemptMin = await connection.getMinimumBalanceForRentExemption(0);
       console.log("Referrer balance: ", referrerBalance);
       console.log("Rent exempt min: ", rentExemptMin);
-            
+
+      let referralFeeTransferInstruction: TransactionInstruction;
+
       if(referrerBalance < rentExemptMin) {
         console.log("Will do the system account creation logic");
+        referralFeeTransferInstruction = SystemProgram.createAccount({
+          fromPubkey: new PublicKey(wallets[0].address),
+          newAccountPubkey: new PublicKey(referrerAddress),
+          lamports: referralFee,
+          space: 0,
+          programId: SystemProgram.programId,
+        })
       }
       else {
-        console.log("Will do the rent transfer logic")
+        console.log("Will do the rent transfer logic");
+        referralFeeTransferInstruction = SystemProgram.transfer({
+          fromPubkey: new PublicKey(wallets[0].address),
+          toPubkey: new PublicKey(referrerAddress),
+          lamports: referralFee,
+        });
       }
-
-      const referralFeeTransferInstruction = SystemProgram.transfer({
-        fromPubkey: new PublicKey(wallets[0].address),
-        toPubkey: new PublicKey(referrerAddress),
-        lamports: referralFee,
-      });
 
       const addressLookupTableAccounts = await Promise.all(
         jupiterTx.message.addressTableLookups.map(async (lookup) => {
