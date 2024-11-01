@@ -85,8 +85,10 @@ const Swap = () => {
     const outQuantityDecimals =
       parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
 
+    const isBuy = tokenOutData.symbol === "SOL";
+
     let totalFee = 0;
-    if (tokenOutData.symbol === "SOL") {
+    if (isBuy) {
       totalFee = outQuantityDecimals * 0.01;
     } else {
       if (inQuantity) {
@@ -163,7 +165,7 @@ const Swap = () => {
         },
       );
 
-      if (tokenOutData.symbol === "SOL") {
+      if (isBuy) {
         originalTxMessage.instructions.unshift(feeTransferInstruction);
         originalTxMessage.instructions.unshift(referralFeeTransferInstruction);
       } else if (tokenInData.symbol === "SOL") {
@@ -188,7 +190,7 @@ const Swap = () => {
         console.log("signature: ", signature);
 
         if(referrerData && referrerData["linked_accounts"][0]["telegram_user_id"]) {
-          await triggerNotification(referrer, `📣 ${user.telegram.username} just ${tokenOutData.symbol === "SOL" ? `bought` : `sold`} ${tokenOutData.symbol === "SOL" ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL 🤑`)
+          await triggerNotification(referrer, `📣 ${user.telegram.username} just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${(referralFee / LAMPORTS_PER_SOL) * (isBuy ? (tokenOutData.price) : tokenInData.price)}) 🤑`)
         }
       }
       catch(err) {
