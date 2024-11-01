@@ -15,14 +15,14 @@ const StandardHeader = ({
   backButtonNavigateTo,
   backButtonHide,
 }: StandardHeaderProps) => {
-  // const router = useRouter();
+  const router = useRouter();
   const { vibrate } = useTelegram();
 
   const { updateActivePage } = useActivePageContext();
 
   const backButtonHandler = () => {
-    // router.push(`${backButtonNavigateTo}`);
     updateActivePage(backButtonNavigateTo);
+    router.push(`/`);
   };
 
   return (
