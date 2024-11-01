@@ -13,9 +13,9 @@ import { useWalletContext } from "../components/contexts";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import NavButton from "../components/NavButton";
 import { useTelegram } from "../utils/twa";
+import { useActivePageContext } from "../components/contexts/ActivePageContext";
 
 export default function Main() {
-  const [activePage, setActivePage] = useState("/home");
   const [loginTimeout, setLoginTimeout] = useState(false);
 
   const { createWallet } = useSolanaWallets();
@@ -23,6 +23,8 @@ export default function Main() {
   const { updatePortfolio } = useWalletContext();
 
   const { ready, authenticated } = usePrivy();
+
+  const { activePage, updateActivePage } = useActivePageContext();
   
   const { vibrate } = useTelegram();
 
@@ -58,7 +60,7 @@ export default function Main() {
 
   const handleNavClick = (page: string) => {
     vibrate("light");
-    setActivePage(page);
+    updateActivePage(page);
   };
 
   const renderActivePage = () => {

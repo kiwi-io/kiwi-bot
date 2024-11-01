@@ -8,6 +8,7 @@ import {
 } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import { useJupiterSwapContext } from "../contexts/JupiterSwapContext";
+import { useActivePageContext } from "../contexts/ActivePageContext";
 
 export interface TokenDisplayProps {
   tokenItem: TokenItem;
@@ -19,10 +20,13 @@ const TokenDisplay = ({ tokenItem, showUsdValue }: TokenDisplayProps) => {
 
   const { updateTokenIn, updateTokenOut } = useJupiterSwapContext();
 
+  const { updateActivePage } = useActivePageContext(); 
+
   const handleClick = () => {
     vibrate("light");
     updateTokenOut(tokenItem.address);
     updateTokenIn(`So11111111111111111111111111111111111111112`);
+    updateActivePage("/swap");
   }
 
   return (

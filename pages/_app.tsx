@@ -5,6 +5,7 @@ import { PrivyProvider } from "@privy-io/react-auth";
 import { WalletContextProvider } from "../components/contexts";
 import { TransferContextProvider } from "../components/contexts/TransferContext";
 import { JupiterSwapContextProvider } from "../components/contexts/JupiterSwapContext";
+import { ActivePageContextProvider } from "../components/contexts/ActivePageContext";
 import { Analytics } from "@vercel/analytics/react";
 import { useTelegram } from "../utils/twa";
 import { useEffect } from "react";
@@ -40,18 +41,20 @@ function MyApp({ Component, pageProps }: AppProps) {
       <WalletContextProvider>
         <TransferContextProvider>
           <JupiterSwapContextProvider>
-            <PrivyProvider
-              appId={process.env.NEXT_PRIVY_APP_ID || ""}
-              config={{
-                embeddedWallets: {
-                  createOnLogin: "off",
-                },
-                loginMethods: ["telegram"],
-              }}
-            >
-              <Component {...pageProps} />
-              <Analytics />
-            </PrivyProvider>
+            <ActivePageContextProvider>
+              <PrivyProvider
+                appId={process.env.NEXT_PRIVY_APP_ID || ""}
+                config={{
+                  embeddedWallets: {
+                    createOnLogin: "off",
+                  },
+                  loginMethods: ["telegram"],
+                }}
+              >
+                <Component {...pageProps} />
+                <Analytics />
+              </PrivyProvider>
+            </ActivePageContextProvider>
           </JupiterSwapContextProvider>
         </TransferContextProvider>
       </WalletContextProvider>
