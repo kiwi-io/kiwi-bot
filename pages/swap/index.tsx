@@ -7,7 +7,7 @@ import { Form } from "react-bootstrap";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 import Image from "next/image";
 import { fetchQuote, swapOnJupiterTx } from "../../utils/jupiter/api";
-import { useSolanaWallets } from "@privy-io/react-auth";
+import { usePrivy, useSolanaWallets } from "@privy-io/react-auth";
 import {
   Connection,
   PublicKey,
@@ -66,6 +66,7 @@ const Swap = () => {
 
   const { vibrate } = useTelegram();
   const { wallets } = useSolanaWallets();
+  const { user } = usePrivy();
   const router = useRouter();
 
   const { tokenIn, tokenOut, referrer } = useJupiterSwapContext();
@@ -185,8 +186,8 @@ const Swap = () => {
         });
         console.log("signature: ", signature);
 
-        if(referrerData && referrerData["linked_accounts"][1]["address"]) {
-          // await triggerNotification(referrer, "")
+        if(referrerData && referrerData["linked_accounts"][0]["telegram_user_id"]) {
+          await triggerNotification(referrer, `${user.telegram.username} just ${tokenOutData.symbol === "SOL" ? `bought` : `sold`} ${tokenOutData.symbol === "SOL" ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n Referral fee earned: ${referralFee} SOL`)
         }
       }
       catch(err) {
