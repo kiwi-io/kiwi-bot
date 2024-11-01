@@ -80,8 +80,10 @@ export const getTransferTransaction = async ({
     );
 
     let toTokenAccountInfo = await connection.getAccountInfo(token);
+    console.log("toTokenAccountInfo: ", toTokenAccountInfo);
 
     if (!toTokenAccountInfo) {
+      console.log('Adding instruction createAta');
       instructions.push(
         createAssociatedTokenAccountInstruction(
           fromPubkey,
@@ -110,6 +112,8 @@ export const getTransferTransaction = async ({
         tokenOwnerProgram,
       ),
     );
+
+    console.log("final ixs: ", instructions);
 
     const messageV0 = new TransactionMessage({
       payerKey: fromPubkey,
