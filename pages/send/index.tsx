@@ -77,7 +77,7 @@ const Send = () => {
       <div className={styles.sendHeaderContainer}>
         <StandardHeader
           title={`Send ${token ? token.symbol : ""}`}
-          backButtonNavigateTo={"home"}
+          backButtonNavigateTo={"/home"}
         />
       </div>
       <div className={styles.sendBodyContainer}>

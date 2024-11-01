@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./StandardHeader.module.css";
 import { useRouter } from "next/router";
 import { useTelegram } from "../../utils/twa";
+import { useActivePageContext } from "../contexts/ActivePageContext";
 
 export interface StandardHeaderProps {
   title: string;
@@ -14,11 +15,14 @@ const StandardHeader = ({
   backButtonNavigateTo,
   backButtonHide,
 }: StandardHeaderProps) => {
-  const router = useRouter();
+  // const router = useRouter();
   const { vibrate } = useTelegram();
 
+  const { updateActivePage } = useActivePageContext();
+
   const backButtonHandler = () => {
-    router.push(`${backButtonNavigateTo}`);
+    // router.push(`${backButtonNavigateTo}`);
+    updateActivePage(backButtonNavigateTo);
   };
 
   return (

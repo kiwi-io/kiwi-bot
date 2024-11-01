@@ -45,7 +45,7 @@ const Receive = () => {
 
   return (
     <div className={styles.receivePageContainer}>
-      <StandardHeader title={`Receive`} backButtonNavigateTo={"home"} />
+      <StandardHeader title={`Receive`} backButtonNavigateTo={"/home"} />
       {user && ready && authenticated ? (
         <div className={styles.walletInfoContainer}>
           <div className={styles.qrCodeContainer}>

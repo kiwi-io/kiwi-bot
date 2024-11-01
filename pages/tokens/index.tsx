@@ -32,7 +32,7 @@ const Tokens = () => {
 
   return (
     <div className={styles.tokensMainContainer}>
-      <StandardHeader title={"Select Token"} backButtonNavigateTo={"home"} />
+      <StandardHeader title={"Select Token"} backButtonNavigateTo={"/home"} />
       {portfolio && portfolio.items.length > 0 ? (
         <div className={styles.allTokensOuterContainer}>
           {portfolio.items.map((token, _) => {

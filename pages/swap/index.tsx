@@ -285,8 +285,8 @@ const Swap = () => {
   return (
     <div className={styles.swapPageContainer}>
       <StandardHeader
-        title={`Trade`}
-        backButtonNavigateTo={"home"}
+        title={`Swap`}
+        backButtonNavigateTo={"/home"}
         backButtonHide={true}
       />
       <div className={styles.swapComponentsContainer}>

@@ -102,7 +102,7 @@ const TransactionConfirmation = () => {
       <div className={styles.transactionConfirmationHeaderContainer}>
         <StandardHeader
           title={`${side === "buy" ? `Buy ${tokenInData ? tokenInData.symbol : ``}` : `Sell ${tokenOutData ? tokenOutData.symbol : ``}`}`}
-          backButtonNavigateTo={"home"}
+          backButtonNavigateTo={"/home"}
           backButtonHide={true}
         />
       </div>
