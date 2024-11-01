@@ -73,6 +73,10 @@ const Swap = () => {
   const { tokenIn, tokenOut, referrer } = useJupiterSwapContext();
 
   const performSwapAction = async () => {
+    if(isSwapExecuting) {
+      return;
+    }
+    
     vibrate("light");
     setIsSwapExecuting((_) => true);
     setSwapButtonText((_) => `Executing...`);
