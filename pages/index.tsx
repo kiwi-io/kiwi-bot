@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { Nav, Navbar, Container } from "react-bootstrap";
 import styles from "./index.module.css";
 import dynamic from "next/dynamic";
-import { usePrivy, useLogin, useSolanaWallets } from "@privy-io/react-auth";
+import { usePrivy, useLogin, useSolanaWallets, useFundWallet, SolanaFundingConfig } from "@privy-io/react-auth";
 import { hasExistingSolanaWallet } from "../utils";
 
 const Home = dynamic(() => import("./home"));
@@ -28,10 +28,12 @@ export default function Main() {
   
   const { vibrate } = useTelegram();
 
+  const { fundWallet } = useFundWallet();
+
   useLogin({
     onComplete(
       user,
-      _isNewUser,
+      isNewUser,
       _wasAlreadyAuthenticated,
       _loginMethod,
       _loginAccount,
@@ -41,6 +43,13 @@ export default function Main() {
           createWallet();
         }
         updatePortfolio(user);
+
+        if(isNewUser) {
+          fundWallet(user.wallet.address, {
+            cluster: {name: process.env.NEXT_RPC_MAINNET_URL},
+            amount: `0.01`,
+          } as SolanaFundingConfig);
+        }
       }
     },
     onError: (error) => {
