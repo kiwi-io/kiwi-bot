@@ -7,6 +7,7 @@ import { useTelegram } from "../../utils/twa";
 import { Form } from "react-bootstrap";
 import Image from "next/image";
 import { useTransferContext } from "../../components/contexts/TransferContext";
+import { initQRScanner } from "twa-sdk-v1";
 
 const Send = () => {
   const router = useRouter();
@@ -49,15 +50,15 @@ const Send = () => {
     }
   };
 
-  // const handleScanQr = async () => {
-  //   const qrScanner = initQRScanner();
-  //   qrScanner.open("Scan a Solana address").then((content) => {
-  //     updateRecipient(content);
-  //   })
-  //   .catch((err) => {
-  //     console.log("QR Scan error: ", err);
-  //   })
-  // }
+  const handleScanQr = async () => {
+    const qrScanner = initQRScanner();
+    qrScanner.open("Scan a Solana address").then((content) => {
+      updateRecipient(content);
+    })
+    .catch((err) => {
+      console.log("QR Scan error: ", err);
+    })
+  }
 
   const handleMaxAmount = async () => {
     let maxAmount = getAmountInLamports(
@@ -120,8 +121,8 @@ const Send = () => {
                       className={`fa-solid fa-qrcode`}
                       onClick={() => {
                         vibrate("soft");
-                        // handleScanQr();
-                        handlePaste();
+                        handleScanQr();
+                        // handlePaste();
                       }}
                     ></i>
                   </div>
