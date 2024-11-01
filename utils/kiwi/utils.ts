@@ -13,7 +13,7 @@ export const getTelegramUserData = async (username: string) => {
 
 export const triggerNotification = async (userId: string, messageText: string) => {
   try {
-    const response = await axios.post("https://kiwi-bot.vercel.app/api/privy/trigger-notification", {
+    const response = await axios.post("https://kiwi-bot.vercel.app/api/trigger-notification", {
       userId,
       messageText,
     });
