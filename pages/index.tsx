@@ -55,7 +55,6 @@ export default function Main() {
         promptFunding(user);
         console.log("isNewUser: ", isNewUser);
         console.log("wasAlreadyAuthenticated: ", wasAlreadyAuthenticated);
-
       }
     },
     onError: (error) => {
