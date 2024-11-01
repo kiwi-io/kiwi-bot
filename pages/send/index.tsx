@@ -121,8 +121,8 @@ const Send = () => {
                       className={`fa-solid fa-qrcode`}
                       onClick={() => {
                         vibrate("soft");
-                        handleScanQr();
-                        // handlePaste();
+                        // handleScanQr();
+                        handlePaste();
                       }}
                     ></i>
                   </div>
