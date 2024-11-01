@@ -190,7 +190,7 @@ const Swap = () => {
         console.log("signature: ", signature);
 
         if(referrerData && referrerData["linked_accounts"][0]["telegram_user_id"]) {
-          await triggerNotification(referrer, `📣 ${user.telegram.username} just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${(referralFee / LAMPORTS_PER_SOL) * (isBuy ? (tokenOutData.price) : tokenInData.price)}) 🤑`)
+          await triggerNotification(referrer, `📣 ${user.telegram.username} just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${((referralFee / LAMPORTS_PER_SOL) * (isBuy ? (tokenOutData.price) : tokenInData.price)).toFixed(6)}) 🤑`)
         }
       }
       catch(err) {

@@ -35,8 +35,8 @@ bot.on("inline_query", async (ctx) => {
     //   }
     // });
 
-    let buyInlineUrl = `https://t.me/samplekiwibot/bot?startapp=buy-${address}-${userId}&mode=compact`;
-    let sellInlineUrl = `https://t.me/samplekiwibot/bot?startapp=sell-${address}-${userId}&mode=compact`;
+    let buyInlineUrl = `https://t.me/samplekiwibot/bot?startapp=buy-${address}-${userId}`;
+    let sellInlineUrl = `https://t.me/samplekiwibot/bot?startapp=sell-${address}-${userId}`;
     keyboard.url(`BUY`, buyInlineUrl).row();
     keyboard.url(`SELL`, sellInlineUrl).row();
 
