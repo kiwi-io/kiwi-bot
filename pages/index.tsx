@@ -45,7 +45,7 @@ export default function Main() {
     onComplete(
       user,
       isNewUser,
-      wasAlreadyAuthenticated,
+      _wasAlreadyAuthenticated,
       _loginMethod,
       _loginAccount,
     ) {
@@ -54,9 +54,10 @@ export default function Main() {
           createWallet();
         }
         updatePortfolio(user);
-        promptFunding(user);
-        console.log("isNewUser: ", isNewUser);
-        console.log("wasAlreadyAuthenticated: ", wasAlreadyAuthenticated);
+
+        if(isNewUser) {
+          promptFunding(user);
+        }
       }
     },
     onError: (error) => {
