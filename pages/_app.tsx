@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                   loginMethods: ["telegram"],
                   appearance: {
                     walletChainType: `solana-only`,
-                    walletList: ['detected_solana_wallets']
+                    walletList: ['phantom']
                   }
                 }}
               >
