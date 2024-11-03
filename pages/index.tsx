@@ -16,6 +16,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import NavButton from "../components/NavButton";
 import { useTelegram } from "../utils/twa";
 import { useActivePageContext } from "../components/contexts/ActivePageContext";
+import { Connection, PublicKey } from "@solana/web3.js";
 
 export default function Main() {
   const [loginTimeout, setLoginTimeout] = useState(false);
@@ -32,19 +33,22 @@ export default function Main() {
 
   const { fundWallet } = useFundWallet();
 
-  const promptFunding = (user: User) => {
-    console.log("before prompting funding");
-    fundWallet(user.wallet.address, {
-      cluster: {name: process.env.NEXT_RPC_MAINNET_URL},
-      amount: `0.01`,
-    } as SolanaFundingConfig);
-    console.log("after prompting funding");
+  const promptFundingIfNeeded = async (user: User) => {
+    const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
+    const balance = await connection.getBalance(new PublicKey(user.wallet.address));
+
+    if(balance < 0.01) {
+      fundWallet(user.wallet.address, {
+        cluster: {name: process.env.NEXT_RPC_MAINNET_URL},
+        amount: `0.01`,
+      } as SolanaFundingConfig);
+    }
   }
 
   useLogin({
     onComplete(
       user,
-      isNewUser,
+      _isNewUser,
       _wasAlreadyAuthenticated,
       _loginMethod,
       _loginAccount,
@@ -55,9 +59,7 @@ export default function Main() {
         }
         updatePortfolio(user);
 
-        if(isNewUser) {
-          promptFunding(user);
-        }
+        promptFundingIfNeeded(user);
       }
     },
     onError: (error) => {
