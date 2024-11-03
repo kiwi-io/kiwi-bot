@@ -49,6 +49,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                     createOnLogin: "off",
                   },
                   loginMethods: ["telegram"],
+                  appearance: {
+                    walletChainType: `solana-only`
+                  }
                 }}
               >
                 <Component {...pageProps} />

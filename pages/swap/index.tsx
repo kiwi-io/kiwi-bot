@@ -349,7 +349,7 @@ const Swap = () => {
             </div>
             <div className={styles.outTokenDollarQuantityContainer}>
               {tokenOutData && outQuantity ? (
-                <>{`$ ${parseFloat(outQuantity) * tokenOutData.price}`}</>
+                <>{`$ ${(parseFloat(outQuantity) * tokenOutData.price).toFixed(3)}`}</>
               ) : (
                 <>{` `}</>
               )}
@@ -395,7 +395,7 @@ const Swap = () => {
             </div>
             <div className={styles.inTokenDollarQuantityContainer}>
               {tokenInData && inQuantity ? (
-                <>{`$ ${parseFloat(inQuantity) * tokenInData.price}`}</>
+                <>{`$ ${(parseFloat(inQuantity) * tokenInData.price).toFixed(3)}`}</>
               ) : (
                 <>{` `}</>
               )}
