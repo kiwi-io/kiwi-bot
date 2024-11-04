@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./transaction-status.module.css";
 import { useRouter } from "next/router";
 import { useTelegram } from "../../utils/twa";
+import { useActivePageContext } from "../../components/contexts/ActivePageContext";
 
 export type TransactionStatusType = "success" | "error" | "unconfirmed";
 
@@ -16,11 +17,17 @@ const TransactionStatus = () => {
   const { type, signature, error }: TransactionStatusQueryParams = router.query;
 
   const { vibrate, closeApp } = useTelegram();
+  
+  const { referralSession, updateActivePage } = useActivePageContext();
 
   const handleCloseButton = () => {
     vibrate("light");
-    closeApp();
-    router.push("/");
+    if(referralSession === "/swap") {
+      closeApp();
+    }
+    else {
+      updateActivePage("/home");
+    }
   };
 
   useEffect(() => {
