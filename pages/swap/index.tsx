@@ -109,8 +109,6 @@ const Swap = () => {
 
     totalFee = parseInt(totalFee.toString());
 
-    console.log("totalFee: ", totalFee);
-
     const jupiterTxSerialized = await swapOnJupiterTx({
       userPublicKey: wallets[0].address,
       inputMint: tokenOutData.address,
@@ -118,8 +116,6 @@ const Swap = () => {
       amountIn: outQuantityDecimals,
       slippage: 300,
     });
-
-    console.log("jup tx fetched");
 
     const swapTransactionBuf = Buffer.from(jupiterTxSerialized, "base64");
     var jupiterTx = VersionedTransaction.deserialize(swapTransactionBuf);
@@ -152,23 +148,17 @@ const Swap = () => {
 
       const referrerBalance = await connection.getBalance(new PublicKey(referrerAddress));
       const rentExemptMin = await connection.getMinimumBalanceForRentExemption(0);
-      console.log("Referrer balance: ", referrerBalance);
-      console.log("Rent exempt min: ", rentExemptMin);
 
       let referralFeeTransferInstruction: TransactionInstruction;
 
       if(referrerBalance < rentExemptMin) {
-        console.log("Will do the system account creation logic");
-        referralFeeTransferInstruction = SystemProgram.createAccount({
+        referralFeeTransferInstruction = SystemProgram.transfer({
           fromPubkey: new PublicKey(wallets[0].address),
-          newAccountPubkey: new PublicKey(referrerAddress),
+          toPubkey: KIWI_MULTISIG,
           lamports: referralFee,
-          space: 0,
-          programId: SystemProgram.programId,
-        })
+        });
       }
       else {
-        console.log("Will do the rent transfer logic");
         referralFeeTransferInstruction = SystemProgram.transfer({
           fromPubkey: new PublicKey(wallets[0].address),
           toPubkey: new PublicKey(referrerAddress),
@@ -221,7 +211,12 @@ const Swap = () => {
         console.log("signature: ", signature);
 
         if(referrerData && referrerData["linked_accounts"][0]["telegram_user_id"]) {
-          await triggerNotification(referrer, `📣 ${user.telegram.username} just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${((referralFee / LAMPORTS_PER_SOL) * (isBuy ? (tokenOutData.price) : tokenInData.price)).toFixed(6)}) 🤑`)
+          if(referrerBalance < rentExemptMin) {
+            await triggerNotification(referrer, `Load at least 0.01 SOL in your wallet to start receiving referral fees.`)
+          }
+          else {
+            await triggerNotification(referrer, `📣 ${user.telegram.username} just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${((referralFee / LAMPORTS_PER_SOL) * (isBuy ? (tokenOutData.price) : tokenInData.price)).toFixed(6)}) 🤑`)
+          }
         }
       }
       catch(err) {
@@ -255,8 +250,6 @@ const Swap = () => {
       const outQuantityDecimals =
         parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
 
-      console.log("new outQuantity: ", outQuantity);
-
       if (outQuantityDecimals > 0) {
         let inQuantityQuote = await fetchQuote(
           tokenOutData.address,
@@ -264,7 +257,6 @@ const Swap = () => {
           outQuantityDecimals,
           300,
         );
-        console.log("inQuantityQuote: ", inQuantityQuote);
         setInQuantity((_) =>
           (inQuantityQuote.outAmount / 10 ** tokenInData.decimals).toString(),
         );
@@ -313,37 +305,25 @@ const Swap = () => {
   useEffect(() => {
     const doStuff = () => {
       updatePortfolio(user);
-      console.log("Portfolio updated: ", portfolio);
 
       if(portfolio) {
         const tokenInMatch = portfolio.items.filter((i) => {
-          console.log("i.address: ", i.address);
-          console.log("tokenIn: ", tokenIn);
           if(i.address === "So11111111111111111111111111111111111111111"  && tokenIn === "So11111111111111111111111111111111111111112") {
-            console.log("returning true");
             return true;
           }
           else {
-            console.log("returning: ", i.address === tokenIn);
             return (i.address === tokenIn);
           }
         });
 
         const tokenOutMatch = portfolio.items.filter((i) => {
-          console.log("i.address: ", i.address);
-          console.log("tokenOut: ", tokenOut);
           if(i.address === "So11111111111111111111111111111111111111111"  && tokenOut === "So11111111111111111111111111111111111111112") {
-            console.log("returning true");
             return true;
           }
           else {
-            console.log("returning: ", i.address === tokenOut);
             return (i.address === tokenOut);
           }
         });
-
-        console.log("tokenInMatch: ", tokenInMatch);
-        console.log("tokenOutMatch: ", tokenOutMatch);
 
         if(tokenInMatch && tokenInMatch.length > 0) {
           const sizeInfo = tokenInMatch[0];
