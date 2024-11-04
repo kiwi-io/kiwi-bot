@@ -30,10 +30,10 @@ const History = () => {
         if(history.mainAction === "received") {
             if((history.balanceChange[0].amount / 10 ** history.balanceChange[0].decimals) >= 0.0001) {
                 return {
-                    token: history.balanceChange[0].address,
-                    tokenLogo: history.balanceChange[0].logoURI,
-                    tokenSymbol: history.balanceChange[0].symbol,
-                    amount: history.balanceChange[0].amount / 10 ** history.balanceChange[0].decimals,
+                    token: history.balanceChange[0].address ? history.balanceChange[0].address : '',
+                    tokenLogo: history.balanceChange[0].logoURI ? history.balanceChange[0].logoURI : '',
+                    tokenSymbol: history.balanceChange[0].symbol ? history.balanceChange[0].symbol : '',
+                    amount: history.balanceChange[0].amount ? history.balanceChange[0].amount / 10 ** history.balanceChange[0].decimals : 0,
                     type: 'received',
                 } as TradingActivity
             }
@@ -89,7 +89,8 @@ const History = () => {
                     txHistory.map((history) => {
 
                         const parsedTradingActivity = mapTxHistoryToTradingActivity(history);
-
+                        console.log("parsedTradingActivity: ", parsedTradingActivity);
+                        
                         let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`
 
                         if(parsedTradingActivity.type === "received" || parsedTradingActivity.type === "bought") {
