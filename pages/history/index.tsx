@@ -94,11 +94,14 @@ const History = () => {
                         
                             let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`
 
-                            if(parsedTradingActivity.type === "received" || parsedTradingActivity.type === "bought") {
-                                message = `+${message}`
+                            if(parsedTradingActivity.type === "received") {
+                                message = `Received ${message}`
+                            }
+                            else if(parsedTradingActivity.type === "bought") {
+                                message = `Bought ${message}`
                             }
                             else if(parsedTradingActivity.type === "sold") {
-                                message = `${message}`
+                                message = `Sold ${message}`
                             }
 
                             return (
@@ -113,7 +116,7 @@ const History = () => {
                                     <div
                                         className={styles.txTransferMessage}
                                         style = {{
-                                            color: parsedTradingActivity.type === 'sold' ? `rgb(128, 26, 26)` : `rgb(26, 128, 68)`
+                                            color: parsedTradingActivity.type === 'sold' ? `#e33d3d` : `#23b460`
                                         }}    
                                     >{message}</div>
                                 </div>
