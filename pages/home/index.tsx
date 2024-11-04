@@ -13,6 +13,7 @@ import {
 import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
+import { useActivePageContext } from "../../components/contexts/ActivePageContext";
 
 const Home = () => {
   const router = useRouter();
@@ -20,6 +21,7 @@ const Home = () => {
   const { user, ready, authenticated } = usePrivy();
 
   const { portfolio, updatePortfolio } = useWalletContext();
+  const { updateActivePage } = useActivePageContext();
 
   const {
     updateSide,
@@ -79,8 +81,7 @@ const Home = () => {
         updateReferrer(referrer);
         updateActionHost("https://jup.ag/swap");
         updateActionHostLogo("/logos/jupiter_logo.svg");
-
-        router.push("/swap");
+        updateActivePage("/swap");
       } else if (startParam.startsWith("sell")) {
         updateSide("sell");
         const components = startParam.split("-");
@@ -97,9 +98,7 @@ const Home = () => {
         updateReferrer(referrer);
         updateActionHost("https://jup.ag/swap");
         updateActionHostLogo("/logos/jupiter_logo.svg");
-
-        // router.push("/transaction-confirmation");
-        router.push("/swap");
+        updateActivePage("/swap");
       } else {
         const decodedUrl = decodeTelegramCompatibleUrl(startParam);
 
