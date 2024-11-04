@@ -65,6 +65,9 @@ const Receive = () => {
               Copy
             </span>
           </div>
+          <div className={styles.receiveWarningText}>
+            Only send tokens on the <b>Solana</b> network to this address.
+          </div>
           {/* <div className={styles.receiveFormContainer}>
             <Form>
               <Form.Group
