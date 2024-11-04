@@ -23,6 +23,10 @@ const TokenDisplay = ({ tokenItem, showUsdValue }: TokenDisplayProps) => {
   const { updateActivePage } = useActivePageContext(); 
 
   const handleClick = () => {
+    if(tokenItem.address === `So11111111111111111111111111111111111111112`) {
+      return;
+    }
+    
     vibrate("light");
     updateTokenOut(tokenItem.address);
     updateTokenOutData(tokenItem.address);
