@@ -59,7 +59,7 @@ bot.on("inline_query", async (ctx) => {
     const buyDaily = response.data.data["buy24h"];
     const sellDaily = response.data.data["sell24h"];
     const volumeDaily = parseFloat(response.data.data["v24hUSD"]).toFixed(2);
-    const priceChangeDaily = parseFloat(response.data.data["priceChange24hPercent"]).toFixed(2);
+    const priceChangeDaily = parseFloat(response.data.data["priceChange24hPercent"]);
     const viewDaily = response.data.data["view24h"];
 
     ctx.answerInlineQuery([
@@ -70,7 +70,7 @@ bot.on("inline_query", async (ctx) => {
         description: `Trade ${symbol} with SOL using Kiwi`,
         input_message_content: {
           message_text:
-          `<b>${symbol}</b> | <b>${name}</b>\n💰 $<b>${price}</b> | <b>${priceChangeDaily}</b>\n💎 MC: <b>${mc}</b>\n📊 Vol: <b>${volumeDaily}</b>\n💦 Liq: <b>${liquidity}</b>\n💲 Buys: <b>${buyDaily}</b> | Sells: <b>${sellDaily}</b>\n👁 Views: <b>${viewDaily}</b>`,
+          `<b>${symbol}</b> | <b>${name}</b>\n\n💰 $<b>${price}</b> | <b>${priceChangeDaily > 0 ? `+${priceChangeDaily.toFixed(2)}` : `-${priceChangeDaily.toFixed(2)}`}%</b>\n\n💎 MC: <b>${mc}</b>\n\n📊 Vol: <b>${volumeDaily}</b>\n\n💦 Liq: <b>${liquidity}</b>\n\n💲 Buys: <b>${buyDaily}</b> | Sells: <b>${sellDaily}</b>\n\n👁 Views: <b>${viewDaily}</b>`,
           parse_mode: "HTML",
         },
         thumbnail_url: logoUri,
