@@ -19,3 +19,14 @@
     margin-bottom: 0.75rem;
     box-sizing: border-box;
 }
+
+.txHistory {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.tokenImage {
+    border: none;
+    border-radius: 100%;
+  }

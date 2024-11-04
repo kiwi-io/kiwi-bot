@@ -2,13 +2,24 @@ import React from "react";
 import styles from "./history.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useWalletContext } from "../../components/contexts";
-import { TransactionHistory, TransferLog } from "../../utils";
+import { increaseDimensionsInUrl, TransactionHistory, TransferLog } from "../../utils";
+import Image from "next/image";
+
+
+export interface TradingActivity {
+    tokenLogo: string;
+    token: string;
+    tokenSymbol: string;
+    amount: number,
+    type: 'bought' | 'sold' | 'received'
+}
 
 const History = () => {
 
     const { txHistory } = useWalletContext();
 
-    const mapTxHistoryToMessage = (history: TransactionHistory): string => {
+
+    const mapTxHistoryToTradingActivity = (history: TransactionHistory): TradingActivity => {
 
         console.log("History: ", history);
 
@@ -18,7 +29,13 @@ const History = () => {
 
         if(history.mainAction === "received") {
             if((history.balanceChange[0].amount / 10 ** history.balanceChange[0].decimals) >= 0.0001) {
-                return `Received ${(history.balanceChange[0].amount / (10 ** history.balanceChange[0].decimals)).toFixed(3)} ${history.balanceChange[0].symbol}`;
+                return {
+                    token: history.balanceChange[0].address,
+                    tokenLogo: history.balanceChange[0].logoURI,
+                    tokenSymbol: history.balanceChange[0].symbol,
+                    amount: history.balanceChange[0].amount / 10 ** history.balanceChange[0].decimals,
+                    type: 'received',
+                } as TradingActivity
             }
         }
 
@@ -40,11 +57,23 @@ const History = () => {
         }
         
         if(inflowLog && outflowLog && outflowLog.address === "So11111111111111111111111111111111111111112") {
-            return `+${(inflowLog.amount / 10 ** inflowLog.decimals).toFixed(3)} ${inflowLog.symbol}`
+            return {
+                token: inflowLog.address,
+                tokenLogo: inflowLog.logoURI,
+                tokenSymbol: inflowLog.symbol,
+                amount: inflowLog.amount / 10 ** inflowLog.decimals,
+                type: 'bought',
+            } as TradingActivity;
         }
 
         if(outflowLog && inflowLog && inflowLog.address === "So11111111111111111111111111111111111111112") {
-            return `${(outflowLog.amount / 10 ** outflowLog.decimals).toFixed(3)} ${outflowLog.symbol}`
+            return {
+                token: outflowLog.address,
+                tokenLogo: outflowLog.logoURI,
+                tokenSymbol: outflowLog.symbol,
+                amount: outflowLog.amount / 10 ** outflowLog.decimals,
+                type: 'sold',
+            } as TradingActivity;
         }
     }
 
@@ -58,11 +87,28 @@ const History = () => {
             <div className={styles.txHistoryContainer}>
                 {
                     txHistory.map((history) => {
+
+                        const parsedTradingActivity = mapTxHistoryToTradingActivity(history);
+
+                        let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`
+
+                        if(parsedTradingActivity.type === "received" || parsedTradingActivity.type === "bought") {
+                            message = `+${message}`
+                        }
+                        else if(parsedTradingActivity.type === "sold") {
+                            message = `-${message}`
+                        }
+
                         return (
                             <div key={history.txHash} className={styles.txHistory}>
-                                {
-                                    <div className={styles.txTransferMessage}>{mapTxHistoryToMessage(history)}</div>
-                                }
+                                <Image
+                                    src={increaseDimensionsInUrl(parsedTradingActivity.tokenLogo, 60, 60)}
+                                    width={50}
+                                    height={50}
+                                    alt={`${parsedTradingActivity.tokenSymbol} img`}
+                                    className={styles.tokenImage}
+                                />
+                                <div className={styles.txTransferMessage}>{message}</div>
                             </div>
                         )
                     })
