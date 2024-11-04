@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   BIRDEYE_GET_TOKEN,
   BIRDEYE_GET_WALLET_PORTFOLIO,
+  BIRDEYE_GET_WALLET_TX_HISTORY,
 } from "../../constants/urls";
 
 export interface TokenItem {
@@ -15,6 +16,38 @@ export interface TokenItem {
   logoURI: string;
   priceUsd: number;
   valueUsd: number;
+}
+
+export interface TransferLog {
+  amount: number,
+  symbol: string,
+  name: string,
+  decimals: number,
+  address: string,
+  logoURI: string,
+
+  owner?: string,
+  programId?: string,
+  tokenAccount?: string
+}
+
+export interface ContractLabel {
+  address: string,
+  name: string,
+  metadata: any
+}
+
+export interface TransactionHistory {
+  txHash: string,
+  blockNumber: number,
+  blockTime: string,
+  status: boolean,
+  from: string,
+  to: string,
+  fee: number,
+  mainAction: string,
+  balanceChange: TransferLog[],
+  contractLabel: ContractLabel
 }
 
 export interface TokenData {
@@ -57,6 +90,27 @@ export const getWalletPortfolio = async (
     };
   }
 };
+
+export const getWalletTransactionHistory = async (
+  address: string
+): Promise<TransactionHistory[]> => {
+  try {
+    const response = await axios.get(
+      `${BIRDEYE_GET_WALLET_TX_HISTORY}${address}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": `${process.env.NEXT_BIRDEYE_API_KEY}`,
+        },
+      },
+    );
+
+    return response.data.data["solana"] as TransactionHistory[];
+  } catch (error) {
+    console.error("Error fetching wallet portfolio:", error);
+    return [];
+  }
+}
 
 export const getToken = async (token: string): Promise<TokenData> => {
   try {

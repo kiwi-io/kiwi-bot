@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { usePrivy, useLogin, useSolanaWallets, User, SolanaFundingConfig } from "@privy-io/react-auth";
 //@ts-ignore
 import { useFundWallet } from "@privy-io/react-auth/solana";
-import { hasExistingSolanaWallet } from "../utils";
+import { getWalletTransactionHistory, hasExistingSolanaWallet } from "../utils";
 
 const Home = dynamic(() => import("./home"));
 const Swap = dynamic(() => import("./swap"));
@@ -25,7 +25,7 @@ export default function Main() {
 
   const { updatePortfolio } = useWalletContext();
 
-  const { ready, authenticated } = usePrivy();
+  const { user, ready, authenticated } = usePrivy();
 
   const { activePage, referralSession, updateActivePage } = useActivePageContext();
   
@@ -44,6 +44,17 @@ export default function Main() {
       } as SolanaFundingConfig);
     }
   }
+
+  useEffect(() => {
+    const doStuff = async() => {
+      if(user) {
+        const txHistory = await getWalletTransactionHistory(user.wallet.address);
+        console.log("Tx history fetched: ", txHistory);
+      }      
+    }
+
+    doStuff();
+  }, [user]);
 
   useLogin({
     onComplete(

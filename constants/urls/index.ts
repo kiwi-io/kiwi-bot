@@ -2,3 +2,4 @@ export const BIRDEYE_GET_TOKEN_LIST = `https://public-api.birdeye.so/defi/tokenl
 export const BIRDEYE_GET_PRICE = `https://public-api.birdeye.so/defi/price?address=`;
 export const BIRDEYE_GET_WALLET_PORTFOLIO = `https://public-api.birdeye.so/v1/wallet/token_list?wallet=`;
 export const BIRDEYE_GET_TOKEN = `https://public-api.birdeye.so/defi/token_overview?address=`;
+export const BIRDEYE_GET_WALLET_TX_HISTORY = `https://public-api.birdeye.so/v1/wallet/tx_list?wallet=`
