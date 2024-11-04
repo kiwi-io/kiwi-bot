@@ -18,16 +18,29 @@ const History = () => {
             return;
         }
 
+        if(history.mainAction === "received") {
+            return `+${history.balanceChange[0].amount / (10 ** history.balanceChange[0].decimals)} ${history.balanceChange[0].symbol}`;
+        }
+
+        if(history.mainAction === "received") {
+            return `+${history.balanceChange[0].amount / (10 ** history.balanceChange[0].decimals)} ${history.balanceChange[0].symbol}`;
+        }
+
         let inflowLog: TransferLog;
         let outflowLog: TransferLog;
 
-        if(history.balanceChange[0].amount < 0 && history.balanceChange[1].amount > 0) {
+        if(history.balanceChange[0] && history.balanceChange[0].amount < 0) {
             outflowLog = history.balanceChange[0];
-            inflowLog = history.balanceChange[1];
         }
-        else if(history.balanceChange[0].amount > 0 && history.balanceChange[1].amount < 0) {
+        else if(history.balanceChange[0] && history.balanceChange[0].amount > 0) {
             inflowLog = history.balanceChange[0];
-            outflowLog = history.balanceChange[1];
+        }
+
+        if(history.balanceChange[1] && history.balanceChange[1].amount > 0) {
+            inflowLog = history.balanceChange[0];
+        }
+        else if(history.balanceChange[1] && history.balanceChange[1].amount < 0) {
+            outflowLog = history.balanceChange[0];
         }
         
         if(inflowLog) {
