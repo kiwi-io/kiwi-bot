@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./swap.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useTelegram } from "../../utils/twa";
@@ -37,6 +37,11 @@ const Swap = () => {
   const { portfolio, updatePortfolio } = useWalletContext();
   const { tokenIn, tokenOut, tokenInData, tokenOutData, updateTokenIn, updateTokenOut, updateTokenInData, updateTokenOutData, referrer } = useJupiterSwapContext();
 
+  const { vibrate } = useTelegram();
+  const { wallets } = useSolanaWallets();
+  const { user } = usePrivy();
+  const router = useRouter();
+
   const handleKeypadInput = (value: any) => {
     if(isSwapExecuting) {
       return;
@@ -70,12 +75,6 @@ const Swap = () => {
     updateTokenInData(tokenOutData);
     updateTokenOutData(tempIn);
   };
-
-  const { vibrate } = useTelegram();
-  const { wallets } = useSolanaWallets();
-  const { user } = usePrivy();
-  const router = useRouter();
-
 
   const performSwapAction = async () => {
     if(isSwapExecuting) {
