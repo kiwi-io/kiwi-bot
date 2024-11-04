@@ -132,7 +132,7 @@ const Home = () => {
           <div className={styles.headerAndOverviewContainer}>
             <div className={styles.headerContainer}>
               <div className={styles.usernameContainer}>
-                <div>{`${user.telegram?.username}`}</div>
+                <div>{`${user.telegram?.username ? user.telegram?.username : user.telegram.firstName}`}</div>
               </div>
               <div
                 className={styles.settingsContainer}
