@@ -20,6 +20,7 @@ import {
 } from "@solana/web3.js";
 import { useRouter } from "next/router";
 import { KIWI_MULTISIG } from "../../constants";
+import { useWalletContext } from "../../components/contexts";
 
 const Swap = () => {
   const [swapButtonText, setSwapButtonText] = useState<string>("Swap");
@@ -31,6 +32,7 @@ const Swap = () => {
 
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
 
+  const { portfolio } = useWalletContext();
   const { tokenIn, tokenOut, tokenInData, tokenOutData, updateTokenIn, updateTokenOut, updateTokenInData, updateTokenOutData, referrer } = useJupiterSwapContext();
 
   const handleKeypadInput = (value: any) => {
@@ -327,12 +329,21 @@ const Swap = () => {
                 </div>
               </div>
             </div>
-            <div className={styles.outTokenDollarQuantityContainer}>
-              {tokenOutData && outQuantity ? (
-                <>{`$ ${(parseFloat(outQuantity) * tokenOutData.price).toFixed(3)}`}</>
-              ) : (
-                <>{` `}</>
-              )}
+            <div className={styles.outTokenExtraInfoContainer}>
+              <div className={styles.outTokenDollarQuantityContainer}>
+                {tokenOutData && outQuantity ? (
+                  <>{`$ ${(parseFloat(outQuantity) * tokenOutData.price).toFixed(3)}`}</>
+                ) : (
+                  <>{` `}</>
+                )}
+              </div>
+              <div className={styles.outTokenDollarQuantityContainer}>
+                {tokenOutData && outQuantity ? (
+                  <>{`$ ${(parseFloat(outQuantity) * tokenOutData.price).toFixed(3)}`}</>
+                ) : (
+                  <>{` `}</>
+                )}
+              </div>
             </div>
           </div>
           <div
@@ -373,12 +384,21 @@ const Swap = () => {
                 </div>
               </div>
             </div>
-            <div className={styles.inTokenDollarQuantityContainer}>
-              {tokenInData && inQuantity ? (
-                <>{`$ ${(parseFloat(inQuantity) * tokenInData.price).toFixed(3)}`}</>
-              ) : (
-                <>{` `}</>
-              )}
+            <div className={styles.inTokenExtraInfoContainer}>
+              <div className={styles.inTokenDollarQuantityContainer}>
+                {tokenInData && inQuantity ? (
+                  <>{`$ ${(parseFloat(inQuantity) * tokenInData.price).toFixed(3)}`}</>
+                ) : (
+                  <>{` `}</>
+                )}
+              </div>
+              <div className={styles.inTokenDollarQuantityContainer}>
+                {tokenInData && inQuantity ? (
+                  <>{`$ ${(parseFloat(inQuantity) * tokenInData.price).toFixed(3)}`}</>
+                ) : (
+                  <>{` `}</>
+                )}
+              </div>
             </div>
           </div>
         </div>

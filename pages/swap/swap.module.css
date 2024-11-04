@@ -58,6 +58,18 @@
   padding: 0;
 }
 
+.outTokenExtraInfoContainer {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  padding-bottom: 0;
+}
+
 .outTokenDollarQuantityContainer {
   font-size: 0.75rem;
   display: flex;
@@ -153,6 +165,18 @@
   color: #481801;
   margin: 0;
   padding: 0;
+}
+
+.inTokenExtraInfoContainer {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  padding-bottom: 0;
 }
 
 .inTokenDollarQuantityContainer {
