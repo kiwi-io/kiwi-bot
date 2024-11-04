@@ -19,14 +19,11 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
     });
 
     const users = response.data.data;
-    console.log("users: ", users);
 
     const targetUser = users.filter(
       (ob: any) =>
         ob["linked_accounts"][0]["telegram_user_id"] === telegramUsername,
     );
-
-    console.log("targetUser: ", targetUser);
 
     return res.status(200).json(targetUser);
   } catch (err) {

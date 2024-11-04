@@ -51,5 +51,5 @@ export const simulateTransaction = async () => {
     },
   } as SimulateTransactionConfig);
 
-  console.log("Results: ", results);
+  return results;
 };

@@ -199,8 +199,6 @@ const Swap = () => {
       try {
         const signedTx = await wallets[0].signTransaction(jupiterTx);
 
-        console.log("signed");
-
         signature = await connection.sendTransaction(signedTx, {
           skipPreflight: false,
           preflightCommitment: "processed",
@@ -299,10 +297,6 @@ const Swap = () => {
       await updatePortfolio(user);
 
       if(portfolio) {
-        console.log("Portfolio fetched: ", portfolio);
-        console.log("tokenIn: ", tokenIn);
-        console.log("tokenOut: ", tokenOut);
-
         const tokenInMatch = portfolio.items.filter((i) => {
           if(i.address === "So11111111111111111111111111111111111111111"  && tokenIn === "So11111111111111111111111111111111111111112") {
             return true;
@@ -320,9 +314,6 @@ const Swap = () => {
             return (i.address === tokenOut);
           }
         });
-
-        console.log("tokenInMatch: ", tokenInMatch);
-        console.log("tokenOutMatch: ", tokenOutMatch);
 
         if(tokenInMatch && tokenInMatch.length > 0) {
           const sizeInfo = tokenInMatch[0];

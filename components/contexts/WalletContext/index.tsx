@@ -75,10 +75,7 @@ export const WalletContextProvider = ({ children }) => {
 
   const updatePortfolio = async (user: User) => {
     if (user && user.wallet) {
-      console.log("user: ", user);
-      console.log("user.wallet: ", user.wallet);
       const latestPortfolio = await getWalletPortfolio(user.wallet.address);
-      console.log("latestPortfolio: ", latestPortfolio);
       // let latestPortfolio = await getWalletPortfolio("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P");
       setPortfolio((_) => latestPortfolio);
     }
@@ -88,10 +85,8 @@ export const WalletContextProvider = ({ children }) => {
     const data = await axios.get(
       `${process.env.NEXT_KIWI_API_HOST}/privy/get-all-users`,
     );
-    console.log("data: ", data);
     //@ts-ignore
     const linkedAccounts: LinkedAccountWithMetadata[] = data["linked_accounts"];
-    console.log("Setting new linked accounts: ", linkedAccounts);
     setUsers((_) => linkedAccounts);
   };
 

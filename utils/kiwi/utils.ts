@@ -17,7 +17,8 @@ export const triggerNotification = async (userId: string, messageText: string) =
       userId,
       messageText,
     });
-    console.log("Response:", response.data);
+
+    return response;
   } catch (error) {
     console.error("Error sending notification:", error);
   }
