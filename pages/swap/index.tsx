@@ -19,7 +19,7 @@ import {
   TransactionInstruction,
 } from "@solana/web3.js";
 import { useRouter } from "next/router";
-import { KIWI_MULTISIG } from "../../constants";
+import { KIWI_MULTISIG, KIWI_TRADING_FEE_PCT, REFERRAL_FEE_PCT } from "../../constants";
 import { useWalletContext } from "../../components/contexts";
 
 const Swap = () => {
@@ -97,10 +97,10 @@ const Swap = () => {
 
     let totalFee = 0;
     if (isBuy) {
-      totalFee = outQuantityDecimals * 0.01;
+      totalFee = outQuantityDecimals * (KIWI_TRADING_FEE_PCT / 100);
     } else {
       if (inQuantity) {
-        totalFee = parseFloat(inQuantity) * 10 ** tokenInData.decimals * 0.01;
+        totalFee = parseFloat(inQuantity) * 10 ** tokenInData.decimals * (KIWI_TRADING_FEE_PCT / 100);
       }
     }
 
@@ -135,7 +135,7 @@ const Swap = () => {
         referrerAddress = referrerData["linked_accounts"][1]["address"];
       }
 
-      const referralFee = parseInt((totalFee / 2).toString());
+      const referralFee = parseInt((totalFee * (REFERRAL_FEE_PCT / 100)).toString());
 
       const feeTransferInstruction = SystemProgram.transfer({
         fromPubkey: new PublicKey(wallets[0].address),
