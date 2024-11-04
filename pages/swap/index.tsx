@@ -28,6 +28,10 @@ const Swap = () => {
 
   const [outQuantity, setOutQuantity] = useState<string>(``);
   const [inQuantity, setInQuantity] = useState<string>(``);
+
+  const [outWalletQuantity, setOutWalletQuantity] = useState<string>(``);
+  const [inWalletQuantity, setInWalletQuantity] = useState<string>(``);
+
   const inputFieldRef = useRef(null);
 
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
@@ -273,6 +277,20 @@ const Swap = () => {
     const doStuff = async () => {
       if(!tokenInData) {
         updateTokenInData(tokenIn);
+
+        if(portfolio) {
+          const match = portfolio.items.filter((i) => {
+            i.address === tokenIn
+          });
+
+          if(match && match.length > 0) {
+            const sizeInfo = match[0];
+
+            if(sizeInfo) {
+              setInWalletQuantity((_) => sizeInfo.uiAmount.toString())
+            }
+          }
+        }
       }
     };
 
@@ -283,6 +301,20 @@ const Swap = () => {
     const doStuff = async () => {
       if(!tokenOutData) {
         updateTokenOutData(tokenOut);
+
+        if(portfolio) {
+          const match = portfolio.items.filter((i) => {
+            i.address === tokenOut
+          });
+
+          if(match && match.length > 0) {
+            const sizeInfo = match[0];
+
+            if(sizeInfo) {
+              setOutWalletQuantity((_) => sizeInfo.uiAmount.toString())
+            }
+          }
+        }
       }
     };
 
@@ -339,8 +371,8 @@ const Swap = () => {
               </div>
               <div className={styles.outTokenActualQuantityContainer}>
                 {
-                  portfolio ?
-                    <>{portfolio.items.filter((i) => i.address === tokenOut)[0].uiAmount}</>
+                  outWalletQuantity ?
+                    <>{`${outWalletQuantity}`}</>
                   :
                     <></>
                 }
@@ -395,8 +427,8 @@ const Swap = () => {
               </div>
               <div className={styles.inTokenActualQuantityContainer}>
                 {
-                  portfolio ?
-                    <>{portfolio.items.filter((i) => i.address === tokenIn)[0].uiAmount}</>
+                  inWalletQuantity ?
+                    <>{`${inWalletQuantity}`}</>
                   :
                     <></>
                 }
