@@ -9,7 +9,14 @@ const History = () => {
     const { txHistory } = useWalletContext();
 
     const mapTxHistoryToMessage = (history: TransactionHistory): string => {
+
+        console.log("History: ", history);
+
         let message = "";
+
+        if(!history.balanceChange || history.balanceChange.length === 0) {
+            return;
+        }
 
         let inflowLog: TransferLog;
         let outflowLog: TransferLog;
