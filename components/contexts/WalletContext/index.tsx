@@ -44,7 +44,7 @@ export const WalletContextProvider = ({ children }) => {
         valueUsd: 0.0,
       } as TokenItem,
       {
-        address: "",
+        address: "So11111111111111111111111111111111111111111",
         decimals: 9,
         balance: 0.0,
         uiAmount: 0.0,

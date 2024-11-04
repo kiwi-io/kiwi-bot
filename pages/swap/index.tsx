@@ -317,11 +317,21 @@ const Swap = () => {
 
       if(portfolio) {
         const tokenInMatch = portfolio.items.filter((i) => {
-          i.address === tokenIn
+          if(i.address === "So11111111111111111111111111111111111111111"  && tokenIn === "So11111111111111111111111111111111111111112") {
+            return true;
+          }
+          else {
+            return (i.address === tokenIn);
+          }
         });
 
         const tokenOutMatch = portfolio.items.filter((i) => {
-          i.address === tokenOut
+          if(i.address === "So11111111111111111111111111111111111111111"  && tokenOut === "So11111111111111111111111111111111111111112") {
+            return true;
+          }
+          else {
+            return (i.address === tokenOut);
+          }
         });
 
         console.log("tokenInMatch: ", tokenInMatch);
