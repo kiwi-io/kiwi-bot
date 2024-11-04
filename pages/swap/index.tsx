@@ -280,20 +280,6 @@ const Swap = () => {
     const doStuff = async () => {
       if(!tokenInData) {
         updateTokenInData(tokenIn);
-
-        if(portfolio) {
-          const match = portfolio.items.filter((i) => {
-            i.address === tokenIn
-          });
-
-          if(match && match.length > 0) {
-            const sizeInfo = match[0];
-
-            if(sizeInfo) {
-              setInWalletQuantity((_) => sizeInfo.uiAmount.toString())
-            }
-          }
-        }
       }
     };
 
@@ -328,6 +314,35 @@ const Swap = () => {
     const doStuff = () => {
       updatePortfolio(user);
       console.log("Portfolio updated: ", portfolio);
+
+      if(portfolio) {
+        const tokenInMatch = portfolio.items.filter((i) => {
+          i.address === tokenIn
+        });
+
+        const tokenOutMatch = portfolio.items.filter((i) => {
+          i.address === tokenOut
+        });
+
+        console.log("tokenInMatch: ", tokenInMatch);
+        console.log("tokenOutMatch: ", tokenOutMatch);
+
+        if(tokenInMatch && tokenInMatch.length > 0) {
+          const sizeInfo = tokenInMatch[0];
+
+          if(sizeInfo) {
+            setInWalletQuantity((_) => sizeInfo.uiAmount.toString())
+          }
+        }
+
+        if(tokenOutMatch && tokenOutMatch.length > 0) {
+          const sizeInfo = tokenOutMatch[0];
+
+          if(sizeInfo) {
+            setOutWalletQuantity((_) => sizeInfo.uiAmount.toString())
+          }
+        }
+      }
     }
 
     doStuff();
