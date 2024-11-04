@@ -92,7 +92,7 @@ const History = () => {
                         if(parsedTradingActivity) {
                             console.log("parsedTradingActivity: ", parsedTradingActivity);
                         
-                            let message = `${parsedTradingActivity.amount.toFixed(3)} ${parsedTradingActivity.tokenSymbol}`
+                            let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`
 
                             if(parsedTradingActivity.type === "received" || parsedTradingActivity.type === "bought") {
                                 message = `+${message}`
@@ -105,8 +105,8 @@ const History = () => {
                                 <div key={history.txHash} className={styles.txHistory}>
                                     <Image
                                         src={increaseDimensionsInUrl(parsedTradingActivity.tokenLogo, 60, 60)}
-                                        width={35}
-                                        height={35}
+                                        width={40}
+                                        height={40}
                                         alt={`${parsedTradingActivity.tokenSymbol} img`}
                                         className={styles.tokenImage}
                                     />

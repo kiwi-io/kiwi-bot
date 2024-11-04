@@ -21,10 +21,12 @@
 }
 
 .txHistory {
-    padding: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: bold;
 }
 
 .tokenImage {
