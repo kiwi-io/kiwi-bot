@@ -69,7 +69,6 @@ const Swap = () => {
     updateTokenOut(tempIn.address);
     updateTokenInData(tokenOutData);
     updateTokenOutData(tempIn);
-    updateWalletQuantities();
   };
 
   const { vibrate } = useTelegram();
@@ -334,7 +333,7 @@ const Swap = () => {
 
   useEffect(() => {
     updateWalletQuantities();
-  }, [user]);
+  }, [user, tokenIn, tokenOut]);
 
   return (
     <div className={styles.swapPageContainer}>
