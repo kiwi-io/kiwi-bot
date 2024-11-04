@@ -1,15 +1,13 @@
 import { User } from "@privy-io/react-auth";
 import React from "react";
 import { useState, createContext, useContext } from "react";
-import { getWalletPortfolio, TokenItem, WalletPortfolio } from "../../../utils";
-import axios from "axios";
-import { LinkedAccountWithMetadata } from "@privy-io/server-auth";
+import { getWalletPortfolio, getWalletTransactionHistory, TokenItem, TransactionHistory, WalletPortfolio } from "../../../utils";
 
 interface WalletContextType {
   portfolio: WalletPortfolio;
-  users: LinkedAccountWithMetadata[];
+  txHistory: TransactionHistory[];
   updatePortfolio: (user: User) => Promise<void>;
-  updateUsersDb: () => void;
+  updateTransactionHistory: (user: User) => Promise<void>;
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
@@ -71,7 +69,9 @@ export const WalletContextProvider = ({ children }) => {
     ],
   });
 
-  const [users, setUsers] = useState<LinkedAccountWithMetadata[]>([]);
+  const [txHistory, setTxHistory] = useState<TransactionHistory[]>([]);
+
+  // const [users, setUsers] = useState<LinkedAccountWithMetadata[]>([]);
 
   const updatePortfolio = async (user: User) => {
     if (user && user.wallet) {
@@ -81,20 +81,28 @@ export const WalletContextProvider = ({ children }) => {
     }
   };
 
-  const updateUsersDb = async () => {
-    const data = await axios.get(
-      `${process.env.NEXT_KIWI_API_HOST}/privy/get-all-users`,
-    );
-    //@ts-ignore
-    const linkedAccounts: LinkedAccountWithMetadata[] = data["linked_accounts"];
-    setUsers((_) => linkedAccounts);
-  };
+  const updateTransactionHistory = async (user: User) => {
+    if(user && user.wallet) {
+      const latestTxHistory = await getWalletTransactionHistory(user.wallet.address);
+      // const latestTxHistory = await getWalletTransactionHistory("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P");
+      setTxHistory((_) => latestTxHistory);
+    }
+  }
+
+  // const updateUsersDb = async () => {
+  //   const data = await axios.get(
+  //     `${process.env.NEXT_KIWI_API_HOST}/privy/get-all-users`,
+  //   );
+  //   //@ts-ignore
+  //   const linkedAccounts: LinkedAccountWithMetadata[] = data["linked_accounts"];
+  //   setUsers((_) => linkedAccounts);
+  // };
 
   const value = {
     portfolio,
-    users,
+    txHistory,
     updatePortfolio,
-    updateUsersDb,
+    updateTransactionHistory,
   } as WalletContextType;
 
   return (

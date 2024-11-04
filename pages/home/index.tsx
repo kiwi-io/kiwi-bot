@@ -20,7 +20,7 @@ const Home = () => {
 
   const { user, ready, authenticated } = usePrivy();
 
-  const { portfolio, updatePortfolio } = useWalletContext();
+  const { portfolio, updatePortfolio, updateTransactionHistory } = useWalletContext();
   const { updateReferralSession, updateActivePage } = useActivePageContext();
 
   const {
@@ -39,6 +39,7 @@ const Home = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       updatePortfolio(user);
+      updateTransactionHistory(user);
     }, WALLET_UPDATE_FREQUENCY_IN_MS);
 
     return () => clearInterval(intervalId);
@@ -51,6 +52,7 @@ const Home = () => {
           createWallet();
         }
         updatePortfolio(user);
+        updateTransactionHistory(user);
       }
     };
 

@@ -96,7 +96,7 @@ export const getWalletTransactionHistory = async (
 ): Promise<TransactionHistory[]> => {
   try {
     const response = await axios.get(
-      `${BIRDEYE_GET_WALLET_TX_HISTORY}${address}`,
+      `${BIRDEYE_GET_WALLET_TX_HISTORY}${address}&limit=50`,
       {
         headers: {
           "Content-Type": "application/json",
