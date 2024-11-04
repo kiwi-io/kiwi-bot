@@ -86,46 +86,54 @@ const History = () => {
             />
             <div className={styles.txHistoryContainer}>
                 {
-                    txHistory.map((history) => {
+                    txHistory.length === 0 ?
+                        <>No transaction history.</>
+                    :
+                        // <>
+                        //     {
+                        //         txHistory.map((history) => {
 
-                        const parsedTradingActivity = mapTxHistoryToTradingActivity(history);
-                        if(parsedTradingActivity) {
-                            console.log("parsedTradingActivity: ", parsedTradingActivity);
-                        
-                            let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`
+                        //             const parsedTradingActivity = mapTxHistoryToTradingActivity(history);
+                        //             if(parsedTradingActivity) {
+                        //                 console.log("parsedTradingActivity: ", parsedTradingActivity);
+                                    
+                        //                 let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`
 
-                            if(parsedTradingActivity.type === "received") {
-                                message = `Received ${message}`
-                            }
-                            else if(parsedTradingActivity.type === "bought") {
-                                message = `Bought ${message}`
-                            }
-                            else if(parsedTradingActivity.type === "sold") {
-                                message = `Sold ${message}`
-                            }
+                        //                 if(parsedTradingActivity.type === "received") {
+                        //                     message = `Received ${message}`
+                        //                 }
+                        //                 else if(parsedTradingActivity.type === "bought") {
+                        //                     message = `Bought ${message}`
+                        //                 }
+                        //                 else if(parsedTradingActivity.type === "sold") {
+                        //                     message = `Sold ${message}`
+                        //                 }
 
-                            return (
-                                <div key={history.txHash} className={styles.txHistory}>
-                                    <Image
-                                        src={increaseDimensionsInUrl(parsedTradingActivity.tokenLogo, 60, 60)}
-                                        width={40}
-                                        height={40}
-                                        alt={`${parsedTradingActivity.tokenSymbol} img`}
-                                        className={styles.tokenImage}
-                                    />
-                                    <div
-                                        className={styles.txTransferMessage}
-                                        style = {{
-                                            color: parsedTradingActivity.type === 'sold' ? `#e33d3d` : `#23b460`
-                                        }}    
-                                    >{message}</div>
-                                </div>
-                            )
-                        }
-                        else {
-                            return <></>
-                        }
-                    })
+                        //                 return (
+                        //                     <div key={history.txHash} className={styles.txHistory}>
+                        //                         <Image
+                        //                             src={increaseDimensionsInUrl(parsedTradingActivity.tokenLogo, 60, 60)}
+                        //                             width={40}
+                        //                             height={40}
+                        //                             alt={`${parsedTradingActivity.tokenSymbol} img`}
+                        //                             className={styles.tokenImage}
+                        //                         />
+                        //                         <div
+                        //                             className={styles.txTransferMessage}
+                        //                             style = {{
+                        //                                 color: parsedTradingActivity.type === 'sold' ? `#e33d3d` : `#23b460`
+                        //                             }}    
+                        //                         >{message}</div>
+                        //                     </div>
+                        //                 )
+                        //             }
+                        //             else {
+                        //                 return <></>
+                        //             }
+                        //         })
+                        //     }
+                        // </>
+                        <>No transaction history.</>
                 }
             </div>
         </div>
