@@ -18,7 +18,7 @@ export interface TokenDisplayProps {
 const TokenDisplay = ({ tokenItem, showUsdValue }: TokenDisplayProps) => {
   const { vibrate } = useTelegram();
 
-  const { updateTokenIn, updateTokenOut, updateTokenOutData } = useJupiterSwapContext();
+  const { updateTokenIn, updateTokenOut, updateTokenOutData, updateTokenInData } = useJupiterSwapContext();
 
   const { updateActivePage } = useActivePageContext(); 
 
@@ -27,6 +27,7 @@ const TokenDisplay = ({ tokenItem, showUsdValue }: TokenDisplayProps) => {
     updateTokenOut(tokenItem.address);
     updateTokenOutData(tokenItem.address);
     updateTokenIn(`So11111111111111111111111111111111111111112`);
+    updateTokenInData(`So11111111111111111111111111111111111111112`);
     updateActivePage("/swap");
   }
 
