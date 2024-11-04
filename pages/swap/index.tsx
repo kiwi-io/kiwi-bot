@@ -295,8 +295,8 @@ const Swap = () => {
   }, [tokenOut]);
 
   useEffect(() => {
-    const doStuff = () => {
-      updatePortfolio(user);
+    const doStuff = async () => {
+      await updatePortfolio(user);
 
       if(portfolio) {
         console.log("Portfolio fetched: ", portfolio);
