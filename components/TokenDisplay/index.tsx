@@ -23,7 +23,7 @@ const TokenDisplay = ({ tokenItem, showUsdValue }: TokenDisplayProps) => {
   const { updateActivePage } = useActivePageContext(); 
 
   const handleClick = () => {
-    if(tokenItem.address === `So11111111111111111111111111111111111111112`) {
+    if(tokenItem.address === `So11111111111111111111111111111111111111112` || tokenItem.address === `So11111111111111111111111111111111111111111`) {
       return;
     }
     
