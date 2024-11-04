@@ -291,6 +291,10 @@ const Swap = () => {
       } else {
         setInQuantity((_) => "");
       }
+
+      if(outQuantity === "") {
+        setInQuantity((_) => "");
+      }
     };
 
     doStuff();
