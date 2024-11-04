@@ -337,12 +337,13 @@ const Swap = () => {
                   <>{` `}</>
                 )}
               </div>
-              <div className={styles.outTokenDollarQuantityContainer}>
-                {tokenOutData && outQuantity ? (
-                  <>{`$ ${(parseFloat(outQuantity) * tokenOutData.price).toFixed(3)}`}</>
-                ) : (
-                  <>{` `}</>
-                )}
+              <div className={styles.outTokenActualQuantityContainer}>
+                {
+                  portfolio ?
+                    <>{portfolio.items.filter((i) => i.address === tokenOut)[0].uiAmount}</>
+                  :
+                    <></>
+                }
               </div>
             </div>
           </div>
@@ -392,12 +393,13 @@ const Swap = () => {
                   <>{` `}</>
                 )}
               </div>
-              <div className={styles.inTokenDollarQuantityContainer}>
-                {tokenInData && inQuantity ? (
-                  <>{`$ ${(parseFloat(inQuantity) * tokenInData.price).toFixed(3)}`}</>
-                ) : (
-                  <>{` `}</>
-                )}
+              <div className={styles.inTokenActualQuantityContainer}>
+                {
+                  portfolio ?
+                    <>{portfolio.items.filter((i) => i.address === tokenIn)[0].uiAmount}</>
+                  :
+                    <></>
+                }
               </div>
             </div>
           </div>
