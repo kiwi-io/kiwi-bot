@@ -21,9 +21,9 @@ interface JupiterSwapContextType {
 
   updateSide: (side: Side) => void;
   updateTokenIn: (token: string) => Promise<void>;
-  updateTokenInData: (token: string) => Promise<void>;
+  updateTokenInData: (token: string | TokenData) => Promise<void>;
   updateTokenOut: (token: string) => Promise<void>;
-  updateTokenOutData: (token: string) => Promise<void>;
+  updateTokenOutData: (token: string | TokenData) => Promise<void>;
   updateQuantityIn: (quantity: string) => Promise<void>;
   updateQuantityOut: (quantity: string) => Promise<void>;
   updateReferrer: (referrer: string) => void;
@@ -85,20 +85,25 @@ export const JupiterSwapContextProvider = ({ children }) => {
     setTokenIn((_) => token);
   };
 
-  const updateTokenInData = async (token: string) => {
+  const updateTokenInData = async (token: string | TokenData) => {
     try {
-      const tokenDataRes = await getToken(token);
-      const td = {
-        address: tokenDataRes["address"],
-        decimals: tokenDataRes["decimals"],
-        symbol: tokenDataRes["symbol"],
-        name: tokenDataRes["name"],
-        logoURI: tokenDataRes["logoURI"],
-        liquidity: tokenDataRes["liquidity"],
-        price: tokenDataRes["price"],
-      } as TokenData;
+      if(typeof token === 'string') {
+        const tokenDataRes = await getToken(token);
+        const td = {
+          address: tokenDataRes["address"],
+          decimals: tokenDataRes["decimals"],
+          symbol: tokenDataRes["symbol"],
+          name: tokenDataRes["name"],
+          logoURI: tokenDataRes["logoURI"],
+          liquidity: tokenDataRes["liquidity"],
+          price: tokenDataRes["price"],
+        } as TokenData;
 
-      setTokenInData((_) => td);
+        setTokenInData((_) => td);
+      }
+      else {
+        setTokenInData((_) => token);
+      }
     } catch (err) {
       console.log("Error getting tokenIn data: ", token);
       console.log("err: ", err);
@@ -110,9 +115,10 @@ export const JupiterSwapContextProvider = ({ children }) => {
     setTokenOut((_) => token);
   };
 
-  const updateTokenOutData = async (token: string) => {
+  const updateTokenOutData = async (token: string | TokenData) => {
     try {
-      const tokenDataRes = await getToken(token);
+      if(typeof token === 'string') {
+        const tokenDataRes = await getToken(token);
 
       const td = {
         address: tokenDataRes["address"],
@@ -125,6 +131,10 @@ export const JupiterSwapContextProvider = ({ children }) => {
       } as TokenData;
 
       setTokenOutData((_) => td);
+      }
+      else {
+        setTokenOutData((_) => token);
+      }
     } catch (err) {
       console.log("Error getting tokenIn data: ", token);
       console.log("err: ", err);

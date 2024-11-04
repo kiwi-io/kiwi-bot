@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./swap.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useTelegram } from "../../utils/twa";
-import { delay, getTelegramUserData, getToken, TokenData, triggerNotification } from "../../utils";
+import { delay, getTelegramUserData, triggerNotification } from "../../utils";
 import { Form } from "react-bootstrap";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 import Image from "next/image";
@@ -31,8 +31,7 @@ const Swap = () => {
 
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
 
-  // const [tokenInData, setTokenInData] = useState<TokenData>();
-  // const [tokenOutData, setTokenOutData] = useState<TokenData>();
+  const { tokenIn, tokenOut, tokenInData, tokenOutData, updateTokenIn, updateTokenOut, updateTokenInData, updateTokenOutData, referrer } = useJupiterSwapContext();
 
   const handleKeypadInput = (value: any) => {
     if(isSwapExecuting) {
@@ -61,9 +60,11 @@ const Swap = () => {
 
     vibrate("light");
 
-    // const tempIn = tokenInData;
-    // setTokenInData((_) => tokenOutData);
-    // setTokenOutData((_) => tempIn);
+    const tempIn = tokenInData;
+    updateTokenIn(tokenOutData.address);
+    updateTokenOut(tempIn.address);
+    updateTokenInData(tokenOutData);
+    updateTokenOutData(tempIn);
   };
 
   const { vibrate } = useTelegram();
@@ -71,7 +72,6 @@ const Swap = () => {
   const { user } = usePrivy();
   const router = useRouter();
 
-  const { tokenIn, tokenOut, tokenInData, tokenOutData, referrer } = useJupiterSwapContext();
 
   const performSwapAction = async () => {
     if(isSwapExecuting) {
@@ -267,45 +267,25 @@ const Swap = () => {
     doStuff();
   }, [outQuantity]);
 
-  // useEffect(() => {
-  //   const doStuff = async () => {
-  //     const tokenDataRes = await getToken(tokenIn);
+  useEffect(() => {
+    const doStuff = async () => {
+      if(!tokenInData) {
+        updateTokenInData(tokenIn);
+      }
+    };
 
-  //     const td = {
-  //       address: tokenDataRes["address"],
-  //       decimals: tokenDataRes["decimals"],
-  //       symbol: tokenDataRes["symbol"],
-  //       name: tokenDataRes["name"],
-  //       logoURI: tokenDataRes["logoURI"],
-  //       liquidity: tokenDataRes["liquidity"],
-  //       price: tokenDataRes["price"],
-  //     } as TokenData;
+    doStuff();
+  }, [tokenIn]);
 
-  //     // setTokenInData((_) => td);
-  //   };
+  useEffect(() => {
+    const doStuff = async () => {
+      if(!tokenOutData) {
+        updateTokenOutData(tokenOut);
+      }
+    };
 
-  //   doStuff();
-  // }, [tokenIn]);
-
-  // useEffect(() => {
-  //   const doStuff = async () => {
-  //     const tokenDataRes = await getToken(tokenOut);
-
-  //     const td = {
-  //       address: tokenDataRes["address"],
-  //       decimals: tokenDataRes["decimals"],
-  //       symbol: tokenDataRes["symbol"],
-  //       name: tokenDataRes["name"],
-  //       logoURI: tokenDataRes["logoURI"],
-  //       liquidity: tokenDataRes["liquidity"],
-  //       price: tokenDataRes["price"],
-  //     } as TokenData;
-
-  //     // setTokenOutData((_) => td);
-  //   };
-
-  //   doStuff();
-  // }, [tokenOut]);
+    doStuff();
+  }, [tokenOut]);
 
   return (
     <div className={styles.swapPageContainer}>
