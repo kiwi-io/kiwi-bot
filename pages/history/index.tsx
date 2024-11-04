@@ -12,8 +12,6 @@ const History = () => {
 
         console.log("History: ", history);
 
-        let message = "";
-
         if(!history.balanceChange || history.balanceChange.length === 0) {
             return;
         }
@@ -42,11 +40,11 @@ const History = () => {
         }
         
         if(inflowLog && outflowLog && outflowLog.address === "So11111111111111111111111111111111111111112") {
-            return `Bought ${(inflowLog.amount / 10 ** inflowLog.decimals).toFixed(3)} ${inflowLog.symbol}`
+            return `+${(inflowLog.amount / 10 ** inflowLog.decimals).toFixed(3)} ${inflowLog.symbol}`
         }
 
         if(outflowLog && inflowLog && inflowLog.address === "So11111111111111111111111111111111111111112") {
-            return `Sold ${(outflowLog.amount / 10 ** outflowLog.decimals).toFixed(3)} ${outflowLog.symbol} decimals: ${outflowLog.decimals}`
+            return `${(outflowLog.amount / 10 ** outflowLog.decimals).toFixed(3)} ${outflowLog.symbol}`
         }
     }
 
