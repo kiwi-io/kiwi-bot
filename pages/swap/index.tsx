@@ -211,7 +211,7 @@ const Swap = () => {
             await triggerNotification(referrer, `Load at least 0.01 SOL in your wallet to start receiving referral fees.`)
           }
           else {
-            await triggerNotification(referrer, `📣 ${user.telegram.username} just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${((referralFee / LAMPORTS_PER_SOL) * (isBuy ? (tokenOutData.price) : tokenInData.price)).toFixed(6)}) 🤑`)
+            await triggerNotification(referrer, `📣 Somebody just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${((referralFee / LAMPORTS_PER_SOL) * (isBuy ? (tokenOutData.price) : tokenInData.price)).toFixed(6)}) 🤑`)
           }
         }
       }
