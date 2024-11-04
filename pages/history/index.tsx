@@ -89,29 +89,34 @@ const History = () => {
                     txHistory.map((history) => {
 
                         const parsedTradingActivity = mapTxHistoryToTradingActivity(history);
-                        console.log("parsedTradingActivity: ", parsedTradingActivity);
+                        if(parsedTradingActivity) {
+                            console.log("parsedTradingActivity: ", parsedTradingActivity);
                         
-                        let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`
+                            let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`
 
-                        if(parsedTradingActivity.type === "received" || parsedTradingActivity.type === "bought") {
-                            message = `+${message}`
-                        }
-                        else if(parsedTradingActivity.type === "sold") {
-                            message = `-${message}`
-                        }
+                            if(parsedTradingActivity.type === "received" || parsedTradingActivity.type === "bought") {
+                                message = `+${message}`
+                            }
+                            else if(parsedTradingActivity.type === "sold") {
+                                message = `-${message}`
+                            }
 
-                        return (
-                            <div key={history.txHash} className={styles.txHistory}>
-                                <Image
-                                    src={increaseDimensionsInUrl(parsedTradingActivity.tokenLogo, 60, 60)}
-                                    width={50}
-                                    height={50}
-                                    alt={`${parsedTradingActivity.tokenSymbol} img`}
-                                    className={styles.tokenImage}
-                                />
-                                <div className={styles.txTransferMessage}>{message}</div>
-                            </div>
-                        )
+                            return (
+                                <div key={history.txHash} className={styles.txHistory}>
+                                    <Image
+                                        src={increaseDimensionsInUrl(parsedTradingActivity.tokenLogo, 60, 60)}
+                                        width={50}
+                                        height={50}
+                                        alt={`${parsedTradingActivity.tokenSymbol} img`}
+                                        className={styles.tokenImage}
+                                    />
+                                    <div className={styles.txTransferMessage}>{message}</div>
+                                </div>
+                            )
+                        }
+                        else {
+                            return <></>
+                        }
                     })
                 }
             </div>
