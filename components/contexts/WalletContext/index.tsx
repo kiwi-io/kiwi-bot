@@ -8,7 +8,7 @@ import { LinkedAccountWithMetadata } from "@privy-io/server-auth";
 interface WalletContextType {
   portfolio: WalletPortfolio;
   users: LinkedAccountWithMetadata[];
-  updatePortfolio: (user: User) => void;
+  updatePortfolio: (user: User) => Promise<void>;
   updateUsersDb: () => void;
 }
 
