@@ -37,18 +37,22 @@ const History = () => {
         }
 
         if(history.balanceChange[1] && history.balanceChange[1].amount > 0) {
-            inflowLog = history.balanceChange[0];
+            inflowLog = history.balanceChange[1];
         }
         else if(history.balanceChange[1] && history.balanceChange[1].amount < 0) {
-            outflowLog = history.balanceChange[0];
+            outflowLog = history.balanceChange[1];
         }
         
         if(inflowLog) {
-            message += `+${inflowLog.amount / (10 ** inflowLog.decimals)} ${inflowLog.symbol}`
+            if((inflowLog.amount / 10 ** inflowLog.decimals) > 0.00001) {
+                message += `+${inflowLog.amount / (10 ** inflowLog.decimals)} ${inflowLog.symbol}`
+            }
         } 
         
         if(outflowLog) {
-            message += `\t-${outflowLog.amount / (10 ** outflowLog.decimals)} ${outflowLog.symbol}`
+            if(Math.abs((outflowLog.amount / 10 ** inflowLog.decimals)) > 0.00001) {
+                message += `${outflowLog.amount / (10 ** outflowLog.decimals)} ${outflowLog.symbol}`
+            }
         }
 
         return message;
