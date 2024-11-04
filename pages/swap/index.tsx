@@ -74,6 +74,7 @@ const Swap = () => {
     updateTokenOut(tempIn.address);
     updateTokenInData(tokenOutData);
     updateTokenOutData(tempIn);
+    setOutQuantity((_) => outQuantity);
   };
 
   const performSwapAction = async () => {
