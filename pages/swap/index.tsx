@@ -36,7 +36,7 @@ const Swap = () => {
 
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
 
-  const { portfolio } = useWalletContext();
+  const { portfolio, updatePortfolio } = useWalletContext();
   const { tokenIn, tokenOut, tokenInData, tokenOutData, updateTokenIn, updateTokenOut, updateTokenInData, updateTokenOutData, referrer } = useJupiterSwapContext();
 
   const handleKeypadInput = (value: any) => {
@@ -255,6 +255,8 @@ const Swap = () => {
       const outQuantityDecimals =
         parseFloat(outQuantity) * 10 ** tokenOutData.decimals;
 
+      console.log("new outQuantity: ", outQuantity);
+
       if (outQuantityDecimals > 0) {
         let inQuantityQuote = await fetchQuote(
           tokenOutData.address,
@@ -262,6 +264,7 @@ const Swap = () => {
           outQuantityDecimals,
           300,
         );
+        console.log("inQuantityQuote: ", inQuantityQuote);
         setInQuantity((_) =>
           (inQuantityQuote.outAmount / 10 ** tokenInData.decimals).toString(),
         );
@@ -320,6 +323,15 @@ const Swap = () => {
 
     doStuff();
   }, [tokenOut]);
+
+  useEffect(() => {
+    const doStuff = () => {
+      updatePortfolio(user);
+      console.log("Portfolio updated: ", portfolio);
+    }
+
+    doStuff();
+  }, [user]);
 
   return (
     <div className={styles.swapPageContainer}>
