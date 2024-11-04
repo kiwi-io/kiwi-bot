@@ -52,20 +52,15 @@ bot.on("inline_query", async (ctx) => {
 
     const logoUri = response.data.data["logoURI"];
     const symbol = response.data.data["symbol"];
-
-    // ctx.answerInlineQuery([
-    //   {
-    //     type: "photo",
-    //     id: "1",
-    //     photo_url: logoUri,
-    //     thumbnail_url: `https://i.ibb.co/6vHYGBg/Kiwi-Logo.png`,
-    //     title: `Refer trades on ${symbol} & earn 50% trading fees`,
-    //     description: `Refer trades on ${symbol} & earn 50% trading fees`,
-    //     caption: `Trade ${symbol} with SOL using Kiwi`,
-    //     parse_mode: "HTML",
-    //     reply_markup: keyboard,
-    //   },
-    // ]);
+    const name = response.data.data["name"];
+    const price = response.data.data["price"];
+    const liquidity = response.data.data["liquidity"];
+    const mc = response.data.data["mc"];
+    const buyDaily = response.data.data["buy24h"];
+    const sellDaily = response.data.data["sell24h"];
+    const volumeDaily = response.data.data["v24hUSD"];
+    const priceChangeDaily = response.data.data["priceChange24hPercent"];
+    const viewDaily = response.data.data["view24h"];
 
     ctx.answerInlineQuery([
       {
@@ -74,7 +69,14 @@ bot.on("inline_query", async (ctx) => {
         title: `Trade ${symbol} with SOL using Kiwi`,
         description: `Trade ${symbol} with SOL using Kiwi`,
         input_message_content: {
-          message_text: `Trade ${symbol} with SOL using Kiwi`,
+          message_text:
+          `${symbol} | ${name}\n
+           $${price} | ${priceChangeDaily}\n
+           MC: ${mc}\n
+           Vol: ${volumeDaily}\n
+           Liq: ${liquidity}\n
+           Buys: ${buyDaily} | Sells: ${sellDaily}\n
+           Views: ${viewDaily}`,
           parse_mode: "HTML",
         },
         thumbnail_url: logoUri,
