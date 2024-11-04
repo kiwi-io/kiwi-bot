@@ -21,6 +21,7 @@
   /* color: #fffefa; */
   width: 100%;
   height: 90vh;
+  overflow-y: scroll;
 }
 
 .navbar {
