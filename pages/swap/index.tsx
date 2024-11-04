@@ -32,8 +32,6 @@ const Swap = () => {
   const [outWalletQuantity, setOutWalletQuantity] = useState<string>(``);
   const [inWalletQuantity, setInWalletQuantity] = useState<string>(``);
 
-  const inputFieldRef = useRef(null);
-
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
 
   const { portfolio, updatePortfolio } = useWalletContext();
@@ -234,12 +232,6 @@ const Swap = () => {
   };
 
   useEffect(() => {
-    if (inputFieldRef.current) {
-      inputFieldRef.current.focus();
-    }
-  }, []);
-
-  useEffect(() => {
     const doStuff = async () => {
       if (outQuantity.includes(".")) {
         setIsDecimalEntered((_) => true);
@@ -307,6 +299,10 @@ const Swap = () => {
       updatePortfolio(user);
 
       if(portfolio) {
+        console.log("Portfolio fetched: ", portfolio);
+        console.log("tokenIn: ", tokenIn);
+        console.log("tokenOut: ", tokenOut);
+
         const tokenInMatch = portfolio.items.filter((i) => {
           if(i.address === "So11111111111111111111111111111111111111111"  && tokenIn === "So11111111111111111111111111111111111111112") {
             return true;
@@ -324,6 +320,9 @@ const Swap = () => {
             return (i.address === tokenOut);
           }
         });
+
+        console.log("tokenInMatch: ", tokenInMatch);
+        console.log("tokenOutMatch: ", tokenOutMatch);
 
         if(tokenInMatch && tokenInMatch.length > 0) {
           const sizeInfo = tokenInMatch[0];
@@ -358,7 +357,6 @@ const Swap = () => {
           <div className={styles.swapOutTokenContainer}>
             <div className={styles.outTokenQuantityFormContainer}>
               <Form.Control
-                ref={inputFieldRef}
                 className={styles.outTokenQuantityForm}
                 placeholder="0"
                 type="text"
