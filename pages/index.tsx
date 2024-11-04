@@ -9,6 +9,7 @@ import { hasExistingSolanaWallet } from "../utils";
 
 const Home = dynamic(() => import("./home"));
 const Swap = dynamic(() => import("./swap"));
+const History = dynamic(() => import("./history"));
 
 // import NavButton from "../components/NavButton";
 import { useWalletContext } from "../components/contexts";
@@ -89,7 +90,7 @@ export default function Main() {
       case "/swap":
         return <Swap />;
       case "/history":
-        return <Home />;
+        return <History />;
       default:
         return <Home />;
     }
