@@ -317,19 +317,27 @@ const Swap = () => {
 
       if(portfolio) {
         const tokenInMatch = portfolio.items.filter((i) => {
+          console.log("i.address: ", i.address);
+          console.log("tokenIn: ", tokenIn);
           if(i.address === "So11111111111111111111111111111111111111111"  && tokenIn === "So11111111111111111111111111111111111111112") {
+            console.log("returning true");
             return true;
           }
           else {
+            console.log("returning: ", i.address === tokenIn);
             return (i.address === tokenIn);
           }
         });
 
         const tokenOutMatch = portfolio.items.filter((i) => {
+          console.log("i.address: ", i.address);
+          console.log("tokenOut: ", tokenOut);
           if(i.address === "So11111111111111111111111111111111111111111"  && tokenOut === "So11111111111111111111111111111111111111112") {
+            console.log("returning true");
             return true;
           }
           else {
+            console.log("returning: ", i.address === tokenOut);
             return (i.address === tokenOut);
           }
         });
