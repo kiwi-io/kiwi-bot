@@ -98,15 +98,15 @@ const History = () => {
                                 message = `+${message}`
                             }
                             else if(parsedTradingActivity.type === "sold") {
-                                message = `-${message}`
+                                message = `${message}`
                             }
 
                             return (
                                 <div key={history.txHash} className={styles.txHistory}>
                                     <Image
                                         src={increaseDimensionsInUrl(parsedTradingActivity.tokenLogo, 60, 60)}
-                                        width={50}
-                                        height={50}
+                                        width={35}
+                                        height={35}
                                         alt={`${parsedTradingActivity.tokenSymbol} img`}
                                         className={styles.tokenImage}
                                     />
