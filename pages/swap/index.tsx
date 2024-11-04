@@ -69,6 +69,7 @@ const Swap = () => {
     updateTokenOut(tempIn.address);
     updateTokenInData(tokenOutData);
     updateTokenOutData(tempIn);
+    updateWalletQuantities();
   };
 
   const { vibrate } = useTelegram();
@@ -229,6 +230,45 @@ const Swap = () => {
     router.push(`/transaction-status?type=success&signature=${signature}`);
   };
 
+  const updateWalletQuantities = async() => {
+    await updatePortfolio(user);
+    if(portfolio) {
+      const tokenInMatch = portfolio.items.filter((i) => {
+        if(i.address === "So11111111111111111111111111111111111111111"  && tokenIn === "So11111111111111111111111111111111111111112") {
+          return true;
+        }
+        else {
+          return (i.address === tokenIn);
+        }
+      });
+
+      const tokenOutMatch = portfolio.items.filter((i) => {
+        if(i.address === "So11111111111111111111111111111111111111111"  && tokenOut === "So11111111111111111111111111111111111111112") {
+          return true;
+        }
+        else {
+          return (i.address === tokenOut);
+        }
+      });
+
+      if(tokenInMatch && tokenInMatch.length > 0) {
+        const sizeInfo = tokenInMatch[0];
+
+        if(sizeInfo) {
+          setInWalletQuantity((_) => sizeInfo.uiAmount.toString())
+        }
+      }
+
+      if(tokenOutMatch && tokenOutMatch.length > 0) {
+        const sizeInfo = tokenOutMatch[0];
+
+        if(sizeInfo) {
+          setOutWalletQuantity((_) => sizeInfo.uiAmount.toString())
+        }
+      }
+    }
+  }
+
   useEffect(() => {
     const doStuff = async () => {
       if (outQuantity.includes(".")) {
@@ -293,47 +333,7 @@ const Swap = () => {
   }, [tokenOut]);
 
   useEffect(() => {
-    const doStuff = async () => {
-      await updatePortfolio(user);
-
-      if(portfolio) {
-        const tokenInMatch = portfolio.items.filter((i) => {
-          if(i.address === "So11111111111111111111111111111111111111111"  && tokenIn === "So11111111111111111111111111111111111111112") {
-            return true;
-          }
-          else {
-            return (i.address === tokenIn);
-          }
-        });
-
-        const tokenOutMatch = portfolio.items.filter((i) => {
-          if(i.address === "So11111111111111111111111111111111111111111"  && tokenOut === "So11111111111111111111111111111111111111112") {
-            return true;
-          }
-          else {
-            return (i.address === tokenOut);
-          }
-        });
-
-        if(tokenInMatch && tokenInMatch.length > 0) {
-          const sizeInfo = tokenInMatch[0];
-
-          if(sizeInfo) {
-            setInWalletQuantity((_) => sizeInfo.uiAmount.toString())
-          }
-        }
-
-        if(tokenOutMatch && tokenOutMatch.length > 0) {
-          const sizeInfo = tokenOutMatch[0];
-
-          if(sizeInfo) {
-            setOutWalletQuantity((_) => sizeInfo.uiAmount.toString())
-          }
-        }
-      }
-    }
-
-    doStuff();
+    updateWalletQuantities();
   }, [user]);
 
   return (
