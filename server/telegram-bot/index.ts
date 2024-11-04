@@ -71,7 +71,7 @@ bot.on("inline_query", async (ctx) => {
         description: `Trade ${symbol} with SOL using Kiwi`,
         input_message_content: {
           message_text:
-          `<b>${symbol}</b> | <b>${name}</b>\n\n💰 $<b>${price}</b> | <b>${priceChangeDaily > 0 ? `+${priceChangeDaily.toFixed(2)}` : `-${priceChangeDaily.toFixed(2)}`}%</b>\n\n💎 MC: <b>${formatWithCommas(mc)}</b>\n\n📊 Vol: <b>${formatWithCommas(volumeDaily)}</b>\n\n💦 Liq: <b>${formatWithCommas(liquidity)}</b>\n\n💲 Buys: <b>${buyDaily}</b> | Sells: <b>${sellDaily}</b>\n\n👁 Views: <b>${viewDaily}</b>`,
+          `<b>${symbol}</b> | <b>${name}</b>\n\n💰 $<b>${price}</b> | <b>${priceChangeDaily > 0 ? `+${priceChangeDaily.toFixed(2)}` : `-${priceChangeDaily.toFixed(2)}`}%</b>\n\n💎 MC: <b>${formatWithCommas(mc)}</b>\n\n📊 Vol: <b>${formatWithCommas(volumeDaily)}</b>\n\n💦 Liq: <b>${formatWithCommas(liquidity)}</b>\n\n💲 Buys: <b>${buyDaily}</b> | Sells: <b>${sellDaily}</b>\n\n👁 Views: <b>${viewDaily}</b>\n\n\n\`${address}\``,
           parse_mode: "HTML",
         },
         thumbnail_url: logoUri,
