@@ -27,6 +27,7 @@ const TransactionStatus = () => {
     }
     else {
       updateActivePage("/home");
+      router.push("/");
     }
   };
 
