@@ -28,7 +28,7 @@ const History = () => {
         }
 
         if(history.mainAction === "received") {
-            if((history.balanceChange[0].amount / 10 ** history.balanceChange[0].decimals) >= 0.0001) {
+            if((history.balanceChange[0].amount / 10 ** history.balanceChange[0].decimals) >= 0.0000001) {
                 return {
                     token: history.balanceChange[0].address ? history.balanceChange[0].address : '',
                     tokenLogo: history.balanceChange[0].logoURI ? history.balanceChange[0].logoURI : '',
@@ -92,7 +92,7 @@ const History = () => {
                         if(parsedTradingActivity) {
                             console.log("parsedTradingActivity: ", parsedTradingActivity);
                         
-                            let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`
+                            let message = `${parsedTradingActivity.amount.toFixed(3)} ${parsedTradingActivity.tokenSymbol}`
 
                             if(parsedTradingActivity.type === "received" || parsedTradingActivity.type === "bought") {
                                 message = `+${message}`
@@ -110,7 +110,12 @@ const History = () => {
                                         alt={`${parsedTradingActivity.tokenSymbol} img`}
                                         className={styles.tokenImage}
                                     />
-                                    <div className={styles.txTransferMessage}>{message}</div>
+                                    <div
+                                        className={styles.txTransferMessage}
+                                        style = {{
+                                            color: parsedTradingActivity.type === 'sold' ? `rgb(128, 26, 26)` : `rgb(26, 128, 68)`
+                                        }}    
+                                    >{message}</div>
                                 </div>
                             )
                         }
