@@ -21,7 +21,7 @@ const Home = () => {
   const { user, ready, authenticated } = usePrivy();
 
   const { portfolio, updatePortfolio } = useWalletContext();
-  const { updateActivePage } = useActivePageContext();
+  const { updateReferralSession, updateActivePage } = useActivePageContext();
 
   const {
     updateSide,
@@ -82,6 +82,7 @@ const Home = () => {
         updateActionHost("https://jup.ag/swap");
         updateActionHostLogo("/logos/jupiter_logo.svg");
         updateActivePage("/swap");
+        updateReferralSession("/swap");
       } else if (startParam.startsWith("sell")) {
         updateSide("sell");
         const components = startParam.split("-");
@@ -99,6 +100,7 @@ const Home = () => {
         updateActionHost("https://jup.ag/swap");
         updateActionHostLogo("/logos/jupiter_logo.svg");
         updateActivePage("/swap");
+        updateReferralSession("/swap");
       } else {
         const decodedUrl = decodeTelegramCompatibleUrl(startParam);
 

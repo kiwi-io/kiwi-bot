@@ -3,7 +3,9 @@ import { useState, createContext, useContext } from "react";
 
 interface ActivePageContextType {
   activePage: string;
+  referralSession: string;
   updateActivePage: (activePage: string) => void;
+  updateReferralSession: (referralSession: string) => void;
 }
 
 const ActivePageContext = createContext<ActivePageContextType | undefined>(
@@ -23,14 +25,21 @@ export const useActivePageContext = () => {
 //@ts-ignore
 export const ActivePageContextProvider = ({ children }) => {
   const [activePage, setActivePage] = useState<string>("/home");
+  const [referralSession, setReferralSession] = useState<string>(undefined);
 
   const updateActivePage = (activePage: string) => {
     setActivePage((_) => activePage);
   };
 
+  const updateReferralSession = (referralSession: string) => {
+    setReferralSession((_) => referralSession);
+  }
+
   const value = {
     activePage,
-    updateActivePage
+    referralSession,
+    updateActivePage,
+    updateReferralSession
   } as ActivePageContextType;
 
   return (
