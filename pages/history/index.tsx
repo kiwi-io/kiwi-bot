@@ -19,11 +19,7 @@ const History = () => {
         }
 
         if(history.mainAction === "received") {
-            return `+${history.balanceChange[0].amount / (10 ** history.balanceChange[0].decimals)} ${history.balanceChange[0].symbol}`;
-        }
-
-        if(history.mainAction === "received") {
-            return `+${history.balanceChange[0].amount / (10 ** history.balanceChange[0].decimals)} ${history.balanceChange[0].symbol}`;
+            return `Received ${history.balanceChange[0].amount / (10 ** history.balanceChange[0].decimals)} ${history.balanceChange[0].symbol}`;
         }
 
         let inflowLog: TransferLog;
@@ -43,19 +39,13 @@ const History = () => {
             outflowLog = history.balanceChange[1];
         }
         
-        if(inflowLog) {
-            if((inflowLog.amount / 10 ** inflowLog.decimals) > 0.00001) {
-                message += `+${inflowLog.amount / (10 ** inflowLog.decimals)} ${inflowLog.symbol}`
-            }
-        } 
-        
-        if(outflowLog) {
-            if(Math.abs((outflowLog.amount / 10 ** inflowLog.decimals)) > 0.00001) {
-                message += `${outflowLog.amount / (10 ** outflowLog.decimals)} ${outflowLog.symbol}`
-            }
+        if(inflowLog && outflowLog.address === "So11111111111111111111111111111111111111112") {
+            return `Bought ${inflowLog.amount} ${inflowLog.symbol} decimals: ${inflowLog.decimals}`
         }
 
-        return message;
+        if(outflowLog && inflowLog.address === "So11111111111111111111111111111111111111112") {
+            return `Sold ${outflowLog.amount} ${outflowLog.symbol} decimals: ${outflowLog.decimals}`
+        }
     }
 
     return (
