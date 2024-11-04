@@ -39,11 +39,11 @@ const History = () => {
             outflowLog = history.balanceChange[1];
         }
         
-        if(inflowLog && outflowLog.address === "So11111111111111111111111111111111111111112") {
+        if(inflowLog && outflowLog && outflowLog.address === "So11111111111111111111111111111111111111112") {
             return `Bought ${inflowLog.amount} ${inflowLog.symbol} decimals: ${inflowLog.decimals}`
         }
 
-        if(outflowLog && inflowLog.address === "So11111111111111111111111111111111111111112") {
+        if(outflowLog && inflowLog && inflowLog.address === "So11111111111111111111111111111111111111112") {
             return `Sold ${outflowLog.amount} ${outflowLog.symbol} decimals: ${outflowLog.decimals}`
         }
     }
