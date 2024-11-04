@@ -31,8 +31,8 @@ const Swap = () => {
 
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
 
-  const [tokenInData, setTokenInData] = useState<TokenData>();
-  const [tokenOutData, setTokenOutData] = useState<TokenData>();
+  // const [tokenInData, setTokenInData] = useState<TokenData>();
+  // const [tokenOutData, setTokenOutData] = useState<TokenData>();
 
   const handleKeypadInput = (value: any) => {
     if(isSwapExecuting) {
@@ -61,9 +61,9 @@ const Swap = () => {
 
     vibrate("light");
 
-    const tempIn = tokenInData;
-    setTokenInData((_) => tokenOutData);
-    setTokenOutData((_) => tempIn);
+    // const tempIn = tokenInData;
+    // setTokenInData((_) => tokenOutData);
+    // setTokenOutData((_) => tempIn);
   };
 
   const { vibrate } = useTelegram();
@@ -71,7 +71,7 @@ const Swap = () => {
   const { user } = usePrivy();
   const router = useRouter();
 
-  const { tokenIn, tokenOut, referrer } = useJupiterSwapContext();
+  const { tokenIn, tokenOut, tokenInData, tokenOutData, referrer } = useJupiterSwapContext();
 
   const performSwapAction = async () => {
     if(isSwapExecuting) {
@@ -267,45 +267,45 @@ const Swap = () => {
     doStuff();
   }, [outQuantity]);
 
-  useEffect(() => {
-    const doStuff = async () => {
-      const tokenDataRes = await getToken(tokenIn);
+  // useEffect(() => {
+  //   const doStuff = async () => {
+  //     const tokenDataRes = await getToken(tokenIn);
 
-      const td = {
-        address: tokenDataRes["address"],
-        decimals: tokenDataRes["decimals"],
-        symbol: tokenDataRes["symbol"],
-        name: tokenDataRes["name"],
-        logoURI: tokenDataRes["logoURI"],
-        liquidity: tokenDataRes["liquidity"],
-        price: tokenDataRes["price"],
-      } as TokenData;
+  //     const td = {
+  //       address: tokenDataRes["address"],
+  //       decimals: tokenDataRes["decimals"],
+  //       symbol: tokenDataRes["symbol"],
+  //       name: tokenDataRes["name"],
+  //       logoURI: tokenDataRes["logoURI"],
+  //       liquidity: tokenDataRes["liquidity"],
+  //       price: tokenDataRes["price"],
+  //     } as TokenData;
 
-      setTokenInData((_) => td);
-    };
+  //     // setTokenInData((_) => td);
+  //   };
 
-    doStuff();
-  }, [tokenIn]);
+  //   doStuff();
+  // }, [tokenIn]);
 
-  useEffect(() => {
-    const doStuff = async () => {
-      const tokenDataRes = await getToken(tokenOut);
+  // useEffect(() => {
+  //   const doStuff = async () => {
+  //     const tokenDataRes = await getToken(tokenOut);
 
-      const td = {
-        address: tokenDataRes["address"],
-        decimals: tokenDataRes["decimals"],
-        symbol: tokenDataRes["symbol"],
-        name: tokenDataRes["name"],
-        logoURI: tokenDataRes["logoURI"],
-        liquidity: tokenDataRes["liquidity"],
-        price: tokenDataRes["price"],
-      } as TokenData;
+  //     const td = {
+  //       address: tokenDataRes["address"],
+  //       decimals: tokenDataRes["decimals"],
+  //       symbol: tokenDataRes["symbol"],
+  //       name: tokenDataRes["name"],
+  //       logoURI: tokenDataRes["logoURI"],
+  //       liquidity: tokenDataRes["liquidity"],
+  //       price: tokenDataRes["price"],
+  //     } as TokenData;
 
-      setTokenOutData((_) => td);
-    };
+  //     // setTokenOutData((_) => td);
+  //   };
 
-    doStuff();
-  }, [tokenOut]);
+  //   doStuff();
+  // }, [tokenOut]);
 
   return (
     <div className={styles.swapPageContainer}>
