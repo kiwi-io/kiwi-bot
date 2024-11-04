@@ -84,56 +84,61 @@ const History = () => {
                 backButtonNavigateTo={"/home"}
                 backButtonHide={true}
             />
-            <div className={styles.txHistoryContainer}>
+            <div 
+                className={styles.txHistoryContainer}
+                style = {{
+                    justifyContent: txHistory.length === 0 ? `center` : ``,
+                    alignItems: txHistory.length === 0 ? `center`: ``
+                }}    
+            >
                 {
                     txHistory.length === 0 ?
                         <>No transaction history.</>
                     :
-                        // <>
-                        //     {
-                        //         txHistory.map((history) => {
+                        <>
+                            {
+                                txHistory.map((history) => {
 
-                        //             const parsedTradingActivity = mapTxHistoryToTradingActivity(history);
-                        //             if(parsedTradingActivity) {
-                        //                 console.log("parsedTradingActivity: ", parsedTradingActivity);
+                                    const parsedTradingActivity = mapTxHistoryToTradingActivity(history);
+                                    if(parsedTradingActivity) {
+                                        console.log("parsedTradingActivity: ", parsedTradingActivity);
                                     
-                        //                 let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`
+                                        let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`
 
-                        //                 if(parsedTradingActivity.type === "received") {
-                        //                     message = `Received ${message}`
-                        //                 }
-                        //                 else if(parsedTradingActivity.type === "bought") {
-                        //                     message = `Bought ${message}`
-                        //                 }
-                        //                 else if(parsedTradingActivity.type === "sold") {
-                        //                     message = `Sold ${message}`
-                        //                 }
+                                        if(parsedTradingActivity.type === "received") {
+                                            message = `Received ${message}`
+                                        }
+                                        else if(parsedTradingActivity.type === "bought") {
+                                            message = `Bought ${message}`
+                                        }
+                                        else if(parsedTradingActivity.type === "sold") {
+                                            message = `Sold ${message}`
+                                        }
 
-                        //                 return (
-                        //                     <div key={history.txHash} className={styles.txHistory}>
-                        //                         <Image
-                        //                             src={increaseDimensionsInUrl(parsedTradingActivity.tokenLogo, 60, 60)}
-                        //                             width={40}
-                        //                             height={40}
-                        //                             alt={`${parsedTradingActivity.tokenSymbol} img`}
-                        //                             className={styles.tokenImage}
-                        //                         />
-                        //                         <div
-                        //                             className={styles.txTransferMessage}
-                        //                             style = {{
-                        //                                 color: parsedTradingActivity.type === 'sold' ? `#e33d3d` : `#23b460`
-                        //                             }}    
-                        //                         >{message}</div>
-                        //                     </div>
-                        //                 )
-                        //             }
-                        //             else {
-                        //                 return <></>
-                        //             }
-                        //         })
-                        //     }
-                        // </>
-                        <>No transaction history.</>
+                                        return (
+                                            <div key={history.txHash} className={styles.txHistory}>
+                                                <Image
+                                                    src={increaseDimensionsInUrl(parsedTradingActivity.tokenLogo, 60, 60)}
+                                                    width={40}
+                                                    height={40}
+                                                    alt={`${parsedTradingActivity.tokenSymbol} img`}
+                                                    className={styles.tokenImage}
+                                                />
+                                                <div
+                                                    className={styles.txTransferMessage}
+                                                    style = {{
+                                                        color: parsedTradingActivity.type === 'sold' ? `#e33d3d` : `#23b460`
+                                                    }}    
+                                                >{message}</div>
+                                            </div>
+                                        )
+                                    }
+                                    else {
+                                        return <></>
+                                    }
+                                })
+                            }
+                        </>
                 }
             </div>
         </div>
