@@ -7,7 +7,7 @@ import { formatWithCommas } from "../../utils";
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 
 bot.on('message', async (ctx) => {
-  const queryText = ctx.inlineQuery.query;
+  const queryText = ctx.message.text;
   const userId = ctx.from.id;
 
   try {
