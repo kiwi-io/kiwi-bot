@@ -4,6 +4,7 @@ import { allowCors } from "../../../../server/utils/cors";
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
   if (req.method === 'OPTIONS') {
+    console.log('options request == true');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', 'https://www.heykiwi.io'); // Replace '*' with 'https://www.heykiwi.io' if you want to allow only that origin
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
