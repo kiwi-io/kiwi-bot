@@ -1,5 +1,6 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import axios from "axios";
+import { allowCors } from "../../../../server/utils/cors";
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
   try {
@@ -31,4 +32,4 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
   }
 };
 
-export default handler;
+export default allowCors(handler);

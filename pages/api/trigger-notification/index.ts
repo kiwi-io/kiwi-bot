@@ -1,8 +1,9 @@
 import { Bot } from "grammy";
+import { allowCors } from "../../../server/utils/cors";
 
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
 
-export default async function handler(req: any, res: any) {
+const handler = async (req: any, res: any) => {
   if (req.method === "POST") {
     const { userId, messageText } = req.body;
 
@@ -28,3 +29,5 @@ export default async function handler(req: any, res: any) {
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
+
+export default allowCors(handler);
