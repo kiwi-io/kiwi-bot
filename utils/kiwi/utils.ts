@@ -3,12 +3,7 @@ import axios from "axios";
 export const getTelegramUserData = async (username: string) => {
   try {
     const response = await axios.get(
-      `https://www.heykiwi.io/api/privy/get-telegram-userid?telegramUsername=${username}`,
-      {
-        headers: {
-          "Origin": "https://www.heykiwi.io"
-        }
-      }
+      `https://www.kiwi-bot.vercel.app/api/privy/get-telegram-userid?telegramUsername=${username}`,
     );
     return response.data[0];
   } catch (err) {
