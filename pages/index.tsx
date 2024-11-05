@@ -49,7 +49,7 @@ export default function Main() {
 
     if (balance < 0.01) {
       fundWallet(user.wallet.address, {
-        cluster: { name: process.env.NEXT_RPC_MAINNET_URL },
+        cluster: { name: 'mainnet-beta', rpcUrl: process.env.NEXT_RPC_MAINNET_URL },
         amount: `0.01`,
       } as SolanaFundingConfig);
     }
