@@ -43,7 +43,10 @@ bot.on('message', async (ctx) => {
     );
     const viewDaily = response.data.data["view24h"];
 
-    await ctx.reply(`<b>${symbol}</b> | <b>${name}</b>\n\n💰 $<b>${price}</b> | <b>${priceChangeDaily > 0 ? `+${priceChangeDaily.toFixed(2)}` : `-${priceChangeDaily.toFixed(2)}`}%</b>\n\n💎 MC: <b>${formatWithCommas(mc)}</b>\n\n📊 Vol: <b>${formatWithCommas(volumeDaily)}</b>\n\n💦 Liq: <b>${formatWithCommas(liquidity)}</b>\n\n💲 Buys: <b>${buyDaily}</b> | Sells: <b>${sellDaily}</b>\n\n👁 Views: <b>${viewDaily}</b>\n\n\n<code>${address}</code>`);
+    await ctx.reply(`<b>${symbol}</b> | <b>${name}</b>\n\n💰 $<b>${price}</b> | <b>${priceChangeDaily > 0 ? `+${priceChangeDaily.toFixed(2)}` : `-${priceChangeDaily.toFixed(2)}`}%</b>\n\n💎 MC: <b>${formatWithCommas(mc)}</b>\n\n📊 Vol: <b>${formatWithCommas(volumeDaily)}</b>\n\n💦 Liq: <b>${formatWithCommas(liquidity)}</b>\n\n💲 Buys: <b>${buyDaily}</b> | Sells: <b>${sellDaily}</b>\n\n👁 Views: <b>${viewDaily}</b>\n\n<code>${address}</code>`, {
+      parse_mode: 'HTML',
+      reply_markup: keyboard
+    });
 
   } catch (err) {
     await ctx.reply(`Token not found. Send a valid token CA`);
@@ -104,7 +107,7 @@ bot.on("inline_query", async (ctx) => {
         title: `Trade ${symbol} with SOL using Kiwi`,
         description: `Trade ${symbol} with SOL using Kiwi`,
         input_message_content: {
-          message_text: `<b>${symbol}</b> | <b>${name}</b>\n\n💰 $<b>${price}</b> | <b>${priceChangeDaily > 0 ? `+${priceChangeDaily.toFixed(2)}` : `-${priceChangeDaily.toFixed(2)}`}%</b>\n\n💎 MC: <b>${formatWithCommas(mc)}</b>\n\n📊 Vol: <b>${formatWithCommas(volumeDaily)}</b>\n\n💦 Liq: <b>${formatWithCommas(liquidity)}</b>\n\n💲 Buys: <b>${buyDaily}</b> | Sells: <b>${sellDaily}</b>\n\n👁 Views: <b>${viewDaily}</b>\n\n\n<code>${address}</code>`,
+          message_text: `<b>${symbol}</b> | <b>${name}</b>\n\n💰 $<b>${price}</b> | <b>${priceChangeDaily > 0 ? `+${priceChangeDaily.toFixed(2)}` : `-${priceChangeDaily.toFixed(2)}`}%</b>\n\n💎 MC: <b>${formatWithCommas(mc)}</b>\n\n📊 Vol: <b>${formatWithCommas(volumeDaily)}</b>\n\n💦 Liq: <b>${formatWithCommas(liquidity)}</b>\n\n💲 Buys: <b>${buyDaily}</b> | Sells: <b>${sellDaily}</b>\n\n👁 Views: <b>${viewDaily}</b>\n\n<code>${address}</code>`,
           parse_mode: "HTML",
         },
         thumbnail_url: logoUri,
