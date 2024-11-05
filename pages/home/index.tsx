@@ -104,6 +104,7 @@ const Home = () => {
         updateActionHostLogo("/logos/jupiter_logo.svg");
         updateActivePage("/swap");
         updateReferralSession("/swap");
+        router.push("/swap");
       } else {
         const decodedUrl = decodeTelegramCompatibleUrl(startParam);
 
