@@ -3,7 +3,7 @@ import axios from "axios";
 export const getTelegramUserData = async (username: string) => {
   try {
     const response = await axios.get(
-      `https://heykiwi.io/api/privy/get-telegram-userid?telegramUsername=${username}`,
+      `https://www.heykiwi.io/api/privy/get-telegram-userid?telegramUsername=${username}`,
     );
     return response.data[0];
   } catch (err) {
@@ -17,7 +17,7 @@ export const triggerNotification = async (
 ) => {
   try {
     const response = await axios.post(
-      "https://heykiwi.io/api/trigger-notification",
+      "https://www.heykiwi.io/api/trigger-notification",
       {
         userId,
         messageText,
