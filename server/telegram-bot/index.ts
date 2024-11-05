@@ -7,9 +7,49 @@ import { formatWithCommas } from "../../utils";
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 
 bot.on('message', async (ctx) => {
-  const incomingText = ctx.message.text;
+  const queryText = ctx.inlineQuery.query;
+  const userId = ctx.from.id;
 
-  await ctx.reply(`BOT Token: ${process.env.TELEGRAM_BOT_TOKEN} ${incomingText}`);
+  try {
+    // Render jupiter swap flow
+    const address = queryText;
+    let keyboard = new InlineKeyboard();
+
+    let buyInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=buy-${address}-${userId}`;
+    let sellInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=sell-${address}-${userId}`;
+    keyboard.url(`BUY`, buyInlineUrl).row();
+    keyboard.url(`SELL`, sellInlineUrl).row();
+
+    const response = await axios.get(
+      `https://public-api.birdeye.so/defi/token_overview?address=${address}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": `${process.env.NEXT_BIRDEYE_API_KEY}`,
+        },
+      },
+    );
+
+    const symbol = response.data.data["symbol"];
+    const name = response.data.data["name"];
+    const price = parseFloat(response.data.data["price"]).toFixed(6);
+    const liquidity = parseFloat(response.data.data["liquidity"]).toFixed(2);
+    const mc = parseFloat(response.data.data["mc"]).toFixed(2);
+    const buyDaily = response.data.data["buy24h"];
+    const sellDaily = response.data.data["sell24h"];
+    const volumeDaily = parseFloat(response.data.data["v24hUSD"]).toFixed(2);
+    const priceChangeDaily = parseFloat(
+      response.data.data["priceChange24hPercent"],
+    );
+    const viewDaily = response.data.data["view24h"];
+
+    await ctx.reply(`<b>${symbol}</b> | <b>${name}</b>\n\n💰 $<b>${price}</b> | <b>${priceChangeDaily > 0 ? `+${priceChangeDaily.toFixed(2)}` : `-${priceChangeDaily.toFixed(2)}`}%</b>\n\n💎 MC: <b>${formatWithCommas(mc)}</b>\n\n📊 Vol: <b>${formatWithCommas(volumeDaily)}</b>\n\n💦 Liq: <b>${formatWithCommas(liquidity)}</b>\n\n💲 Buys: <b>${buyDaily}</b> | Sells: <b>${sellDaily}</b>\n\n👁 Views: <b>${viewDaily}</b>\n\n\n<code>${address}</code>`);
+
+  } catch (err) {
+    await ctx.reply(`Token not found. Send a valid token CA`);
+
+    return;
+  }
 });
 
 
