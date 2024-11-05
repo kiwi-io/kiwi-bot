@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./swap.module.css";
 import StandardHeader from "../../components/StandardHeader";
 import { useTelegram } from "../../utils/twa";
-import { delay, getTelegramUserData, triggerNotification } from "../../utils";
+import { getTelegramUserData, triggerNotification } from "../../utils";
 import { Form } from "react-bootstrap";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 import Image from "next/image";
@@ -22,9 +22,11 @@ import { useRouter } from "next/router";
 import {
   KIWI_MULTISIG,
   KIWI_TRADING_FEE_PCT,
+  MAX_SLIPPAGE,
   REFERRAL_FEE_PCT,
 } from "../../constants";
 import { useWalletContext } from "../../components/contexts";
+import { useActivePageContext } from "../../components/contexts/ActivePageContext";
 
 const Swap = () => {
   const [swapButtonText, setSwapButtonText] = useState<string>("Swap");
@@ -37,6 +39,8 @@ const Swap = () => {
   const [inWalletQuantity, setInWalletQuantity] = useState<string>(``);
 
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
+
+  const { referralSession } = useActivePageContext();
 
   const { portfolio, updatePortfolio } = useWalletContext();
   const {
@@ -129,7 +133,7 @@ const Swap = () => {
       inputMint: tokenOutData.address,
       outputMint: tokenInData.address,
       amountIn: outQuantityDecimals,
-      slippage: 300,
+      slippage: MAX_SLIPPAGE,
     });
 
     const swapTransactionBuf = Buffer.from(jupiterTxSerialized, "base64");
@@ -468,6 +472,19 @@ const Swap = () => {
   useEffect(() => {
     updateWalletQuantities();
   }, [user, tokenIn, tokenOut]);
+
+  // do this so that on opening direct swap links, the tokens are refreshed and there is
+  // data on quantities and balance
+  useEffect(() => {
+    const doStuff = () => {
+      updateTokenIn(tokenInData.address);
+      updateTokenOut(tokenOutData.address);
+      updateTokenInData(tokenInData);
+      updateTokenOutData(tokenOutData);
+    }
+
+    doStuff();
+  }, [referralSession])
 
   return (
     <div className={styles.swapPageContainer}>

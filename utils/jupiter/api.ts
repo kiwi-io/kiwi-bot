@@ -1,4 +1,5 @@
 import axios from "axios";
+import { MAX_SLIPPAGE } from "../../constants";
 
 export interface JupiterQuote {
   inputMint: string;
@@ -71,7 +72,7 @@ export const swapOnJupiterTx = async ({
       dynamicComputeUnitLimit: true, // Set this to true to get the best optimized CU usage.
       dynamicSlippage: {
         // This will set an optimized slippage to ensure high success rate
-        maxBps: 300, // Make sure to set a reasonable cap here to prevent MEV
+        maxBps: MAX_SLIPPAGE, // Make sure to set a reasonable cap here to prevent MEV
       },
       prioritizationFeeLamports: {
         priorityLevelWithMaxLamports: {
