@@ -6,6 +6,14 @@ import { formatWithCommas } from "../../utils";
 // Initialize the bot
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 
+bot.on('message', async (ctx) => {
+  const incomingText = ctx.message.text;
+
+  await ctx.reply(incomingText);
+});
+
+
+
 // Inline query handler for URLs
 bot.on("inline_query", async (ctx) => {
   const queryText = ctx.inlineQuery.query;
@@ -16,28 +24,10 @@ bot.on("inline_query", async (ctx) => {
     const address = queryText;
     let keyboard = new InlineKeyboard();
 
-    // let getData: any;
+    console.log("address: ", address);
 
-    // const url = new URL(`https://jup.ag/swap/SOL-${ticker}`);
-
-    // const actionsJsonResponse = await axios.get(`${url.origin}/actions.json`);
-    // const actionsJson = actionsJsonResponse.data as ActionsJsonConfig;
-    // const actionsUrlMapper = new ActionsURLMapper(actionsJson);
-
-    // let actionApiUrl = new URL(actionsUrlMapper.mapUrl(url));
-    // const getDataResponse = await axios.get(`${actionApiUrl}`);
-    // getData = getDataResponse.data;
-
-    // getData.links.actions.forEach((action: any) => {
-    //   if (!action.parameters) {
-    // const inline_url = `https://t.me/samplekiwibot/bot?startapp=jup-${encodeTelegramCompatibleURL(actionApiUrl.origin + action.href)}&mode=compact`;
-    // console.log("inline_url: ", inline_url);
-    // keyboard.url(action.label, inline_url).row();
-    //   }
-    // });
-
-    let buyInlineUrl = `https://t.me/samplekiwibot/bot?startapp=buy-${address}-${userId}`;
-    let sellInlineUrl = `https://t.me/samplekiwibot/bot?startapp=sell-${address}-${userId}`;
+    let buyInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=buy-${address}-${userId}`;
+    let sellInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=sell-${address}-${userId}`;
     keyboard.url(`BUY`, buyInlineUrl).row();
     keyboard.url(`SELL`, sellInlineUrl).row();
 
@@ -50,6 +40,8 @@ bot.on("inline_query", async (ctx) => {
         },
       },
     );
+
+    console.log("Response: ", response);
 
     const logoUri = response.data.data["logoURI"];
     const symbol = response.data.data["symbol"];
