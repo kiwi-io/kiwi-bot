@@ -2,17 +2,10 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import { HTTP_ERRORS } from "../../constants";
 
 const allowedOrigins = [
-  "https://root.exchange",
-  "https://www.root.exchange",
-  "http://localhost:3000",
-  "https://canary.root.exchange",
-];
-
-const routesAllowedForAllOrigins = [
-    "https://heykiwi.io",
-    "https://www.heykiwi.io",
-    "https://kiwi-bot.vercel.app",
-    "https://www.kiwi-bot.vercel.app"
+  "https://heykiwi.io",
+  "https://www.heykiwi.io",
+  "https://kiwi-bot.vercel.app",
+  "https://www.kiwi-bot.vercel.app"
 ];
 
 export type VercelApiHandler = (
@@ -24,29 +17,21 @@ export const allowCors =
   (fn: VercelApiHandler) => async (req: VercelRequest, res: VercelResponse) => {
     res.setHeader("Access-Control-Allow-Credentials", "true");
 
-    let calling_ip_addr = req.headers["x-real-ip"];
-    let bypass_ip_check = false;
-    if (calling_ip_addr === process.env.CANARY_IP_ADDR) {
-      bypass_ip_check = true;
-    }
-
-    if (!req.headers.origin && !bypass_ip_check) {
+    if (!req.headers.origin) {
       res.status(404);
       return res.send(HTTP_ERRORS.ORIGIN_NOT_SET);
     }
 
+    console.log("req.headers.origin: ", req.headers.origin);
+    console.log("allowedOrigins: ", allowedOrigins);
+    console.log("allowedOrigins.indexOf(req.headers.origin): ", allowedOrigins.indexOf(req.headers.origin));
+    
     if (
-      req.url &&
-      !routesAllowedForAllOrigins.includes(req.url) &&
-      !bypass_ip_check
+      process.env.VERCEL_ENV === "production" &&
+      allowedOrigins.indexOf(req.headers.origin) === -1
     ) {
-      if (
-        process.env.VERCEL_ENV === "production" &&
-        allowedOrigins.indexOf(req.headers.origin) === -1
-      ) {
-        res.status(404).end();
-        return res.send(HTTP_ERRORS.UNKNOWN_ORIGIN);
-      }
+      res.status(404).end();
+      return res.send(HTTP_ERRORS.UNKNOWN_ORIGIN);
     }
 
     res.setHeader("Access-Control-Allow-Origin", req.headers.origin);

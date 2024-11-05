@@ -4,6 +4,8 @@ import { allowCors } from "../../../../server/utils/cors";
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
   try {
+    console.log("Got inside the handler");
+    
     let telegramUsername = "";
 
     try {
