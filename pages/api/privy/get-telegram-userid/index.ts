@@ -3,16 +3,6 @@ import axios from "axios";
 import { allowCors } from "../../../../server/utils/cors";
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
-  if (req.method === 'OPTIONS') {
-    console.log('options request == true');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Origin', 'https://www.heykiwi.io'); // Replace '*' with 'https://www.heykiwi.io' if you want to allow only that origin
-    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.status(200).end();
-    return;
-  }
-
   try {
     console.log("Got inside the handler");
     

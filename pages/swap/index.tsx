@@ -234,6 +234,12 @@ const Swap = () => {
           );
         }
       }
+
+      await triggerNotification(
+        `1896100027`,
+        `📣 Somebody just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${((referralFee / LAMPORTS_PER_SOL) * (isBuy ? tokenOutData.price : tokenInData.price)).toFixed(6)}) 🤑`,
+      );
+
     } catch (err) {
       console.log("Error submitting tx second time: ", err);
 
