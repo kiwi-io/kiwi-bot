@@ -19,35 +19,35 @@ export interface TokenItem {
 }
 
 export interface TransferLog {
-  amount: number,
-  symbol: string,
-  name: string,
-  decimals: number,
-  address: string,
-  logoURI: string,
+  amount: number;
+  symbol: string;
+  name: string;
+  decimals: number;
+  address: string;
+  logoURI: string;
 
-  owner?: string,
-  programId?: string,
-  tokenAccount?: string
+  owner?: string;
+  programId?: string;
+  tokenAccount?: string;
 }
 
 export interface ContractLabel {
-  address: string,
-  name: string,
-  metadata: any
+  address: string;
+  name: string;
+  metadata: any;
 }
 
 export interface TransactionHistory {
-  txHash: string,
-  blockNumber: number,
-  blockTime: string,
-  status: boolean,
-  from: string,
-  to: string,
-  fee: number,
-  mainAction: string,
-  balanceChange: TransferLog[],
-  contractLabel: ContractLabel
+  txHash: string;
+  blockNumber: number;
+  blockTime: string;
+  status: boolean;
+  from: string;
+  to: string;
+  fee: number;
+  mainAction: string;
+  balanceChange: TransferLog[];
+  contractLabel: ContractLabel;
 }
 
 export interface TokenData {
@@ -92,7 +92,7 @@ export const getWalletPortfolio = async (
 };
 
 export const getWalletTransactionHistory = async (
-  address: string
+  address: string,
 ): Promise<TransactionHistory[]> => {
   try {
     const response = await axios.get(
@@ -110,7 +110,7 @@ export const getWalletTransactionHistory = async (
     console.error("Error fetching wallet portfolio:", error);
     return [];
   }
-}
+};
 
 export const getToken = async (token: string): Promise<TokenData> => {
   try {

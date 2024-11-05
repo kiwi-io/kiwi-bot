@@ -48,8 +48,12 @@ export const useJupiterSwapContext = () => {
 //@ts-ignore
 export const JupiterSwapContextProvider = ({ children }) => {
   const [side, setSide] = useState<Side>("buy");
-  const [tokenIn, setTokenIn] = useState<string>("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
-  const [tokenOut, setTokenOut] = useState<string>("So11111111111111111111111111111111111111112");
+  const [tokenIn, setTokenIn] = useState<string>(
+    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  );
+  const [tokenOut, setTokenOut] = useState<string>(
+    "So11111111111111111111111111111111111111112",
+  );
   const [quantityIn, setQuantityIn] = useState<string>("");
   const [quantityOut, setQuantityOut] = useState<string>("");
 
@@ -61,7 +65,7 @@ export const JupiterSwapContextProvider = ({ children }) => {
     logoURI: `https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png`,
     liquidity: 0.0,
     price: 0.0,
-  }  as TokenData);
+  } as TokenData);
 
   const [tokenOutData, setTokenOutData] = useState<TokenData>({
     address: `So11111111111111111111111111111111111111112`,
@@ -87,7 +91,7 @@ export const JupiterSwapContextProvider = ({ children }) => {
 
   const updateTokenInData = async (token: string | TokenData) => {
     try {
-      if(typeof token === 'string') {
+      if (typeof token === "string") {
         const tokenDataRes = await getToken(token);
         const td = {
           address: tokenDataRes["address"],
@@ -100,8 +104,7 @@ export const JupiterSwapContextProvider = ({ children }) => {
         } as TokenData;
 
         setTokenInData((_) => td);
-      }
-      else {
+      } else {
         setTokenInData((_) => token);
       }
     } catch (err) {
@@ -117,22 +120,21 @@ export const JupiterSwapContextProvider = ({ children }) => {
 
   const updateTokenOutData = async (token: string | TokenData) => {
     try {
-      if(typeof token === 'string') {
+      if (typeof token === "string") {
         const tokenDataRes = await getToken(token);
 
-      const td = {
-        address: tokenDataRes["address"],
-        decimals: tokenDataRes["decimals"],
-        symbol: tokenDataRes["symbol"],
-        name: tokenDataRes["name"],
-        logoURI: tokenDataRes["logoURI"],
-        liquidity: tokenDataRes["liquidity"],
-        price: tokenDataRes["price"],
-      } as TokenData;
+        const td = {
+          address: tokenDataRes["address"],
+          decimals: tokenDataRes["decimals"],
+          symbol: tokenDataRes["symbol"],
+          name: tokenDataRes["name"],
+          logoURI: tokenDataRes["logoURI"],
+          liquidity: tokenDataRes["liquidity"],
+          price: tokenDataRes["price"],
+        } as TokenData;
 
-      setTokenOutData((_) => td);
-      }
-      else {
+        setTokenOutData((_) => td);
+      } else {
         setTokenOutData((_) => token);
       }
     } catch (err) {

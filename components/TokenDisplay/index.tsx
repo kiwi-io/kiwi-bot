@@ -18,22 +18,30 @@ export interface TokenDisplayProps {
 const TokenDisplay = ({ tokenItem, showUsdValue }: TokenDisplayProps) => {
   const { vibrate } = useTelegram();
 
-  const { updateTokenIn, updateTokenOut, updateTokenOutData, updateTokenInData } = useJupiterSwapContext();
+  const {
+    updateTokenIn,
+    updateTokenOut,
+    updateTokenOutData,
+    updateTokenInData,
+  } = useJupiterSwapContext();
 
-  const { updateActivePage } = useActivePageContext(); 
+  const { updateActivePage } = useActivePageContext();
 
   const handleClick = () => {
-    if(tokenItem.address === `So11111111111111111111111111111111111111112` || tokenItem.address === `So11111111111111111111111111111111111111111`) {
+    if (
+      tokenItem.address === `So11111111111111111111111111111111111111112` ||
+      tokenItem.address === `So11111111111111111111111111111111111111111`
+    ) {
       return;
     }
-    
+
     vibrate("light");
     updateTokenOut(tokenItem.address);
     updateTokenOutData(tokenItem.address);
     updateTokenIn(`So11111111111111111111111111111111111111112`);
     updateTokenInData(`So11111111111111111111111111111111111111112`);
     updateActivePage("/swap");
-  }
+  };
 
   return (
     <div

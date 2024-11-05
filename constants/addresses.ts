@@ -15,5 +15,5 @@ export const SAMPLE_USER_PUBKEY = new PublicKey(
 );
 
 export const KIWI_MULTISIG = new PublicKey(
-  "71m2wsLDW8rKqWUYcxMzNbgNyVUoJgj1RK6ukMBhQVnq"
+  "71m2wsLDW8rKqWUYcxMzNbgNyVUoJgj1RK6ukMBhQVnq",
 );

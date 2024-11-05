@@ -1,34 +1,34 @@
 .mainHistoryContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 1.5rem;
-    padding-top: 1rem;
-    box-sizing: border-box;
-    justify-content: center;
-    overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1.5rem;
+  padding-top: 1rem;
+  box-sizing: border-box;
+  justify-content: center;
+  overflow-y: scroll;
 }
 
 .txHistoryContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 82vh;
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 82vh;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  box-sizing: border-box;
 }
 
 .txHistory {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
 }
 
 .tokenImage {
-    border: none;
-    border-radius: 100%;
-  }
+  border: none;
+  border-radius: 100%;
+}

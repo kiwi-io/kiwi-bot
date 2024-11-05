@@ -7,15 +7,21 @@ export default async function handler(req: any, res: any) {
     const { userId, messageText } = req.body;
 
     if (!userId || !messageText) {
-      return res.status(400).json({ error: "userId and messageText are required" });
+      return res
+        .status(400)
+        .json({ error: "userId and messageText are required" });
     }
 
     try {
       await bot.api.sendMessage(userId, messageText);
-      return res.status(200).json({ success: true, message: "Notification sent successfully!" });
+      return res
+        .status(200)
+        .json({ success: true, message: "Notification sent successfully!" });
     } catch (error) {
       console.error("Failed to send notification:", error);
-      return res.status(500).json({ success: false, error: "Failed to send notification" });
+      return res
+        .status(500)
+        .json({ success: false, error: "Failed to send notification" });
     }
   } else {
     res.setHeader("Allow", ["POST"]);

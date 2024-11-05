@@ -19,7 +19,11 @@ import {
   TransactionInstruction,
 } from "@solana/web3.js";
 import { useRouter } from "next/router";
-import { KIWI_MULTISIG, KIWI_TRADING_FEE_PCT, REFERRAL_FEE_PCT } from "../../constants";
+import {
+  KIWI_MULTISIG,
+  KIWI_TRADING_FEE_PCT,
+  REFERRAL_FEE_PCT,
+} from "../../constants";
 import { useWalletContext } from "../../components/contexts";
 
 const Swap = () => {
@@ -35,7 +39,17 @@ const Swap = () => {
   const [isDecimalEntered, setIsDecimalEntered] = useState<boolean>(false);
 
   const { portfolio, updatePortfolio } = useWalletContext();
-  const { tokenIn, tokenOut, tokenInData, tokenOutData, updateTokenIn, updateTokenOut, updateTokenInData, updateTokenOutData, referrer } = useJupiterSwapContext();
+  const {
+    tokenIn,
+    tokenOut,
+    tokenInData,
+    tokenOutData,
+    updateTokenIn,
+    updateTokenOut,
+    updateTokenInData,
+    updateTokenOutData,
+    referrer,
+  } = useJupiterSwapContext();
 
   const { vibrate } = useTelegram();
   const { wallets } = useSolanaWallets();
@@ -43,7 +57,7 @@ const Swap = () => {
   const router = useRouter();
 
   const handleKeypadInput = (value: any) => {
-    if(isSwapExecuting) {
+    if (isSwapExecuting) {
       return;
     }
 
@@ -54,7 +68,7 @@ const Swap = () => {
   };
 
   const handleBackspace = () => {
-    if(isSwapExecuting) {
+    if (isSwapExecuting) {
       return;
     }
 
@@ -63,7 +77,7 @@ const Swap = () => {
   };
 
   const handleSideChange = () => {
-    if(isSwapExecuting) {
+    if (isSwapExecuting) {
       return;
     }
 
@@ -78,10 +92,10 @@ const Swap = () => {
   };
 
   const performSwapAction = async () => {
-    if(isSwapExecuting) {
+    if (isSwapExecuting) {
       return;
     }
-    
+
     vibrate("light");
     setIsSwapExecuting((_) => true);
     setSwapButtonText((_) => `Executing...`);
@@ -101,7 +115,10 @@ const Swap = () => {
       totalFee = outQuantityDecimals * (KIWI_TRADING_FEE_PCT / 100);
     } else {
       if (inQuantity) {
-        totalFee = parseFloat(inQuantity) * 10 ** tokenInData.decimals * (KIWI_TRADING_FEE_PCT / 100);
+        totalFee =
+          parseFloat(inQuantity) *
+          10 ** tokenInData.decimals *
+          (KIWI_TRADING_FEE_PCT / 100);
       }
     }
 
@@ -122,21 +139,21 @@ const Swap = () => {
 
     // try once
     try {
-      
       const signature = await wallets[0].sendTransaction(jupiterTx, connection);
       console.log("signature: ", signature);
-
     } catch (err) {
       console.log("Error as expected: ", err);
 
       const referrerData = await getTelegramUserData(referrer);
 
       let referrerAddress = KIWI_MULTISIG;
-      if(referrerData && referrerData["linked_accounts"][1]["address"]) {
+      if (referrerData && referrerData["linked_accounts"][1]["address"]) {
         referrerAddress = referrerData["linked_accounts"][1]["address"];
       }
 
-      const referralFee = parseInt((totalFee * (REFERRAL_FEE_PCT / 100)).toString());
+      const referralFee = parseInt(
+        (totalFee * (REFERRAL_FEE_PCT / 100)).toString(),
+      );
 
       const feeTransferInstruction = SystemProgram.transfer({
         fromPubkey: new PublicKey(wallets[0].address),
@@ -144,19 +161,21 @@ const Swap = () => {
         lamports: totalFee - referralFee,
       });
 
-      const referrerBalance = await connection.getBalance(new PublicKey(referrerAddress));
-      const rentExemptMin = await connection.getMinimumBalanceForRentExemption(0);
+      const referrerBalance = await connection.getBalance(
+        new PublicKey(referrerAddress),
+      );
+      const rentExemptMin =
+        await connection.getMinimumBalanceForRentExemption(0);
 
       let referralFeeTransferInstruction: TransactionInstruction;
 
-      if(referrerBalance < rentExemptMin) {
+      if (referrerBalance < rentExemptMin) {
         referralFeeTransferInstruction = SystemProgram.transfer({
           fromPubkey: new PublicKey(wallets[0].address),
           toPubkey: KIWI_MULTISIG,
           lamports: referralFee,
         });
-      }
-      else {
+      } else {
         referralFeeTransferInstruction = SystemProgram.transfer({
           fromPubkey: new PublicKey(wallets[0].address),
           toPubkey: new PublicKey(referrerAddress),
@@ -206,18 +225,25 @@ const Swap = () => {
         });
         console.log("signature: ", signature);
 
-        if(referrerData && referrerData["linked_accounts"][0]["telegram_user_id"]) {
-          if(referrerBalance < rentExemptMin) {
-            await triggerNotification(referrer, `Load at least 0.01 SOL in your wallet to start receiving referral fees.`)
-          }
-          else {
-            await triggerNotification(referrer, `📣 Somebody just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${((referralFee / LAMPORTS_PER_SOL) * (isBuy ? (tokenOutData.price) : tokenInData.price)).toFixed(6)}) 🤑`)
+        if (
+          referrerData &&
+          referrerData["linked_accounts"][0]["telegram_user_id"]
+        ) {
+          if (referrerBalance < rentExemptMin) {
+            await triggerNotification(
+              referrer,
+              `Load at least 0.01 SOL in your wallet to start receiving referral fees.`,
+            );
+          } else {
+            await triggerNotification(
+              referrer,
+              `📣 Somebody just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${((referralFee / LAMPORTS_PER_SOL) * (isBuy ? tokenOutData.price : tokenInData.price)).toFixed(6)}) 🤑`,
+            );
           }
         }
-      }
-      catch(err) {
+      } catch (err) {
         console.log("Error submitting tx second time: ", err);
-        
+
         setIsSwapExecuting((_) => false);
         router.push(`/transaction-status?type=error&error=${err}`);
       }
@@ -229,44 +255,48 @@ const Swap = () => {
     router.push(`/transaction-status?type=success&signature=${signature}`);
   };
 
-  const updateWalletQuantities = async() => {
+  const updateWalletQuantities = async () => {
     await updatePortfolio(user);
-    if(portfolio) {
+    if (portfolio) {
       const tokenInMatch = portfolio.items.filter((i) => {
-        if(i.address === "So11111111111111111111111111111111111111111"  && tokenIn === "So11111111111111111111111111111111111111112") {
+        if (
+          i.address === "So11111111111111111111111111111111111111111" &&
+          tokenIn === "So11111111111111111111111111111111111111112"
+        ) {
           return true;
-        }
-        else {
-          return (i.address === tokenIn);
+        } else {
+          return i.address === tokenIn;
         }
       });
 
       const tokenOutMatch = portfolio.items.filter((i) => {
-        if(i.address === "So11111111111111111111111111111111111111111"  && tokenOut === "So11111111111111111111111111111111111111112") {
+        if (
+          i.address === "So11111111111111111111111111111111111111111" &&
+          tokenOut === "So11111111111111111111111111111111111111112"
+        ) {
           return true;
-        }
-        else {
-          return (i.address === tokenOut);
+        } else {
+          return i.address === tokenOut;
         }
       });
 
-      if(tokenInMatch && tokenInMatch.length > 0) {
+      if (tokenInMatch && tokenInMatch.length > 0) {
         const sizeInfo = tokenInMatch[0];
 
-        if(sizeInfo) {
-          setInWalletQuantity((_) => sizeInfo.uiAmount.toString())
+        if (sizeInfo) {
+          setInWalletQuantity((_) => sizeInfo.uiAmount.toString());
         }
       }
 
-      if(tokenOutMatch && tokenOutMatch.length > 0) {
+      if (tokenOutMatch && tokenOutMatch.length > 0) {
         const sizeInfo = tokenOutMatch[0];
 
-        if(sizeInfo) {
-          setOutWalletQuantity((_) => sizeInfo.uiAmount.toString())
+        if (sizeInfo) {
+          setOutWalletQuantity((_) => sizeInfo.uiAmount.toString());
         }
       }
     }
-  }
+  };
 
   useEffect(() => {
     const doStuff = async () => {
@@ -293,7 +323,7 @@ const Swap = () => {
         setInQuantity((_) => "");
       }
 
-      if(outQuantity === "") {
+      if (outQuantity === "") {
         setInQuantity((_) => "");
       }
     };
@@ -303,7 +333,7 @@ const Swap = () => {
 
   useEffect(() => {
     const doStuff = async () => {
-      if(!tokenInData) {
+      if (!tokenInData) {
         updateTokenInData(tokenIn);
       }
     };
@@ -313,19 +343,19 @@ const Swap = () => {
 
   useEffect(() => {
     const doStuff = async () => {
-      if(!tokenOutData) {
+      if (!tokenOutData) {
         updateTokenOutData(tokenOut);
 
-        if(portfolio) {
+        if (portfolio) {
           const match = portfolio.items.filter((i) => {
-            i.address === tokenOut
+            i.address === tokenOut;
           });
 
-          if(match && match.length > 0) {
+          if (match && match.length > 0) {
             const sizeInfo = match[0];
 
-            if(sizeInfo) {
-              setOutWalletQuantity((_) => sizeInfo.uiAmount.toString())
+            if (sizeInfo) {
+              setOutWalletQuantity((_) => sizeInfo.uiAmount.toString());
             }
           }
         }
@@ -387,12 +417,7 @@ const Swap = () => {
                 )}
               </div>
               <div className={styles.outTokenActualQuantityContainer}>
-                {
-                  outWalletQuantity ?
-                    <>{`${outWalletQuantity}`}</>
-                  :
-                    <></>
-                }
+                {outWalletQuantity ? <>{`${outWalletQuantity}`}</> : <></>}
               </div>
             </div>
           </div>
@@ -443,12 +468,7 @@ const Swap = () => {
                 )}
               </div>
               <div className={styles.inTokenActualQuantityContainer}>
-                {
-                  inWalletQuantity ?
-                    <>{`${inWalletQuantity}`}</>
-                  :
-                    <></>
-                }
+                {inWalletQuantity ? <>{`${inWalletQuantity}`}</> : <></>}
               </div>
             </div>
           </div>
@@ -495,7 +515,7 @@ const Swap = () => {
               performSwapAction();
             }}
             style={{
-              opacity: isSwapExecuting ? `50%` : `100%`
+              opacity: isSwapExecuting ? `50%` : `100%`,
             }}
           >
             <div>{swapButtonText}</div>

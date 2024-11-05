@@ -52,13 +52,15 @@ const Send = () => {
 
   const handleScanQr = async () => {
     const qrScanner = initQRScanner();
-    qrScanner.open("Scan a Solana address").then((content) => {
-      updateRecipient(content);
-    })
-    .catch((err) => {
-      console.log("QR Scan error: ", err);
-    })
-  }
+    qrScanner
+      .open("Scan a Solana address")
+      .then((content) => {
+        updateRecipient(content);
+      })
+      .catch((err) => {
+        console.log("QR Scan error: ", err);
+      });
+  };
 
   const handleMaxAmount = async () => {
     let maxAmount = getAmountInLamports(

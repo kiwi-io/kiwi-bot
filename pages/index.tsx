@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 // import { Nav, Navbar, Container } from "react-bootstrap";
 import styles from "./index.module.css";
 import dynamic from "next/dynamic";
-import { usePrivy, useLogin, useSolanaWallets, User, SolanaFundingConfig } from "@privy-io/react-auth";
+import {
+  usePrivy,
+  useLogin,
+  useSolanaWallets,
+  User,
+  SolanaFundingConfig,
+} from "@privy-io/react-auth";
 //@ts-ignore
 import { useFundWallet } from "@privy-io/react-auth/solana";
 import { hasExistingSolanaWallet } from "../utils";
@@ -28,23 +34,26 @@ export default function Main() {
 
   const { ready, authenticated } = usePrivy();
 
-  const { activePage, referralSession, updateActivePage } = useActivePageContext();
-  
+  const { activePage, referralSession, updateActivePage } =
+    useActivePageContext();
+
   const { vibrate } = useTelegram();
 
   const { fundWallet } = useFundWallet();
 
   const promptFundingIfNeeded = async (user: User) => {
     const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
-    const balance = await connection.getBalance(new PublicKey(user.wallet.address));
+    const balance = await connection.getBalance(
+      new PublicKey(user.wallet.address),
+    );
 
-    if(balance < 0.01) {
+    if (balance < 0.01) {
       fundWallet(user.wallet.address, {
-        cluster: {name: process.env.NEXT_RPC_MAINNET_URL},
+        cluster: { name: process.env.NEXT_RPC_MAINNET_URL },
         amount: `0.01`,
       } as SolanaFundingConfig);
     }
-  }
+  };
 
   useLogin({
     onComplete(
@@ -99,63 +108,65 @@ export default function Main() {
   return (
     <div
       className={styles.mainContainer}
-      style = {{
-        backgroundImage: activePage === "/home" ? `-webkit-linear-gradient(top, #2c1002 0%, #1f0b01 24%);` : ``
+      style={{
+        backgroundImage:
+          activePage === "/home"
+            ? `-webkit-linear-gradient(top, #2c1002 0%, #1f0b01 24%);`
+            : ``,
       }}
     >
       {ready && authenticated ? (
         <div className={styles.mainAuthenticatedContainer}>
           <div className={styles.activePage}>{renderActivePage()}</div>
-          {
-            referralSession === "/swap" ?
-              <></> 
-            :
-              <Navbar className={styles.navbar}>
-                <Container className={styles.navContainer}>
-                  <Nav className={styles.nav}>
-                    <Nav.Link
-                      className={`${styles.navLink}`}
-                      style={{
-                        color: activePage === "/home" ? `red` : `black`,
-                      }}
-                      onClick={() => handleNavClick("/home")}
-                    >
-                      <NavButton
-                        name={"Home"}
-                        iconClass={"fa-solid fa-house"}
-                        isActive={activePage === "/home"}
-                      />
-                    </Nav.Link>                  
-                    <Nav.Link
-                      className={`${styles.navLink}`}
-                      style={{
-                        color: activePage === "/swap" ? `red` : `black`,
-                      }}
-                      onClick={() => handleNavClick("/swap")}
-                    >
-                      <NavButton
-                        name={"Swap"}
-                        iconClass={"fa-solid fa-shuffle"}
-                        isActive={activePage === "/swap"}
-                      />
-                    </Nav.Link>
-                    <Nav.Link
-                      className={`${styles.navLink}`}
-                      style={{
-                        color: activePage === "/history" ? `red` : `black`,
-                      }}
-                      onClick={() => handleNavClick("/history")}
-                    >
-                      <NavButton
-                        name={"History"}
-                        iconClass={"fa-solid fa-clock-rotate-left"}
-                        isActive={activePage === "/history"}
-                      />
-                    </Nav.Link>
-                  </Nav>
-                </Container>
-              </Navbar>
-          }
+          {referralSession === "/swap" ? (
+            <></>
+          ) : (
+            <Navbar className={styles.navbar}>
+              <Container className={styles.navContainer}>
+                <Nav className={styles.nav}>
+                  <Nav.Link
+                    className={`${styles.navLink}`}
+                    style={{
+                      color: activePage === "/home" ? `red` : `black`,
+                    }}
+                    onClick={() => handleNavClick("/home")}
+                  >
+                    <NavButton
+                      name={"Home"}
+                      iconClass={"fa-solid fa-house"}
+                      isActive={activePage === "/home"}
+                    />
+                  </Nav.Link>
+                  <Nav.Link
+                    className={`${styles.navLink}`}
+                    style={{
+                      color: activePage === "/swap" ? `red` : `black`,
+                    }}
+                    onClick={() => handleNavClick("/swap")}
+                  >
+                    <NavButton
+                      name={"Swap"}
+                      iconClass={"fa-solid fa-shuffle"}
+                      isActive={activePage === "/swap"}
+                    />
+                  </Nav.Link>
+                  <Nav.Link
+                    className={`${styles.navLink}`}
+                    style={{
+                      color: activePage === "/history" ? `red` : `black`,
+                    }}
+                    onClick={() => handleNavClick("/history")}
+                  >
+                    <NavButton
+                      name={"History"}
+                      iconClass={"fa-solid fa-clock-rotate-left"}
+                      isActive={activePage === "/history"}
+                    />
+                  </Nav.Link>
+                </Nav>
+              </Container>
+            </Navbar>
+          )}
         </div>
       ) : loginTimeout ? (
         <div className={styles.failedAuthenticationTextContainer}>

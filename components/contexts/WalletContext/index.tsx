@@ -1,7 +1,13 @@
 import { User } from "@privy-io/react-auth";
 import React from "react";
 import { useState, createContext, useContext } from "react";
-import { getWalletPortfolio, getWalletTransactionHistory, TokenItem, TransactionHistory, WalletPortfolio } from "../../../utils";
+import {
+  getWalletPortfolio,
+  getWalletTransactionHistory,
+  TokenItem,
+  TransactionHistory,
+  WalletPortfolio,
+} from "../../../utils";
 
 interface WalletContextType {
   portfolio: WalletPortfolio;
@@ -82,12 +88,14 @@ export const WalletContextProvider = ({ children }) => {
   };
 
   const updateTransactionHistory = async (user: User) => {
-    if(user && user.wallet) {
-      const latestTxHistory = await getWalletTransactionHistory(user.wallet.address);
+    if (user && user.wallet) {
+      const latestTxHistory = await getWalletTransactionHistory(
+        user.wallet.address,
+      );
       // const latestTxHistory = await getWalletTransactionHistory("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P");
       setTxHistory((_) => latestTxHistory);
     }
-  }
+  };
 
   // const updateUsersDb = async () => {
   //   const data = await axios.get(

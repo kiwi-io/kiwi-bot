@@ -33,13 +33,13 @@ export const ActivePageContextProvider = ({ children }) => {
 
   const updateReferralSession = (referralSession: string) => {
     setReferralSession((_) => referralSession);
-  }
+  };
 
   const value = {
     activePage,
     referralSession,
     updateActivePage,
-    updateReferralSession
+    updateReferralSession,
   } as ActivePageContextType;
 
   return (

@@ -66,7 +66,8 @@ const Receive = () => {
             </span>
           </div>
           <div className={styles.receiveWarningText}>
-            Only send tokens on the <b>Solana</b> network. Assets from other blockchains will be lost.
+            Only send tokens on the <b>Solana</b> network. Assets from other
+            blockchains will be lost.
           </div>
           {/* <div className={styles.receiveFormContainer}>
             <Form>

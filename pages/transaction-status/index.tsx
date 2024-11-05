@@ -17,15 +17,14 @@ const TransactionStatus = () => {
   const { type, signature, error }: TransactionStatusQueryParams = router.query;
 
   const { vibrate, closeApp } = useTelegram();
-  
+
   const { referralSession, updateActivePage } = useActivePageContext();
 
   const handleCloseButton = () => {
     vibrate("light");
-    if(referralSession === "/swap") {
+    if (referralSession === "/swap") {
       closeApp();
-    }
-    else {
+    } else {
       updateActivePage("/home");
       router.push("/");
     }

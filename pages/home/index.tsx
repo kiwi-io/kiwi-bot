@@ -20,7 +20,8 @@ const Home = () => {
 
   const { user, ready, authenticated } = usePrivy();
 
-  const { portfolio, updatePortfolio, updateTransactionHistory } = useWalletContext();
+  const { portfolio, updatePortfolio, updateTransactionHistory } =
+    useWalletContext();
   const { updateReferralSession, updateActivePage } = useActivePageContext();
 
   const {
