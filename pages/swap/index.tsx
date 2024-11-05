@@ -137,119 +137,223 @@ const Swap = () => {
 
     let signature = "";
 
-    // try once
-    try {
-      const signature = await wallets[0].sendTransaction(jupiterTx, connection);
-      console.log("signature: ", signature);
-    } catch (err) {
-      console.log("Error as expected: ", err);
+    const referrerData = await getTelegramUserData(referrer);
 
-      const referrerData = await getTelegramUserData(referrer);
-
-      let referrerAddress = KIWI_MULTISIG;
-      if (referrerData && referrerData["linked_accounts"][1]["address"]) {
-        referrerAddress = referrerData["linked_accounts"][1]["address"];
-      }
-
-      const referralFee = parseInt(
-        (totalFee * (REFERRAL_FEE_PCT / 100)).toString(),
-      );
-
-      const feeTransferInstruction = SystemProgram.transfer({
-        fromPubkey: new PublicKey(wallets[0].address),
-        toPubkey: KIWI_MULTISIG,
-        lamports: totalFee - referralFee,
-      });
-
-      const referrerBalance = await connection.getBalance(
-        new PublicKey(referrerAddress),
-      );
-      const rentExemptMin =
-        await connection.getMinimumBalanceForRentExemption(0);
-
-      let referralFeeTransferInstruction: TransactionInstruction;
-
-      if (referrerBalance < rentExemptMin) {
-        referralFeeTransferInstruction = SystemProgram.transfer({
-          fromPubkey: new PublicKey(wallets[0].address),
-          toPubkey: KIWI_MULTISIG,
-          lamports: referralFee,
-        });
-      } else {
-        referralFeeTransferInstruction = SystemProgram.transfer({
-          fromPubkey: new PublicKey(wallets[0].address),
-          toPubkey: new PublicKey(referrerAddress),
-          lamports: referralFee,
-        });
-      }
-
-      const addressLookupTableAccounts = await Promise.all(
-        jupiterTx.message.addressTableLookups.map(async (lookup) => {
-          return new AddressLookupTableAccount({
-            key: lookup.accountKey,
-            state: AddressLookupTableAccount.deserialize(
-              await connection
-                .getAccountInfo(lookup.accountKey)
-                .then((res) => res.data),
-            ),
-          });
-        }),
-      );
-
-      const originalTxMessage = TransactionMessage.decompile(
-        jupiterTx.message,
-        {
-          addressLookupTableAccounts: addressLookupTableAccounts,
-        },
-      );
-
-      if (isBuy) {
-        originalTxMessage.instructions.unshift(feeTransferInstruction);
-        originalTxMessage.instructions.unshift(referralFeeTransferInstruction);
-      } else if (tokenInData.symbol === "SOL") {
-        originalTxMessage.instructions.push(feeTransferInstruction);
-        originalTxMessage.instructions.push(referralFeeTransferInstruction);
-      }
-
-      jupiterTx.message = originalTxMessage.compileToV0Message(
-        addressLookupTableAccounts,
-      );
-
-      try {
-        const signedTx = await wallets[0].signTransaction(jupiterTx);
-
-        signature = await connection.sendTransaction(signedTx, {
-          skipPreflight: false,
-          preflightCommitment: "processed",
-          maxRetries: 3,
-        });
-        console.log("signature: ", signature);
-
-        if (
-          referrerData &&
-          referrerData["linked_accounts"][0]["telegram_user_id"]
-        ) {
-          if (referrerBalance < rentExemptMin) {
-            await triggerNotification(
-              referrer,
-              `Load at least 0.01 SOL in your wallet to start receiving referral fees.`,
-            );
-          } else {
-            await triggerNotification(
-              referrer,
-              `📣 Somebody just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${((referralFee / LAMPORTS_PER_SOL) * (isBuy ? tokenOutData.price : tokenInData.price)).toFixed(6)}) 🤑`,
-            );
-          }
-        }
-      } catch (err) {
-        console.log("Error submitting tx second time: ", err);
-
-        setIsSwapExecuting((_) => false);
-        router.push(`/transaction-status?type=error&error=${err}`);
-      }
+    let referrerAddress = KIWI_MULTISIG;
+    if (referrerData && referrerData["linked_accounts"][1]["address"]) {
+      referrerAddress = referrerData["linked_accounts"][1]["address"];
     }
 
-    await delay(3_000);
+    const referralFee = parseInt(
+      (totalFee * (REFERRAL_FEE_PCT / 100)).toString(),
+    );
+
+    const feeTransferInstruction = SystemProgram.transfer({
+      fromPubkey: new PublicKey(wallets[0].address),
+      toPubkey: KIWI_MULTISIG,
+      lamports: totalFee - referralFee,
+    });
+
+    const referrerBalance = await connection.getBalance(
+      new PublicKey(referrerAddress),
+    );
+    const rentExemptMin =
+      await connection.getMinimumBalanceForRentExemption(0);
+
+    let referralFeeTransferInstruction: TransactionInstruction;
+
+    if (referrerBalance < rentExemptMin) {
+      referralFeeTransferInstruction = SystemProgram.transfer({
+        fromPubkey: new PublicKey(wallets[0].address),
+        toPubkey: KIWI_MULTISIG,
+        lamports: referralFee,
+      });
+    } else {
+      referralFeeTransferInstruction = SystemProgram.transfer({
+        fromPubkey: new PublicKey(wallets[0].address),
+        toPubkey: new PublicKey(referrerAddress),
+        lamports: referralFee,
+      });
+    }
+
+    const addressLookupTableAccounts = await Promise.all(
+      jupiterTx.message.addressTableLookups.map(async (lookup) => {
+        return new AddressLookupTableAccount({
+          key: lookup.accountKey,
+          state: AddressLookupTableAccount.deserialize(
+            await connection
+              .getAccountInfo(lookup.accountKey)
+              .then((res) => res.data),
+          ),
+        });
+      }),
+    );
+
+    const originalTxMessage = TransactionMessage.decompile(
+      jupiterTx.message,
+      {
+        addressLookupTableAccounts: addressLookupTableAccounts,
+      },
+    );
+
+    if (isBuy) {
+      originalTxMessage.instructions.unshift(feeTransferInstruction);
+      originalTxMessage.instructions.unshift(referralFeeTransferInstruction);
+    } else if (tokenInData.symbol === "SOL") {
+      originalTxMessage.instructions.push(feeTransferInstruction);
+      originalTxMessage.instructions.push(referralFeeTransferInstruction);
+    }
+
+    jupiterTx.message = originalTxMessage.compileToV0Message(
+      addressLookupTableAccounts,
+    );
+
+    try {
+      const signedTx = await wallets[0].signTransaction(jupiterTx);
+
+      signature = await connection.sendTransaction(signedTx, {
+        skipPreflight: false,
+        preflightCommitment: "processed",
+        maxRetries: 3,
+      });
+      console.log("signature: ", signature);
+
+      if (
+        referrerData &&
+        referrerData["linked_accounts"][0]["telegram_user_id"]
+      ) {
+        if (referrerBalance < rentExemptMin) {
+          await triggerNotification(
+            referrer,
+            `Load at least 0.01 SOL in your wallet to start receiving referral fees.`,
+          );
+        } else {
+          await triggerNotification(
+            referrer,
+            `📣 Somebody just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${((referralFee / LAMPORTS_PER_SOL) * (isBuy ? tokenOutData.price : tokenInData.price)).toFixed(6)}) 🤑`,
+          );
+        }
+      }
+    } catch (err) {
+      console.log("Error submitting tx second time: ", err);
+
+      setIsSwapExecuting((_) => false);
+      router.push(`/transaction-status?type=error&error=${err}`);
+      return;
+    }
+
+    // try once
+    // try {
+    //   const signature = await wallets[0].sendTransaction(jupiterTx, connection);
+    //   console.log("signature: ", signature);
+    // } catch (err) {
+    //   console.log("Error as expected: ", err);
+
+    //   const referrerData = await getTelegramUserData(referrer);
+
+    //   let referrerAddress = KIWI_MULTISIG;
+    //   if (referrerData && referrerData["linked_accounts"][1]["address"]) {
+    //     referrerAddress = referrerData["linked_accounts"][1]["address"];
+    //   }
+
+    //   const referralFee = parseInt(
+    //     (totalFee * (REFERRAL_FEE_PCT / 100)).toString(),
+    //   );
+
+    //   const feeTransferInstruction = SystemProgram.transfer({
+    //     fromPubkey: new PublicKey(wallets[0].address),
+    //     toPubkey: KIWI_MULTISIG,
+    //     lamports: totalFee - referralFee,
+    //   });
+
+    //   const referrerBalance = await connection.getBalance(
+    //     new PublicKey(referrerAddress),
+    //   );
+    //   const rentExemptMin =
+    //     await connection.getMinimumBalanceForRentExemption(0);
+
+    //   let referralFeeTransferInstruction: TransactionInstruction;
+
+    //   if (referrerBalance < rentExemptMin) {
+    //     referralFeeTransferInstruction = SystemProgram.transfer({
+    //       fromPubkey: new PublicKey(wallets[0].address),
+    //       toPubkey: KIWI_MULTISIG,
+    //       lamports: referralFee,
+    //     });
+    //   } else {
+    //     referralFeeTransferInstruction = SystemProgram.transfer({
+    //       fromPubkey: new PublicKey(wallets[0].address),
+    //       toPubkey: new PublicKey(referrerAddress),
+    //       lamports: referralFee,
+    //     });
+    //   }
+
+    //   const addressLookupTableAccounts = await Promise.all(
+    //     jupiterTx.message.addressTableLookups.map(async (lookup) => {
+    //       return new AddressLookupTableAccount({
+    //         key: lookup.accountKey,
+    //         state: AddressLookupTableAccount.deserialize(
+    //           await connection
+    //             .getAccountInfo(lookup.accountKey)
+    //             .then((res) => res.data),
+    //         ),
+    //       });
+    //     }),
+    //   );
+
+    //   const originalTxMessage = TransactionMessage.decompile(
+    //     jupiterTx.message,
+    //     {
+    //       addressLookupTableAccounts: addressLookupTableAccounts,
+    //     },
+    //   );
+
+    //   if (isBuy) {
+    //     originalTxMessage.instructions.unshift(feeTransferInstruction);
+    //     originalTxMessage.instructions.unshift(referralFeeTransferInstruction);
+    //   } else if (tokenInData.symbol === "SOL") {
+    //     originalTxMessage.instructions.push(feeTransferInstruction);
+    //     originalTxMessage.instructions.push(referralFeeTransferInstruction);
+    //   }
+
+    //   jupiterTx.message = originalTxMessage.compileToV0Message(
+    //     addressLookupTableAccounts,
+    //   );
+
+    //   try {
+    //     const signedTx = await wallets[0].signTransaction(jupiterTx);
+
+    //     signature = await connection.sendTransaction(signedTx, {
+    //       skipPreflight: false,
+    //       preflightCommitment: "processed",
+    //       maxRetries: 3,
+    //     });
+    //     console.log("signature: ", signature);
+
+    //     if (
+    //       referrerData &&
+    //       referrerData["linked_accounts"][0]["telegram_user_id"]
+    //     ) {
+    //       if (referrerBalance < rentExemptMin) {
+    //         await triggerNotification(
+    //           referrer,
+    //           `Load at least 0.01 SOL in your wallet to start receiving referral fees.`,
+    //         );
+    //       } else {
+    //         await triggerNotification(
+    //           referrer,
+    //           `📣 Somebody just ${isBuy ? `bought` : `sold`} ${isBuy ? tokenInData.symbol : tokenOutData.symbol} using your referral. \n\n💰 Referral fee earned: ${referralFee / LAMPORTS_PER_SOL} SOL (~$${((referralFee / LAMPORTS_PER_SOL) * (isBuy ? tokenOutData.price : tokenInData.price)).toFixed(6)}) 🤑`,
+    //         );
+    //       }
+    //     }
+    //   } catch (err) {
+    //     console.log("Error submitting tx second time: ", err);
+
+    //     setIsSwapExecuting((_) => false);
+    //     router.push(`/transaction-status?type=error&error=${err}`);
+    //     return;
+    //   }
+    // }
 
     setIsSwapExecuting((_) => false);
     router.push(`/transaction-status?type=success&signature=${signature}`);
