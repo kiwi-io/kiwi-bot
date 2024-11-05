@@ -4,6 +4,11 @@ export const getTelegramUserData = async (username: string) => {
   try {
     const response = await axios.get(
       `https://www.heykiwi.io/api/privy/get-telegram-userid?telegramUsername=${username}`,
+      {
+        headers: {
+          "Origin": "https://www.heykiwi.io"
+        }
+      }
     );
     return response.data[0];
   } catch (err) {
