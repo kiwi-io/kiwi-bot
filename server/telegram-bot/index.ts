@@ -9,7 +9,7 @@ const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 bot.on('message', async (ctx) => {
   const incomingText = ctx.message.text;
 
-  await ctx.reply(incomingText);
+  await ctx.reply(`BOT Token: ${process.env.TELEGRAM_BOT_TOKEN} ${incomingText}`);
 });
 
 
