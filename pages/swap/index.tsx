@@ -157,8 +157,7 @@ const Swap = () => {
     const referrerBalance = await connection.getBalance(
       new PublicKey(referrerAddress),
     );
-    const rentExemptMin =
-      await connection.getMinimumBalanceForRentExemption(0);
+    const rentExemptMin = await connection.getMinimumBalanceForRentExemption(0);
 
     let referralFeeTransferInstruction: TransactionInstruction;
 
@@ -189,12 +188,9 @@ const Swap = () => {
       }),
     );
 
-    const originalTxMessage = TransactionMessage.decompile(
-      jupiterTx.message,
-      {
-        addressLookupTableAccounts: addressLookupTableAccounts,
-      },
-    );
+    const originalTxMessage = TransactionMessage.decompile(jupiterTx.message, {
+      addressLookupTableAccounts: addressLookupTableAccounts,
+    });
 
     if (isBuy) {
       originalTxMessage.instructions.unshift(feeTransferInstruction);
