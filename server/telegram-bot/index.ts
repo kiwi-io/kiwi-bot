@@ -2,6 +2,7 @@ import { Bot, InlineKeyboard } from "grammy";
 import { webhookCallback } from "grammy";
 import axios from "axios";
 import { formatWithCommas } from "../../utils";
+import { formatNumberWithDenominations } from "./utils";
 
 // Initialize the bot
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
@@ -33,11 +34,11 @@ bot.on('message', async (ctx) => {
     const symbol = response.data.data["symbol"];
     const name = response.data.data["name"];
     const price = parseFloat(response.data.data["price"]).toFixed(6);
-    const liquidity = parseFloat(response.data.data["liquidity"]).toFixed(2);
-    const mc = parseFloat(response.data.data["mc"]).toFixed(2);
+    const liquidity = formatNumberWithDenominations(parseFloat(response.data.data["liquidity"]));
+    const mc = formatNumberWithDenominations(parseFloat(response.data.data["mc"]));
     const buyDaily = response.data.data["buy24h"];
     const sellDaily = response.data.data["sell24h"];
-    const volumeDaily = parseFloat(response.data.data["v24hUSD"]).toFixed(2);
+    const volumeDaily = formatNumberWithDenominations(parseFloat(response.data.data["v24hUSD"]));
     const priceChangeDaily = parseFloat(
       response.data.data["priceChange24hPercent"],
     );
