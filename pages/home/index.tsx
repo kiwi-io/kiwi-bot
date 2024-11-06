@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
 import styles from "./home.module.css";
-import { usePrivy, useSolanaWallets } from "@privy-io/react-auth";
+import { usePrivy } from "@privy-io/react-auth";
 import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
-import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../../constants";
 import {
-  decodeTelegramCompatibleUrl,
   formatWithCommas,
-  hasExistingSolanaWallet,
 } from "../../utils";
 import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
@@ -20,7 +17,7 @@ const Home = () => {
 
   const { user, ready, authenticated } = usePrivy();
 
-  const { portfolio, updatePortfolio, updateTransactionHistory } =
+  const { portfolio } =
     useWalletContext();
   const { updateReferralSession, updateActivePage } = useActivePageContext();
 
@@ -34,31 +31,7 @@ const Home = () => {
     updateActionHost,
     updateActionHostLogo,
   } = useJupiterSwapContext();
-
-  const { createWallet } = useSolanaWallets();
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      updatePortfolio(user);
-      updateTransactionHistory(user);
-    }, WALLET_UPDATE_FREQUENCY_IN_MS);
-
-    return () => clearInterval(intervalId);
-  }, [portfolio]);
-
-  useEffect(() => {
-    const doStuff = () => {
-      if (user) {
-        if (!hasExistingSolanaWallet(user)) {
-          createWallet();
-        }
-        updatePortfolio(user);
-        updateTransactionHistory(user);
-      }
-    };
-
-    doStuff();
-  }, [user]);
+  
 
   useEffect(() => {
     if (!user) {
@@ -104,8 +77,6 @@ const Home = () => {
         updateActionHostLogo("/logos/jupiter_logo.svg");
         updateActivePage("/swap");
         updateReferralSession("/swap");
-      } else {
-        const decodedUrl = decodeTelegramCompatibleUrl(startParam);
       }
     }
   }, []);

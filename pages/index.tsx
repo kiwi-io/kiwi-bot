@@ -24,15 +24,16 @@ import NavButton from "../components/NavButton";
 import { useTelegram } from "../utils/twa";
 import { useActivePageContext } from "../components/contexts/ActivePageContext";
 import { Connection, PublicKey } from "@solana/web3.js";
+import { WALLET_UPDATE_FREQUENCY_IN_MS } from "../constants";
 
 export default function Main() {
   const [loginTimeout, setLoginTimeout] = useState(false);
 
   const { createWallet } = useSolanaWallets();
 
-  const { updatePortfolio, updateTransactionHistory } = useWalletContext();
+  const { portfolio, updatePortfolio, updateTransactionHistory } = useWalletContext();
 
-  const { ready, authenticated } = usePrivy();
+  const { user, ready, authenticated } = usePrivy();
 
   const { activePage, referralSession, updateActivePage } =
     useActivePageContext();
@@ -89,6 +90,29 @@ export default function Main() {
 
     return () => clearTimeout(timer);
   }, [ready, authenticated]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      updatePortfolio(user);
+      updateTransactionHistory(user);
+    }, WALLET_UPDATE_FREQUENCY_IN_MS);
+
+    return () => clearInterval(intervalId);
+  }, [portfolio]);
+
+  useEffect(() => {
+    const doStuff = () => {
+      if (user) {
+        if (!hasExistingSolanaWallet(user)) {
+          createWallet();
+        }
+        updatePortfolio(user);
+        updateTransactionHistory(user);
+      }
+    };
+
+    doStuff();
+  }, [user]);
 
   const handleNavClick = (page: string) => {
     vibrate("light");
