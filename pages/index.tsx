@@ -89,6 +89,8 @@ export default function Main() {
 
   const handleNavClick = (page: string) => {
     vibrate("light");
+    //@ts-ignore
+    window.Telegram.WebApp.initDataUnsafe.start_param = ``;
     updateActivePage(page);
   };
 
