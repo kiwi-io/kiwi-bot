@@ -362,6 +362,7 @@ const Swap = () => {
   const updateWalletQuantities = async () => {
     console.log("Portfolio before: ", portfolio);
     console.log("Calling updatePortfolio");
+    console.log("user: ", user);
     await updatePortfolio(user);
     console.log("Portfolio after: ", portfolio);
     if (portfolio) {
