@@ -141,7 +141,6 @@ const Swap = () => {
 
     let signature = "";
 
-    const referrer = `1896100027`;
     const referrerData = await getTelegramUserData(referrer);
 
     let referrerAddress = KIWI_MULTISIG;
