@@ -119,7 +119,51 @@ export default function Main() {
         <div className={styles.mainAuthenticatedContainer}>
           <div className={styles.activePage}>{renderActivePage()}</div>
           {referralSession === "/swap" ? (
-            <></>
+            <Navbar className={styles.navbar}>
+            <Container className={styles.navContainer}>
+              <Nav className={styles.nav}>
+                <Nav.Link
+                  className={`${styles.navLink}`}
+                  style={{
+                    color: activePage === "/home" ? `red` : `black`,
+                  }}
+                  onClick={() => handleNavClick("/home")}
+                >
+                  <NavButton
+                    name={"Home"}
+                    iconClass={"fa-solid fa-house"}
+                    isActive={activePage === "/home"}
+                  />
+                </Nav.Link>
+                <Nav.Link
+                  className={`${styles.navLink}`}
+                  style={{
+                    color: activePage === "/swap" ? `red` : `black`,
+                  }}
+                  onClick={() => handleNavClick("/swap")}
+                >
+                  <NavButton
+                    name={"Swap"}
+                    iconClass={"fa-solid fa-shuffle"}
+                    isActive={activePage === "/swap"}
+                  />
+                </Nav.Link>
+                <Nav.Link
+                  className={`${styles.navLink}`}
+                  style={{
+                    color: activePage === "/history" ? `red` : `black`,
+                  }}
+                  onClick={() => handleNavClick("/history")}
+                >
+                  <NavButton
+                    name={"History"}
+                    iconClass={"fa-solid fa-clock-rotate-left"}
+                    isActive={activePage === "/history"}
+                  />
+                </Nav.Link>
+              </Nav>
+            </Container>
+          </Navbar>
           ) : (
             <Navbar className={styles.navbar}>
               <Container className={styles.navContainer}>
