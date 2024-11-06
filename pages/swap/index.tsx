@@ -360,7 +360,10 @@ const Swap = () => {
   };
 
   const updateWalletQuantities = async () => {
+    console.log("Portfolio before: ", portfolio);
+    console.log("Calling updatePortfolio");
     await updatePortfolio(user);
+    console.log("Portfolio after: ", portfolio);
     if (portfolio) {
       const tokenInMatch = portfolio.items.filter((i) => {
         if (
@@ -383,6 +386,9 @@ const Swap = () => {
           return i.address === tokenOut;
         }
       });
+
+      console.log("tokenInMatch: ", tokenInMatch);
+      console.log("tokenOutMatch: ", tokenOutMatch);
 
       if (tokenInMatch && tokenInMatch.length > 0) {
         const sizeInfo = tokenInMatch[0];
