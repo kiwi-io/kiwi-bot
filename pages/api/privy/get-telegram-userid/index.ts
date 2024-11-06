@@ -32,4 +32,4 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
   }
 };
 
-export default allowCors(handler);
+export default handler;
