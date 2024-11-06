@@ -106,8 +106,6 @@ const Home = () => {
         updateReferralSession("/swap");
       } else {
         const decodedUrl = decodeTelegramCompatibleUrl(startParam);
-
-        console.log("Action to be taken: ", decodedUrl);
       }
     }
   }, []);

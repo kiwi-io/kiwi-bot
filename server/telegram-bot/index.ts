@@ -68,8 +68,6 @@ bot.on("inline_query", async (ctx) => {
     const address = queryText;
     let keyboard = new InlineKeyboard();
 
-    console.log("address: ", address);
-
     let buyInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=buy-${address}-${userId}`;
     let sellInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=sell-${address}-${userId}`;
     keyboard.url(`BUY`, buyInlineUrl).row();
@@ -84,8 +82,6 @@ bot.on("inline_query", async (ctx) => {
         },
       },
     );
-
-    console.log("Response: ", response);
 
     const logoUri = response.data.data["logoURI"];
     const symbol = response.data.data["symbol"];

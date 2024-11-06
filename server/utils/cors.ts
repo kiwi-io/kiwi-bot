@@ -21,10 +21,6 @@ export const allowCors =
       res.status(404);
       return res.send(HTTP_ERRORS.ORIGIN_NOT_SET);
     }
-
-    console.log("req.headers.origin: ", req.headers.origin);
-    console.log("allowedOrigins: ", allowedOrigins);
-    console.log("allowedOrigins.indexOf(req.headers.origin): ", allowedOrigins.indexOf(req.headers.origin));
     
     if (
       process.env.VERCEL_ENV === "production" &&

@@ -23,8 +23,6 @@ const History = () => {
   const mapTxHistoryToTradingActivity = (
     history: TransactionHistory,
   ): TradingActivity => {
-    console.log("History: ", history);
-
     if (!history.balanceChange || history.balanceChange.length === 0) {
       return;
     }
@@ -126,8 +124,6 @@ const History = () => {
               const parsedTradingActivity =
                 mapTxHistoryToTradingActivity(history);
               if (parsedTradingActivity) {
-                console.log("parsedTradingActivity: ", parsedTradingActivity);
-
                 let message = `${parsedTradingActivity.amount} ${parsedTradingActivity.tokenSymbol}`;
 
                 if (parsedTradingActivity.type === "received") {
