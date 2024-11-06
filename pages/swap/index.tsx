@@ -481,10 +481,10 @@ const Swap = () => {
       updateTokenOut(tokenOutData.address);
       updateTokenInData(tokenInData);
       updateTokenOutData(tokenOutData);
-    }
+    };
 
     doStuff();
-  }, [referralSession])
+  }, [referralSession]);
 
   return (
     <div className={styles.swapPageContainer}>

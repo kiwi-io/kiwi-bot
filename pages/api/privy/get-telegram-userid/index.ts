@@ -3,7 +3,7 @@ import axios from "axios";
 import { allowCors } from "../../../../server/utils/cors";
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
-  try {    
+  try {
     let telegramUsername = "";
 
     try {

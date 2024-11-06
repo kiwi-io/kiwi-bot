@@ -28,6 +28,6 @@ const handler = async (req: any, res: any) => {
     res.setHeader("Allow", ["POST"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-}
+};
 
 export default allowCors(handler);

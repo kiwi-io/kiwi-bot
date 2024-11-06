@@ -41,8 +41,7 @@ export const formatNumberWithDenominations = (num: number): string => {
   } else {
     return num.toString();
   }
-}
-
+};
 
 export const encodeTelegramCompatibleURL = (url: string): string => {
   // Base64 encode the URL

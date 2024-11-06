@@ -5,7 +5,7 @@ const allowedOrigins = [
   "https://heykiwi.io",
   "https://www.heykiwi.io",
   "https://kiwi-bot.vercel.app",
-  "https://www.kiwi-bot.vercel.app"
+  "https://www.kiwi-bot.vercel.app",
 ];
 
 export type VercelApiHandler = (
@@ -21,7 +21,7 @@ export const allowCors =
       res.status(404);
       return res.send(HTTP_ERRORS.ORIGIN_NOT_SET);
     }
-    
+
     if (
       process.env.VERCEL_ENV === "production" &&
       allowedOrigins.indexOf(req.headers.origin) === -1
