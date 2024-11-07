@@ -19,13 +19,7 @@ export async function createBuyTokenInstruction(
 
     const connection = new anchor.web3.Connection(process.env.NEXT_RPC_MAINNET_URL);
 
-    let privateKeyArray = JSON.parse(process.env.NEXT_PRIVATE_KEYPAIR);
-
-    let traderKeypair = Keypair.fromSecretKey(
-        Uint8Array.from(privateKeyArray),
-    );
-
-    const provider = new anchor.AnchorProvider(connection, new anchor.Wallet(traderKeypair), {
+    const provider = new anchor.AnchorProvider(connection, {} as anchor.Wallet, {
       commitment: "confirmed",
     });
 
