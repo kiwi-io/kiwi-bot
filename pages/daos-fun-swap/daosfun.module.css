@@ -1,0 +1,295 @@
+.swapPageContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1.5rem;
+  padding-top: 1rem;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.swapComponentsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 82vh;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  box-sizing: border-box;
+}
+
+.swapFormContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.swapOutTokenContainer {
+  width: 100%;
+  background-color: #fffefa;
+  border: 1px solid rgba(72, 24, 1, 0.05);
+  border-radius: 0.5rem;
+}
+
+.outTokenQuantityFormContainer {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: flex-start;
+  padding: 0.5rem;
+  padding-bottom: 0;
+}
+
+.outTokenQuantityForm {
+  width: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: none;
+  background-color: transparent;
+  color: #481801;
+  margin: 0;
+  padding: 0;
+}
+
+.outTokenExtraInfoContainer {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  padding-bottom: 0;
+}
+
+.outTokenDollarQuantityContainer {
+  font-size: 0.75rem;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0.5rem;
+  padding-top: 0.25rem;
+  opacity: 0.5;
+}
+
+.outTokenActualQuantityContainer {
+  font-size: 0.75rem;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0.5rem;
+  padding-top: 0.25rem;
+  opacity: 0.5;
+}
+
+.outTokenInfoContainer {
+  /* background-color: green; */
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.outTokenInfo {
+  background-color: #fffefa;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 1.25rem;
+  align-items: center;
+  border: 1px solid rgba(72, 24, 1, 0.05);
+  border-radius: 24px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.outTokenSymbolContainer {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.tokenImage {
+  border-radius: 100%;
+  margin-left: 0.5rem;
+}
+
+.swapIconContainer {
+  margin-top: -0.85rem;
+  z-index: 1000;
+  font-size: 1.25rem;
+  color: #481801;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  /* background-color: cyan; */
+  background-color: #f2f1e5;
+  border-radius: 1rem;
+  border: 3px solid #fffefa;
+}
+
+/* .swapInTokenContainer {
+  margin-top: -1.25rem;
+  display: flex;
+  width: 100%;
+  background-color: yellow;
+  border-radius: 0.5rem;
+  height: 85px;
+} */
+
+.swapInTokenContainer {
+  margin-top: -1rem;
+  width: 100%;
+  background-color: #f2f1e5;
+  border-radius: 0.5rem;
+}
+
+.inTokenQuantityFormContainer {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: flex-start;
+  padding: 0.5rem;
+  padding-bottom: 0;
+}
+
+.inTokenQuantityForm {
+  width: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: none;
+  background-color: transparent;
+  color: #481801;
+  margin: 0;
+  padding: 0;
+}
+
+.inTokenExtraInfoContainer {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  padding-bottom: 0;
+}
+
+.inTokenDollarQuantityContainer {
+  font-size: 0.75rem;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0.5rem;
+  padding-top: 0.25rem;
+  opacity: 0.5;
+}
+
+.inTokenActualQuantityContainer {
+  font-size: 0.75rem;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0.5rem;
+  padding-top: 0.25rem;
+  opacity: 0.5;
+}
+
+.inTokenInfoContainer {
+  /* background-color: green; */
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.inTokenInfo {
+  background-color: #fffefa;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 1.25rem;
+  align-items: center;
+  /* border: 1px solid rgba(72, 24, 1, 0.5); */
+  border-radius: 24px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.inTokenSymbolContainer {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.swapInputContainer {
+  width: 100%;
+}
+
+.numKeypadContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  color: #481801;
+}
+
+.numKeyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-size: 2rem;
+  font-weight: 600;
+  width: 33%;
+}
+
+.numKeyContainer:active,
+.numKeyContainer:focus,
+.numKeyContainer:hover {
+  outline: none;
+  background-color: inherit;
+  color: inherit;
+}
+
+.swapButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  background-color: #ff9d00;
+  color: #481801;
+}
+
+.loader {
+  border: 4px solid #481801;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  font-size: 1.5rem;
+}
