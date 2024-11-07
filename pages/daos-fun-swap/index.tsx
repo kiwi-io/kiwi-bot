@@ -6,13 +6,12 @@ import { getTelegramUserData, triggerNotification } from "../../utils";
 import { Form } from "react-bootstrap";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 import Image from "next/image";
-import { fetchQuote, swapOnJupiterTx } from "../../utils/jupiter/api";
+import { fetchQuote } from "../../utils/jupiter/api";
 import { usePrivy, useSolanaWallets } from "@privy-io/react-auth";
 import {
   Connection,
   PublicKey,
   SystemProgram,
-  VersionedTransaction,
   TransactionMessage,
   AddressLookupTableAccount,
   LAMPORTS_PER_SOL,
@@ -22,12 +21,15 @@ import { useRouter } from "next/router";
 import {
   KIWI_MULTISIG,
   KIWI_TRADING_FEE_PCT,
-  MAX_SLIPPAGE,
   REFERRAL_FEE_PCT,
   WRAPPED_SOL_MAINNET,
 } from "../../constants";
 import { useWalletContext } from "../../components/contexts";
 import { useActivePageContext } from "../../components/contexts/ActivePageContext";
+import { getAssociatedTokenAddress, TOKEN_2022_PROGRAM_ID } from "@solana/spl-token";
+import { createBuyTokenInstruction } from "../../utils/daosdotfun/instructions";
+import { BN } from "@coral-xyz/anchor";
+import { getDAOSTransaction } from "../../utils/daosdotfun/utils";
 
 const DAOSFunSwap = () => {
   const [swapButtonText, setSwapButtonText] = useState<string>("Swap");
@@ -129,16 +131,23 @@ const DAOSFunSwap = () => {
 
     totalFee = parseInt(totalFee.toString());
 
-    const jupiterTxSerialized = await swapOnJupiterTx({
-      userPublicKey: wallets[0].address,
-      inputMint: tokenOutData.address,
-      outputMint: tokenInData.address,
-      amountIn: outQuantityDecimals,
-      slippage: MAX_SLIPPAGE,
-    });
+    const tokenMint = new PublicKey(tokenInData.address);
+    const wallet = new PublicKey(wallets[0].address);
 
-    const swapTransactionBuf = Buffer.from(jupiterTxSerialized, "base64");
-    var jupiterTx = VersionedTransaction.deserialize(swapTransactionBuf);
+    const signerTokenAta = await getAssociatedTokenAddress(tokenMint, wallet, false, TOKEN_2022_PROGRAM_ID);
+    const signerFundingAta = await getAssociatedTokenAddress(new PublicKey(WRAPPED_SOL_MAINNET), wallet);
+    const ix = await createBuyTokenInstruction(
+      {
+        signer: wallet,
+        tokenMint,
+        signerTokenAta,
+        signerFundingAta,
+      },
+      new BN(outQuantityDecimals),
+      new BN(0.985 * outQuantityDecimals)
+    );
+
+    const vTx = await getDAOSTransaction(ix, wallet, tokenMint, signerTokenAta, signerFundingAta, 1);
 
     let signature = "";
 
@@ -181,7 +190,7 @@ const DAOSFunSwap = () => {
     }
 
     const addressLookupTableAccounts = await Promise.all(
-      jupiterTx.message.addressTableLookups.map(async (lookup) => {
+      vTx.message.addressTableLookups.map(async (lookup) => {
         return new AddressLookupTableAccount({
           key: lookup.accountKey,
           state: AddressLookupTableAccount.deserialize(
@@ -193,7 +202,7 @@ const DAOSFunSwap = () => {
       }),
     );
 
-    const originalTxMessage = TransactionMessage.decompile(jupiterTx.message, {
+    const originalTxMessage = TransactionMessage.decompile(vTx.message, {
       addressLookupTableAccounts: addressLookupTableAccounts,
     });
 
@@ -205,12 +214,12 @@ const DAOSFunSwap = () => {
       originalTxMessage.instructions.push(referralFeeTransferInstruction);
     }
 
-    jupiterTx.message = originalTxMessage.compileToV0Message(
+    vTx.message = originalTxMessage.compileToV0Message(
       addressLookupTableAccounts,
     );
 
     try {
-      const signedTx = await wallets[0].signTransaction(jupiterTx);
+      const signedTx = await wallets[0].signTransaction(vTx);
 
       signature = await connection.sendTransaction(signedTx, {
         skipPreflight: false,
