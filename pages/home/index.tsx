@@ -127,7 +127,44 @@ const Home = () => {
         updateActionHostLogo("/logos/jupiter_logo.svg");
         updateActivePage("/swap");
         updateReferralSession("/swap");
+      } else if (startParam.startsWith("daos_buy")) {
+        updateSide("buy");
+        const components = startParam.split("-");
+
+        const token = components[1];
+        const referrer = components[2];
+
+        updateTokenIn(token);
+        updateTokenInData(token);
+
+        updateTokenOut(WRAPPED_SOL_MAINNET);
+        updateTokenOutData(WRAPPED_SOL_MAINNET);
+
+        updateReferrer(referrer);
+        updateActionHost("https://jup.ag/swap");
+        updateActionHostLogo("/logos/jupiter_logo.svg");
+        updateActivePage("/swap");
+        updateReferralSession("/swap");
+      } else if (startParam.startsWith("daos_sell")) {
+        updateSide("sell");
+        const components = startParam.split("-");
+
+        const token = components[1];
+        const referrer = components[2];
+
+        updateTokenIn(WRAPPED_SOL_MAINNET);
+        updateTokenInData(WRAPPED_SOL_MAINNET);
+
+        updateTokenOut(token);
+        updateTokenOutData(token);
+
+        updateReferrer(referrer);
+        updateActionHost("https://jup.ag/swap");
+        updateActionHostLogo("/logos/jupiter_logo.svg");
+        updateActivePage("/swap");
+        updateReferralSession("/swap");
       }
+
     }
   }, []);
 

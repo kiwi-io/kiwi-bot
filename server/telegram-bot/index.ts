@@ -71,20 +71,17 @@ bot.on("inline_query", async (ctx) => {
   const userId = ctx.from.id;
 
   if(queryText.startsWith("$")) {
-    console.log("starts with $");
     const ticker = queryText.slice(1);
-    console.log("ticker: ", ticker);
 
     const configItem = DAOS_CONFIG_ITEMS_LIST.filter((i) => i.ticker.toLowerCase() === ticker.toLowerCase());
     const config = configItem[0];
-    console.log("config: ", config);
 
     try {
       const address = config.tokenMint;
       let keyboard = new InlineKeyboard();
 
-      let buyInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=daos-buy-${address}-${userId}`;
-      let sellInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=daos-sell-${address}-${userId}`;
+      let buyInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=daos_buy-${address}-${userId}`;
+      let sellInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=daos_sell-${address}-${userId}`;
       keyboard.url(`BUY`, buyInlineUrl).row();
       keyboard.url(`SELL`, sellInlineUrl).row();    
 
