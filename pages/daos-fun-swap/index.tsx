@@ -136,6 +136,9 @@ const DAOSFunSwap = () => {
 
     const signerTokenAta = await getAssociatedTokenAddress(tokenMint, wallet, false, TOKEN_2022_PROGRAM_ID);
     const signerFundingAta = await getAssociatedTokenAddress(new PublicKey(WRAPPED_SOL_MAINNET), wallet);
+    const amount = new BN(outQuantityDecimals);
+    const minAmount = new BN(0.985 * outQuantityDecimals);
+
     const ix = await createBuyTokenInstruction(
       {
         signer: wallet,
@@ -143,11 +146,11 @@ const DAOSFunSwap = () => {
         signerTokenAta,
         signerFundingAta,
       },
-      new BN(outQuantityDecimals),
-      new BN(0.985 * outQuantityDecimals)
+      amount,
+      minAmount
     );
 
-    const vTx = await getDAOSTransaction(ix, wallet, tokenMint, signerTokenAta, signerFundingAta, 1);
+    const vTx = await getDAOSTransaction(ix, wallet, tokenMint, signerTokenAta, signerFundingAta, amount.toNumber());
 
     let signature = "";
 
