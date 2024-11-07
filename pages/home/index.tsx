@@ -58,7 +58,7 @@ const Home = () => {
           new BN(1)
         );
 
-        const vTx = await getDAOSTransaction(ix, wallet, tokenMint, signerTokenAta, signerFundingAta);
+        const vTx = await getDAOSTransaction(ix, wallet, tokenMint, signerTokenAta, signerFundingAta, 1);
 
         let signature = "";
         

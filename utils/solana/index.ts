@@ -3,10 +3,12 @@ import {
   Connection,
   PublicKey,
   SimulateTransactionConfig,
+  SystemProgram,
   TransactionInstruction,
 } from "@solana/web3.js";
-import { NATIVE_SOL_PUBKEY } from "../../constants";
+import { NATIVE_SOL_PUBKEY, WRAPPED_SOL_MAINNET } from "../../constants";
 import { getTransferTransaction, TransferParams } from "../token";
+import { createCloseAccountInstruction, createSyncNativeInstruction, getAssociatedTokenAddress, syncNative } from "@solana/spl-token";
 
 export const requestComputeUnitsInstructions = (
   microLamportsPerCU: number,
@@ -53,3 +55,32 @@ export const simulateTransaction = async () => {
 
   return results;
 };
+
+export const createWrappedSOLInstructions = async(
+  owner: PublicKey,
+  amount: number,
+): Promise<{ wrapSolInstructions: TransactionInstruction[], unwrapSolInstruction: TransactionInstruction }> => {
+  // Create the wrapped SOL associated token account for the payer
+  const wrappedSolAccount = await getAssociatedTokenAddress(new PublicKey(WRAPPED_SOL_MAINNET), owner);
+  
+  // Instruction to create the associated token account for WSOL
+  const wrapSolInstructions = [
+    SystemProgram.transfer({
+      fromPubkey: owner,
+      toPubkey: wrappedSolAccount,
+      lamports: amount,
+    }),
+    // Set account to be rent-exempt by synchronizing its balance
+    createSyncNativeInstruction(wrappedSolAccount)
+  ];
+
+  // Instruction to close the WSOL account (unwrap SOL)
+  const unwrapSolInstruction = createCloseAccountInstruction(
+    wrappedSolAccount,
+    owner,
+    owner,
+  );
+
+  return { wrapSolInstructions, unwrapSolInstruction };
+}
+
