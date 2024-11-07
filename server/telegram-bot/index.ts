@@ -149,50 +149,52 @@ bot.on("inline_query", async (ctx) => {
   const queryText = ctx.inlineQuery.query;
   const userId = ctx.from.id;
 
-  const ticker = queryText.slice(1);
+  if(queryText.startsWith("$")) {
+    const ticker = queryText.slice(1);
 
-  const configItem = DAOS_CONFIG_ITEMS_LIST.filter((i) => i.ticker.toLowerCase() === ticker.toLowerCase());
-  const config = configItem[0];
+    const configItem = DAOS_CONFIG_ITEMS_LIST.filter((i) => i.ticker.toLowerCase() === ticker.toLowerCase());
+    const config = configItem[0];
 
-  try {
-    const address = config.tokenMint;
-    let keyboard = new InlineKeyboard();
+    try {
+      const address = config.tokenMint;
+      let keyboard = new InlineKeyboard();
 
-    let buyInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=daos-buy-${address}-${userId}`;
-    let sellInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=daos-sell-${address}-${userId}`;
-    keyboard.url(`BUY`, buyInlineUrl).row();
-    keyboard.url(`SELL`, sellInlineUrl).row();    
+      let buyInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=daos-buy-${address}-${userId}`;
+      let sellInlineUrl = `https://t.me/heykiwibot/kiwi?startapp=daos-sell-${address}-${userId}`;
+      keyboard.url(`BUY`, buyInlineUrl).row();
+      keyboard.url(`SELL`, sellInlineUrl).row();    
 
-    ctx.answerInlineQuery([
-      {
-        type: "article",
-        id: "1",
-        title: `Trade ${config.ticker} with SOL using Kiwi`,
-        description: `Trade ${config.ticker} with SOL using Kiwi`,
-        input_message_content: {
-          message_text: `Trade ${config.ticker} on DAOs.fun using Kiwi`,
-          parse_mode: "HTML",
+      ctx.answerInlineQuery([
+        {
+          type: "article",
+          id: "1",
+          title: `Trade ${config.ticker} with SOL using Kiwi`,
+          description: `Trade ${config.ticker} with SOL using Kiwi`,
+          input_message_content: {
+            message_text: `Trade ${config.ticker} on DAOs.fun using Kiwi`,
+            parse_mode: "HTML",
+          },
+          reply_markup: keyboard,
         },
-        reply_markup: keyboard,
-      },
-    ]);
-  } catch (err) {
-    await ctx.answerInlineQuery([
-      {
-        type: "article",
-        id: "1",
-        title: `Refer trades & earn 50% trading fees`,
-        description: `Paste a token CA to refer trades. You earn 50% fees from all volume`,
-        input_message_content: {
-          message_text: `Error - Refer trades & earn 50% trading fees`,
+      ]);
+    } catch (err) {
+      await ctx.answerInlineQuery([
+        {
+          type: "article",
+          id: "1",
+          title: `Refer trades & earn 50% trading fees`,
+          description: `Paste a token CA to refer trades. You earn 50% fees from all volume`,
+          input_message_content: {
+            message_text: `Error - Refer trades & earn 50% trading fees`,
+          },
+          thumbnail_url: `https://i.ibb.co/6vHYGBg/Kiwi-Logo.png`,
+          thumbnail_height: 30,
+          thumbnail_width: 30,
         },
-        thumbnail_url: `https://i.ibb.co/6vHYGBg/Kiwi-Logo.png`,
-        thumbnail_height: 30,
-        thumbnail_width: 30,
-      },
-    ]);
+      ]);
 
-    return;
+      return;
+    }
   }
 });
 
