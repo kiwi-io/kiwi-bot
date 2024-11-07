@@ -23,5 +23,17 @@ export const DAOS_CONFIG_ITEMS_LIST : DAOSConfigItem[] = [
     tokenProgram: "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
     fundingTokenProgram: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
     associatedTokenProgram: "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+  } as DAOSConfigItem,
+  {
+    tokenMint: "EZDW15KWEhT5e61LSjAWSkhNKKWAuxBAHqEjw4qahmtj",
+    depositor: "2v2Y9TAULhBUR1mUsupVQR2hWGTfRDNxgXdLDdh1rAfd",
+    name: "LEFT",
+    ticker: "LEFT",
+    curveAddress: "A94zawNksiKKDfWi9Fs3EnbfM25jtbNmeZmiq3NkcwzR",
+    tokenVault: "2TydNqgmSyFhME315x5z398xFD3fNwAhU9vBYpzYNaJb",
+    fundingVault: "8KvbV9gkxCEBG25gAJKzvQw6usNxXRKeVEJRYqfKgwLR",
+    tokenProgram: "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+    fundingTokenProgram: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+    associatedTokenProgram: "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
   } as DAOSConfigItem
 ];
