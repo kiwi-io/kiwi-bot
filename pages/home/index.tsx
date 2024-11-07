@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./home.module.css";
-import { usePrivy } from "@privy-io/react-auth";
+import { usePrivy, useSolanaWallets } from "@privy-io/react-auth";
 import { useRouter } from "next/router";
 import TokenDisplay from "../../components/TokenDisplay";
 import { useWalletContext } from "../../components/contexts";
@@ -13,8 +13,9 @@ import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapCont
 import { useActivePageContext } from "../../components/contexts/ActivePageContext";
 import { BN } from "@coral-xyz/anchor";
 import { createBuyTokenInstruction } from "../../utils/daosdotfun/instructions";
-import { PublicKey } from "@solana/web3.js";
+import { Connection, PublicKey } from "@solana/web3.js";
 import { getAssociatedTokenAddress } from "@solana/spl-token";
+import { getDAOSTransaction } from "../../utils/daosdotfun/utils";
 
 const Home = () => {
   const router = useRouter();
@@ -35,6 +36,8 @@ const Home = () => {
     updateActionHost,
     updateActionHostLogo,
   } = useJupiterSwapContext();
+
+  const { wallets } = useSolanaWallets();
   
   useEffect(() => {
     const doStuff = async() => {
@@ -43,7 +46,7 @@ const Home = () => {
         const tokenMint = new PublicKey("HeLp6NuQkmYB4pYWo2zYs22mESHXPQYzXbB8n4V98jwC");
         const signerTokenAta = await getAssociatedTokenAddress(tokenMint, wallet);
         const signerFundingAta = await getAssociatedTokenAddress(new PublicKey(WRAPPED_SOL_MAINNET), wallet);
-        const res = await createBuyTokenInstruction(
+        const ix = await createBuyTokenInstruction(
           {
             signer: wallet,
             tokenMint,
@@ -53,7 +56,25 @@ const Home = () => {
           new BN(1),
           new BN(1)
         );
-        console.log("res: ", res);
+
+        const vTx = await getDAOSTransaction(ix, wallet, tokenMint, signerTokenAta, signerFundingAta);
+
+        let signature = "";
+        
+        try {
+          const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
+
+          const signedTx = await wallets[0].signTransaction(vTx);
+    
+          signature = await connection.sendTransaction(signedTx, {
+            skipPreflight: false,
+            preflightCommitment: "processed",
+            maxRetries: 3,
+          });
+          console.log("signature: ", signature);
+        } catch (err) {
+          console.log("Error submitting tx: ", err);    
+        }
       }
     }
 

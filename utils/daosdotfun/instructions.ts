@@ -1,5 +1,5 @@
 import * as anchor from "@coral-xyz/anchor";
-import { Keypair, PublicKey, TransactionInstruction } from "@solana/web3.js";
+import { PublicKey, TransactionInstruction } from "@solana/web3.js";
 import idl from "./idl.json";
 import { DAOS_CONFIG_ITEMS_LIST } from "./config";
 import { WRAPPED_SOL_MAINNET } from "../../constants";
