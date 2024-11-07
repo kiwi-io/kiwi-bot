@@ -231,9 +231,12 @@ const DAOSFunSwap = () => {
         maxRetries: 3,
       });
       console.log("signature: ", signature);
-      await connection.confirmTransaction({
-        signature: signature
-      } as TransactionConfirmationStrategy);
+      await connection.confirmTransaction(
+        {
+          signature: signature,
+        } as TransactionConfirmationStrategy,
+        'processed'
+      );
 
       if (
         referrerData &&
