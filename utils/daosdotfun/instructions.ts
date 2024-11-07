@@ -32,19 +32,6 @@ export async function createBuyTokenInstruction(
 
     const fundingMint = new PublicKey(WRAPPED_SOL_MAINNET);
 
-    console.log("signer: ", accounts.signer.toString());
-    console.log("depositor: ", config.depositor);
-    console.log("tokenMint: ", accounts.tokenMint.toString());
-    console.log("fundingMint: ", fundingMint.toString());
-    console.log("curve: ", config.curveAddress);
-    console.log("signerTokenAta: ", accounts.signerTokenAta.toString());
-    console.log("signerFundingAta: ", accounts.signerFundingAta.toString());
-    console.log("tokenVault: ", config.tokenVault);
-    console.log("fundingVault: ", config.fundingVault);
-    console.log("tokenProgram: ", config.tokenProgram);
-    console.log("fundingTokenProgram: ", config.fundingTokenProgram);
-    console.log("associatedTokenProgram: ", config.associatedTokenProgram);
-
     return program.methods
     .buyToken(fundingAmount, minTokenAmount)
     .accounts({

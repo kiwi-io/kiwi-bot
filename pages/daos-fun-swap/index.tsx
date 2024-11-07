@@ -29,7 +29,7 @@ import {
 import { useWalletContext } from "../../components/contexts";
 import { useActivePageContext } from "../../components/contexts/ActivePageContext";
 
-const Swap = () => {
+const DAOSFunSwap = () => {
   const [swapButtonText, setSwapButtonText] = useState<string>("Swap");
   const [isSwapExecuting, setIsSwapExecuting] = useState<boolean>(false);
 
@@ -361,11 +361,7 @@ const Swap = () => {
   };
 
   const updateWalletQuantities = async () => {
-    console.log("Portfolio before: ", portfolio);
-    console.log("Calling updatePortfolio");
-    console.log("user: ", user);
     await updatePortfolio(user);
-    console.log("Portfolio after: ", portfolio);
     if (portfolio) {
       const tokenInMatch = portfolio.items.filter((i) => {
         if (
@@ -388,9 +384,6 @@ const Swap = () => {
           return i.address === tokenOut;
         }
       });
-
-      console.log("tokenInMatch: ", tokenInMatch);
-      console.log("tokenOutMatch: ", tokenOutMatch);
 
       if (tokenInMatch && tokenInMatch.length > 0) {
         const sizeInfo = tokenInMatch[0];
@@ -651,4 +644,4 @@ const Swap = () => {
   );
 };
 
-export default Swap;
+export default DAOSFunSwap;

@@ -15,6 +15,7 @@ import { hasExistingSolanaWallet } from "../utils";
 
 const Home = dynamic(() => import("./home"));
 const Swap = dynamic(() => import("./swap"));
+const DAOSFunSwap = dynamic(() => import("./daos-fun-swap"));
 const History = dynamic(() => import("./history"));
 
 // import NavButton from "../components/NavButton";
@@ -129,6 +130,8 @@ export default function Main() {
         return <Swap />;
       case "/history":
         return <History />;
+      case "/daos-fun-swap":
+        return <DAOSFunSwap />;
       default:
         return <Home />;
     }
