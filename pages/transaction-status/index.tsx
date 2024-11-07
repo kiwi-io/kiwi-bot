@@ -22,7 +22,7 @@ const TransactionStatus = () => {
 
   const handleCloseButton = () => {
     vibrate("light");
-    if (referralSession === "/swap") {
+    if (referralSession === "/swap" || referralSession === "/daos-fun-swap") {
       closeApp();
     } else {
       updateActivePage("/home");
