@@ -8,10 +8,13 @@ import {
   formatWithCommas,
 } from "../../utils";
 import { useTelegram } from "../../utils/twa";
-import { DEFAULT_TOKENS_LIST } from "../../constants";
+import { DEFAULT_TOKENS_LIST, WRAPPED_SOL_MAINNET } from "../../constants";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 import { useActivePageContext } from "../../components/contexts/ActivePageContext";
-import { fetchAllCurves } from "../../utils/daosdotfun/utils";
+import { BN } from "@coral-xyz/anchor";
+import { createBuyTokenInstruction } from "../../utils/daosdotfun/instructions";
+import { PublicKey } from "@solana/web3.js";
+import { getAssociatedTokenAddress } from "@solana/spl-token";
 
 const Home = () => {
   const router = useRouter();
@@ -35,8 +38,23 @@ const Home = () => {
   
   useEffect(() => {
     const doStuff = async() => {
-      const res = await fetchAllCurves();
-      console.log("res: ", res);
+      if(user) {
+        const wallet = new PublicKey(user.wallet.address);
+        const tokenMint = new PublicKey("HeLp6NuQkmYB4pYWo2zYs22mESHXPQYzXbB8n4V98jwC");
+        const signerTokenAta = await getAssociatedTokenAddress(tokenMint, wallet);
+        const signerFundingAta = await getAssociatedTokenAddress(new PublicKey(WRAPPED_SOL_MAINNET), wallet);
+        const res = await createBuyTokenInstruction(
+          {
+            signer: wallet,
+            tokenMint,
+            signerTokenAta,
+            signerFundingAta,
+          },
+          new BN(1),
+          new BN(1)
+        );
+        console.log("res: ", res);
+      }
     }
 
     doStuff();
@@ -60,8 +78,8 @@ const Home = () => {
         updateTokenIn(token);
         updateTokenInData(token);
 
-        updateTokenOut(`So11111111111111111111111111111111111111112`);
-        updateTokenOutData(`So11111111111111111111111111111111111111112`);
+        updateTokenOut(WRAPPED_SOL_MAINNET);
+        updateTokenOutData(WRAPPED_SOL_MAINNET);
 
         updateReferrer(referrer);
         updateActionHost("https://jup.ag/swap");
@@ -75,8 +93,8 @@ const Home = () => {
         const token = components[1];
         const referrer = components[2];
 
-        updateTokenIn(`So11111111111111111111111111111111111111112`);
-        updateTokenInData(`So11111111111111111111111111111111111111112`);
+        updateTokenIn(WRAPPED_SOL_MAINNET);
+        updateTokenInData(WRAPPED_SOL_MAINNET);
 
         updateTokenOut(token);
         updateTokenOutData(token);

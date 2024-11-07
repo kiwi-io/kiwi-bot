@@ -1,23 +1,17 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Keypair, PublicKey, TransactionInstruction } from "@solana/web3.js";
 import idl from "./idl.json";
+import { DAOS_CONFIG_ITEMS_LIST } from "./config";
+import { WRAPPED_SOL_MAINNET } from "../../constants";
 
 export const DAOS_PROGRAM_ID = new PublicKey("5jnapfrAN47UYkLkEf7HnprPPBCQLvkYWGZDeKkaP5hv");
 
 export async function createBuyTokenInstruction(
   accounts: {
     signer: PublicKey;
-    depositor: PublicKey;
     tokenMint: PublicKey;
-    fundingMint: PublicKey;
     signerTokenAta: PublicKey;
     signerFundingAta: PublicKey;
-    curve: PublicKey;
-    tokenVault: PublicKey;
-    fundingVault: PublicKey;
-    tokenProgram: PublicKey;
-    fundingTokenProgram: PublicKey;
-    associatedTokenProgram: PublicKey;
   },
   fundingAmount: anchor.BN,
   minTokenAmount: anchor.BN
@@ -31,30 +25,38 @@ export async function createBuyTokenInstruction(
         Uint8Array.from(privateKeyArray),
     );
 
-    // Create the provider using the wallet and connection
     const provider = new anchor.AnchorProvider(connection, new anchor.Wallet(traderKeypair), {
       commitment: "confirmed",
     });
 
-  // Initialize the program using the IDL and the provider
   const program = new anchor.Program(idl as anchor.Idl, provider);
 
-  // Construct the instruction using the program and the accounts
-  return program.methods
+  const configItem = DAOS_CONFIG_ITEMS_LIST.filter((i) => i.tokenMint === accounts.tokenMint.toString());
+
+  if(configItem.length > 0) {
+    const config = configItem[0];
+
+    const fundingMint = new PublicKey(WRAPPED_SOL_MAINNET);
+
+    return program.methods
     .buyToken(fundingAmount, minTokenAmount)
     .accounts({
       signer: accounts.signer,
-      depositor: accounts.depositor,
+      depositor: config.depositor,
       tokenMint: accounts.tokenMint,
-      fundingMint: accounts.fundingMint,
-      curve: accounts.curve,
+      fundingMint: fundingMint,
+      curve: config.curveAddress,
       signerTokenAta: accounts.signerTokenAta,
       signerFundingAta: accounts.signerFundingAta,
-      tokenVault: accounts.tokenVault,
-      fundingVault: accounts.fundingVault,
-      tokenProgram: accounts.tokenProgram,
-      fundingTokenProgram: accounts.fundingTokenProgram,
-      associatedTokenProgram: accounts.associatedTokenProgram,
+      tokenVault: config.tokenVault,
+      fundingVault: config.fundingVault,
+      tokenProgram: config.tokenProgram,
+      fundingTokenProgram: config.fundingTokenProgram,
+      associatedTokenProgram: config.associatedTokenProgram,
     })
     .instruction();
+  }
+  else {
+    return null;
+  }
 }

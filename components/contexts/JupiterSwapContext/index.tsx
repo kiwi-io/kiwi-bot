@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, createContext, useContext } from "react";
 import { getToken, TokenData } from "../../../utils";
+import { WRAPPED_SOL_MAINNET } from "../../../constants";
 
 export type Side = "buy" | "sell";
 
@@ -52,7 +53,7 @@ export const JupiterSwapContextProvider = ({ children }) => {
     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
   );
   const [tokenOut, setTokenOut] = useState<string>(
-    "So11111111111111111111111111111111111111112",
+    WRAPPED_SOL_MAINNET,
   );
   const [quantityIn, setQuantityIn] = useState<string>("");
   const [quantityOut, setQuantityOut] = useState<string>("");
@@ -68,7 +69,7 @@ export const JupiterSwapContextProvider = ({ children }) => {
   } as TokenData);
 
   const [tokenOutData, setTokenOutData] = useState<TokenData>({
-    address: `So11111111111111111111111111111111111111112`,
+    address: WRAPPED_SOL_MAINNET,
     decimals: 9,
     symbol: `SOL`,
     name: `Wrapped SOL`,

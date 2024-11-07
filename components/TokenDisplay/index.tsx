@@ -9,6 +9,7 @@ import {
 import { useTelegram } from "../../utils/twa";
 import { useJupiterSwapContext } from "../contexts/JupiterSwapContext";
 import { useActivePageContext } from "../contexts/ActivePageContext";
+import { WRAPPED_SOL_MAINNET } from "../../constants";
 
 export interface TokenDisplayProps {
   tokenItem: TokenItem;
@@ -29,7 +30,7 @@ const TokenDisplay = ({ tokenItem, showUsdValue }: TokenDisplayProps) => {
 
   const handleClick = () => {
     if (
-      tokenItem.address === `So11111111111111111111111111111111111111112` ||
+      tokenItem.address === WRAPPED_SOL_MAINNET ||
       tokenItem.address === `So11111111111111111111111111111111111111111`
     ) {
       return;
@@ -38,8 +39,8 @@ const TokenDisplay = ({ tokenItem, showUsdValue }: TokenDisplayProps) => {
     vibrate("light");
     updateTokenOut(tokenItem.address);
     updateTokenOutData(tokenItem.address);
-    updateTokenIn(`So11111111111111111111111111111111111111112`);
-    updateTokenInData(`So11111111111111111111111111111111111111112`);
+    updateTokenIn(WRAPPED_SOL_MAINNET);
+    updateTokenInData(WRAPPED_SOL_MAINNET);
     updateActivePage("/swap");
   };
 

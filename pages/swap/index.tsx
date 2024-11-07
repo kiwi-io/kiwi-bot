@@ -24,6 +24,7 @@ import {
   KIWI_TRADING_FEE_PCT,
   MAX_SLIPPAGE,
   REFERRAL_FEE_PCT,
+  WRAPPED_SOL_MAINNET,
 } from "../../constants";
 import { useWalletContext } from "../../components/contexts";
 import { useActivePageContext } from "../../components/contexts/ActivePageContext";
@@ -369,7 +370,7 @@ const Swap = () => {
       const tokenInMatch = portfolio.items.filter((i) => {
         if (
           i.address === "So11111111111111111111111111111111111111111" &&
-          tokenIn === "So11111111111111111111111111111111111111112"
+          tokenIn === WRAPPED_SOL_MAINNET
         ) {
           return true;
         } else {
@@ -380,7 +381,7 @@ const Swap = () => {
       const tokenOutMatch = portfolio.items.filter((i) => {
         if (
           i.address === "So11111111111111111111111111111111111111111" &&
-          tokenOut === "So11111111111111111111111111111111111111112"
+          tokenOut === WRAPPED_SOL_MAINNET
         ) {
           return true;
         } else {

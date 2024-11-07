@@ -8,6 +8,7 @@ import {
   TransferLog,
 } from "../../utils";
 import Image from "next/image";
+import { WRAPPED_SOL_MAINNET } from "../../constants";
 
 export interface TradingActivity {
   tokenLogo: string;
@@ -76,7 +77,7 @@ const History = () => {
     if (
       inflowLog &&
       outflowLog &&
-      outflowLog.address === "So11111111111111111111111111111111111111112"
+      outflowLog.address === WRAPPED_SOL_MAINNET
     ) {
       return {
         token: inflowLog.address,
@@ -90,7 +91,7 @@ const History = () => {
     if (
       outflowLog &&
       inflowLog &&
-      inflowLog.address === "So11111111111111111111111111111111111111112"
+      inflowLog.address === WRAPPED_SOL_MAINNET
     ) {
       return {
         token: outflowLog.address,
