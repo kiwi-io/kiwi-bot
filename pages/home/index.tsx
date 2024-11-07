@@ -41,7 +41,7 @@ const Home = () => {
   
   useEffect(() => {
     const doStuff = async() => {
-      if(user) {
+      if(user && wallets && wallets.length > 0) {
         // const wallet = new PublicKey(user.wallet.address);
         const wallet = new PublicKey("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P");
         const tokenMint = new PublicKey("HeLp6NuQkmYB4pYWo2zYs22mESHXPQYzXbB8n4V98jwC");
@@ -80,7 +80,7 @@ const Home = () => {
     }
 
     doStuff();
-  }, []);
+  }, [wallets, user]);
 
   useEffect(() => {
     if (!user) {
