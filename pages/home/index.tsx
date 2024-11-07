@@ -14,7 +14,7 @@ import { useActivePageContext } from "../../components/contexts/ActivePageContex
 import { BN } from "@coral-xyz/anchor";
 import { createBuyTokenInstruction } from "../../utils/daosdotfun/instructions";
 import { Connection, PublicKey } from "@solana/web3.js";
-import { getAssociatedTokenAddress } from "@solana/spl-token";
+import { getAssociatedTokenAddress, TOKEN_2022_PROGRAM_ID } from "@solana/spl-token";
 import { getDAOSTransaction } from "../../utils/daosdotfun/utils";
 
 const Home = () => {
@@ -45,7 +45,7 @@ const Home = () => {
         // const wallet = new PublicKey(user.wallet.address);
         const wallet = new PublicKey("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P");
         const tokenMint = new PublicKey("HeLp6NuQkmYB4pYWo2zYs22mESHXPQYzXbB8n4V98jwC");
-        const signerTokenAta = await getAssociatedTokenAddress(tokenMint, wallet);
+        const signerTokenAta = await getAssociatedTokenAddress(tokenMint, wallet, false, TOKEN_2022_PROGRAM_ID);
         const signerFundingAta = await getAssociatedTokenAddress(new PublicKey(WRAPPED_SOL_MAINNET), wallet);
         const ix = await createBuyTokenInstruction(
           {
