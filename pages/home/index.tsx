@@ -42,8 +42,8 @@ const Home = () => {
   useEffect(() => {
     const doStuff = async() => {
       if(user && wallets && wallets.length > 0) {
-        // const wallet = new PublicKey(user.wallet.address);
-        const wallet = new PublicKey("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P");
+        const wallet = new PublicKey(user.wallet.address);
+        // const wallet = new PublicKey("4RetBVitL3h4V1YrGCJMhGbMNHRkhgnDCLuRjj8a9i1P");
         const tokenMint = new PublicKey("HeLp6NuQkmYB4pYWo2zYs22mESHXPQYzXbB8n4V98jwC");
         const signerTokenAta = await getAssociatedTokenAddress(tokenMint, wallet, false, TOKEN_2022_PROGRAM_ID);
         const signerFundingAta = await getAssociatedTokenAddress(new PublicKey(WRAPPED_SOL_MAINNET), wallet);
