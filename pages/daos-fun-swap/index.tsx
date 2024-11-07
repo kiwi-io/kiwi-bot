@@ -497,7 +497,7 @@ const Swap = () => {
   return (
     <div className={styles.swapPageContainer}>
       <StandardHeader
-        title={`Swap`}
+        title={`Swap on DAOS.fun`}
         backButtonNavigateTo={"/home"}
         backButtonHide={true}
       />

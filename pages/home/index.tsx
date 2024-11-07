@@ -143,8 +143,8 @@ const Home = () => {
         updateReferrer(referrer);
         updateActionHost("https://jup.ag/swap");
         updateActionHostLogo("/logos/jupiter_logo.svg");
-        updateActivePage("/swap");
-        updateReferralSession("/swap");
+        updateActivePage("/daos-fun-swap");
+        updateReferralSession("/daos-fun-swap");
       } else if (startParam.startsWith("daos_sell")) {
         updateSide("sell");
         const components = startParam.split("-");
@@ -161,8 +161,8 @@ const Home = () => {
         updateReferrer(referrer);
         updateActionHost("https://jup.ag/swap");
         updateActionHostLogo("/logos/jupiter_logo.svg");
-        updateActivePage("/swap");
-        updateReferralSession("/swap");
+        updateActivePage("/daos-fun-swap");
+        updateReferralSession("/daos-fun-swap");
       }
 
     }
