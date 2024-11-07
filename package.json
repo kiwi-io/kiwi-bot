@@ -14,6 +14,7 @@
     "format": "prettier '.' --write"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.30.1",
     "@dialectlabs/blinks-core": "^0.13.1",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",

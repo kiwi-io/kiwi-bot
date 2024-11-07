@@ -11,6 +11,7 @@ import { useTelegram } from "../../utils/twa";
 import { DEFAULT_TOKENS_LIST } from "../../constants";
 import { useJupiterSwapContext } from "../../components/contexts/JupiterSwapContext";
 import { useActivePageContext } from "../../components/contexts/ActivePageContext";
+import { fetchAllCurves } from "../../utils/daosdotfun/utils";
 
 const Home = () => {
   const router = useRouter();
@@ -32,6 +33,14 @@ const Home = () => {
     updateActionHostLogo,
   } = useJupiterSwapContext();
   
+  useEffect(() => {
+    const doStuff = async() => {
+      const res = await fetchAllCurves();
+      console.log("res: ", res);
+    }
+
+    doStuff();
+  }, []);
 
   useEffect(() => {
     if (!user) {
