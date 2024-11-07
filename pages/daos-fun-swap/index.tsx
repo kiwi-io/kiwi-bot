@@ -16,6 +16,7 @@ import {
   AddressLookupTableAccount,
   LAMPORTS_PER_SOL,
   TransactionInstruction,
+  TransactionConfirmationStrategy,
 } from "@solana/web3.js";
 import { useRouter } from "next/router";
 import {
@@ -230,6 +231,9 @@ const DAOSFunSwap = () => {
         maxRetries: 3,
       });
       console.log("signature: ", signature);
+      await connection.confirmTransaction({
+        signature: signature
+      } as TransactionConfirmationStrategy);
 
       if (
         referrerData &&
