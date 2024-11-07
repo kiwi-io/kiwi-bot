@@ -45,7 +45,7 @@ export const getDAOSTransaction = async(
   const wrapSolIxs = await createWrappedSOLInstructions(wallet, amount);
 
   const instructions: TransactionInstruction[] = [
-    ...requestComputeUnitsInstructions(100_000, 200_000),
+    ...requestComputeUnitsInstructions(200_000, 200_000),
     createAssociatedTokenAccountIdempotentInstruction(wallet, signerTokenAta, wallet, tokenMint, TOKEN_2022_PROGRAM_ID),
     createAssociatedTokenAccountIdempotentInstruction(wallet, signerFundingAta, wallet, new PublicKey(WRAPPED_SOL_MAINNET), TOKEN_PROGRAM_ID),
     ...wrapSolIxs.wrapSolInstructions,
