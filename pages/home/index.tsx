@@ -65,14 +65,16 @@ const Home = () => {
         try {
           const connection = new Connection(process.env.NEXT_RPC_MAINNET_URL);
 
-          const signedTx = await wallets[0].signTransaction(vTx);
+          console.log("sim results: ", (await connection.simulateTransaction(vTx)));
+
+          // const signedTx = await wallets[0].signTransaction(vTx);
     
-          signature = await connection.sendTransaction(signedTx, {
-            skipPreflight: false,
-            preflightCommitment: "processed",
-            maxRetries: 3,
-          });
-          console.log("signature: ", signature);
+          // signature = await connection.sendTransaction(signedTx, {
+          //   skipPreflight: false,
+          //   preflightCommitment: "processed",
+          //   maxRetries: 3,
+          // });
+          // console.log("signature: ", signature);
         } catch (err) {
           console.log("Error submitting tx: ", err);    
         }
